@@ -3,28 +3,28 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'constants.dart';
+
 TextTheme textTheme() {
   return TextTheme(
-    headline1: GoogleFonts.openSans(fontSize: 18.0, color: Colors.black),
-    headline2: GoogleFonts.openSans(
-        fontSize: 16.0, color: Colors.black, fontWeight: FontWeight.bold),
-    bodyText1: GoogleFonts.openSans(fontSize: 16.0, color: Colors.black),
-    bodyText2: GoogleFonts.openSans(fontSize: 14.0, color: Colors.grey),
-    subtitle1: GoogleFonts.openSans(fontSize: 15.0, color: Colors.black),
+    headline1: GoogleFonts.jua(fontSize: headline1Value, color: Colors.black),
+    headline2: GoogleFonts.jua(
+        fontSize: headline2Value, color: Colors.black, fontWeight: FontWeight.bold),
+    bodyText1: GoogleFonts.jua(fontSize: bodyText1Value, color: Colors.black),
+    bodyText2: GoogleFonts.jua(fontSize: bodyText2Value, color: Colors.grey),
+    subtitle1: GoogleFonts.jua(fontSize: 15.0, color: Colors.black),
   );
 }
 
 AppBarTheme appTheme() {
   return AppBarTheme(
-    centerTitle: false,
+    centerTitle: true,
     color: Colors.white,
     elevation: 0.0,
-    textTheme: TextTheme(
-      headline6: GoogleFonts.nanumGothic(
-        fontSize: 16,
-        fontWeight: FontWeight.bold,
-        color: Colors.black,
-      ),
+    titleTextStyle: GoogleFonts.jua(
+      fontSize: 32,
+      fontWeight: FontWeight.bold,
+      color: appBarTitleTextColor,
     ),
   );
 }
@@ -36,6 +36,3 @@ ThemeData theme() {
     appBarTheme: appTheme(),
   );
 }
-
-
-/* 반복적인 글꼴과 색상들을 매번 지정하는 것은 번거로운 일이 될 수 있음 */

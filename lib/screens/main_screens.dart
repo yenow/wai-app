@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wai/screens/personality_test_page/personality_test_page_screen.dart';
 import 'package:wai/screens/posts_page/post_page_screen.dart';
 import 'package:wai/screens/profile_page/profile_page_screen.dart';
 import 'package:wai/screens/search_page/search_page_screen.dart';
 import 'package:wai/screens/write_page/write_page_screen.dart';
+
+import '../constants.dart';
 
 class MainScreens extends StatefulWidget {
   const MainScreens({Key? key}) : super(key: key);
@@ -14,26 +17,43 @@ class MainScreens extends StatefulWidget {
 }
 
 class _MainScreensState extends State<MainScreens> {
-  // #1#
+
   int _selectedIndex = 0;
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'wai',
-          style: TextStyle(fontSize: 30, color: Colors.black),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: const [
+            // BUtton
+            Icon(
+              FontAwesomeIcons.stream,
+              color: appBarTitleTextColor,
+              size: 24.0,
+              semanticLabel: 'Text to announce in accessibility modes',
+            ),
+            Text(
+              'WAI',
+            ),
+            SizedBox(
+              width: 24.0,
+            )
+          ],
+        ),
+        bottom: const PreferredSize(
+            child: Divider(thickness: 0.5, height: 0.5, color: Colors.grey),
+            preferredSize: Size.fromHeight(0.5)
         ),
       ),
       body: IndexedStack(
         index: _selectedIndex,
         children: [
           Container(
-            color: Colors.red[100],
-            child: const Center(
-              child: PostPageScreen(),
-            ),
+            child: PostPageScreen()
           ),
           Container(
             color: Colors.orange[100],
@@ -73,8 +93,8 @@ class _MainScreensState extends State<MainScreens> {
         },
         items: const [
           BottomNavigationBarItem(
-              label: '홈',
-              icon: Icon(CupertinoIcons.home),
+              label: '게시글',
+              icon: Icon(CupertinoIcons.book),
           ),
           BottomNavigationBarItem(
             label: '테스트',
