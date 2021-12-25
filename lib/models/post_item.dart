@@ -5,15 +5,16 @@ class PostItem {
   bool is_delete;
   num user_id;
   String nickname;
-  num enneagram_type;
+  num? enneagram_type;
 
-  PostItem({required this.post_id,
+  PostItem({
+    required this.post_id,
     required this.title,
     required this.content,
     required this.is_delete,
     required this.user_id,
     required this.nickname,
-    required this.enneagram_type
+    this.enneagram_type
   });
 }
 

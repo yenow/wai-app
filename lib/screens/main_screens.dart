@@ -19,7 +19,7 @@ class MainScreens extends StatefulWidget {
 class _MainScreensState extends State<MainScreens> {
 
   int _selectedIndex = 0;
-
+  
 
 
   @override
@@ -28,13 +28,18 @@ class _MainScreensState extends State<MainScreens> {
       appBar: AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
+          children: [
             // BUtton
-            Icon(
-              FontAwesomeIcons.alignJustify,
-              color: appBarTitleTextColor,
-              size: 24.0,
-              semanticLabel: 'Text to announce in accessibility modes',
+            InkWell(
+              onTap: () {
+                  print(1);
+                },
+              child: Icon(
+                FontAwesomeIcons.alignJustify,
+                color: appBarTitleTextColor,
+                size: 24.0,
+                semanticLabel: 'Text to announce in accessibility modes',
+              ),
             ),
             Text(
               'WAI',

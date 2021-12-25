@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 import 'screens/main_screens.dart';
 import 'theme.dart';
@@ -12,11 +13,11 @@ class WaiUI extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'wai_ui',
-      debugShowCheckedModeBanner: false,
-      home: MainScreens(),
-      theme: theme(),
-    );
+    return GetMaterialApp(
+        title: 'wai_ui',
+        debugShowCheckedModeBanner: false,
+        home: MainScreens(),
+        theme: theme(),
+      );
   }
 }
