@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:wai/models/post_item.dart';
 import 'package:wai/screens/posts_page/components/post.dart';
 
 class PostPageScreen extends StatelessWidget {
@@ -8,14 +9,13 @@ class PostPageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(8.0),
-      child: Card(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: const [
-             Post()
-          ],
-        ),
+      padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
+      child: ListView.separated(
+        separatorBuilder: (BuildContext context, int index) => const SizedBox(height: 5,),
+        itemCount: postItems.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Post(postItem: postItems.elementAt(index));
+        },
       )
     );
   }

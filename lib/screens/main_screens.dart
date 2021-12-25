@@ -31,7 +31,7 @@ class _MainScreensState extends State<MainScreens> {
           children: const [
             // BUtton
             Icon(
-              FontAwesomeIcons.stream,
+              FontAwesomeIcons.alignJustify,
               color: appBarTitleTextColor,
               size: 24.0,
               semanticLabel: 'Text to announce in accessibility modes',
@@ -53,7 +53,8 @@ class _MainScreensState extends State<MainScreens> {
         index: _selectedIndex,
         children: [
           Container(
-            child: PostPageScreen()
+            child: PostPageScreen(),
+            color: Color.fromRGBO(200, 200, 200, 0.3),
           ),
           Container(
             color: Colors.orange[100],

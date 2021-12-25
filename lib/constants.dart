@@ -22,7 +22,7 @@ const bodyTextColor = Color.fromARGB(200, 100, 100, 100);
 const bodyContainerColor = Color.fromARGB(255, 255, 255, 255);
 const bodyBorderColor = Color.fromARGB(200, 100, 100, 100);
 
-const double headline1Value = 18.0;
-const double headline2Value = 16.0;
+const double headline1Value = 20.0;
+const double headline2Value = 18.0;
 const double bodyText1Value = 16.0;
 const double bodyText2Value = 14.0;

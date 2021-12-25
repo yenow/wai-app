@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wai/common/components/image_container.dart';
 import 'package:wai/constants.dart';
+import 'package:wai/models/post_item.dart';
 import 'package:wai/theme.dart';
 
 const double verticalPaddingValue = 8.0;
@@ -15,29 +16,32 @@ const double rightValue = 4.0;
 const double bottomValue = 4.0;
 
 class Post extends StatelessWidget {
-  const Post({Key? key}) : super(key: key);
+  const Post({Key? key, required this.postItem}) : super(key: key);
+  final PostItem postItem;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        color: bodyContainerColor,
-        border: Border(
-          bottom: BorderSide(width: 0.5, color: bodyBorderColor)
-        )
+      decoration: BoxDecoration(
+          border: Border.all(width: 0.25, color: bodyBorderColor),
+          color: Colors.white,
+          borderRadius: const BorderRadius.all(Radius.circular(10.0))
       ),
+      margin: EdgeInsets.symmetric(horizontal: 8.0),
+      padding: const EdgeInsets.all(5),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           _buildTitle(),
           _buildWriter(),
           const PreferredSize(
-              child: Divider(thickness: 0.5, height: 0.5, color: Colors.grey),
+              child: Divider(thickness: 0.5, height: 0.25, color: bodyBorderColor),
               preferredSize: Size.fromHeight(0.5)
           ),
           _buildContent(),
           _buildImage(),
           const PreferredSize(
-              child: Divider(thickness: 0.5, height: 0.5, color: Colors.grey),
+              child: Divider(thickness: 0.5, height: 0.25, color: bodyBorderColor),
               preferredSize: Size.fromHeight(0.5)
           ),
           _buildTail(),
@@ -56,7 +60,7 @@ class Post extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text('제목입니다',
+                  Text(postItem.title,
                     style: textTheme().headline1,),
                 ],
               ),
@@ -77,6 +81,7 @@ class Post extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            /* 유형표시 ex) 1유형 */
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -94,16 +99,19 @@ class Post extends StatelessWidget {
                   child: Image(image: AssetImage('assets/images/enneagram/cat.png'), width: 18, height: 18,  fit: BoxFit.fill,),
                 ),],
             ),
+            /* 작성자 프로필 */
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 const ImageContainer(
                   borderRadius: 15,
                   imageUrl: 'https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927',
-                  width: 20,
-                  height: 20,),
+                  width: 16,
+                  height: 16,
+                ),
+                SizedBox(width: 3,),
                 Text.rich(
-                  TextSpan(text: '띠용',style: textTheme().bodyText1),
+                  TextSpan(text: postItem.nickname ,style: textTheme().bodyText1),
                 )
               ],
             )
@@ -121,7 +129,7 @@ class Post extends StatelessWidget {
         child: Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            '내용입니다.',
+            postItem.content,
             style: textTheme().bodyText2,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
