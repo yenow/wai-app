@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:wai/screens/login_page/simple_login_page_screen.dart';
+import 'package:wai/screens/login_screen.dart';
 
 import 'screens/main_screens.dart';
-import 'theme.dart';
+import 'common/theme/theme.dart';
 
 void main() {
   runApp(const WaiUI());
@@ -16,7 +18,7 @@ class WaiUI extends StatelessWidget {
     return GetMaterialApp(
         title: 'wai_ui',
         debugShowCheckedModeBanner: false,
-        home: MainScreens(),
+        home: SimpleLoginPageScreen(),
         theme: theme(),
       );
   }

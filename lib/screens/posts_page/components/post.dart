@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wai/common/components/image_container.dart';
-import 'package:wai/constants.dart';
+import 'package:wai/common/constants/constants.dart';
 import 'package:wai/models/post_item.dart';
-import 'package:wai/theme.dart';
+import 'package:wai/common/theme/theme.dart';
 
 const double verticalPaddingValue = 8.0;
 const double horizontalPaddingValue = 8.0;
@@ -65,7 +65,7 @@ class Post extends StatelessWidget {
                 ],
               ),
               const Icon(FontAwesomeIcons.alignLeft,
-                size: bodyText2Value,
+                size: bodyText2Size,
                 color: bodyTextColor)
             ],
           ),

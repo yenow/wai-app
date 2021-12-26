@@ -7,7 +7,7 @@ import 'package:wai/screens/profile_page/profile_page_screen.dart';
 import 'package:wai/screens/search_page/search_page_screen.dart';
 import 'package:wai/screens/write_page/write_page_screen.dart';
 
-import '../constants.dart';
+import '../common/constants/constants.dart';
 
 class MainScreens extends StatefulWidget {
   const MainScreens({Key? key}) : super(key: key);
@@ -19,8 +19,6 @@ class MainScreens extends StatefulWidget {
 class _MainScreensState extends State<MainScreens> {
 
   int _selectedIndex = 0;
-  
-
 
   @override
   Widget build(BuildContext context) {

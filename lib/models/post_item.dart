@@ -23,3 +23,4 @@ List<PostItem> postItems = [
   PostItem(post_id: 2, title: '제목입니다.', content: '내용2입니다.', is_delete: false, user_id: 1, nickname : '띠용1', enneagram_type : 2 ),
   PostItem(post_id: 3, title: '제목입니다.', content: '내용3입니다.', is_delete: false, user_id: 1, nickname : '띠용2', enneagram_type : 3 ),
 ];
+

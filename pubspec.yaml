@@ -50,6 +50,8 @@ dependencies:
   video_player: ^2.1.1  # 동영상 플레이어 라이브러리
   chewie: ^1.0.0   # 동영상 플레이어 라이브러리
 
+  numberpicker: ^2.1.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -75,6 +77,8 @@ flutter:
   assets:
     - assets/images/
     - assets/images/enneagram/
+    - assets/images/logo/
+
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
