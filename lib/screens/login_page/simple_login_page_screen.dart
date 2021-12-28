@@ -2,17 +2,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
-import 'package:numberpicker/numberpicker.dart';
-import 'package:wai/common/components/input_box.dart';
 import 'package:wai/common/constants/color_constants.dart';
 import 'package:wai/common/theme/custom_textstyle.dart';
 import 'package:wai/common/constants/constants.dart';
-import 'package:wai/sample/add_interactivity.dart';
+import 'package:wai/models/api_response/login_response_dto.dart';
+import 'package:wai/models/simply_login_info.dart';
 import 'package:wai/common/theme/theme.dart';
-
+import 'package:wai/net/login/login_api.dart';
+import 'package:wai/sample/web_api/web.dart';
+import 'package:wai/screens/login_page/login_page_screen.dart';
+import 'package:wai/screens/main_screens.dart';
+import 'package:wai/utils/dialog.dart';
 import '../../controller.dart';
+import 'components/login_page_button.dart';
+import 'components/login_page_inputbox.dart';
 
 class SimpleLoginPageScreen extends StatelessWidget {
   static MediaQueryData? queryData = MediaQueryData.fromWindow(WidgetsBinding.instance!.window);
@@ -23,32 +27,20 @@ class SimpleLoginPageScreen extends StatelessWidget {
   static double horizontalPadding = 40;
   final Controller c = Get.put(Controller());
 
-
   @override
   Widget build(BuildContext context) {
 
     Logger().d(width);
     Logger().d(boxHeight);
 
-    return Scaffold(
+    return Obx(() =>  Scaffold(
       body: Container(
         decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              stops: [
-                0.1,
-                0.4,
-                0.6,
-                0.9,
-              ],
-              colors: [
-                Color.fromRGBO(190, 159, 225, 0.8),
-                Color.fromRGBO(190, 159, 225, 0.8),
-                Color.fromRGBO(190, 159, 225, 0.8),
-                Color.fromRGBO(190, 159, 225, 0.8)
-              ],
-            )
+          image: DecorationImage(
+            image: new AssetImage("assets/images/background/night-4822906.png"),
+            fit: BoxFit.cover,
+            colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.7), BlendMode.dstATop),
+          )
         ),
         child: Center(
           child: SingleChildScrollView (
@@ -63,7 +55,17 @@ class SimpleLoginPageScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 50,),
                 /* nickname */
-                _nicknameBox(context),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),
+                  height: boxHeight,
+                  child: LoginPageInputBox(
+                    labelText: 'nickname',
+                    onChanged: (value) {
+                      c.setNickname(value);
+                      Logger().d('nickname : ${c.simpleLoginInfo.value!.nickname}');
+                    },
+                  ),
+                ),
                 /* birthday */
                 _birthdayBox(context),
                 /* gender */
@@ -77,115 +79,43 @@ class SimpleLoginPageScreen extends StatelessWidget {
                 ),
                 /* 시작하기 버튼 */
                 Padding(
-                    padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: boxHeight,
-                      child: TextButton (
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(Colors.white),
-                            textStyle: MaterialStateProperty.all(textTheme().bodyText2),
-                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18.0),
-                                    side: BorderSide(color: Colors.white)
-                                )
-                            )
-                        ),
-                        onPressed: () {
-                          debugPrint('Received click');
-                        },
-                        child: Text('시작하기',
-                            style: GoogleFonts.jua(
-                                fontSize: bodyText1Size,
-                                color: lavenderColor1
-                            )
-                        ),
-                      ),
-                    )
+                  padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),
+                  child: LoginPageButton(
+                    buttonText: '시작하기',
+                    textStyle: CustomTextStyles(Theme.of(context).textTheme).buttonTextStyle_size16,
+                    boxHeight: boxHeight,
+                      onPressed: () async {
+
+                        /* 유효성 검사 통과시 */
+                        if (checkSimpleLoginInfo(context: context, simpleLoginInfo: c.simpleLoginInfo.value)) {
+                          // web API 날려서 DB 저장후, 다시와서 페이지 이동해야함.
+                          LoginResponseDto loginResponseDto = (await fetchLoginResponseDto(c.simpleLoginInfo.value)) as LoginResponseDto;
+
+                          if (loginResponseDto.isLoginSuccess) {
+                            Get.to(MainScreens(), transition: Transition.fade);
+                          }
+                        }
+                    },
+                  ),
                 ),
+                /* 로그인 페이지 이동 */
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: boxHeight,
-                    child: TextButton (
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.white),
-                        textStyle: MaterialStateProperty.all(textTheme().bodyText2),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0),
-                                side: BorderSide(color: Colors.white)
-                            )
-                        )
-                      ),
-                      onPressed: () {
-                        debugPrint('Received click');
-                      },
-                      child: Text('등록된 아이디로 로그인하기',
-                        style: GoogleFonts.jua(
-                          fontSize: bodyText1Size,
-                          color: lavenderColor1
-                        )
-                      ),
-                    ),
-                  )
-                ),
-                // Padding(
-                //     padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),
-                //     child: OutlinedButton(
-                //       style: OutlinedButton.styleFrom(
-                //         minimumSize: Size.fromHeight(boxHeight),
-                //         textStyle: TextStyle(fontSize: bodyText1Size, color: Colors.black),
-                //         shape: RoundedRectangleBorder(
-                //           borderRadius: BorderRadius.circular(20.0),
-                //         ),
-                //       ),
-                //       onPressed: () {
-                //         debugPrint('Received click');
-                //       },
-                //       child: Text('등록된 아이디로 로그인하기', style: textTheme().bodyText1,),
-                //     )
-                // ),
+                  child: LoginPageButton(
+                    boxHeight: boxHeight,
+                    textStyle: CustomTextStyles(Theme.of(context).textTheme).buttonTextStyle_size16,
+                    buttonText: '로그인 페이지',
+                    onPressed: () {
+                      Get.to(LoginPageScreen(), transition: Transition.fade);
+                    },
+                  ),
+                )
               ],
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _nicknameBox(BuildContext context) {
-    return Container(
-        margin: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),
-        height: boxHeight,
-        child: TextField(
-          maxLines: 1,
-          cursorColor: Colors.grey,
-          style: CustomTextStyles(Theme.of(context).textTheme).buttonTextStyle_size16,
-          decoration: InputDecoration(
-            fillColor: inputBoxBackgroundColor,
-            filled: true,
-            prefixIcon: Icon(FontAwesomeIcons.user, color: buttonBorderColor,),
-            focusColor: buttonBorderColor,
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(width: 1, color: buttonBorderColor),
-                borderRadius: BorderRadius.all(Radius.circular(10))
-            ),
-            floatingLabelStyle: CustomTextStyles(Theme.of(context).textTheme).buttonTextStyle_size16,
-            focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(width: 1, color: buttonBorderColor),
-                borderRadius: BorderRadius.all(Radius.circular(8))
-            ),
-            // disabledBorder: OutlineInputBorder(
-            //     borderSide: BorderSide(width: 1, color: Colors.white),
-            //       borderRadius: BorderRadius.all(Radius.circular(8))
-            // ),
-            labelText: 'nickname',
-          ),
-        )
-    );
+      )
+    ));
   }
 
   Widget _birthdayBox(BuildContext context) {
@@ -196,6 +126,10 @@ class SimpleLoginPageScreen extends StatelessWidget {
           maxLines: 1,
           cursorColor: Colors.grey,
           style: CustomTextStyles(Theme.of(context).textTheme).buttonTextStyle_size16,
+          onChanged: (value) {
+            c.setBirthDay(value);
+            Logger().d('birthDay : ${c.simpleLoginInfo.value!.birthDay}');
+          },
           decoration: InputDecoration(
             fillColor: inputBoxBackgroundColor,
             filled: true,
@@ -231,7 +165,7 @@ class SimpleLoginPageScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),  // radius of 10
             color: inputBoxBackgroundColor
           ),
-          child: Obx(() => ToggleButtons(
+          child: ToggleButtons(
             borderColor: buttonBorderColor,
             borderRadius: BorderRadius.all(Radius.circular(8)),
             children: <Widget>[
@@ -241,10 +175,33 @@ class SimpleLoginPageScreen extends StatelessWidget {
             isSelected: c.isGenderList.value ,
             onPressed: (int index) {
               c.setGender(index);
+              Logger().d('nickname : ${c.simpleLoginInfo.value!.gender}');
             },
-          ))
+          )
         ),
         ),
     );
+  }
+
+  bool checkSimpleLoginInfo ({
+    required BuildContext context,
+    required SimpleLoginInfo? simpleLoginInfo,
+    }) {
+
+    // 메세지까지 띄워주는게 맞을까?
+    if (simpleLoginInfo!.nickname == null) {
+      flutterDialog(context : context, titleText: '알림', contentText: '별명을 입력해주세요');
+      return false;
+
+    } else if (simpleLoginInfo.birthDay == null) {
+      flutterDialog(context : context, titleText: '알림', contentText: '생년월일을 입력해주세요');
+      return false;
+
+    } else if (simpleLoginInfo.gender == null) {
+      flutterDialog(context : context, titleText: '알림', contentText: '성별을 선택해주세요');
+      return false;
+    }
+
+    return true;
   }
 }

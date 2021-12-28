@@ -1,8 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wai.wai">
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="wai"
         android:icon="@mipmap/ic_launcher">
+       M
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

@@ -49,6 +49,7 @@ dependencies:
   flutter_svg: ^0.21.0+1  # 아이콘 관련 라이브러리
   video_player: ^2.1.1  # 동영상 플레이어 라이브러리
   chewie: ^1.0.0   # 동영상 플레이어 라이브러리
+  uuid: ^3.0.5
 
   numberpicker: ^2.1.1
 
@@ -78,6 +79,7 @@ flutter:
     - assets/images/
     - assets/images/enneagram/
     - assets/images/logo/
+    - assets/images/background/
 
   # assets:
   #   - images/a_dot_burr.jpeg

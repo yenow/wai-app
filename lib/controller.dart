@@ -12,12 +12,16 @@ class Controller extends GetxController{
 
   setSimpleLoginInfoYear(int newYear) => simpleLoginInfo.value!.year = newYear;
 
+  setNickname(String value) => simpleLoginInfo.value!.nickname = value;
+
+  setBirthDay(String value) => simpleLoginInfo.value!.birthDay = value;
+
   setGender(int index) => {
 
     if (index == 0) {
-      simpleLoginInfo.value!.gender = Gender.male
+      simpleLoginInfo.value!.gender = 'man'
     } else if (index == 1) {
-      simpleLoginInfo.value!.gender = Gender.female
+      simpleLoginInfo.value!.gender = 'woman'
     }
   };
 

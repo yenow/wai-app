@@ -8,6 +8,27 @@ import '../constants/constants.dart';
 
 extension CustomTextStyles on TextTheme {
 
+  TextStyle get loginPageButtonText {
+    return GoogleFonts.jua(
+        fontSize: 16,
+        color: grayColor1
+    );
+  }
+
+  TextStyle get loginPageInputBoxText {
+    return GoogleFonts.jua(
+        fontSize: 16,
+        color: grayColor1
+    );
+  }
+
+  TextStyle get buttonTextStyle_size16 {
+    return GoogleFonts.jua(
+        fontSize: 16,
+        color: grayColor1
+    );
+  }
+
   TextStyle get buttonTextStyle_size20 {
     return GoogleFonts.jua(
         fontSize: 20,
@@ -23,10 +44,10 @@ extension CustomTextStyles on TextTheme {
     );
   }
 
-  TextStyle get buttonTextStyle_size16 {
+  TextStyle get buttonTextStyle_size18_colorPurple {
     return GoogleFonts.jua(
-        fontSize: 16,
-        color: grayColor1
+        fontSize: 18,
+        color: lavenderColor1
     );
   }
 
