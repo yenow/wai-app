@@ -5,7 +5,7 @@ import 'package:wai/models/simply_login_info.dart';
 
 class Controller extends GetxController{
   RxInt count = 0.obs;
-  final isGenderList = <bool>[false,false].obs;
+  final isGenderList = <bool>[true,false].obs;
   final postItems = <PostItem>[].obs;
   final simpleLoginInfo = Rxn<SimpleLoginInfo>(SimpleLoginInfo(year: 2021, month: 1, day: 1)); // DateTime.now().year
   //final simpleLoginInfo = SimpleLoginInfo(year: 2000, month: 1, day: 1).obs;
@@ -19,9 +19,11 @@ class Controller extends GetxController{
   setGender(int index) => {
 
     if (index == 0) {
-      simpleLoginInfo.value!.gender = 'man'
+      simpleLoginInfo.value!.gender = 'man',
+      isGenderList.value = <bool>[true,false].obs
     } else if (index == 1) {
-      simpleLoginInfo.value!.gender = 'woman'
+      simpleLoginInfo.value!.gender = 'woman',
+      isGenderList.value = <bool>[false,true].obs
     }
   };
 

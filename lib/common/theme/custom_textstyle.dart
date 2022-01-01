@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wai/common/constants/color_constants.dart';
 
 import '../constants/constants.dart';
 
@@ -14,11 +15,32 @@ extension CustomTextStyles on TextTheme {
         color: grayColor1
     );
   }
+  TextStyle get reverseLoginPageButtonText {
+    return GoogleFonts.jua(
+        fontSize: 16,
+        color: Colors.white
+    );
+  }
+
+
+  TextStyle get loginPageInputBoxLabelText {
+    return GoogleFonts.jua(
+        fontSize: 16,
+        color: buttonLabelColor
+    );
+  }
+
+  TextStyle get loginPageInputBoxFloatingText {
+    return GoogleFonts.jua(
+        fontSize: 17,
+        color: buttonFloatingColor
+    );
+  }
 
   TextStyle get loginPageInputBoxText {
     return GoogleFonts.jua(
-        fontSize: 16,
-        color: grayColor1
+        fontSize: 18,
+        color: buttonTextColor
     );
   }
 

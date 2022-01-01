@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wai/common/constants/color_constants.dart';
@@ -8,32 +9,39 @@ import 'package:wai/common/theme/custom_textstyle.dart';
 class LoginPageInputBox extends StatelessWidget {
 
   final Function(String)? onChanged;
-  final labelText;
+  final String? labelText;
+  final keyboardType;
+  final int? maxLength;
+  final Widget prefixIcon;
 
-  LoginPageInputBox({this.onChanged, this.labelText});
+  LoginPageInputBox({this.onChanged, this.labelText, this.keyboardType, this.maxLength, required this.prefixIcon});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      maxLines: 1,
       cursorColor: Colors.grey,
+      keyboardType: keyboardType ?? TextInputType.text,
+      maxLength: maxLength ?? 20,
       style:  Theme.of(context).textTheme.loginPageInputBoxText,
       onChanged: onChanged,
       decoration: InputDecoration(
+        labelText: labelText,
+        labelStyle: Theme.of(context).textTheme.loginPageInputBoxLabelText,
         fillColor: inputBoxBackgroundColor,
         filled: true,
-        prefixIcon: Icon(FontAwesomeIcons.user, color: buttonBorderColor,),
+        counterText:'',
+        prefixIcon: prefixIcon,
         focusColor: buttonBorderColor,
         enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(width: 1, color: buttonBorderColor),
             borderRadius: BorderRadius.all(Radius.circular(10))
         ),
-        floatingLabelStyle: Theme.of(context).textTheme.loginPageInputBoxText,
+        floatingLabelBehavior: FloatingLabelBehavior.never,
+        floatingLabelStyle: Theme.of(context).textTheme.loginPageInputBoxFloatingText,
         focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(width: 1, color: buttonBorderColor),
             borderRadius: BorderRadius.all(Radius.circular(8))
         ),
-        labelText: labelText,
       ),
     );
   }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
+import 'package:numberpicker/numberpicker.dart';
 import 'package:wai/common/constants/color_constants.dart';
 import 'package:wai/common/theme/custom_textstyle.dart';
 import 'package:wai/common/constants/constants.dart';
@@ -30,8 +31,8 @@ class SimpleLoginPageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    Logger().d(width);
-    Logger().d(boxHeight);
+    Logger().d('width : $width');
+    Logger().d('boxHeight : $boxHeight');
 
     return Obx(() =>  Scaffold(
       body: Container(
@@ -53,21 +54,36 @@ class SimpleLoginPageScreen extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),
                   child: Image(image: AssetImage('assets/images/logo/logo.png'),width: double.infinity, height: 120, fit: BoxFit.fitHeight,),    //Text("WAI", style: textTheme().headline1,)
                 ),
-                SizedBox(height: 50,),
-                /* nickname */
+                SizedBox(height: 20,),
+                /* nickname Input box */
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),
                   height: boxHeight,
                   child: LoginPageInputBox(
-                    labelText: 'nickname',
+                    labelText: '닉네임',
+                    prefixIcon: const Icon(FontAwesomeIcons.user, color: buttonLabelColor),
+                    maxLength: 10,
                     onChanged: (value) {
                       c.setNickname(value);
                       Logger().d('nickname : ${c.simpleLoginInfo.value!.nickname}');
                     },
                   ),
                 ),
-                /* birthday */
-                _birthdayBox(context),
+                /* birthDay Input box */
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),
+                  height: boxHeight,
+                  child: LoginPageInputBox(
+                    labelText: '생년월일(-생략)',
+                    prefixIcon: const Icon(FontAwesomeIcons.birthdayCake, color: buttonLabelColor),
+                    maxLength: 8,
+                    keyboardType: TextInputType.datetime,
+                    onChanged: (value) {
+                      c.setBirthDay(value);
+                      Logger().d('birthday : ${c.simpleLoginInfo.value!.birthDay}');
+                    },
+                  ),
+                ),
                 /* gender */
                 _genderBox(context),
                 Padding(
@@ -118,42 +134,6 @@ class SimpleLoginPageScreen extends StatelessWidget {
     ));
   }
 
-  Widget _birthdayBox(BuildContext context) {
-    return Container(
-        margin: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),
-        height: boxHeight,
-        child: TextField(
-          maxLines: 1,
-          cursorColor: Colors.grey,
-          style: CustomTextStyles(Theme.of(context).textTheme).buttonTextStyle_size16,
-          onChanged: (value) {
-            c.setBirthDay(value);
-            Logger().d('birthDay : ${c.simpleLoginInfo.value!.birthDay}');
-          },
-          decoration: InputDecoration(
-            fillColor: inputBoxBackgroundColor,
-            filled: true,
-            prefixIcon: Icon(FontAwesomeIcons.birthdayCake, color: buttonBorderColor,),
-            focusColor: buttonBorderColor,
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(width: 1, color: buttonBorderColor),
-                borderRadius: BorderRadius.all(Radius.circular(10))
-            ),
-            floatingLabelStyle: CustomTextStyles(Theme.of(context).textTheme).buttonTextStyle_size16,
-            focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(width: 1, color: buttonBorderColor),
-                borderRadius: BorderRadius.all(Radius.circular(8))
-            ),
-            // disabledBorder: OutlineInputBorder(
-            //     borderSide: BorderSide(width: 1, color: Colors.white),
-            //       borderRadius: BorderRadius.all(Radius.circular(8))
-            // ),
-            labelText: 'birthday',
-          ),
-        )
-    );
-  }
-
   Widget _genderBox(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),
@@ -167,6 +147,8 @@ class SimpleLoginPageScreen extends StatelessWidget {
           ),
           child: ToggleButtons(
             borderColor: buttonBorderColor,
+            selectedBorderColor: Color.fromRGBO(255, 255, 255, 0.7),
+            fillColor: Color.fromRGBO(255, 255, 255, 0.7),
             borderRadius: BorderRadius.all(Radius.circular(8)),
             children: <Widget>[
               Text('남',style: CustomTextStyles(Theme.of(context).textTheme).buttonTextStyle_size16),
