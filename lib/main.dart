@@ -3,7 +3,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:wai/screens/login_page/simple_login_page_screen.dart';
 import 'package:wai/screens/login_screen.dart';
 
-import 'screens/main_screens.dart';
+import 'screens/main_screens_back.dart';
 import 'common/theme/theme.dart';
 
 void main() {

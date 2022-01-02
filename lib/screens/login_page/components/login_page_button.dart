@@ -5,7 +5,7 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:logger/logger.dart';
 import 'package:wai/common/controller/button_controller.dart';
-import 'package:wai/common/theme/custom_textstyle.dart';
+import 'package:wai/common/theme/custom_loginpage_textstyle.dart';
 
 class LoginPageButton extends StatelessWidget {
   final boxHeight;

@@ -9,14 +9,14 @@ import 'package:wai/screens/write_page/write_page_screen.dart';
 
 import '../common/constants/constants.dart';
 
-class MainScreens extends StatefulWidget {
-  const MainScreens({Key? key}) : super(key: key);
+class MainScreens2 extends StatefulWidget {
+  const MainScreens2({Key? key}) : super(key: key);
 
   @override
-  _MainScreensState createState() => _MainScreensState();
+  _MainScreens2State createState() => _MainScreens2State();
 }
 
-class _MainScreensState extends State<MainScreens> {
+class _MainScreens2State extends State<MainScreens2> {
 
   int _selectedIndex = 0;
 
@@ -24,28 +24,24 @@ class _MainScreensState extends State<MainScreens> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            // BUtton
-            InkWell(
-              onTap: () {
-                  print(1);
-                },
-              child: Icon(
-                FontAwesomeIcons.alignJustify,
-                color: appBarTitleTextColor,
-                size: 24.0,
-                semanticLabel: 'Text to announce in accessibility modes',
-              ),
+        title : const Text(
+          'WAI',
+        ),
+        flexibleSpace: Image(
+          image: new AssetImage("assets/images/background/night-4822906.png"),
+          fit: BoxFit.cover,
+        ),
+        // backgroundColor: Colors.black,
+        leading: IconButton(
+            icon: const Icon(
+              FontAwesomeIcons.alignJustify,
+              color: appBarTitleTextColor,
+              size: 24.0,
+              semanticLabel: 'Text to announce in accessibility modes',
             ),
-            Text(
-              'WAI',
-            ),
-            SizedBox(
-              width: 24.0,
-            )
-          ],
+           onPressed: () {
+              print(1);
+           },
         ),
         bottom: const PreferredSize(
             child: Divider(thickness: 0.5, height: 0.5, color: Colors.grey),

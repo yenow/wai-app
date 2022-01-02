@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:wai/common/theme/custom_textstyle.dart';
+import 'package:wai/common/theme/custom_loginpage_textstyle.dart';
 
 import '../constants/constants.dart';
 

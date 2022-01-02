@@ -4,8 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:numberpicker/numberpicker.dart';
-import 'package:wai/common/constants/color_constants.dart';
-import 'package:wai/common/theme/custom_textstyle.dart';
+import 'package:wai/common/constants/custom_colors.dart';
+import 'package:wai/common/theme/custom_loginpage_textstyle.dart';
 import 'package:wai/common/constants/constants.dart';
 import 'package:wai/models/api_response/login_response_dto.dart';
 import 'package:wai/models/simply_login_info.dart';
@@ -13,9 +13,11 @@ import 'package:wai/common/theme/theme.dart';
 import 'package:wai/net/login/login_api.dart';
 import 'package:wai/sample/web_api/web.dart';
 import 'package:wai/screens/login_page/login_page_screen.dart';
-import 'package:wai/screens/main_screens.dart';
+import 'package:wai/screens/main_screens_back.dart';
+import 'package:wai/screens/posts_page/post_page_screen.dart';
 import 'package:wai/utils/dialog.dart';
 import '../../controller.dart';
+import '../main_screens.dart';
 import 'components/login_page_button.dart';
 import 'components/login_page_inputbox.dart';
 
@@ -98,7 +100,7 @@ class SimpleLoginPageScreen extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),
                   child: LoginPageButton(
                     buttonText: '시작하기',
-                    textStyle: CustomTextStyles(Theme.of(context).textTheme).buttonTextStyle_size16,
+                    textStyle: Theme.of(context).textTheme.loginPageButtonText,
                     boxHeight: boxHeight,
                       onPressed: () async {
 
@@ -119,10 +121,22 @@ class SimpleLoginPageScreen extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),
                   child: LoginPageButton(
                     boxHeight: boxHeight,
-                    textStyle: CustomTextStyles(Theme.of(context).textTheme).buttonTextStyle_size16,
+                    textStyle: Theme.of(context).textTheme.loginPageButtonText,
                     buttonText: '로그인 페이지',
                     onPressed: () {
                       Get.to(LoginPageScreen(), transition: Transition.fade);
+                    },
+                  ),
+                ),
+                /* 메인페이지 이동(임시사용) */
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),
+                  child: LoginPageButton(
+                    boxHeight: boxHeight,
+                    textStyle: Theme.of(context).textTheme.loginPageButtonText,
+                    buttonText: '게시글',
+                    onPressed: () {
+                      Get.to(MainScreens(), transition: Transition.fade);
                     },
                   ),
                 )
@@ -151,8 +165,8 @@ class SimpleLoginPageScreen extends StatelessWidget {
             fillColor: Color.fromRGBO(255, 255, 255, 0.7),
             borderRadius: BorderRadius.all(Radius.circular(8)),
             children: <Widget>[
-              Text('남',style: CustomTextStyles(Theme.of(context).textTheme).buttonTextStyle_size16),
-              Text('여',style: CustomTextStyles(Theme.of(context).textTheme).buttonTextStyle_size16)
+              Text('남',style: Theme.of(context).textTheme.loginPageInputBoxText),
+              Text('여',style: Theme.of(context).textTheme.loginPageInputBoxText)
             ],
             isSelected: c.isGenderList.value ,
             onPressed: (int index) {

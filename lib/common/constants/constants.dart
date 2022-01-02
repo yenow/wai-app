@@ -36,7 +36,7 @@ const double headline6Size = 18.0;
 const double bodyText1Size = 16.0;
 const double bodyText2Size = 14.0;
 
-const appBarTitleTextColor = Color.fromARGB(200, 50, 50, 50);
+const appBarTitleTextColor = Colors.blueGrey;
 const appBarBorderColor = Color.fromARGB(200, 100, 100, 100);
 
 const bodyTextColor = Color.fromARGB(200, 100, 100, 100);

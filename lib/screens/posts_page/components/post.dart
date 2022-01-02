@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wai/common/components/image_container.dart';
 import 'package:wai/common/constants/constants.dart';
+import 'package:wai/common/theme/custom_loginpage_textstyle.dart';
+import 'package:wai/common/theme/custom_postpage_textstyle.dart';
 import 'package:wai/models/post_item.dart';
 import 'package:wai/common/theme/theme.dart';
 
@@ -32,25 +34,25 @@ class Post extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _buildTitle(),
-          _buildWriter(),
+          _buildTitle(context),
+          _buildWriter(context),
           const PreferredSize(
               child: Divider(thickness: 0.5, height: 0.25, color: bodyBorderColor),
               preferredSize: Size.fromHeight(0.5)
           ),
-          _buildContent(),
-          _buildImage(),
+          _buildContent(context),
+          _buildImage(context),
           const PreferredSize(
               child: Divider(thickness: 0.5, height: 0.25, color: bodyBorderColor),
               preferredSize: Size.fromHeight(0.5)
           ),
-          _buildTail(),
+          _buildTail(context),
         ],
       ),
     );
   }
 
-  Padding _buildTitle() {
+  Padding _buildTitle(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.fromLTRB(leftValue,topValue,rightValue,bottomValue),
         child: Container(
@@ -61,7 +63,7 @@ class Post extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(postItem.title,
-                    style: textTheme().headline1,),
+                    style: Theme.of(context).textTheme.postTitleText),
                 ],
               ),
               const Icon(FontAwesomeIcons.alignLeft,
@@ -74,7 +76,7 @@ class Post extends StatelessWidget {
     );
   }
 
-  Padding _buildWriter() {
+  Padding _buildWriter(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(leftValue,topValue,rightValue,bottomValue),
       child: SizedBox(
@@ -92,7 +94,7 @@ class Post extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(4)),
                       color: Color.fromRGBO(150, 150, 150, 0.3)
                 ),
-                child: Text('1유형', style: const TextTheme().bodyText2,),
+                child: Text('1유형', style: Theme.of(context).textTheme.postPosonalityTypeText),
               ),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(2.0,0,0,0),
@@ -111,7 +113,10 @@ class Post extends StatelessWidget {
                 ),
                 SizedBox(width: 3,),
                 Text.rich(
-                  TextSpan(text: postItem.nickname ,style: textTheme().bodyText1),
+                  TextSpan(
+                      text: postItem.nickname ,
+                      style: Theme.of(context).textTheme.postNicknameText
+                  ),
                 )
               ],
             )
@@ -122,7 +127,7 @@ class Post extends StatelessWidget {
     );
   }
 
-  Padding _buildContent() {
+  Padding _buildContent(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(leftValue,topValue,rightValue,bottomValue),
       child: Container(
@@ -130,7 +135,7 @@ class Post extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: Text(
             postItem.content,
-            style: textTheme().bodyText2,
+            style: Theme.of(context).textTheme.postContentText,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.start,
@@ -141,7 +146,7 @@ class Post extends StatelessWidget {
     );
   }
 
-  Visibility _buildImage() {
+  Visibility _buildImage(BuildContext context) {
     return const Visibility(
         visible: true,
         child: Padding(
@@ -154,7 +159,7 @@ class Post extends StatelessWidget {
       );
   }
 
-  Padding _buildTail() {
+  Padding _buildTail(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(leftValue,topValue,rightValue,bottomValue),
       child: Container(
@@ -170,7 +175,7 @@ class Post extends StatelessWidget {
                 ),
                 SizedBox(width: 8),
                 Text('공감하기',
-                  style: textTheme().bodyText2,
+                  style: Theme.of(context).textTheme.postPlainText,
                 ),
               ],
             ),
@@ -183,7 +188,7 @@ class Post extends StatelessWidget {
                 ),
                 SizedBox(width: 8),
                 Text('댓글쓰기',
-                  style: textTheme().bodyText2,
+                  style: Theme.of(context).textTheme.postPlainText,
                 ),
               ],
             ),
