@@ -26,7 +26,7 @@ AppBarTheme appTheme() {
     color: Colors.white,
     elevation: 0.0,
     titleTextStyle: GoogleFonts.jua(
-      fontSize: 32,
+      fontSize: 26,
       fontWeight: FontWeight.bold,
       color: appBarTitleTextColor,
     ),

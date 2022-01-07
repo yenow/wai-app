@@ -66,7 +66,7 @@ extension CustomPostPageTextStyles on TextTheme {
 
   TextStyle get postingLabelText {
     return GoogleFonts.jua(
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: FontWeight.w500,
         color: Colors.blueGrey
     );

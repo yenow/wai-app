@@ -2,12 +2,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:wai/common/components/image_container.dart';
 import 'package:wai/common/constants/constants.dart';
+import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/theme/custom_loginpage_textstyle.dart';
 import 'package:wai/common/theme/custom_postpage_textstyle.dart';
 import 'package:wai/models/post_item.dart';
 import 'package:wai/common/theme/theme.dart';
+import 'package:wai/sample/understand_constraint.dart';
+import 'package:wai/screens/posts_page/components/post_page_screen.dart';
 
 const double verticalPaddingValue = 8.0;
 const double horizontalPaddingValue = 8.0;
@@ -18,18 +23,22 @@ const double rightValue = 4.0;
 const double bottomValue = 4.0;
 
 class Post extends StatelessWidget {
-  const Post({Key? key, required this.postItem}) : super(key: key);
   final PostItem postItem;
+  final Function onTap;
+
+  Post({required this.postItem, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-          border: Border.all(width: 0.25, color: bodyBorderColor),
+      decoration: const BoxDecoration(
+          border: Border(
+              // top: BorderSide(width: 0.5, color: Colors.grey),
+              bottom: BorderSide(width: 0.5, color: Colors.grey)
+          ),
           color: Colors.white,
-          borderRadius: const BorderRadius.all(Radius.circular(10.0))
       ),
-      margin: EdgeInsets.symmetric(horizontal: 8.0),
+      // margin: EdgeInsets.symmetric(horizontal: 8.0),
       padding: const EdgeInsets.all(5),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -55,23 +64,29 @@ class Post extends StatelessWidget {
   Padding _buildTitle(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.fromLTRB(leftValue,topValue,rightValue,bottomValue),
-        child: Container(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(postItem.title,
-                    style: Theme.of(context).textTheme.postTitleText),
-                ],
-              ),
-              const Icon(FontAwesomeIcons.alignLeft,
-                size: bodyText2Size,
-                color: bodyTextColor)
-            ],
+        child: InkWell(
+          onTap: () {
+            onTap();
+            MainController.to.setIsPostPageOpen(true);
+          },
+          child: SizedBox(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(postItem.title,
+                      style: Theme.of(context).textTheme.postTitleText),
+                  ],
+                ),
+                const Icon(FontAwesomeIcons.alignLeft,
+                  size: bodyText2Size,
+                  color: bodyTextColor)
+              ],
+            ),
+            height: 30,
           ),
-          height: 30,
         ),
     );
   }

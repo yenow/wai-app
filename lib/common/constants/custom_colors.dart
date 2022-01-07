@@ -1,11 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 
-extension CustomColors on Color {
+class CustomColors {
 
-  Color get skyColor{
-    return const Color.fromRGBO(228, 251, 255,1);
-  }
+  static Color themeColor = Color.fromRGBO(228, 251, 255,1);
+  static Color blueGrey = Colors.blueGrey;
+
 }
 
 const buttonBorderColor = Color.fromRGBO(180, 180, 180, 1);

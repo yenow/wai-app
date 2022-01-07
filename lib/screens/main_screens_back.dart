@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wai/screens/personality_test_page/personality_test_page_screen.dart';
-import 'package:wai/screens/posts_page/post_page_screen.dart';
+import 'package:wai/screens/posts_page/posts_page_screen.dart';
 import 'package:wai/screens/profile_page/profile_page_screen.dart';
 import 'package:wai/screens/search_page/search_page_screen.dart';
 import 'package:wai/screens/write_page/write_page_screen.dart';
@@ -52,7 +52,7 @@ class _MainScreens2State extends State<MainScreens2> {
         index: _selectedIndex,
         children: [
           Container(
-            child: PostPageScreen(),
+            child: PostsPageScreen(),
             color: Color.fromRGBO(200, 200, 200, 0.3),
           ),
           Container(

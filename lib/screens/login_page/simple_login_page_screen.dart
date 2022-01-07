@@ -3,20 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
-import 'package:numberpicker/numberpicker.dart';
 import 'package:wai/common/constants/custom_colors.dart';
 import 'package:wai/common/theme/custom_loginpage_textstyle.dart';
 import 'package:wai/common/constants/constants.dart';
 import 'package:wai/models/api_response/login_response_dto.dart';
 import 'package:wai/models/simply_login_info.dart';
-import 'package:wai/common/theme/theme.dart';
 import 'package:wai/net/login/login_api.dart';
-import 'package:wai/sample/web_api/web.dart';
 import 'package:wai/screens/login_page/login_page_screen.dart';
-import 'package:wai/screens/main_screens_back.dart';
-import 'package:wai/screens/posts_page/post_page_screen.dart';
+import 'package:wai/sample/sample_screens.dart';
 import 'package:wai/utils/dialog.dart';
-import '../../controller.dart';
+import '../../common/controller/controller.dart';
 import '../main_screens.dart';
 import 'components/login_page_button.dart';
 import 'components/login_page_inputbox.dart';
@@ -32,9 +28,8 @@ class SimpleLoginPageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    Logger().d('width : $width');
-    Logger().d('boxHeight : $boxHeight');
+    // Logger().d('width : $width');
+    // Logger().d('boxHeight : $boxHeight');
 
     return Obx(() =>  Scaffold(
       body: Container(
@@ -137,6 +132,18 @@ class SimpleLoginPageScreen extends StatelessWidget {
                     buttonText: '게시글',
                     onPressed: () {
                       Get.to(MainScreens(), transition: Transition.fade);
+                    },
+                  ),
+                ),
+                /* 샘플 페이지 이동(임시사용) */
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),
+                  child: LoginPageButton(
+                    boxHeight: boxHeight,
+                    textStyle: Theme.of(context).textTheme.loginPageButtonText,
+                    buttonText: '샘플',
+                    onPressed: () {
+                      Get.to(SampleScreens(), transition: Transition.fade);
                     },
                   ),
                 )

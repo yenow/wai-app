@@ -10,7 +10,6 @@ class WritePageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-
       child: Column(
           children: [
             Padding(
@@ -42,7 +41,7 @@ class WritePageScreen extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(vertical: 5, horizontal: 3),
               child: Container(
-                height: 300,
+                height: 200,
                 decoration: BoxDecoration(
                   border: Border(bottom: BorderSide(width: 1, color: Colors.grey),)
                 ),
@@ -62,6 +61,36 @@ class WritePageScreen extends StatelessWidget {
                     )
                 ),
               ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 3),
+              child: Container(
+                child: TextField(
+                    cursorColor: Colors.grey,
+                    maxLength: 100,
+                    maxLines: 1,
+                    style: Theme.of(context).textTheme.postTitleText,
+                    decoration: InputDecoration(
+                      labelText: "태그",
+                      labelStyle: Theme.of(context).textTheme.postingLabelText,
+                      fillColor: Colors.white,
+                      filled: true,
+                      enabledBorder: UnderlineInputBorder (
+                        borderSide: BorderSide(width: 1, color: buttonBorderColor),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(width: 1, color: buttonBorderColor),
+                      ),
+                      counterText:'',
+                      // prefixIcon: prefixIcon,
+                      // focusColor: buttonBorderColor,
+                    )
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text('이미지 첨부'),
+              leading: Icon(Icons.label),
             ),
           ],
         ),
