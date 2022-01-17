@@ -8,8 +8,8 @@ import '../constants/constants.dart';
 
 TextTheme textTheme() {
   return TextTheme(
-    headline1: GoogleFonts.jua(fontSize: headline1Size, color: Colors.black, fontWeight: FontWeight.w900),
-    headline2: GoogleFonts.jua(fontSize: headline2Size, color: Colors.black, fontWeight: FontWeight.bold),
+    headline1: GoogleFonts.jua(fontSize: headline1Size, color: Colors.black, fontWeight: FontWeight.w500),
+    headline2: GoogleFonts.jua(fontSize: headline2Size, color: Colors.black, fontWeight: FontWeight.w500),
     headline3: GoogleFonts.jua(fontSize: headline1Size, color: Colors.black),
     headline4: GoogleFonts.jua(fontSize: headline1Size, color: Colors.black),
     headline5: GoogleFonts.jua(fontSize: headline1Size, color: Colors.black),

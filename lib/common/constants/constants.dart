@@ -26,8 +26,8 @@ const whiteColor2 = Color.fromRGBO(241, 241, 246, 1);
 
 
 /* 실 사용 */
-const double headline1Size = 50.0;
-const double headline2Size = 20.0;
+const double headline1Size = 32.0;
+const double headline2Size = 24.0;
 const double headline3Size = 18.0;
 const double headline4Size = 18.0;
 const double headline5Size = 18.0;

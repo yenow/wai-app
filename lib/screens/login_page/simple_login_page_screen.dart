@@ -9,10 +9,12 @@ import 'package:wai/common/constants/constants.dart';
 import 'package:wai/models/api_response/login_response_dto.dart';
 import 'package:wai/models/simply_login_info.dart';
 import 'package:wai/net/login/login_api.dart';
+import 'package:wai/screens/introduction_screen.dart';
 import 'package:wai/screens/login_page/login_page_screen.dart';
 import 'package:wai/sample/sample_screens.dart';
 import 'package:wai/utils/dialog.dart';
 import '../../common/controller/controller.dart';
+import '../../main.dart';
 import '../main_screens.dart';
 import 'components/login_page_button.dart';
 import 'components/login_page_inputbox.dart';
@@ -30,6 +32,14 @@ class SimpleLoginPageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // Logger().d('width : $width');
     // Logger().d('boxHeight : $boxHeight');
+    deviceWidth = MediaQuery.of(context).size.width;
+    deviceHeight = MediaQuery.of(context).size.height;
+    widthRatio = (deviceWidth / standardDeviceWidth);
+    heightRatio = (deviceHeight / standardDeviceHeight);
+    Logger().d('deviceWidth : $deviceWidth');
+    Logger().d('deviceHeight : $deviceHeight');
+    Logger().d('widthRatio : $widthRatio');
+    Logger().d('heightRatio : $heightRatio');
 
     return Obx(() =>  Scaffold(
       body: Container(
@@ -46,11 +56,11 @@ class SimpleLoginPageScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
-                /* logo */
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),
-                  child: Image(image: AssetImage('assets/images/logo/logo.png'),width: double.infinity, height: 120, fit: BoxFit.fitHeight,),    //Text("WAI", style: textTheme().headline1,)
-                ),
+                // /* logo */
+                // Padding(
+                //   padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),
+                //   child: Image(image: AssetImage('assets/images/logo/logo.png'),width: double.infinity, height: 120, fit: BoxFit.fitHeight,),    //Text("WAI", style: textTheme().headline1,)
+                // ),
                 SizedBox(height: 20,),
                 /* nickname Input box */
                 Container(
@@ -144,6 +154,30 @@ class SimpleLoginPageScreen extends StatelessWidget {
                     buttonText: '샘플',
                     onPressed: () {
                       Get.to(SampleScreens(), transition: Transition.fade);
+                    },
+                  ),
+                ),
+                /* 샘플 페이지 이동(임시사용) */
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),
+                  child: LoginPageButton(
+                    boxHeight: boxHeight,
+                    textStyle: Theme.of(context).textTheme.loginPageButtonText,
+                    buttonText: '소개 페이지',
+                    onPressed: () {
+                      Get.to(IntroductionSrceen(), transition: Transition.fade);
+                    },
+                  ),
+                ),
+                /* 테스트 */
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),
+                  child: LoginPageButton(
+                    boxHeight: boxHeight,
+                    textStyle: Theme.of(context).textTheme.loginPageButtonText,
+                    buttonText: '테스트',
+                    onPressed: () {
+                      Get.to(IntroductionSrceen(), transition: Transition.fade);
                     },
                   ),
                 )

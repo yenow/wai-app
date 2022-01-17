@@ -7,7 +7,7 @@ import '../constants/constants.dart';
 
 // CustomTextStyles(Theme.of(context).textTheme).buttonTextStyle1
 
-extension CustomTextStyles on TextTheme {
+class CustomTextStyles  {
 
   TextStyle get appbarText {
     return GoogleFonts.jua(
@@ -24,4 +24,13 @@ extension CustomTextStyles on TextTheme {
         color: Colors.blueGrey
     );
   }
+
+  TextStyle get IntroductionTitleText {
+    return GoogleFonts.jua(
+        fontSize: 30,
+        fontWeight: FontWeight.w600,
+        color: Colors.blueGrey
+    );
+  }
+
 }
