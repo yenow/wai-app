@@ -26,7 +26,7 @@ class WaiUI extends StatelessWidget {
     return GetMaterialApp(    // CupertinoApp, GetMaterialApp
       title: 'wai_ui',
       debugShowCheckedModeBanner: false,
-      home: SimpleLoginPageScreen(), /*HomePage(),*/ /*IntroductionSrceen(),*/
+      home: SimpleLoginPageScreen(), /*IntroductionSrceen(),*/
       getPages: [
         GetPage(name : '/PostPageScreen', page: () => PostPageScreen())
       ],

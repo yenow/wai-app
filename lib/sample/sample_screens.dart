@@ -7,6 +7,8 @@ import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/theme/theme.dart';
 import 'package:wai/sample/page/sample_button_page.dart';
 import 'package:wai/screens/custom_appbar.dart';
+import 'package:wai/screens/enneagram_test_page/component/custom_radio_button.dart';
+import 'package:wai/screens/enneagram_test_page/component/custom_radio_group_buton.dart';
 
 class SampleScreens extends StatelessWidget {
   const SampleScreens({Key? key}) : super(key: key);
@@ -16,13 +18,6 @@ class SampleScreens extends StatelessWidget {
 
     return Obx(() =>  Scaffold(
         body: Container(
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                image: new AssetImage("assets/images/background/night-4822906.png"),
-                fit: BoxFit.cover,
-                colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.7), BlendMode.dstATop),
-              )
-          ),
           child: Center(
             child: ListView(
               children: [
@@ -38,8 +33,26 @@ class SampleScreens extends StatelessWidget {
                 TextButton(
                     child: Text(MainController.to.currentIndex.value.toString()),
                     onPressed: () {}
-                    )
+                ),
+                CustomRadioGroupButton(groupValue: 0,),
+                Row(
+                  children: [
+                    CustomRadioButton(
+                      uniqueValue: 1,
+                      groupValue: 1,
+                      onPressed: () {
 
+                      },
+                    ),
+                    CustomRadioButton(
+                      uniqueValue: 2,
+                      groupValue: 1,
+                      onPressed: () {
+
+                      },
+                    )
+                  ],
+                ),
               ],
             )
           ),

@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:wai/screens/personality_test_page/personality_test_page_screen.dart';
 import 'package:wai/screens/posts_page/posts_page_screen.dart';
 import 'package:wai/screens/profile_page/profile_page_screen.dart';
 import 'package:wai/screens/search_page/search_page_screen.dart';
 import 'package:wai/screens/write_page/write_page_screen.dart';
 
 import '../common/constants/constants.dart';
+import 'enneagram_test_page/enneagram_test_page_screen.dart';
 
 class MainScreens2 extends StatefulWidget {
   const MainScreens2({Key? key}) : super(key: key);
@@ -57,8 +57,8 @@ class _MainScreens2State extends State<MainScreens2> {
           ),
           Container(
             color: Colors.orange[100],
-            child: const Center(
-              child: PersonalityTestPageScreen(),
+            child: Center(
+              child: EnneagramTestPageScreen(),
             ),
           ),
           Container(

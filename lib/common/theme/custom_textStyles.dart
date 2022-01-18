@@ -9,27 +9,11 @@ import '../constants/constants.dart';
 
 class CustomTextStyles  {
 
-  TextStyle get appbarText {
+  static TextStyle buildTextStyle({double fontSize = 15, color = Colors.blueGrey}) {
     return GoogleFonts.jua(
-        fontSize: 15,
+        fontSize: fontSize,
         fontWeight: FontWeight.w400,
-        color: Colors.blueGrey
-    );
-  }
-
-  TextStyle get appbarTitleText {
-    return GoogleFonts.jua(
-        fontSize: 30,
-        fontWeight: FontWeight.w400,
-        color: Colors.blueGrey
-    );
-  }
-
-  TextStyle get IntroductionTitleText {
-    return GoogleFonts.jua(
-        fontSize: 30,
-        fontWeight: FontWeight.w600,
-        color: Colors.blueGrey
+        color: color
     );
   }
 

@@ -1,8 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wai/common/controller/enneagram_test_controller.dart';
 import 'package:wai/main.dart';
+import 'package:wai/models/enneagram_question.dart';
 import 'package:wai/models/enneagram_type.dart';
+import 'package:wai/screens/enneagram_test_page/simple_enneagram_test_page_screen.dart';
+
+import 'enneagram_test_page/enneagram_test_page_screen.dart';
 
 class TestSelectScreen extends StatelessWidget {
 
@@ -66,6 +73,9 @@ class TestSelectScreen extends StatelessWidget {
           ),
           onPressed: () {
 
+            EnneagramTestController.to.setEnneagramQuestion(dummyEnneagramQuestionList);
+
+            Get.to(EnneagramTestPageScreen());
           },
         ),
       ),
@@ -90,7 +100,12 @@ class TestSelectScreen extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                
+                /* DB 조회 */
+                EnneagramTestController.to.setEnneagramQuestion(dummyEnneagramQuestionList);
+                print(EnneagramTestController.to.enneagramQuestionList.value);
+                print(EnneagramTestController.to.enneagramPageList.value);
+
+                Get.to(SimpleEnneagramTestPageScreen());
               },
             ),
           ),    
