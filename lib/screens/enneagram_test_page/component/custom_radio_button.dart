@@ -61,27 +61,3 @@ class CustomRadioButton extends StatelessWidget {
     );
   }
 }
-//
-// class _CustomRadioButtonState extends State<CustomRadioButton> {
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       children: [
-//         Text('매우 그렇다.', style: CustomTextStyles.buildTextStyle(),),
-//         ElevatedButton(
-//           child: SizedBox(width: 1, height: 1,),
-//           style: ButtonStyle(
-//               shape: MaterialStateProperty.resolveWith((
-//                   Set<MaterialState> states) {
-//
-//               })
-//           ),
-//           onPressed: () {
-//
-//           },
-//         )
-//       ],
-//     );
-//   }
-// }

@@ -10,8 +10,9 @@ double mediumSize = 30;
 double smallSize = 25;
 
 class CustomRadioGroupButton extends StatefulWidget {
-  CustomRadioGroupButton({Key? key, this.groupValue = 0}) : super(key: key);
-  int groupValue;
+  CustomRadioGroupButton({Key? key, this.groupValue = 0, this.changeState}) : super(key: key);
+  int? groupValue;
+  Function? changeState;
 
   @override
   _CustomRadioGroupButtonState createState() => _CustomRadioGroupButtonState();
@@ -40,6 +41,7 @@ class _CustomRadioGroupButtonState extends State<CustomRadioGroupButton> {
               buttonSize: largeSize,
               onPressed: () {
                 setGroupValue(1);
+                if (widget.changeState != null) widget.changeState!(1);
               },
             )
         ),
@@ -53,6 +55,7 @@ class _CustomRadioGroupButtonState extends State<CustomRadioGroupButton> {
               buttonSize: mediumSize,
               onPressed: () {
                 setGroupValue(2);
+                if (widget.changeState != null) widget.changeState!(1);
               },
             )
         ),
@@ -65,6 +68,7 @@ class _CustomRadioGroupButtonState extends State<CustomRadioGroupButton> {
               buttonSize: smallSize,
               onPressed: () {
                 setGroupValue(3);
+                if (widget.changeState != null) widget.changeState!(1);
               },
             )
         ),
@@ -78,6 +82,7 @@ class _CustomRadioGroupButtonState extends State<CustomRadioGroupButton> {
               buttonSize: mediumSize,
               onPressed: () {
                 setGroupValue(4);
+                if (widget.changeState != null) widget.changeState!(1);
               },
             )
         ),
@@ -91,6 +96,7 @@ class _CustomRadioGroupButtonState extends State<CustomRadioGroupButton> {
               buttonSize: largeSize,
               onPressed: () {
                 setGroupValue(5);
+                if (widget.changeState != null) widget.changeState!(1);
               },
             )
         ),

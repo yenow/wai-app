@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
@@ -47,6 +48,25 @@ class EnneagramTestController extends GetxController {
   void initEnneagramQuestion() {
     enneagramQuestionList.value = [];
     enneagramPageList.value = [];
+  }
+
+  void setScore({required int questionIndex, required int score}) {
+    enneagramQuestionList.value[questionIndex].score = score;
+  }
+
+  bool checkEnneagramQuestionList() {
+
+    bool flag = true;
+
+    for (var element in enneagramQuestionList.value) {
+
+      if (element.score == null) {
+        flag = false;
+        break;
+      }
+    }
+
+    return flag;
   }
 
 }
