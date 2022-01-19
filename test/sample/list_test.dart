@@ -16,9 +16,21 @@ int j = 2;
 
 List list = [Person(1),Person(2),3,4,5,6,7];
 
+enum TabItem { homePage, postPage, page3, page4, profile }
 
+extension ParseToString on TabItem {
+  String get name {
+    return this.toString().split('.').last;
+  }
+}
 
 void main() {
+  print(TabItem.homePage.index);
+  print(TabItem.homePage.toString());
+  print(TabItem.homePage.name);
+
+  TabItem t = TabItem.postPage;
+
   int a = 1;
   int b = a ;
   b = 2;

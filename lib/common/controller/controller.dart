@@ -38,7 +38,7 @@ class Controller extends GetxController{
 
   RxInt count = 0.obs;
   final isGenderList = <bool>[true,false].obs;
-  final postItems = <PostItem>[].obs;
+  final postItems = <Post>[].obs;
   final simpleLoginInfo = Rxn<SimpleLoginInfo>(SimpleLoginInfo(year: 2021, month: 1, day: 1)); // DateTime.now().year
   // final simpleLoginInfo = SimpleLoginInfo(year: 2021, month: 1, day: 1).obs; // DateTime.now().year
 

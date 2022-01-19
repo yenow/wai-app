@@ -10,13 +10,13 @@ import 'package:logger/logger.dart';
 import 'package:wai/common/constants/custom_colors.dart';
 import 'package:wai/common/constants/constants.dart';
 import 'package:wai/common/controller/main_controller.dart';
-import 'package:wai/common/theme/custom_textStyles.dart';
+import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/screens/home_page/home_page_screen.dart';
 import 'package:wai/screens/posts_page/posts_page_screen.dart';
 import 'package:wai/screens/profile_page/profile_page_screen.dart';
 import 'package:wai/screens/search_page/search_page_screen.dart';
 import 'package:wai/screens/write_page/write_page_screen.dart';
-import 'package:wai/common/theme/custom_textStyles.dart';
+import 'package:wai/common/theme/custom_textstyles.dart';
 import 'custom_appbar.dart';
 
 class MainScreens extends GetView<MainController> {
@@ -25,11 +25,11 @@ class MainScreens extends GetView<MainController> {
 
   @override
   Widget build(BuildContext context) {
-    Logger().d('currentIndex = ${MainController.to.currentIndex.value}');
+    /*Logger().d('currentIndex = ${MainController.to.currentIndex.value}');
     Logger().d(MainController.to.currentIndex.value == 0);
     Logger().d(MainController.to.navigatorKey);
     Logger().d(MainController.to.navigatorKeys);
-    Logger().d(MainController.to.appBarState.value.isPopPage);
+    Logger().d(MainController.to.appBarState.value.isPopPage);*/
 
     return Obx(() =>
       WillPopScope(
@@ -39,90 +39,15 @@ class MainScreens extends GetView<MainController> {
             preferredSize: Size.fromHeight(MainController.to.appBarState.value.appbarSize),   // MainController.to.appBarState.value.appbarSize
             child: CustomAppbar(
               isBackgroundImage: MainController.to.appBarState.value.isBackgroundImage,
+              isLeading: true,
+              isPopPage: MainController.to.appBarState.value.isPopPage,
               backgroundImage: Image(
                 image: new AssetImage("assets/images/background/trees-4741364_1920.png"),
                 fit: BoxFit.fill,
               ),
-              isLeading: true,
-              isPopPage: MainController.to.appBarState.value.isPopPage,
             ),
           ),
-          drawer: Drawer(
-            child: ListView(
-              // Important: Remove any padding from the ListView.
-              padding: EdgeInsets.symmetric(vertical: 24),
-              children: [
-                // const DrawerHeader(
-                //   decoration: BoxDecoration(
-                //     color: Colors.blue,
-                //   ),
-                //   child: Text('Drawer Header'),
-                // ),
-                ListTile(
-                  title: const Text('Item 1'),
-                  onTap: () {
-                    // Update the state of the app.
-                    // ...
-                    Navigator.pop(context);
-                  },
-                ),
-                ListTile(
-                  title: const Text('Item 2'),
-                  onTap: () {
-                    // Update the state of the app.
-                    // ...
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
-            ),
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: MainController.to.currentIndex.value,
-            backgroundColor: Colors.white,
-            type: BottomNavigationBarType.fixed,
-            onTap: (nextPageIndex) {
-
-              if (nextPageIndex == 0) {
-                MainController.to.changeAppbar(
-                  isBackgroundImage: true, height : 260
-                );
-              } else {
-                MainController.to.changeAppbar(
-                  isBackgroundImage: false,
-                  height : 50
-                );
-              }
-              MainController.to.changeMainPageIndex(nextPageIndex);
-              // navigator!.push(
-              //     MaterialPageRoute(builder: (context) {
-              //       return PostsPageScreen();
-              //     })
-              // );
-            },
-            /* navigationBar item */
-            items: const [
-              BottomNavigationBarItem(
-                label: '홈',
-                icon: Icon(CupertinoIcons.home),
-              ),
-              BottomNavigationBarItem(
-              label: '게시글',
-              icon: Icon(CupertinoIcons.book),
-            ),
-              BottomNavigationBarItem(
-                label: '글쓰기',
-                icon: Icon(CupertinoIcons.add),
-              ),
-              BottomNavigationBarItem(
-                label: '검색',
-                icon: Icon(CupertinoIcons.search),
-              ),
-              BottomNavigationBarItem(
-                label: '프로필',
-                icon: Icon(CupertinoIcons.profile_circled),
-              )],
-          ),
+          bottomNavigationBar: _buildBottomNavigationBar(),
           body: IndexedStack(
             index: MainController.to.currentIndex.value,
             children: [
@@ -141,6 +66,56 @@ class MainScreens extends GetView<MainController> {
         ),
       ),
     );
+  }
+
+  BottomNavigationBar _buildBottomNavigationBar() {
+    return BottomNavigationBar(
+          currentIndex: MainController.to.currentIndex.value,
+          backgroundColor: Colors.white,
+          type: BottomNavigationBarType.fixed,
+          /* navigationBar item */
+          items: const [
+            BottomNavigationBarItem(
+              label: '홈',
+              icon: Icon(CupertinoIcons.home),
+            ),
+            BottomNavigationBarItem(
+              label: '게시글',
+              icon: Icon(CupertinoIcons.book),
+            ),
+            BottomNavigationBarItem(
+              label: '글쓰기',
+              icon: Icon(CupertinoIcons.add),
+            ),
+            BottomNavigationBarItem(
+              label: '검색',
+              icon: Icon(CupertinoIcons.search),
+            ),
+            BottomNavigationBarItem(
+              label: '프로필',
+              icon: Icon(CupertinoIcons.profile_circled),
+            )
+          ],
+          onTap: (nextPageIndex) {
+
+            if (nextPageIndex == 0) {
+              MainController.to.changeAppbar(
+                isBackgroundImage: true, height : 260
+              );
+            } else {
+              MainController.to.changeAppbar(
+                isBackgroundImage: false,
+                height : 50
+              );
+            }
+            MainController.to.changeMainPageIndex(nextPageIndex);
+            // navigator!.push(
+            //     MaterialPageRoute(builder: (context) {
+            //       return PostsPageScreen();
+            //     })
+            // );
+          },
+        );
   }
 
   // Map<String, WidgetBuilder> _routeBuilders(BuildContext context, int index) {
@@ -176,7 +151,6 @@ class MainScreens extends GetView<MainController> {
           onGenerateRoute: (routeSettings) {
           return MaterialPageRoute(
               builder: (context) {
-
                 return _routeBuilders(context, index);
               }
               // builder: (context) => routeBuilders[routeSettings.name](context),

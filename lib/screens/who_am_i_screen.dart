@@ -3,15 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:logger/logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uuid/uuid.dart';
 import 'package:wai/common/controller/enneagram_test_controller.dart';
 import 'package:wai/main.dart';
 import 'package:wai/models/enneagram_question.dart';
 import 'package:wai/models/enneagram_type.dart';
 import 'package:wai/screens/enneagram_test_page/simple_enneagram_test_page_screen.dart';
+import 'package:wai/screens/main_screens.dart';
 
 import 'enneagram_test_page/enneagram_test_page_screen.dart';
 
-class TestSelectScreen extends StatelessWidget {
+class WhoAmIScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -139,30 +143,43 @@ class TestSelectScreen extends StatelessWidget {
                   children: List.generate(9, (index) {
                     num type = index + 1;
 
-                    return Center(
-                      child: TextButton(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image(image: AssetImage(enneagramType[type]!.path), width: 50 * widthRatio, height: 50 * heightRatio,  fit: BoxFit.fill,),
-                            SizedBox(height: 5,),
-                            Text(
-                              '$type유형',
-                              style: GoogleFonts.jua(fontSize: 13, fontWeight: FontWeight.w400, color: Colors.blueGrey ),
-                            ),
-                          ],
-                        ),
-                        onPressed: () {
-
-                        },
-                      ),
-                    );
+                    return _buildEnneagramType(type);
                   }),
                 ),
               ),
             ),
           ),
         );
+  }
+
+  Center _buildEnneagramType(num type) {
+    return Center(
+      child: TextButton(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image(image: AssetImage(enneagramType[type]!.path), width: 50 * widthRatio, height: 50 * heightRatio,  fit: BoxFit.fill,),
+            SizedBox(height: 5,),
+            Text(
+              '$type유형',
+              style: GoogleFonts.jua(fontSize: 13, fontWeight: FontWeight.w400, color: Colors.blueGrey ),
+            ),
+          ],
+        ),
+        onPressed: () async {
+          // IntroductionSrceen()
+          final prefs = await SharedPreferences.getInstance();
+          String userKey = const Uuid().v1();
+          prefs.setString("userKey", userKey);
+          Logger().d("userKey : $userKey");
+
+          // 1. backend 요청
+
+
+          Get.to(MainScreens());
+        },
+      ),
+    );
   }
 
   TextStyle _buildTextStyle({double fontSize = 15, color = Colors.blueGrey}) {

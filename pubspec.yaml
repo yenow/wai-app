@@ -59,6 +59,12 @@ dependencies:
   #pageview
   page_view_indicators: ^2.0.0
 
+  #shared_preferences
+  shared_preferences : ^2.0.12
+
+  #localstore
+  localstore: ^1.2.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

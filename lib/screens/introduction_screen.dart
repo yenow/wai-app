@@ -9,7 +9,7 @@ import 'package:wai/common/components/image_container.dart';
 import 'package:wai/common/theme/theme.dart';
 import 'package:wai/main.dart';
 import 'package:wai/models/introduction_message.dart';
-import 'package:wai/screens/test_select_screen.dart';
+import 'package:wai/screens/who_am_i_screen.dart';
 
 class IntroductionSrceen extends StatelessWidget {
 
@@ -112,7 +112,7 @@ class IntroductionSrceen extends StatelessWidget {
           backgroundColor: MaterialStateProperty.all(Colors.blueGrey),
         ),
         onPressed: () {
-          Get.to(TestSelectScreen());
+          Get.off(WhoAmIScreen());
         },
       )
     );

@@ -5,7 +5,13 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:logger/logger.dart';
 import 'package:wai/utils/appbar_state.dart';
 
-enum TabItem { page1, page2, page3, page4, page5 }
+enum TabItem { homePage, postPage, page3, page4, profile }
+
+extension ParseToString on TabItem {
+  String get name {
+    return this.toString().split('.').last;
+  }
+}
 
 class MainController extends GetxController{
   static MainController get to => Get.put(MainController());
@@ -32,6 +38,19 @@ class MainController extends GetxController{
     setIsPostPageOpen(false);
     // 여러 키를 확인해서 나갈수 있게 해야할듯
     print(!await navigatorKeys["page2"]!.currentState!.maybePop());   // maybePop()  Pop할게 있으면 Pop하고 아니면 종료
+
+    switch (currentIndex.value) {
+      case 0 :
+        return true;
+      case 1:
+        return !await navigatorKeys["page2"]!.currentState!.maybePop();
+      case 2 :
+        return true;
+      case 3 :
+        return true;
+      case 4 :
+        return true;
+    }
 
     return !await navigatorKeys["page2"]!.currentState!.maybePop();
     //return !await navigatorKey.currentState!.maybePop();    // 수정필요

@@ -5,7 +5,7 @@ import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wai/common/constants/constants.dart';
 import 'package:wai/common/controller/controller.dart';
-import 'package:wai/common/theme/custom_textStyles.dart';
+import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/models/enneagram_question.dart';
 
 import 'component/custom_radio_group_buton.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:wai/common/theme/custom_textStyles.dart';
+import 'package:wai/common/theme/custom_textstyles.dart';
 
 enum ButtonSize {
   small, medium, large
