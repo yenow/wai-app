@@ -5,7 +5,7 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:logger/logger.dart';
 import 'package:wai/utils/appbar_state.dart';
 
-enum TabItem { homePage, postPage, page3, page4, profile }
+enum TabItem { homePageScreen, postPageScreen, page3, page4, profilePageScreen }
 
 extension ParseToString on TabItem {
   String get name {
@@ -13,12 +13,16 @@ extension ParseToString on TabItem {
   }
 }
 
+enum PageItem { postPage, postWritePage }
+
 class MainController extends GetxController{
   static MainController get to => Get.put(MainController());
 
+  // observable variable
   final currentIndex = 0.obs;   // 현재 페이지 인덱스
   final currentPage = "page1".obs;
   final pageKeys = <String>["page1","page2","page3","page4","page5"].obs;
+  final isPageOpen = {}.obs;
   final isPostPageOpen = false.obs;
   final appBarState = AppbarState(appbarSize: 260, appbarTitle: 'WAI').obs;   // appbar 상태
   final isTest = false.obs;

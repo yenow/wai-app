@@ -26,14 +26,14 @@ class WritePageScreen extends StatelessWidget {
                       fillColor: Colors.white,
                       filled: true,
                       enabledBorder: UnderlineInputBorder (
-                        borderSide: BorderSide(width: 1, color: buttonBorderColor),
+                        borderSide: BorderSide(width: 1, color: Colors.grey),
                       ),
                       focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(width: 1, color: buttonBorderColor),
+                          borderSide: BorderSide(width: 1, color: Colors.grey),
                       ),
                       counterText:'',
                       // prefixIcon: prefixIcon,
-                      // focusColor: buttonBorderColor,
+                      // focusColor: Colors.grey,
                   )
                 ),
               ),
@@ -76,14 +76,14 @@ class WritePageScreen extends StatelessWidget {
                       fillColor: Colors.white,
                       filled: true,
                       enabledBorder: UnderlineInputBorder (
-                        borderSide: BorderSide(width: 1, color: buttonBorderColor),
+                        borderSide: BorderSide(width: 1, color: Colors.grey),
                       ),
                       focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(width: 1, color: buttonBorderColor),
+                        borderSide: BorderSide(width: 1, color: Colors.grey),
                       ),
                       counterText:'',
                       // prefixIcon: prefixIcon,
-                      // focusColor: buttonBorderColor,
+                      // focusColor: Colors.grey,
                     )
                 ),
               ),

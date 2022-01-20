@@ -2,9 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:wai/common/controller/main_controller.dart';
-import 'package:wai/models/post_item.dart';
+import 'package:wai/models/post.dart';
 import 'package:wai/screens/posts_page/components/post_item.dart';
 import 'package:wai/screens/posts_page/post_page_screen.dart';
+import 'package:wai/screens/posts_page/post_write_page.dart';
 
 class PostsPageScreen extends StatelessWidget {
   const PostsPageScreen({Key? key}) : super(key: key);
@@ -14,8 +15,10 @@ class PostsPageScreen extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
+        backgroundColor: Colors.blueGrey,
         onPressed: () {
-
+          MainController.to.setIsPostPageOpen(true);
+          Navigator.push(context, MaterialPageRoute(builder: (context) => PostWritePage()));
         },
       ),
       body: Container(

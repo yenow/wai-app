@@ -1,22 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/src/extension_instance.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
-import 'package:logger/logger.dart';
-import 'package:wai/common/constants/custom_colors.dart';
-import 'package:wai/common/constants/constants.dart';
 import 'package:wai/common/controller/main_controller.dart';
-import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/screens/home_page/home_page_screen.dart';
 import 'package:wai/screens/posts_page/posts_page_screen.dart';
 import 'package:wai/screens/profile_page/profile_page_screen.dart';
 import 'package:wai/screens/search_page/search_page_screen.dart';
 import 'package:wai/screens/write_page/write_page_screen.dart';
-import 'package:wai/common/theme/custom_textstyles.dart';
 import 'custom_appbar.dart';
 
 class MainScreens extends GetView<MainController> {
@@ -72,6 +63,7 @@ class MainScreens extends GetView<MainController> {
     return BottomNavigationBar(
           currentIndex: MainController.to.currentIndex.value,
           backgroundColor: Colors.white,
+          selectedItemColor: Colors.blueGrey,
           type: BottomNavigationBarType.fixed,
           /* navigationBar item */
           items: const [

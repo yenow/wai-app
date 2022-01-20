@@ -4,7 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-import 'package:wai/models/post_item.dart';
+import 'package:wai/models/post.dart';
 import 'package:wai/models/simply_login_info.dart';
 import 'package:wai/screens/enneagram_test_page/simple_enneagram_test_page_screen.dart';
 

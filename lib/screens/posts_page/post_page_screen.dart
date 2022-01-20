@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wai/common/constants/constants.dart';
 import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
-import 'package:wai/models/post_item.dart';
+import 'package:wai/models/post.dart';
 import 'package:wai/screens/custom_appbar.dart';
 
 class PostPageScreen extends StatelessWidget {
