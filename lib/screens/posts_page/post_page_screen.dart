@@ -5,7 +5,7 @@ import 'package:wai/common/constants/constants.dart';
 import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/models/post.dart';
-import 'package:wai/screens/custom_appbar.dart';
+import 'package:wai/widgets/custom_appbar.dart';
 
 class PostPageScreen extends StatelessWidget {
   final num postId;
@@ -17,19 +17,35 @@ class PostPageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // postId로 post을 가져와야함 , controller에서 함수호출
 
-    return Column(
-      children: [
-        _buildBlank(),
-        _title(),
-        _postInfomation(),
-        _horizontalBorderLine(),
-        _content(),
-        /*_buildBlank(),*/
-        _horizontalBorderLine(),
-        _secondPostInfomation(),
-        _horizontalBorderLine(),
-        _buildReplyList(context: context)
-      ],
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(MainController.to.appBarState.value.appbarSize),   // MainController.to.appBarState.value.appbarSize
+        child: AppBar(
+          title: Text("게시글"),
+          elevation: 2.0,
+          backgroundColor: Colors.white,
+          leading: GestureDetector(
+            child: Icon(FontAwesomeIcons.arrowLeft, size: 20, color: Colors.blueGrey,),
+            onTap: () {
+              MainController.to.back();
+            },
+          ),
+        ),
+      ),
+      body: Column(
+        children: [
+          _buildBlank(),
+          _title(),
+          _postInfomation(),
+          _horizontalBorderLine(),
+          _content(),
+          /*_buildBlank(),*/
+          _horizontalBorderLine(),
+          _secondPostInfomation(),
+          _horizontalBorderLine(),
+          _buildReplyList(context: context)
+        ],
+      ),
     );
   }
 

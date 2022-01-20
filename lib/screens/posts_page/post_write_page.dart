@@ -2,9 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/controller/post_controller.dart';
 import 'package:wai/common/theme/custom_postpage_textstyle.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
+
+import '../../widgets/custom_appbar.dart';
 
 class PostWritePage extends StatelessWidget {
   const PostWritePage({Key? key}) : super(key: key);
@@ -12,13 +15,40 @@ class PostWritePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() =>
-      Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          _buildInputTitle(),
-          _buildInputContent(),
-          _buildTail()
-        ],
+      Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(MainController.to.appBarState.value.appbarSize),   // MainController.to.appBarState.value.appbarSize
+          child: AppBar(
+            title: Text("게시글 작성"),
+            elevation: 2.0,
+            backgroundColor: Colors.white,
+            leading: GestureDetector(
+              child: Icon(FontAwesomeIcons.chevronLeft, size: 20, color: Colors.blueGrey,),
+              onTap: () {
+                MainController.to.back();
+              },
+            ),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal:20),
+                child: GestureDetector(
+                  onTap: () {
+                    // todo 1. 유효성검증  2. DB  3. 캐시데이터 삭제후, 페이지 이동
+                  },
+                  child: Icon(FontAwesomeIcons.checkCircle, size: 25, color: Colors.blueGrey,),
+                ),
+              ),
+            ],
+          ),
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _buildInputTitle(),
+            _buildInputContent(),
+            _buildTail()
+          ],
+        ),
       ),
     );
   }

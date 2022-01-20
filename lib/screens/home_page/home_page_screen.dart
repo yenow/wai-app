@@ -11,7 +11,7 @@ class HomePageScreen extends StatelessWidget {
       child: TextButton(
         onPressed: () {
           print(1);
-          MainController.to.changeToPopLeading();
+          MainController.to.test();
         },
         child: Text('버튼'),
       ),

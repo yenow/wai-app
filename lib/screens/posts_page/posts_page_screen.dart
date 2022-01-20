@@ -17,7 +17,7 @@ class PostsPageScreen extends StatelessWidget {
         child: Icon(Icons.add),
         backgroundColor: Colors.blueGrey,
         onPressed: () {
-          MainController.to.setIsPostPageOpen(true);
+          MainController.to.setIsPopPage(true);
           Navigator.push(context, MaterialPageRoute(builder: (context) => PostWritePage()));
         },
       ),
@@ -30,7 +30,7 @@ class PostsPageScreen extends StatelessWidget {
             return PostItem(
               post: dummyPosts.elementAt(index),
               onTap: () {
-                MainController.to.setIsPostPageOpen(true);
+                MainController.to.setIsPopPage(true);
                 Navigator.push(context, MaterialPageRoute(builder: (context) => PostPageScreen(postId: dummyPosts.elementAt(index).postId,)));
               }
             );

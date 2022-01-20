@@ -16,6 +16,8 @@ int j = 2;
 
 List list = [Person(1),Person(2),3,4,5,6,7];
 
+Map map = {TabItem.homePage: false};
+
 enum TabItem { homePage, postPage, page3, page4, profile }
 
 extension ParseToString on TabItem {
@@ -25,9 +27,13 @@ extension ParseToString on TabItem {
 }
 
 void main() {
-  print(TabItem.homePage.index);
+  // map[TabItem.homePage] = true;
+  map.update(TabItem.homePage, (value) => true);
+  print(map[TabItem.homePage]);
+
+  /*print(TabItem.homePage.index);
   print(TabItem.homePage.toString());
-  print(TabItem.homePage.name);
+  print(TabItem.homePage.name);*/
 
   TabItem t = TabItem.postPage;
 

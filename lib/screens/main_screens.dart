@@ -8,7 +8,7 @@ import 'package:wai/screens/posts_page/posts_page_screen.dart';
 import 'package:wai/screens/profile_page/profile_page_screen.dart';
 import 'package:wai/screens/search_page/search_page_screen.dart';
 import 'package:wai/screens/write_page/write_page_screen.dart';
-import 'custom_appbar.dart';
+import '../widgets/custom_appbar.dart';
 
 class MainScreens extends GetView<MainController> {
   MainScreens({Key? key}) : super(key: key);
@@ -26,21 +26,10 @@ class MainScreens extends GetView<MainController> {
       WillPopScope(
         onWillPop: MainController.to.onWillPop,   // 뒤로가기시 이벤트
         child: Scaffold(
-          appBar:  PreferredSize(
-            preferredSize: Size.fromHeight(MainController.to.appBarState.value.appbarSize),   // MainController.to.appBarState.value.appbarSize
-            child: CustomAppbar(
-              isBackgroundImage: MainController.to.appBarState.value.isBackgroundImage,
-              isLeading: true,
-              isPopPage: MainController.to.appBarState.value.isPopPage,
-              backgroundImage: Image(
-                image: new AssetImage("assets/images/background/trees-4741364_1920.png"),
-                fit: BoxFit.fill,
-              ),
-            ),
-          ),
+          appBar: _buildAppbar(),
           bottomNavigationBar: _buildBottomNavigationBar(),
           body: IndexedStack(
-            index: MainController.to.currentIndex.value,
+            index: MainController.to.currentTabIndex.value,
             children: [
               _buildOffstageNavigator(context,0),
               _buildOffstageNavigator(context,1),
@@ -59,9 +48,33 @@ class MainScreens extends GetView<MainController> {
     );
   }
 
-  BottomNavigationBar _buildBottomNavigationBar() {
+  PreferredSize? _buildAppbar() {
+    if (MainController.to.appBarState.value.isPopPage) {
+      return null;
+    }
+
+    return PreferredSize(
+          preferredSize: Size.fromHeight(MainController.to.appBarState.value.appbarSize),   // MainController.to.appBarState.value.appbarSize
+          child: CustomAppbar(
+            isBackgroundImage: MainController.to.appBarState.value.isBackgroundImage,
+            isPopPage: MainController.to.appBarState.value.isPopPage,
+            isLeading: false,
+            backgroundImage: Image(
+              image: new AssetImage("assets/images/background/trees-4741364_1920.png"),
+              fit: BoxFit.fill,
+            ),
+          ),
+        );
+  }
+
+  BottomNavigationBar? _buildBottomNavigationBar() {
+
+    if (MainController.to.appBarState.value.isPopPage) {
+      return null;
+    }
+
     return BottomNavigationBar(
-          currentIndex: MainController.to.currentIndex.value,
+          currentIndex: MainController.to.currentTabIndex.value,
           backgroundColor: Colors.white,
           selectedItemColor: Colors.blueGrey,
           type: BottomNavigationBarType.fixed,
@@ -88,9 +101,9 @@ class MainScreens extends GetView<MainController> {
               icon: Icon(CupertinoIcons.profile_circled),
             )
           ],
-          onTap: (nextPageIndex) {
+          onTap: (nextTabIndex) {
 
-            if (nextPageIndex == 0) {
+            if (nextTabIndex == 0) {
               MainController.to.changeAppbar(
                 isBackgroundImage: true, height : 260
               );
@@ -100,7 +113,7 @@ class MainScreens extends GetView<MainController> {
                 height : 50
               );
             }
-            MainController.to.changeMainPageIndex(nextPageIndex);
+            MainController.to.setTabIndex(nextTabIndex);
             // navigator!.push(
             //     MaterialPageRoute(builder: (context) {
             //       return PostsPageScreen();
@@ -137,7 +150,7 @@ class MainScreens extends GetView<MainController> {
 
     /* Offstage로 위젯을 안보이는 상태로 */
     return Offstage(
-      offstage: MainController.to.currentIndex != index,
+      offstage: MainController.to.currentTabIndex != index,
       child: Navigator(
           key: MainController.to.navigatorKeys[MainController.to.pageKeys.elementAt(index)],
           onGenerateRoute: (routeSettings) {
@@ -154,7 +167,7 @@ class MainScreens extends GetView<MainController> {
 
   PreferredSizeWidget _appbar(BuildContext context) {
 
-    if (MainController.to.currentIndex.value == 0) {
+    if (MainController.to.currentTabIndex.value == 0) {
 
       return PreferredSize(
         preferredSize: Size.fromHeight(260),
@@ -168,7 +181,7 @@ class MainScreens extends GetView<MainController> {
         ),
       );
 
-    } else if (MainController.to.currentIndex.value == 1) {
+    } else if (MainController.to.currentTabIndex.value == 1) {
 
       return PreferredSize(
         preferredSize: Size.fromHeight(50),
@@ -179,7 +192,7 @@ class MainScreens extends GetView<MainController> {
         ),
       );
 
-    } else if (MainController.to.currentIndex.value == 2) {
+    } else if (MainController.to.currentTabIndex.value == 2) {
 
       return PreferredSize(
         preferredSize: Size.fromHeight(50),

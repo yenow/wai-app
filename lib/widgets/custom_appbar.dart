@@ -38,21 +38,7 @@ class CustomAppbar extends StatelessWidget {
       leading: isPopPage ? _pagePopIcon(context) : isLeading ? _getLeading(context: context) : null,
       backgroundColor: isBackgroundImage ? null : Colors.white,
       flexibleSpace: isBackgroundImage ? backgroundImage : null,
-      actions: [
-        /*TextButton(
-          child: Text('다음'),
-          onPressed: () {},
-        ),*/
-        IconButton(
-          icon: Icon(
-            Icons.settings,
-            color: Colors.blueGrey,
-          ),
-          onPressed: () {
-            // do something
-          },
-        )
-      ],
+      actions: [],
     );
   }
 

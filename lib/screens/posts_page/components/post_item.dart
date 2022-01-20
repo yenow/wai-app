@@ -77,9 +77,14 @@ class PostItem extends StatelessWidget {
                     style: Theme.of(context).textTheme.postTitleText),
                 ],
               ),
-              const Icon(FontAwesomeIcons.alignLeft,
-                size: bodyText2Size,
-                color: bodyTextColor)
+              GestureDetector(
+                onTap: () {
+
+                },
+                child: const Icon(FontAwesomeIcons.ellipsisV,
+                  size: bodyText2Size,
+                  color: bodyTextColor),
+              )
             ],
           ),
           height: 30,
