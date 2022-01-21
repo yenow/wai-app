@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wai/common/controller/app_controller.dart';
 import 'package:wai/screens/introduction_screen.dart';
 import 'package:wai/screens/main_screens.dart';
 import 'package:wai/screens/posts_page/post_page_screen.dart';
@@ -29,7 +32,7 @@ class WaiUI extends StatelessWidget {
     return GetMaterialApp(    // CupertinoApp, GetMaterialApp
       title: 'wai_ui',
       debugShowCheckedModeBanner: false,
-      home: AutoLoginState()/*IntroductionSrceen()*/ /*: MainScreens()*/,
+      home: AutoLoginState2()/*IntroductionSrceen()*/ /*: MainScreens()*/,
       getPages: [
         /*GetPage(name : '/PostPageScreen', page: () => PostPage())*/
       ],
@@ -37,6 +40,31 @@ class WaiUI extends StatelessWidget {
     );
   }
 }
+
+class AutoLoginState2 extends StatelessWidget {
+  AutoLoginState2({Key? key}) : super(key: key);
+
+  // Create storage
+  final storage = new FlutterSecureStorage();
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() {
+      if (AppController.to.initialized) {
+
+        if (AppController.to.userKey.value == null) {
+          return IntroductionSrceen();
+        } else {
+          Logger().d("userKey : " + AppController.to.userKey.value!);
+          return MainScreens();
+        }
+      } else {
+        return Center(child: Text('Initializing...'));
+      }
+    });
+  }
+}
+
 
 class AutoLoginState extends StatefulWidget {
   const AutoLoginState({Key? key}) : super(key: key);
@@ -87,3 +115,7 @@ Future<String?> getUserKey () async {
   Logger().d(counter);
   return counter;
 }
+
+
+
+

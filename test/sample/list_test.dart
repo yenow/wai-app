@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 class Person {
@@ -27,6 +29,10 @@ extension ParseToString on TabItem {
 }
 
 void main() {
+  print("" == null);
+  var a1 = '0';
+  num b1 = json.decode(a1);
+
   // map[TabItem.homePage] = true;
   map.update(TabItem.homePage, (value) => true);
   print(map[TabItem.homePage]);

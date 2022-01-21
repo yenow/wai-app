@@ -27,12 +27,3 @@ List<Post> dummyPosts = [
   Post(postId: 3, title: '제목입니다.', content: '내용3입니다.',simpleContent: '내용3입니다.', isDelete: false, userId: 1, nickname : '띠용2', enneagramType : 3 ),
 ];
 
-class WritePost {
-  String? title;
-  String? content;
-
-  @override
-  String toString() {
-    return 'WritePost{title: $title, content: $content}';
-  }
-}

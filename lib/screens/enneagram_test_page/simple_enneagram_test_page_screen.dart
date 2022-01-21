@@ -4,7 +4,7 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wai/common/constants/constants.dart';
-import 'package:wai/common/controller/controller.dart';
+import 'package:wai/common/controller/app_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/models/enneagram_question.dart';
 
@@ -68,7 +68,7 @@ class SimpleEnneagramTestPageScreen extends StatelessWidget {
                               _buildQuestion(index),
                               CustomRadioGroupButton(groupValue: 0,),
                               Text(
-                                Controller.to.count.value.toString(),
+                                AppController.to.count.value.toString(),
                                 style: GoogleFonts.jua(fontSize: 2, color: Colors.black, fontWeight: FontWeight.w500),)
                             ],
                           ),

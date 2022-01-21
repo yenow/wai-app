@@ -62,8 +62,9 @@ dependencies:
   #shared_preferences
   shared_preferences : ^2.0.12
 
-  #localstore
+  #store
   localstore: ^1.2.1
+  flutter_secure_storage: ^5.0.2
 
 dev_dependencies:
   flutter_test:

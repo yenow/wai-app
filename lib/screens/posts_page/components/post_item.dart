@@ -10,7 +10,7 @@ import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/theme/custom_loginpage_textstyle.dart';
 import 'package:wai/common/theme/custom_postpage_textstyle.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
-import 'package:wai/models/post.dart';
+import 'package:wai/models/post/post.dart';
 import 'package:wai/common/theme/theme.dart';
 import 'package:wai/sample/understand_constraint.dart';
 import 'package:wai/screens/posts_page/post_page_screen.dart';

@@ -33,6 +33,8 @@ class PostWritePage extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal:20),
                 child: GestureDetector(
                   onTap: () {
+                    checkValue();
+
                     // todo 1. 유효성검증  2. DB  3. 캐시데이터 삭제후, 페이지 이동
                   },
                   child: Icon(FontAwesomeIcons.checkCircle, size: 25, color: Colors.blueGrey,),
@@ -133,5 +135,14 @@ class PostWritePage extends StatelessWidget {
         color: Colors.white10,
       ),
     );
+  }
+
+  void checkValue() {
+    if (!PostController.to.writingPost.value.isValidTitle()) {
+      // message출력?
+    } else if (!PostController.to.writingPost.value.isValidContent()) {
+
+    }
+
   }
 }

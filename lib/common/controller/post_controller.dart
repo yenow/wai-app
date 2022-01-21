@@ -5,7 +5,8 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:logger/logger.dart';
 import 'package:wai/models/enneagram_question.dart';
-import 'package:wai/models/post.dart';
+import 'package:wai/models/post/post.dart';
+import 'package:wai/models/post/write_post.dart';
 
 class PostController extends GetxController {
   static PostController get to => Get.put(PostController());

@@ -5,7 +5,7 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:wai/sample/add_interactivity.dart';
 
-import '../../../common/controller/controller.dart';
+import '../../../common/controller/app_controller.dart';
 
 class BirthdayForm extends StatelessWidget {
   const BirthdayForm({Key? key}) : super(key: key);
@@ -20,7 +20,7 @@ class BirthdayForm extends StatelessWidget {
     double verticalPadding = 4;
     double horizontalPadding = 15;
 
-    final Controller c = Get.put(Controller());
+    final AppController c = Get.put(AppController());
 
     return Container(
         margin:EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),

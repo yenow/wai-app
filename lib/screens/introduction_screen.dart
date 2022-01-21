@@ -1,15 +1,21 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:logger/logger.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
-import 'package:wai/common/components/image_container.dart';
-import 'package:wai/common/theme/theme.dart';
+import 'package:uuid/uuid.dart';
+import 'package:wai/common/constants/constants.dart';
+import 'package:wai/common/controller/app_controller.dart';
 import 'package:wai/main.dart';
 import 'package:wai/models/introduction_message.dart';
+import 'package:wai/models/user/user.dart';
 import 'package:wai/screens/who_am_i_screen.dart';
+import 'package:http/http.dart' as http;
+import 'package:wai/utils/function.dart';
 
 class IntroductionSrceen extends StatelessWidget {
 
@@ -111,7 +117,24 @@ class IntroductionSrceen extends StatelessWidget {
           minimumSize: MaterialStateProperty.all(Size.infinite),
           backgroundColor: MaterialStateProperty.all(Colors.blueGrey),
         ),
-        onPressed: () {
+        onPressed: () async {
+
+          // create userKey
+          String userKey = const Uuid().v1();
+          Logger().d("userKey : $userKey");
+          // store security
+          AppController.to.storage.write(key: "userKey", value: userKey);
+
+          // save DB
+          Map data = { "userKey" : userKey };
+          var responseBody = await postRequest("/api/saveUserKey",json.encode(data));
+          num userId = json.decode(responseBody);
+          User user = User();
+          user.userId = userId;
+          AppController.to.setLoginInfo(user);
+          Logger().d(AppController.to.loginInfo.value.userId);
+
+          // go WhoAmIScreen
           Get.off(WhoAmIScreen());
         },
       )

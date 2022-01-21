@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
+import 'package:wai/common/controller/app_controller.dart';
 import 'package:wai/common/controller/enneagram_test_controller.dart';
 import 'package:wai/main.dart';
 import 'package:wai/models/enneagram_question.dart';
@@ -106,8 +107,8 @@ class WhoAmIScreen extends StatelessWidget {
               onPressed: () {
                 /* DB 조회 */
                 EnneagramTestController.to.setEnneagramQuestion(dummyEnneagramQuestionList);
-                print(EnneagramTestController.to.enneagramQuestionList.value);
-                print(EnneagramTestController.to.enneagramPageList.value);
+                /*print(EnneagramTestController.to.enneagramQuestionList.value);
+                print(EnneagramTestController.to.enneagramPageList.value);*/
 
                 Get.to(SimpleEnneagramTestPageScreen());
               },
@@ -168,14 +169,13 @@ class WhoAmIScreen extends StatelessWidget {
         ),
         onPressed: () async {
           // IntroductionSrceen()
-          final prefs = await SharedPreferences.getInstance();
-          String userKey = const Uuid().v1();
-          prefs.setString("userKey", userKey);
-          Logger().d("userKey : $userKey");
+          // final prefs = await SharedPreferences.getInstance();
+          // String userKey = const Uuid().v1()
+          // AppController.to.storage.write(key: "userKey", value: userKey);
+          // prefs.setString("userKey", userKey);
+
 
           // 1. backend 요청
-
-
           Get.to(MainScreens());
         },
       ),

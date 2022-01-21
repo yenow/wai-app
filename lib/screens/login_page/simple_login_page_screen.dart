@@ -13,7 +13,7 @@ import 'package:wai/screens/introduction_screen.dart';
 import 'package:wai/screens/login_page/login_page_screen.dart';
 import 'package:wai/sample/sample_screens.dart';
 import 'package:wai/utils/dialog.dart';
-import '../../common/controller/controller.dart';
+import '../../common/controller/app_controller.dart';
 import '../../main.dart';
 import '../main_screens.dart';
 import 'components/login_page_button.dart';
@@ -26,7 +26,7 @@ class SimpleLoginPageScreen extends StatelessWidget {
   static double topPadding = boxHeight/10;
   static double verticalPadding = 4;
   static double horizontalPadding = 40;
-  final Controller c = Get.put(Controller());
+  final AppController c = Get.put(AppController());
 
   @override
   Widget build(BuildContext context) {

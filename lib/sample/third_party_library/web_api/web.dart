@@ -3,7 +3,7 @@
 //
 // import 'package:http/http.dart' as http;
 // import 'package:uuid/uuid.dart';
-// import 'package:wai/models/api_response/login_response_dto.dart';
+// import 'package:wai/models/api/login_response_dto.dart';
 // import 'package:wai/models/simply_login_info.dart';
 //
 // void main() async {
