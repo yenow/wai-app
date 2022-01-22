@@ -8,7 +8,7 @@ import 'package:wai/models/post/post.dart';
 import 'package:wai/widgets/custom_appbar.dart';
 
 class PostPageScreen extends StatelessWidget {
-  final num postId;
+  final int postId;
   Post post = dummyPosts.elementAt(0);
 
   PostPageScreen({required this.postId});
@@ -55,7 +55,7 @@ class PostPageScreen extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       alignment: Alignment.centerLeft,
-      child: Text(post.title, style : CustomTextStyles.postTitleStyle()),
+      child: Text(post.title!, style : CustomTextStyles.postTitleStyle()),
     );
   }
 
@@ -82,7 +82,7 @@ class PostPageScreen extends StatelessWidget {
     return Container(
       alignment: Alignment.topLeft,
       padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-      child: Text(post.content, style: CustomTextStyles.buildTextStyle(fontSize: 20, color: Colors.black54),)
+      child: Text(post.content!, style: CustomTextStyles.buildTextStyle(fontSize: 20, color: Colors.black54),)
     );
   }
 

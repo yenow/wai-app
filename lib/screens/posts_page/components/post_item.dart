@@ -73,7 +73,7 @@ class PostItem extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(post.title,
+                  Text(post.title!,
                     style: Theme.of(context).textTheme.postTitleText),
                 ],
               ),
@@ -135,7 +135,7 @@ class PostItem extends StatelessWidget {
         child: Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            post.content,
+            post.content!,
             style: Theme.of(context).textTheme.postContentText,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,

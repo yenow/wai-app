@@ -13,7 +13,7 @@ import 'package:wai/common/controller/enneagram_test_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/main.dart';
 import 'package:wai/models/enneagram_test/enneagram_question.dart';
-import 'package:wai/models/enneagram_test/enneagram_test_request_dto.dart';
+import 'package:wai/models/enneagram_test/api/enneagram_test_request_dto.dart';
 import 'package:wai/models/enneagram_test/enneagram_type.dart';
 import 'package:wai/screens/enneagram_test_page/simple_enneagram_test_page_screen.dart';
 import 'package:wai/screens/main_screens.dart';

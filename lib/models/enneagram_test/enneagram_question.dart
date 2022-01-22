@@ -1,4 +1,4 @@
-import 'enneagram_test_request_dto.dart';
+import 'api/enneagram_test_request_dto.dart';
 
 class EnneagramQuestion {
   num questionNumber;

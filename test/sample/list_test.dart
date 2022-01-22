@@ -29,31 +29,35 @@ extension ParseToString on TabItem {
 }
 
 void main() {
-  print("" == null);
-  var a1 = '0';
-  num b1 = json.decode(a1);
-
-  // map[TabItem.homePage] = true;
-  map.update(TabItem.homePage, (value) => true);
-  print(map[TabItem.homePage]);
-
-  /*print(TabItem.homePage.index);
-  print(TabItem.homePage.toString());
-  print(TabItem.homePage.name);*/
-
-  TabItem t = TabItem.postPage;
-
-  int a = 1;
-  int b = a ;
-  b = 2;
-
-  print(a);
-  print(b);
-
-  print(list.sublist(0,2));
-
-  Person p = list.sublist(0,2).elementAt(0);
-  p.value = 10;
+  list.insert(0, 10);
+  list.insert(0, 20);
+  list.insert(0, 30);
 
   print(list);
+  // print("" == null);
+  // var a1 = '0';
+  // num b1 = json.decode(a1);
+  //
+  // // map[TabItem.homePage] = true;
+  // map.update(TabItem.homePage, (value) => true);
+  // print(map[TabItem.homePage]);
+  //
+  // /*print(TabItem.homePage.index);
+  // print(TabItem.homePage.toString());
+  // print(TabItem.homePage.name);*/
+  //
+  // TabItem t = TabItem.postPage;
+  //
+  // int a = 1;
+  // int b = a ;
+  // b = 2;
+  //
+  // print(a);
+  // print(b);
+  //
+  // print(list.sublist(0,2));
+  //
+  // Person p = list.sublist(0,2).elementAt(0);
+  // p.value = 10;
+
 }

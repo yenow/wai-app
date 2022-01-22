@@ -18,7 +18,7 @@ Future<dynamic> postRequest (String url, String jsonString) async {
   );
   
   if (response.statusCode == 200) {
-    return response.body;
+    return utf8.decode(response.bodyBytes);
   } else {
     throw Exception('Failed to postRequest');
   }
