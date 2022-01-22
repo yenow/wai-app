@@ -10,7 +10,8 @@ class EnneagramType {
   String get path => _path;
 }
 
-Map<num,EnneagramType> enneagramType = {
+
+Map<num,EnneagramType> enneagramTypeList = {
   1 : EnneagramType(1,'소','assets/images/enneagram/cow.png'),
   2 : EnneagramType(2,' 강아지','assets/images/enneagram/dog.png'),
   3 : EnneagramType(3,'독수리','assets/images/enneagram/eagle.png'),

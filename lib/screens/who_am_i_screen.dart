@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -8,11 +10,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 import 'package:wai/common/controller/app_controller.dart';
 import 'package:wai/common/controller/enneagram_test_controller.dart';
+import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/main.dart';
-import 'package:wai/models/enneagram_question.dart';
-import 'package:wai/models/enneagram_type.dart';
+import 'package:wai/models/enneagram_test/enneagram_question.dart';
+import 'package:wai/models/enneagram_test/enneagram_test_request_dto.dart';
+import 'package:wai/models/enneagram_test/enneagram_type.dart';
 import 'package:wai/screens/enneagram_test_page/simple_enneagram_test_page_screen.dart';
 import 'package:wai/screens/main_screens.dart';
+import 'package:wai/utils/function.dart';
 
 import 'enneagram_test_page/enneagram_test_page_screen.dart';
 
@@ -142,9 +147,9 @@ class WhoAmIScreen extends StatelessWidget {
                   crossAxisCount: 3,
                   padding: EdgeInsets.all(0),
                   children: List.generate(9, (index) {
-                    num type = index + 1;
+                    int enneagramType = index + 1;
 
-                    return _buildEnneagramType(type);
+                    return _buildEnneagramType(enneagramType);
                   }),
                 ),
               ),
@@ -153,30 +158,33 @@ class WhoAmIScreen extends StatelessWidget {
         );
   }
 
-  Center _buildEnneagramType(num type) {
+  Center _buildEnneagramType(int enneagramType) {
     return Center(
       child: TextButton(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image(image: AssetImage(enneagramType[type]!.path), width: 50 * widthRatio, height: 50 * heightRatio,  fit: BoxFit.fill,),
+            Image(image: AssetImage(enneagramTypeList[enneagramType]!.path), width: 50 * widthRatio, height: 50 * heightRatio,  fit: BoxFit.fill,),
             SizedBox(height: 5,),
             Text(
-              '$type유형',
+              '$enneagramType유형',
               style: GoogleFonts.jua(fontSize: 13, fontWeight: FontWeight.w400, color: Colors.blueGrey ),
             ),
           ],
         ),
-        onPressed: () async {
-          // IntroductionSrceen()
-          // final prefs = await SharedPreferences.getInstance();
-          // String userKey = const Uuid().v1()
-          // AppController.to.storage.write(key: "userKey", value: userKey);
-          // prefs.setString("userKey", userKey);
-
-
-          // 1. backend 요청
-          Get.to(MainScreens());
+        onPressed: () {
+          
+          Get.defaultDialog(
+            title: "알림",
+            middleText: "$enneagramType유형으로 진행하시겠습니까?",
+            radius: 20,
+            barrierDismissible: false,
+            // content: Text("content"),
+            cancel: _buildCancelButton(),
+            confirm: _buildConfirmButton(enneagramType : enneagramType),
+            titleStyle: CustomTextStyles.buildTextStyle(fontSize: 20),
+            middleTextStyle: CustomTextStyles.buildTextStyle(fontSize: 15),
+          );
         },
       ),
     );
@@ -187,6 +195,47 @@ class WhoAmIScreen extends StatelessWidget {
         fontSize: fontSize,
         fontWeight: FontWeight.w400,
         color: color
+    );
+  }
+
+  Widget _buildConfirmButton({required int enneagramType}) {
+    return ElevatedButton(
+      child: Text("확인", style: CustomTextStyles.buildTextStyle(fontSize: 15, color: Colors.white),),
+      style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(Colors.blueGrey)
+      ),
+      onPressed: () async {
+
+        // create RequestDto
+        EnneagramTestRequestDto enneagramTest = EnneagramTestRequestDto(
+          userId: int.parse(AppController.to.userId.value!),
+          testType: TestType.select,
+          selectedEnneagramType: enneagramType,
+        );
+
+        // api request
+        var response = await postRequest("/api/enneagramTest", json.encode(enneagramTest.toJson()));
+        Logger().d(json.decode(response));
+        Map responseMap = json.decode(response);
+
+        if (responseMap["success"] == true) {
+          Get.to(MainScreens());
+        } else {
+          Get.back();
+        }
+      },
+    );
+  }
+
+  Widget _buildCancelButton() {
+    return ElevatedButton(
+      child: Text("취소", style: CustomTextStyles.buildTextStyle(fontSize: 15, color: Colors.white),),
+      onPressed: () {
+        Get.back();
+      },
+      style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(Colors.blueGrey)
+      ),
     );
   }
 }

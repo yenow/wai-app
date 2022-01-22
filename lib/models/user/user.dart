@@ -1,5 +1,5 @@
 class User {
-  num? userId;
+  int? userId;
   String? userKey;
   String? nickname;
 }

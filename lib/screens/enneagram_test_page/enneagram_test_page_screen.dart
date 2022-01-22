@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
 import 'package:wai/common/controller/enneagram_test_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
-import 'package:wai/models/enneagram_question.dart';
+import 'package:wai/models/enneagram_test/enneagram_question.dart';
 
 import 'component/custom_radio_group_buton.dart';
 

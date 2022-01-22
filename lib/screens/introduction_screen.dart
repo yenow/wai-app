@@ -118,21 +118,22 @@ class IntroductionSrceen extends StatelessWidget {
           backgroundColor: MaterialStateProperty.all(Colors.blueGrey),
         ),
         onPressed: () async {
+          User user = User();
 
           // create userKey
           String userKey = const Uuid().v1();
-          Logger().d("userKey : $userKey");
           // store security
-          AppController.to.storage.write(key: "userKey", value: userKey);
+          AppController.to.writeUserKey(userKey);
 
           // save DB
           Map data = { "userKey" : userKey };
           var responseBody = await postRequest("/api/saveUserKey",json.encode(data));
-          num userId = json.decode(responseBody);
-          User user = User();
+          int userId = json.decode(responseBody);
+
+          // save userId
           user.userId = userId;
+          await AppController.to.writeUserId(userId.toString());
           AppController.to.setLoginInfo(user);
-          Logger().d(AppController.to.loginInfo.value.userId);
 
           // go WhoAmIScreen
           Get.off(WhoAmIScreen());

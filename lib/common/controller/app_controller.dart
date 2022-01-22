@@ -14,7 +14,8 @@ class AppController extends GetxController{
 
   /* observable variable */
   final isInitialized = false.obs;
-  final userKey = Rx<String?>("");
+  final userKey = Rx<String?>(""); // "".obs;
+  final userId = Rx<String?>(""); // "".obs;
   final loginInfo = LoginInfo().obs;
   /* non-observable variable */
   final _accountNameController = TextEditingController(text: 'flutter_secure_storage_service');
@@ -26,27 +27,35 @@ class AppController extends GetxController{
     super.onInit();
   }
 
-  @override
+  /*@override
   void onClose() {
     isInitialized.value = false;
     super.onClose();
-  }
+  }*/
 
   Future<void> initialize() async {
-    // 1. user Key 가져오기,  2. DB에서 Login정보 가져와서 넣기
-    userKey.value = await _getUserKey();
+    // get UserKey, UserId
+    userKey.value = await getUserKey();
+    userId.value = await getUserId();
 
+    // get UserInfo by DB
+
+
+    // update LoginInfo
     loginInfo.update((val) {
       val!.userKey = userKey.value;
     });
 
     isInitialized.value = true;
-
-    return;
   }
 
-  Future<String?> _getUserKey () async {
+  Future<String?> getUserKey () async {
     String? userKey = await storage.read(key: "userKey",aOptions: _getAndroidOptions());
+    return userKey;
+  }
+
+  Future<String?> getUserId () async {
+    String? userKey = await storage.read(key: "userId",aOptions: _getAndroidOptions());
     return userKey;
   }
 
@@ -69,6 +78,19 @@ class AppController extends GetxController{
     });
   }
 
+  Future<void> writeUserKey (String userKey) async {
+    this.userKey.value = userKey;
+    await storage.write(key: "userKey", value: userKey);
+  }
+
+  Future<void> writeUserId (String userId) async {
+    this.userId.value = userId;
+    await storage.write(key: "userId", value: userId);
+  }
+
+  Future<void> removeUserKey () async {
+    await storage.delete(key: "userKey");
+  }
 
 
 

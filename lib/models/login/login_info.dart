@@ -1,5 +1,5 @@
 class LoginInfo {
-  num? userId;
+  int? userId;
   String? userKey;
   String? nickname;
 }
