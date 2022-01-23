@@ -23,3 +23,18 @@ Future<dynamic> postRequest (String url, String jsonString) async {
     throw Exception('Failed to postRequest');
   }
 }
+
+Future<dynamic> getRequest (String url) async {
+
+  Logger().d(apiUrl + url);
+
+  final response = await http.get(
+      Uri.parse(apiUrl + url),
+  );
+
+  if (response.statusCode == 200) {
+    return utf8.decode(response.bodyBytes);
+  } else {
+    throw Exception('Failed to postRequest');
+  }
+}

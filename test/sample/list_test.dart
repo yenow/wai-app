@@ -28,7 +28,30 @@ extension ParseToString on TabItem {
   }
 }
 
+class Test {
+  String? _title;
+  String? _content;
+
+  String get title => _title!;
+
+  set title(String value) {
+    _title = value;
+  }
+
+  String get content => _content!;
+
+  set content(String value) {
+    _content = value;
+  }
+}
+
 void main() {
+  Test test = Test();
+  test.content = "c";
+  test.title = "t";
+
+  print(test);
+
   list.insert(0, 10);
   list.insert(0, 20);
   list.insert(0, 30);

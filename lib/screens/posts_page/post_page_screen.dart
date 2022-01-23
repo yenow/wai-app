@@ -1,52 +1,72 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:logger/logger.dart';
 import 'package:wai/common/constants/constants.dart';
 import 'package:wai/common/controller/main_controller.dart';
+import 'package:wai/common/controller/post_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/models/post/post.dart';
 import 'package:wai/widgets/custom_appbar.dart';
 
 class PostPageScreen extends StatelessWidget {
   final int postId;
-  Post post = dummyPosts.elementAt(0);
+  Post? post;
 
   PostPageScreen({required this.postId});
 
   @override
   Widget build(BuildContext context) {
-    // postId로 post을 가져와야함 , controller에서 함수호출
 
+    return FutureBuilder<Post?>(
+      future: PostController.to.readPost(postId),
+      builder: (context, snapshot) {
+
+        switch(snapshot.connectionState) {
+          case ConnectionState.waiting :
+            return const CircularProgressIndicator();
+          default :
+            if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              post = snapshot.data;
+              return _buildScaffold(context);
+            }
+        }
+      });
+  }
+
+  Scaffold _buildScaffold(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(MainController.to.appBarState.value.appbarSize),   // MainController.to.appBarState.value.appbarSize
-        child: AppBar(
-          title: Text("게시글"),
-          elevation: 2.0,
-          backgroundColor: Colors.white,
-          leading: GestureDetector(
-            child: Icon(FontAwesomeIcons.arrowLeft, size: 20, color: Colors.blueGrey,),
-            onTap: () {
-              MainController.to.back();
-            },
-          ),
+    appBar: PreferredSize(
+      preferredSize: Size.fromHeight(MainController.to.appBarState.value.appbarSize),   // MainController.to.appBarState.value.appbarSize
+      child: AppBar(
+        title: Text("게시글"),
+        elevation: 2.0,
+        backgroundColor: Colors.white,
+        leading: GestureDetector(
+          child: Icon(FontAwesomeIcons.arrowLeft, size: 20, color: Colors.blueGrey,),
+          onTap: () {
+            MainController.to.back();
+          },
         ),
       ),
-      body: Column(
-        children: [
-          _buildBlank(),
-          _title(),
-          _postInfomation(),
-          _horizontalBorderLine(),
-          _content(),
-          /*_buildBlank(),*/
-          _horizontalBorderLine(),
-          _secondPostInfomation(),
-          _horizontalBorderLine(),
-          _buildReplyList(context: context)
-        ],
-      ),
-    );
+    ),
+    body: Column(
+      children: [
+        _buildBlank(),
+        _title(),
+        _postInfomation(),
+        _horizontalBorderLine(),
+        _content(),
+        /*_buildBlank(),*/
+        _horizontalBorderLine(),
+        _secondPostInfomation(),
+        _horizontalBorderLine(),
+        _buildReplyList(context: context)
+      ],
+    ),
+  );
   }
 
   SizedBox _buildBlank({double height = 10, double width = 10}) => SizedBox(height: height, width: width);
@@ -55,7 +75,7 @@ class PostPageScreen extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       alignment: Alignment.centerLeft,
-      child: Text(post.title!, style : CustomTextStyles.postTitleStyle()),
+      child: Text(post!.title!, style : CustomTextStyles.postTitleStyle()),
     );
   }
 
@@ -82,7 +102,7 @@ class PostPageScreen extends StatelessWidget {
     return Container(
       alignment: Alignment.topLeft,
       padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-      child: Text(post.content!, style: CustomTextStyles.buildTextStyle(fontSize: 20, color: Colors.black54),)
+      child: Text(post!.content!, style: CustomTextStyles.buildTextStyle(fontSize: 20, color: Colors.black54),)
     );
   }
 

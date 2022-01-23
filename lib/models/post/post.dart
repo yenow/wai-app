@@ -25,7 +25,7 @@ class Post {
   factory Post.fromJson(Map<String, dynamic> json) {
     return Post(
       postId: json['postId'],
-      user : User.fromJson(json['user']),
+      user : json['user'] != null ? User.fromJson(json['user']) : null,
       title: json['title'],
       content: json['content'],
       simpleContent: json['simpleContent'],

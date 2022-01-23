@@ -1,13 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:wai/common/controller/app_controller.dart';
 import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/controller/post_controller.dart';
-import 'package:wai/common/theme/custom_postpage_textstyle.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
-
-import '../../widgets/custom_appbar.dart';
+import 'package:wai/models/post/post.dart';
+import 'package:wai/screens/posts_page/post_page_screen.dart';
+import 'package:wai/utils/function.dart';
+import 'package:wai/widgets/wai_dialog.dart';
 
 class PostWritePage extends StatelessWidget {
   const PostWritePage({Key? key}) : super(key: key);
@@ -16,33 +21,7 @@ class PostWritePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() =>
       Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(MainController.to.appBarState.value.appbarSize),   // MainController.to.appBarState.value.appbarSize
-          child: AppBar(
-            title: Text("게시글 작성"),
-            elevation: 2.0,
-            backgroundColor: Colors.white,
-            leading: GestureDetector(
-              child: Icon(FontAwesomeIcons.chevronLeft, size: 20, color: Colors.blueGrey,),
-              onTap: () {
-                MainController.to.back();
-              },
-            ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal:20),
-                child: GestureDetector(
-                  onTap: () {
-                    checkValue();
-
-                    // todo 1. 유효성검증  2. DB  3. 캐시데이터 삭제후, 페이지 이동
-                  },
-                  child: Icon(FontAwesomeIcons.checkCircle, size: 25, color: Colors.blueGrey,),
-                ),
-              ),
-            ],
-          ),
-        ),
+        appBar: _buildAppbar(context),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -51,6 +30,71 @@ class PostWritePage extends StatelessWidget {
             _buildTail()
           ],
         ),
+      ),
+    );
+  }
+
+  PreferredSize _buildAppbar(BuildContext context) {
+    return PreferredSize(
+        preferredSize: Size.fromHeight(MainController.to.appBarState.value.appbarSize),
+        child: AppBar(
+          title: Text("게시글 작성"),
+          elevation: 2.0,
+          backgroundColor: Colors.white,
+          leading: _buildAppbarLeading(context),    // 뒤로가기 아이콘
+          actions: [
+            _buildAppbarActions(context)    // 게시글 등록 아이콘
+          ],
+        ),
+      );
+  }
+
+  GestureDetector _buildAppbarLeading(BuildContext context) {
+    return GestureDetector(
+          child: Icon(FontAwesomeIcons.chevronLeft, size: 20, color: Colors.blueGrey,),
+          onTap: () {
+
+            WaiDialog.showConfirmMessage(
+                context: context,
+                content: "게시글 작성중입니다. 뒤로 가시겠습니까?",
+                confirmOnPress: () {
+                  MainController.to.back();
+                }
+            );
+          },
+        );
+  }
+
+  Widget _buildAppbarActions(BuildContext context) {
+    
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal:20),
+      child: GestureDetector(
+        onTap: () async {
+          PostController.to.writingPost.value.userId = AppController.to.userId.value!;
+          PostController.to.writingPost.value.userKey = AppController.to.userKey.value!;
+
+          // check Value
+          if (checkValue(context: context)) {
+
+            // api request
+            Map<String, dynamic> jsonMap = PostController.to.writingPost.value.toJson();
+            var responseBody = await postRequest("/api/savePost", json.encode(jsonMap));
+            Post post = Post.fromJson(json.decode(responseBody));
+
+            // message
+            WaiDialog.showMessage(
+              context: context,
+              content: "게시글이 등록되었습니다",
+            );
+
+            // todo, posts add
+            // PostController.to.posts.value.insert(0, element);
+            PostController.to.removeWritingPost();
+            MainController.to.back();
+          }
+        },
+        child: Icon(FontAwesomeIcons.checkCircle, size: 25, color: Colors.blueGrey,),
       ),
     );
   }
@@ -137,12 +181,21 @@ class PostWritePage extends StatelessWidget {
     );
   }
 
-  void checkValue() {
+  bool checkValue({required BuildContext context}) {
     if (!PostController.to.writingPost.value.isValidTitle()) {
-      // message출력?
+      WaiDialog.showMessage(
+        context: context,
+        content: "제목을 입력해주세요",
+      );
+      return false;
     } else if (!PostController.to.writingPost.value.isValidContent()) {
-
+      WaiDialog.showMessage(
+        context: context,
+        content: "내용을 입력해주세요",
+      );
+      return false;
     }
 
+    return true;
   }
 }

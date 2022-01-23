@@ -4,6 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:logger/logger.dart';
 import 'package:wai/models/login/login_info.dart';
 import 'package:wai/models/post/post.dart';
 import 'package:wai/models/simply_login_info.dart';
@@ -37,6 +38,8 @@ class AppController extends GetxController{
     // get UserKey, UserId
     userKey.value = await getUserKey();
     userId.value = await getUserId();
+    Logger().d("userKey : " + userKey.value!);
+    Logger().d("userId : " + userId.value! != null ? userId.value : "");
 
     // get UserInfo by DB
 

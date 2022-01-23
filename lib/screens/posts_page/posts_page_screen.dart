@@ -39,18 +39,23 @@ class PostsPageScreen extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
           child: Obx(() =>
-            ListView.separated(
-              separatorBuilder: (BuildContext context, int index) => const SizedBox(height: 5,),
-              itemCount: PostController.to.posts.value.length,
-              itemBuilder: (BuildContext context, int index) {
-                return PostItem(
-                  post: PostController.to.posts.value.elementAt(index),
-                  onTap: () {
-                    MainController.to.setIsPopPage(true);
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => PostPageScreen(postId: dummyPosts.elementAt(index).postId!,)));
-                  }
-                );
-              },
+            Scrollbar(
+              thickness: 8,
+              child: ListView.separated(
+                separatorBuilder: (BuildContext context, int index) => const SizedBox(height: 5,),
+                itemCount: PostController.to.posts.value.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return PostItem(
+                    post: PostController.to.posts.value.elementAt(index),
+                    onTap: () {
+                      MainController.to.setIsPopPage(true);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                          PostPageScreen(postId: PostController.to.posts.value.elementAt(index).postId!))
+                      );
+                    }
+                  );
+                },
+              ),
             ),
           )
         ),

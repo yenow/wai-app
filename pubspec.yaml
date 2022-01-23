@@ -30,7 +30,8 @@ dependencies:
   flutter:
     sdk: flutter
 
-  provider: ^3.0.0+1    # 상태관리
+  #상태관리
+  provider: ^3.0.0+1
   flutter_hooks: ^0.18.0
   hooks_riverpod: ^1.0.3
   get: ^4.6.1

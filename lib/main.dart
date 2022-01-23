@@ -55,7 +55,6 @@ class AutoLoginState2 extends StatelessWidget {
         if (AppController.to.userKey.value == null) {
           return IntroductionSrceen();
         } else {
-          Logger().d("userKey : " + AppController.to.userKey.value!);
           return MainScreens();
         }
       } else {
@@ -93,10 +92,9 @@ class _AutoLoginStateState extends State<AutoLoginState> {
         switch (snapshot.connectionState) {
           /*요청을 기다리는중*/
           case ConnectionState.waiting:
-            return Container(
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ));
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           default:
             if (snapshot.hasError) {    /*에러시*/
               return Text('Error: ${snapshot.error}');
