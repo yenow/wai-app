@@ -8,6 +8,7 @@ import 'package:wai/models/post/post.dart';
 import 'package:wai/screens/posts_page/components/post_item.dart';
 import 'package:wai/screens/posts_page/post_page_screen.dart';
 import 'package:wai/screens/posts_page/post_write_page.dart';
+import 'package:wai/widgets/custom_appbar.dart';
 
 class PostsPageScreen extends StatelessWidget {
   const PostsPageScreen({Key? key}) : super(key: key);
@@ -16,15 +17,27 @@ class PostsPageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      appBar: _buildAppbar(context),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         backgroundColor: Colors.blueGrey,
         onPressed: () {
-          MainController.to.setIsPopPage(true);
+          MainController.to.goIntoPage();
           Navigator.push(context, MaterialPageRoute(builder: (context) => PostWritePage()));
         },
       ),
       body: _buildPosts(),
+    );
+  }
+
+  PreferredSize _buildAppbar(BuildContext context) {
+    return PreferredSize(
+      preferredSize: Size.fromHeight(50),
+      child: CustomAppbar(
+        titleText: "게시글",
+        elevation: 2.0,
+        backgroundColor: Colors.white,
+      ),
     );
   }
 
@@ -48,7 +61,7 @@ class PostsPageScreen extends StatelessWidget {
                   return PostItem(
                     post: PostController.to.posts.value.elementAt(index),
                     onTap: () {
-                      MainController.to.setIsPopPage(true);
+                      MainController.to.goIntoPage();
                       Navigator.push(context, MaterialPageRoute(builder: (context) =>
                           PostPageScreen(postId: PostController.to.posts.value.elementAt(index).postId!))
                       );

@@ -9,6 +9,7 @@ import 'package:wai/models/login/login_info.dart';
 import 'package:wai/models/post/post.dart';
 import 'package:wai/models/simply_login_info.dart';
 import 'package:wai/models/user/user.dart';
+import 'package:wai/utils/app_state.dart';
 
 class AppController extends GetxController{
   static AppController get to => Get.put(AppController());
@@ -18,6 +19,7 @@ class AppController extends GetxController{
   final userKey = Rx<String?>(""); // "".obs;
   final userId = Rx<String?>(""); // "".obs;
   final loginInfo = LoginInfo().obs;
+  final appState = AppState().obs;   // appbar 상태
   /* non-observable variable */
   final _accountNameController = TextEditingController(text: 'flutter_secure_storage_service');
   final storage = new FlutterSecureStorage();
@@ -53,12 +55,20 @@ class AppController extends GetxController{
   }
 
   Future<String?> getUserKey () async {
-    String? userKey = await storage.read(key: "userKey",aOptions: _getAndroidOptions());
+    String? userKey = await storage.read(
+        key: "userKey",
+        iOptions: _getIOSOptions(),
+        aOptions: _getAndroidOptions()
+    );
     return userKey;
   }
 
   Future<String?> getUserId () async {
-    String? userKey = await storage.read(key: "userId",aOptions: _getAndroidOptions());
+    String? userKey = await storage.read(
+        key: "userId",
+        iOptions: _getIOSOptions(),
+        aOptions: _getAndroidOptions()
+    );
     return userKey;
   }
 
@@ -92,7 +102,16 @@ class AppController extends GetxController{
   }
 
   Future<void> removeUserKey () async {
-    await storage.delete(key: "userKey");
+    await storage.delete(
+        key: "userKey",
+        iOptions: _getIOSOptions(),
+        aOptions: _getAndroidOptions()
+    );
+    await storage.delete(
+        key: "userId",
+        iOptions: _getIOSOptions(),
+        aOptions: _getAndroidOptions()
+    );
   }
 
 

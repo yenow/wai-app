@@ -38,35 +38,42 @@ class PostPageScreen extends StatelessWidget {
 
   Scaffold _buildScaffold(BuildContext context) {
     return Scaffold(
-    appBar: PreferredSize(
-      preferredSize: Size.fromHeight(MainController.to.appBarState.value.appbarSize),   // MainController.to.appBarState.value.appbarSize
-      child: AppBar(
-        title: Text("게시글"),
-        elevation: 2.0,
-        backgroundColor: Colors.white,
-        leading: GestureDetector(
-          child: Icon(FontAwesomeIcons.arrowLeft, size: 20, color: Colors.blueGrey,),
-          onTap: () {
-            MainController.to.back();
-          },
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(50),   // MainController.to.appBarState.value.appbarSize
+        child: AppBar(
+          title: Text("게시글"),
+          elevation: 2.0,
+          backgroundColor: Colors.white,
+          leading: GestureDetector(
+            child: Icon(FontAwesomeIcons.arrowLeft, size: 20, color: Colors.blueGrey,),
+            onTap: () {
+              MainController.to.back();
+            },
+          ),
         ),
       ),
-    ),
-    body: Column(
-      children: [
-        _buildBlank(),
-        _title(),
-        _postInfomation(),
-        _horizontalBorderLine(),
-        _content(),
-        /*_buildBlank(),*/
-        _horizontalBorderLine(),
-        _secondPostInfomation(),
-        _horizontalBorderLine(),
-        _buildReplyList(context: context)
-      ],
-    ),
-  );
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView(
+              shrinkWrap: true,
+              children: [
+                _buildBlank(),
+                _title(),
+                _postInfomation(),
+                _horizontalBorderLine(),
+                _content(),
+                _horizontalBorderLine(),
+                _secondPostInfomation(),
+                _horizontalBorderLine(),
+                _buildReplyList(context: context),
+              ]
+            ),
+          ),
+          _buildReplyInputArea()
+        ],
+      )
+    );
   }
 
   SizedBox _buildBlank({double height = 10, double width = 10}) => SizedBox(height: height, width: width);
@@ -141,7 +148,7 @@ class PostPageScreen extends StatelessWidget {
 
   Widget _horizontalBorderLine({double height = 0.5}) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       child: PreferredSize(
           child: Divider(thickness: 0.5, height: height, color: bodyBorderColor),
           preferredSize: const Size.fromHeight(0.5)
@@ -151,16 +158,16 @@ class PostPageScreen extends StatelessWidget {
 
   Widget _buildReplyList({required BuildContext context}) {
 
-    return Expanded(
-      child: ListView.separated(
-        itemCount: 5,
-        itemBuilder: (BuildContext context, int index) {
-          return _buildReply();
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return _horizontalBorderLine();
-        },
-      ),
+    return ListView.separated(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemCount: 5,
+      itemBuilder: (BuildContext context, int index) {
+        return _buildReply();
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return _horizontalBorderLine();
+      },
     );
   }
 
@@ -208,6 +215,61 @@ class PostPageScreen extends StatelessWidget {
         alignment: Alignment.topLeft,
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         child: Text("댓글입니다.", style: CustomTextStyles.buildTextStyle(fontSize: 16, color: Colors.black54),)
+    );
+  }
+
+
+  Widget _buildReplyInputArea() {
+    return Container(
+      height: 90,
+      decoration: BoxDecoration(
+          // color: Colors.grey.shade200,
+        border: BorderDirectional(
+          top: BorderSide(width: 2, color: Colors.grey.shade400)
+        )
+      ),
+      child: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Icon(FontAwesomeIcons.commentDots, size: 20, color: Colors.grey),
+          ),
+          Expanded(child: _buildReplyInput()),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Icon(FontAwesomeIcons.reply, size: 20, color: Colors.grey),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildReplyInput() {
+
+    return GestureDetector(
+
+      child: TextField(
+          cursorColor: Colors.grey,
+          maxLength: 4000,
+          maxLines: 100,
+          style: CustomTextStyles.buildTextStyle(fontSize: 18, color: Colors.grey),
+          decoration: InputDecoration(
+            labelText: "댓글을 입력해주세요.",
+            labelStyle: CustomTextStyles.buildTextStyle(fontSize: 18, color: Colors.grey),
+            floatingLabelBehavior: FloatingLabelBehavior.never,
+            fillColor: Colors.white,
+            filled: true,
+            enabledBorder: const UnderlineInputBorder (
+              borderSide: BorderSide(width: 0.5, color: Colors.grey),
+            ),
+            focusedBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(width: 0.5, color: Colors.grey),
+            ),
+            counterText:'',
+            // prefixIcon: prefixIcon,
+            // focusColor: Colors.grey,
+          )
+      ),
     );
   }
 }

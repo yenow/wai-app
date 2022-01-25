@@ -36,7 +36,7 @@ class PostWritePage extends StatelessWidget {
 
   PreferredSize _buildAppbar(BuildContext context) {
     return PreferredSize(
-        preferredSize: Size.fromHeight(MainController.to.appBarState.value.appbarSize),
+        preferredSize: Size.fromHeight(50),
         child: AppBar(
           title: Text("게시글 작성"),
           elevation: 2.0,

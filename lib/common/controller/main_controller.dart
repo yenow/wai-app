@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:logger/logger.dart';
-import 'package:wai/utils/appbar_state.dart';
+import 'package:wai/utils/app_state.dart';
 
-enum TabItem { homePageScreen, postPageScreen, page3, page4, profilePageScreen }
+enum TabItem { homePageScreen, postPageScreen, enneagramPageScreen, page4, profilePageScreen }
 
 extension ParseToString on TabItem {
   String get name {
@@ -21,25 +21,25 @@ class MainController extends GetxController{
   /* observable variable */
   final currentTabIndex = 0.obs;   // 현재 페이지 인덱스
   // final isPageOpen = { PageItem.postPage : false, PageItem.postWritePage : false }.obs;
-  final appBarState = AppbarState(appbarSize: 260, appbarTitle: 'WAI').obs;   // appbar 상태
+  final pageDeptCount = 0.obs;
 
   /* non-observable variable */
   final pageKeys = [TabItem.homePageScreen.name,
     TabItem.postPageScreen.name,
-    TabItem.page3.name,
+    TabItem.enneagramPageScreen.name,
     TabItem.page4.name,
     TabItem.profilePageScreen.name
   ];
   final Map<String, GlobalKey<NavigatorState>> navigatorKeys = {
       TabItem.homePageScreen.name: GlobalKey<NavigatorState>(),
       TabItem.postPageScreen.name: GlobalKey<NavigatorState>(),
-      TabItem.page3.name: GlobalKey<NavigatorState>(),
+      TabItem.enneagramPageScreen.name: GlobalKey<NavigatorState>(),
       TabItem.page4.name: GlobalKey<NavigatorState>(),
       TabItem.profilePageScreen.name: GlobalKey<NavigatorState>(),
   };
 
   Future<bool> onWillPop() async {
-    setIsPopPage(false);
+    goOutOfPage();
 
     switch (currentTabIndex.value) {
       case 0 :
@@ -65,22 +65,11 @@ class MainController extends GetxController{
     currentTabIndex.value = nextTabIndex;
   }
 
-  void setIsPopPage(bool bool) {
-    appBarState.update((val) {
-      val!.isPopPage = bool;
-    });
+  void goIntoPage() {
+    pageDeptCount.value++;
   }
 
-  /* Appbar바 변경 */
-  void changeAppbar({required double height, required bool isBackgroundImage}) {
-
-    appBarState.update((val) {
-      val!.appbarSize = height;
-      val!.isBackgroundImage = isBackgroundImage;
-    });
-  }
-
-  void test() {
-    print(navigatorKeys[TabItem.postPageScreen.name]!.currentState!.canPop());
+  void goOutOfPage() {
+    pageDeptCount.value--;
   }
 }

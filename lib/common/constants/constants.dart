@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 
 const String apiUrl = "http://10.0.2.2:8080";
 
+/* colors */
+const Color babyBlueShade100 = Color.fromRGBO(137, 207, 240, 1);
+const Color babyBlueShade60 = Color.fromRGBO(137, 207, 240, 0.6);
+const Color babyBlueShade30 = Color.fromRGBO(137, 207, 240, 0.3);
 
-
-
+const Color appbarTitleColor = Colors.blueGrey;
 
 
 

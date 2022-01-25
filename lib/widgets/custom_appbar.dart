@@ -10,23 +10,21 @@ import 'package:wai/common/theme/custom_textstyles.dart';
 class CustomAppbar extends StatelessWidget {
 
   final titleText;
-  final isLeading;
   final leading;
-  final isPopPage;
-  final isBackgroundImage;
   final backgroundImage;
   final isBottom;
   final Bottom;
+  final backgroundColor;
+  final elevation;
 
   CustomAppbar({
     this.titleText,
-    this.isLeading = true,
-    this.isBackgroundImage = false,
-    this.backgroundImage,
+    this.backgroundImage = null,
     this.isBottom = false,
+    this.backgroundColor = Colors.transparent,
     this.Bottom,
-    this.leading,
-    this.isPopPage = false,
+    this.leading = null,
+    this.elevation = 0.0
   });
 
   @override
@@ -34,10 +32,10 @@ class CustomAppbar extends StatelessWidget {
 
     return AppBar(
       title : titleText == null ? const Text('WAI') : Text(titleText),
-      elevation: 2.0,
-      leading: isPopPage ? _pagePopIcon(context) : isLeading ? _getLeading(context: context) : null,
-      backgroundColor: isBackgroundImage ? null : Colors.white,
-      flexibleSpace: isBackgroundImage ? backgroundImage : null,
+      elevation: elevation, // 2.0
+      leading: leading,
+      backgroundColor: backgroundColor,
+      flexibleSpace: backgroundImage,
       actions: [],
     );
   }

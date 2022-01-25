@@ -34,7 +34,7 @@ class WaiUI extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: AutoLoginState2()/*IntroductionSrceen()*/ /*: MainScreens()*/,
       getPages: [
-        /*GetPage(name : '/PostPageScreen', page: () => PostPage())*/
+        // GetPage(name : '/PostPageScreen', page: () => PostPage())
       ],
       theme: theme(),
     );
@@ -43,9 +43,6 @@ class WaiUI extends StatelessWidget {
 
 class AutoLoginState2 extends StatelessWidget {
   AutoLoginState2({Key? key}) : super(key: key);
-
-  // Create storage
-  final storage = new FlutterSecureStorage();
 
   @override
   Widget build(BuildContext context) {

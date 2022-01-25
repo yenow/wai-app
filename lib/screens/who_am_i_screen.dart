@@ -210,7 +210,7 @@ class WhoAmIScreen extends StatelessWidget {
         EnneagramTestRequestDto enneagramTest = EnneagramTestRequestDto(
           userId: int.parse(AppController.to.userId.value!),
           testType: TestType.select,
-          selectedEnneagramType: enneagramType,
+          myEnneagramType: enneagramType,
         );
 
         // api request

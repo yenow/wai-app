@@ -126,8 +126,8 @@ class IntroductionSrceen extends StatelessWidget {
           AppController.to.writeUserKey(userKey);
 
           // save DB
-          Map data = { "userKey" : userKey };
-          var responseBody = await postRequest("/api/saveUserKey",json.encode(data));
+          // Map data = { "userKey" : userKey };
+          var responseBody = await postRequest("/api/saveUserKey",userKey);
           int userId = json.decode(responseBody);
 
           // save userId

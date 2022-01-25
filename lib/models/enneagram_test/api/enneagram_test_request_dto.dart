@@ -12,7 +12,7 @@ class EnneagramTestRequestDto {
   int? testId;
   int userId;
   TestType testType;
-  int? selectedEnneagramType;
+  int? myEnneagramType;
   int? type1Score;
   int? type2Score;
   int? type3Score;
@@ -27,7 +27,7 @@ class EnneagramTestRequestDto {
       this.testId,
       required this.userId,
       required this.testType,
-      this.selectedEnneagramType,
+      this.myEnneagramType,
       this.type1Score,
       this.type2Score,
       this.type3Score,
@@ -42,7 +42,7 @@ class EnneagramTestRequestDto {
     'testId': testId,
     'userId': userId,
     'testType': testType.name,
-    'selectedEnneagramType': selectedEnneagramType,
+    'myEnneagramType': myEnneagramType,
     'type1Score': type1Score,
     'type2Score': type2Score,
     'type3Score': type3Score,
