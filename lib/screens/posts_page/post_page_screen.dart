@@ -45,7 +45,7 @@ class PostPageScreen extends StatelessWidget {
           elevation: 2.0,
           backgroundColor: Colors.white,
           leading: GestureDetector(
-            child: Icon(FontAwesomeIcons.arrowLeft, size: 20, color: Colors.blueGrey,),
+            child: Icon(Icons.arrow_back_ios_outlined, size: 20, color: Colors.blueGrey,),
             onTap: () {
               MainController.to.back();
             },

@@ -5,11 +5,14 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:logger/logger.dart';
+import 'package:wai/common/controller/enneagram_test_controller.dart';
 import 'package:wai/models/login/login_info.dart';
 import 'package:wai/models/post/post.dart';
 import 'package:wai/models/simply_login_info.dart';
 import 'package:wai/models/user/user.dart';
 import 'package:wai/utils/app_state.dart';
+
+import 'enneagram_controller.dart';
 
 class AppController extends GetxController{
   static AppController get to => Get.put(AppController());
@@ -24,11 +27,11 @@ class AppController extends GetxController{
   final _accountNameController = TextEditingController(text: 'flutter_secure_storage_service');
   final storage = new FlutterSecureStorage();
 
-  @override
-  void onInit() {
-    initialize();
-    super.onInit();
-  }
+  // @override
+  // void onInit() {
+  //   initialize();
+  //   super.onInit();
+  // }
 
   /*@override
   void onClose() {
@@ -36,7 +39,14 @@ class AppController extends GetxController{
     super.onClose();
   }*/
 
-  Future<void> initialize() async {
+  Future<bool> initAppState() async {
+    initUserKeyAndUserId();
+    await EnneagramController.to.initEnneagramInfomation();
+    //await EnneagramController.to.initEnneagramExplainInfomation();
+    return true;
+  }
+
+  Future<void> initUserKeyAndUserId() async {
     // get UserKey, UserId
     userKey.value = await getUserKey();
     userId.value = await getUserId();

@@ -45,9 +45,9 @@ class MainController extends GetxController{
       case 0 :
         return true;
       case 1:
-        return !await navigatorKeys[TabItem.postPageScreen.name]!.currentState!.maybePop();   // page를 빠져나가면 true를 반환, 아니면 false
+        return !await navigatorKeys[TabItem.postPageScreen.name]!.currentState!.maybePop();
       case 2 :
-        return true;
+        return !await navigatorKeys[TabItem.enneagramPageScreen.name]!.currentState!.maybePop();
       case 3 :
         return true;
       case 4 :
@@ -65,7 +65,7 @@ class MainController extends GetxController{
     currentTabIndex.value = nextTabIndex;
   }
 
-  void goIntoPage() {
+  void goIntoPage({Widget? page}) {
     pageDeptCount.value++;
   }
 

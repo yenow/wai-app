@@ -32,7 +32,7 @@ class WaiUI extends StatelessWidget {
     return GetMaterialApp(    // CupertinoApp, GetMaterialApp
       title: 'wai_ui',
       debugShowCheckedModeBanner: false,
-      home: AutoLoginState2()/*IntroductionSrceen()*/ /*: MainScreens()*/,
+      home: AutoLoginState3()/*IntroductionSrceen()*/ /*: MainScreens()*/,
       getPages: [
         // GetPage(name : '/PostPageScreen', page: () => PostPage())
       ],
@@ -55,8 +55,34 @@ class AutoLoginState2 extends StatelessWidget {
           return MainScreens();
         }
       } else {
-        return Center(child: Text('Initializing...'));
+        return const CircularProgressIndicator();
       }
+    });
+  }
+}
+
+class AutoLoginState3 extends StatelessWidget {
+  AutoLoginState3({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<bool>(
+      future: AppController.to.initAppState(),
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+        /*요청을 기다리는중*/
+          case ConnectionState.waiting:
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          default:
+            if (snapshot.hasError) {    /*에러시*/
+              return Text('Error: ${snapshot.error}');
+            } else {
+              Logger().d("userKey : $snapshot.data");
+              return AppController.to.userKey.value == null ? IntroductionSrceen() : MainScreens();
+            }
+        }
     });
   }
 }

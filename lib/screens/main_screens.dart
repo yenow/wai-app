@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:logger/logger.dart';
 import 'package:wai/common/controller/app_controller.dart';
 import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/screens/home_page/home_page_screen.dart';
@@ -51,6 +52,7 @@ class MainScreens extends GetView<MainController> {
 
   BottomNavigationBar? _buildBottomNavigationBar() {
 
+    // Logger().d(MainController.to.pageDeptCount.value);
     if (MainController.to.pageDeptCount.value > 0) {
       return null;
     }

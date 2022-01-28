@@ -4,7 +4,8 @@ class EnneagramTestResponseDto {
   int? testId;
   int userId;
   TestType? testType;
-  int? selectedEnneagramType;
+  int? myEnneagramType;
+  int? myWingType;
   int? type1Score;
   int? type2Score;
   int? type3Score;
@@ -19,7 +20,8 @@ class EnneagramTestResponseDto {
       this.testId,
       required this.userId,
       this.testType,
-      this.selectedEnneagramType,
+      this.myEnneagramType,
+      this.myWingType,
       this.type1Score,
       this.type2Score,
       this.type3Score,
@@ -35,7 +37,8 @@ class EnneagramTestResponseDto {
       testId: json['testId'],
       userId: json['userId'],
       /*testType: json['testType'],*/
-      selectedEnneagramType: json['selectedEnneagramType'],
+      myEnneagramType: json['myEnneagramType'],
+      myWingType: json['myWingType'],
       type1Score: json['type1Score'],
       type2Score: json['type2Score'],
       type3Score: json['type3Score'],

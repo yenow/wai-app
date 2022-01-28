@@ -3,7 +3,10 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:wai/models/enneagram/enneagram.dart';
 import 'package:wai/models/enneagram_test/enneagram_question.dart';
+
+import 'enneagram_controller.dart';
 
 class EnneagramTestController extends GetxController {
   static EnneagramTestController get to => Get.put(EnneagramTestController());
@@ -11,6 +14,8 @@ class EnneagramTestController extends GetxController {
   /* observable variable */
   final enneagramQuestionList = [].obs;
   final enneagramPageList = [].obs;
+  final selectedEnneagramType = 0.obs;
+  final nextButtonText = "건너뛰기".obs;
   /* non-observable variable */
   final questionCount = 9;
 
@@ -71,4 +76,9 @@ class EnneagramTestController extends GetxController {
     return flag;
   }
 
+  /* final selectedEnneagramType = 0.obs; */
+  void selectEnneagramType({required int enneagramType}) {
+    selectedEnneagramType.value = enneagramType;
+    nextButtonText.value = EnneagramController.to.enneagram![enneagramType]!.getFullName() + '으로 시작하기';
+  }
 }

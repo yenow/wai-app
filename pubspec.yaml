@@ -95,7 +95,6 @@ flutter:
     - assets/images/enneagram/
     - assets/images/logo/
     - assets/images/background/
-    - assets/videos/
 
   # assets:
   #   - images/a_dot_burr.jpeg
