@@ -17,7 +17,7 @@ class BlockText extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.all(0),
-        child: Text(text, style: CustomTextStyles.blockTextStyle(), maxLines: 1, overflow: TextOverflow.clip,),
+        child: Text(text, style: CustomTextStyles.blockTextStyle(), maxLines: 1, overflow: TextOverflow.clip, textAlign: TextAlign.left,),
       ),
     );
   }

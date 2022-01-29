@@ -37,7 +37,6 @@ class MainScreens extends GetView<MainController> {
               _buildOffstageNavigator(context,1),
               _buildOffstageNavigator(context,2),
               _buildOffstageNavigator(context,3),
-              _buildOffstageNavigator(context,4),
               /*HomePageScreen(),
               PostsPageScreen(),
               WritePageScreen(),
@@ -78,10 +77,6 @@ class MainScreens extends GetView<MainController> {
               icon: Icon(CupertinoIcons.book),    //  CupertinoIcons.book
             ),
             BottomNavigationBarItem(
-              label: '검색',
-              icon: Icon(CupertinoIcons.search),
-            ),
-            BottomNavigationBarItem(
               label: '프로필',
               icon: Icon(Icons.account_circle_outlined)
             )
@@ -97,7 +92,6 @@ class MainScreens extends GetView<MainController> {
         HomePageScreen(),
         PostsPageScreen(),
         EnneagramPageScreen(),
-        SearchPageScreen(),
         ProfilePageScreen(),
       ].elementAt(index);
   }

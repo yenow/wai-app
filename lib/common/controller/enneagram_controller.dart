@@ -21,38 +21,24 @@ class EnneagramController extends GetxController{
   Map<int, Enneagram>? enneagram = {};
   Map<int, EnneagramExplain>? enneagramExplain = {};
 
-
-  // @override
-  // void onInit() {
-  //   initEnneagramInfomation();
-  //   super.onInit();
-  //   // initEnneagramExplainInfomation();
-  // }
-
   Future<void> initEnneagramInfomation() async {
     
     var response = await getRequest("/api/getEnneagramInfomation");
-    // Logger().d(response);
     List list = json.decode(response as String);
     list.forEach((element) {
       Enneagram temp = Enneagram.fromJson(element);
       enneagram![temp.enneagramType] = temp;
     });
-
-    Logger().d(enneagram);
   }
 
   Future<void> initEnneagramExplainInfomation() async {
 
     var response = await getRequest("/api/getEnneagramExplainInfomation");
-    // Logger().d(response);
     List list = json.decode(response as String);
     list.forEach((element) {
       EnneagramExplain temp = EnneagramExplain.fromJson(element);
       enneagramExplain![temp.enneagramType] = temp;
     });
-
-    Logger().d(enneagramExplain);
   }
 
   void tabChange(int buttonIndex) {

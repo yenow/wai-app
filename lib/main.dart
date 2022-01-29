@@ -32,7 +32,7 @@ class WaiUI extends StatelessWidget {
     return GetMaterialApp(    // CupertinoApp, GetMaterialApp
       title: 'wai_ui',
       debugShowCheckedModeBanner: false,
-      home: AutoLoginState3()/*IntroductionSrceen()*/ /*: MainScreens()*/,
+      home: AutoLoginState(),
       getPages: [
         // GetPage(name : '/PostPageScreen', page: () => PostPage())
       ],
@@ -41,28 +41,8 @@ class WaiUI extends StatelessWidget {
   }
 }
 
-class AutoLoginState2 extends StatelessWidget {
-  AutoLoginState2({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Obx(() {
-      if (AppController.to.initialized) {
-
-        if (AppController.to.userKey.value == null) {
-          return IntroductionSrceen();
-        } else {
-          return MainScreens();
-        }
-      } else {
-        return const CircularProgressIndicator();
-      }
-    });
-  }
-}
-
-class AutoLoginState3 extends StatelessWidget {
-  AutoLoginState3({Key? key}) : super(key: key);
+class AutoLoginState extends StatelessWidget {
+  AutoLoginState({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -72,8 +52,8 @@ class AutoLoginState3 extends StatelessWidget {
         switch (snapshot.connectionState) {
         /*요청을 기다리는중*/
           case ConnectionState.waiting:
-            return const Center(
-              child: CircularProgressIndicator(),
+            return Scaffold(
+                body: const CircularProgressIndicator()
             );
           default:
             if (snapshot.hasError) {    /*에러시*/
@@ -87,56 +67,77 @@ class AutoLoginState3 extends StatelessWidget {
   }
 }
 
-
-class AutoLoginState extends StatefulWidget {
-  const AutoLoginState({Key? key}) : super(key: key);
-
-  @override
-  _AutoLoginStateState createState() => _AutoLoginStateState();
-}
-
-class _AutoLoginStateState extends State<AutoLoginState> {
-  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-  late Future<String?> userKey;
-
-  @override
-  void initState() {
-    userKey = _prefs.then((SharedPreferences prefs) {
-      return prefs.getString('userKey');
-    });
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<String?>(
-      future: userKey,
-      builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
-        switch (snapshot.connectionState) {
-          /*요청을 기다리는중*/
-          case ConnectionState.waiting:
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          default:
-            if (snapshot.hasError) {    /*에러시*/
-              return Text('Error: ${snapshot.error}');
-            } else {
-              Logger().d("userKey : $snapshot.data");
-              return snapshot.data == null ? IntroductionSrceen() : MainScreens();
-            }
-        }
-    });
-  }
-}
-
-Future<String?> getUserKey () async {
-  final prefs = await SharedPreferences.getInstance();
-  final String? counter = prefs.getString("userKey");
-  Logger().d(counter);
-  return counter;
-}
-
-
-
-
+//
+// class AutoLoginState extends StatefulWidget {
+//   const AutoLoginState({Key? key}) : super(key: key);
+//
+//   @override
+//   _AutoLoginStateState createState() => _AutoLoginStateState();
+// }
+//
+// class _AutoLoginStateState extends State<AutoLoginState> {
+//   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+//   late Future<String?> userKey;
+//
+//   @override
+//   void initState() {
+//     userKey = _prefs.then((SharedPreferences prefs) {
+//       return prefs.getString('userKey');
+//     });
+//     super.initState();
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return FutureBuilder<String?>(
+//       future: userKey,
+//       builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
+//         switch (snapshot.connectionState) {
+//           /*요청을 기다리는중*/
+//           case ConnectionState.waiting:
+//             return const Center(
+//               child: CircularProgressIndicator(),
+//             );
+//           default:
+//             if (snapshot.hasError) {    /*에러시*/
+//               return Text('Error: ${snapshot.error}');
+//             } else {
+//               Logger().d("userKey : $snapshot.data");
+//               return snapshot.data == null ? IntroductionSrceen() : MainScreens();
+//             }
+//         }
+//     });
+//   }
+// }
+//
+// Future<String?> getUserKey () async {
+//   final prefs = await SharedPreferences.getInstance();
+//   final String? counter = prefs.getString("userKey");
+//   Logger().d(counter);
+//   return counter;
+// }
+//
+//
+//
+//
+// class AutoLoginState2 extends StatelessWidget {
+//   AutoLoginState2({Key? key}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Obx(() {
+//       if (AppController.to.initialized) {
+//
+//         if (AppController.to.userKey.value == null) {
+//           return IntroductionSrceen();
+//         } else {
+//           return MainScreens();
+//         }
+//       } else {
+//         return Scaffold(
+//             body: const CircularProgressIndicator()
+//         );
+//       }
+//     });
+//   }
+// }

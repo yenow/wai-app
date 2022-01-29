@@ -68,6 +68,9 @@ dependencies:
   localstore: ^1.2.1
   flutter_secure_storage: ^5.0.2
 
+  #chart
+  fl_chart: ^0.41.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

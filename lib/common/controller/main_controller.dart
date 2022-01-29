@@ -5,7 +5,7 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:logger/logger.dart';
 import 'package:wai/utils/app_state.dart';
 
-enum TabItem { homePageScreen, postPageScreen, enneagramPageScreen, page4, profilePageScreen }
+enum TabItem { homePageScreen, postPageScreen, enneagramPageScreen, profilePageScreen }
 
 extension ParseToString on TabItem {
   String get name {
@@ -24,17 +24,16 @@ class MainController extends GetxController{
   final pageDeptCount = 0.obs;
 
   /* non-observable variable */
-  final pageKeys = [TabItem.homePageScreen.name,
+  final pageKeys = [
+    TabItem.homePageScreen.name,
     TabItem.postPageScreen.name,
     TabItem.enneagramPageScreen.name,
-    TabItem.page4.name,
     TabItem.profilePageScreen.name
   ];
   final Map<String, GlobalKey<NavigatorState>> navigatorKeys = {
       TabItem.homePageScreen.name: GlobalKey<NavigatorState>(),
       TabItem.postPageScreen.name: GlobalKey<NavigatorState>(),
       TabItem.enneagramPageScreen.name: GlobalKey<NavigatorState>(),
-      TabItem.page4.name: GlobalKey<NavigatorState>(),
       TabItem.profilePageScreen.name: GlobalKey<NavigatorState>(),
   };
 
@@ -49,8 +48,6 @@ class MainController extends GetxController{
       case 2 :
         return !await navigatorKeys[TabItem.enneagramPageScreen.name]!.currentState!.maybePop();
       case 3 :
-        return true;
-      case 4 :
         return true;
       default:
         return true;

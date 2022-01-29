@@ -16,7 +16,7 @@ class CustomTextStyles  {
     return GoogleFonts.jua(
         fontSize: fontSize,
         fontWeight: FontWeight.w500,
-        color: color
+        color: color,
     );
   }
 

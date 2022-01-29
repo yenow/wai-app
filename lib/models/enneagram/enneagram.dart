@@ -90,14 +90,14 @@ class EnneagramExplain {
   factory EnneagramExplain.fromJson(Map<String, dynamic> jsonMap) {
     return EnneagramExplain(
       enneagramType: jsonMap['enneagramType'],
-      basicExplains: jsonMap['basicExplains'],
-      merits: jsonMap['merits'],
-      demerits: jsonMap['demerits'],
-      humanRelations: jsonMap['humanRelations'],
-      surroundingEvaluations: jsonMap['surroundingEvaluations'],
-      friendWays: jsonMap['friendWays'],
-      hardWorks: jsonMap['hardWorks'],
-      comfortSentences: jsonMap['comfortSentences'],
+      basicExplains: List<String>.from(jsonMap['basicExplains']),
+      merits: List<String>.from(jsonMap['merits']),
+      demerits: List<String>.from(jsonMap['demerits']),
+      humanRelations: List<String>.from(jsonMap['humanRelations']),
+      surroundingEvaluations: List<String>.from(jsonMap['surroundingEvaluations']),
+      friendWays: List<String>.from(jsonMap['friendWays']),
+      hardWorks: List<String>.from(jsonMap['hardWorks']),
+      comfortSentences: List<String>.from(jsonMap['comfortSentences']),
     );
   }
 

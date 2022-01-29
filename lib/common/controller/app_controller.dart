@@ -42,7 +42,7 @@ class AppController extends GetxController{
   Future<bool> initAppState() async {
     initUserKeyAndUserId();
     await EnneagramController.to.initEnneagramInfomation();
-    //await EnneagramController.to.initEnneagramExplainInfomation();
+    await EnneagramController.to.initEnneagramExplainInfomation();
     return true;
   }
 

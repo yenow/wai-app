@@ -72,10 +72,11 @@ class EnneagramPageScreen extends StatelessWidget {
           height: 180,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("assets/images/background/pink-1311251_1920.jpg"),
+              image: AssetImage("assets/images/background/mesh.png"), // pink-1311251_1920.jpg
+              colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.7), BlendMode.dstATop),
               fit: BoxFit.fill,
             ),
-            gradient: LinearGradient(
+            /*gradient: LinearGradient(
               begin: Alignment.bottomCenter,
               end: Alignment.topCenter,
               stops: [
@@ -88,7 +89,7 @@ class EnneagramPageScreen extends StatelessWidget {
                 babyBlueShade60,
                 babyBlueShade30,
               ]
-            ),
+            ),*/
           ),
         );
   }

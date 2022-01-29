@@ -120,7 +120,7 @@ class EnneagramTypePageScreen extends StatelessWidget {
       child: IndexedStack(
         index: EnneagramController.to.enneagramTypePageIndex.value,
         children: [
-          _buildTabPage(context),
+          _buildTabPage1(context),
           _buildTabPage2(context),
           _buildTabPage3(context),
           _buildTabPage4(context),
@@ -131,7 +131,7 @@ class EnneagramTypePageScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTabPage(BuildContext context) {
+  Widget _buildTabPage1(BuildContext context) {
     return Column(
       children: [
         Container(
@@ -157,9 +157,9 @@ class EnneagramTypePageScreen extends StatelessWidget {
               Text(EnneagramController.to.enneagram![enneagramType]!.getFullName() + "란?", style: CustomTextStyles.headline1()),
               Align(
                 alignment: Alignment.centerLeft,
-                child: BlockText(text: '이상적이고 이상적인 유형')
+                child: BlockText(text: EnneagramController.to.enneagram![enneagramType]!.simpleExplain)
               ),
-              Text("원칙적이고, 목표가 분명하며, 자신을 잘 통제하고, 완벽주의 기질이 있다.", style: CustomTextStyles.bodytext1(),)
+              Text(EnneagramController.to.enneagram![enneagramType]!.simpleExplain2, style: CustomTextStyles.bodytext1(),)
               //_buildSubTitle(),
             ],
           )
@@ -211,7 +211,7 @@ class EnneagramTypePageScreen extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
           color: Colors.white,
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               color: Colors.grey,
               offset: Offset(0.0, 1.0), //(x,y)
@@ -290,6 +290,15 @@ class EnneagramTypePageScreen extends StatelessWidget {
     return Column(
       children: [
         _buildHeadLine1(text: "장점"),
+        ListView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: EnneagramController.to.enneagramExplain![enneagramType]!.merits!.length,
+          itemBuilder: (BuildContext context, int index) {
+
+            return _buildBodyTextList1(text: EnneagramController.to.enneagramExplain![enneagramType]!.merits![index]);
+          }
+        ),
         ListView(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
