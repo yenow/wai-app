@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:wai/common/controller/enneagram_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
+
+import 'black.dart';
+import 'block_text.dart';
 
 class WaiDialog {
 

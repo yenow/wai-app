@@ -21,6 +21,7 @@ class MainController extends GetxController{
 
   /* observable variable */
   final currentTabIndex = 0.obs;   // 현재 페이지 인덱스
+  final isShowEnneagramDialog = false.obs;
   // final isPageOpen = { PageItem.postPage : false, PageItem.postWritePage : false }.obs;
   final pageDeptCount = 0.obs;
 
@@ -45,16 +46,17 @@ class MainController extends GetxController{
 
   Future<bool> onWillPop() async {
     goOutOfPage();
+    print(currentTabIndex.value);
 
     switch (currentTabIndex.value) {
       case 0 :
-        return true;
+        return !await navigatorKeys[TabItem.homePageScreen.name]!.currentState!.maybePop();
       case 1:
         return !await navigatorKeys[TabItem.postPageScreen.name]!.currentState!.maybePop();
       case 2 :
         return !await navigatorKeys[TabItem.enneagramPageScreen.name]!.currentState!.maybePop();
       case 3 :
-        return true;
+        return !await navigatorKeys[TabItem.profilePageScreen.name]!.currentState!.maybePop();
       default:
         return true;
     }
@@ -74,5 +76,9 @@ class MainController extends GetxController{
 
   void goOutOfPage() {
     pageDeptCount.value--;
+  }
+
+  void setIsShowEnneagramDialog(bool bool) {
+    isShowEnneagramDialog.value = bool;
   }
 }

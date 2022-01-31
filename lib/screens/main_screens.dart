@@ -10,13 +10,15 @@ import 'package:wai/screens/home_page/home_page_screen.dart';
 import 'package:wai/screens/posts_page/posts_page_screen.dart';
 import 'package:wai/screens/profile_page/profile_page_screen.dart';
 import 'package:wai/screens/search_page/search_page_screen.dart';
+import 'package:wai/utils/enneagram_dialog.dart';
 import 'package:wai/widgets/wai_dialog.dart';
 import '../main.dart';
 import 'enneagram_page/enneagram_page_screen.dart';
+import 'enneagram_page/enneagram_type_page_screen.dart';
 
-class MainScreens extends GetView<MainController> {
-  MainScreens({Key? key}) : super(key: key);
-
+class MainScreens extends StatelessWidget {
+  MainScreens({Key? key, this.enneagramType}) : super(key: key);
+  int? enneagramType;
 
   @override
   Widget build(BuildContext context) {
@@ -99,10 +101,10 @@ class MainScreens extends GetView<MainController> {
 
   Widget _routeBuilders(BuildContext context, int index) {
       return [
-        HomePageScreen(),
+        HomePageScreen(enneagramType: enneagramType),
         PostsPageScreen(),
         EnneagramPageScreen(),
-        ProfilePageScreen(),
+        ProfilePageScreen(enneagramType: enneagramType),
       ].elementAt(index);
   }
 

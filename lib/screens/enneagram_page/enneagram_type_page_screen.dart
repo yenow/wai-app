@@ -53,6 +53,7 @@ class EnneagramTypePageScreen extends StatelessWidget {
         leading: GestureDetector(
           child: Icon(Icons.arrow_back_ios_outlined, size: 20, color: Colors.blueGrey,),
           onTap: () {
+            MainController.to.goOutOfPage();
             MainController.to.back();
           },
         ),

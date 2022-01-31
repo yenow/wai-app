@@ -198,16 +198,11 @@ class WhoAmIScreen extends StatelessWidget {
               );
 
               // api request
-              var response = await postRequest("/api/enneagramTest", json.encode(enneagramTest.toJson()));
-              Logger().d(json.decode(response));
-              Map responseMap = json.decode(response);
+              var response = await postRequest("/api/saveSelectEnneagramTestResult", json.encode(enneagramTest.toJson()));
+              EnneagramTest responseEnneagramTest = EnneagramTest.fromJson(json.decode(response));
 
-              if (responseMap["success"] == true) {
-                AppController.to.isBuildIntroducePage("N");
-                Get.to(MainScreens());
-              } else {
-                Get.back();
-              }
+              AppController.to.writeIsBuildIntroducePage("N");
+              Get.to(MainScreens(enneagramType: responseEnneagramTest.myEnneagramType));
           })
       ),
     );
@@ -231,44 +226,44 @@ class WhoAmIScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildConfirmButton({required int enneagramType}) {
-    return ElevatedButton(
-      child: Text("확인", style: CustomTextStyles.buildTextStyle(fontSize: 15, color: Colors.white),),
-      style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(Colors.blueGrey)
-      ),
-      onPressed: () async {
+  // Widget _buildConfirmButton({required int enneagramType}) {
+  //   return ElevatedButton(
+  //     child: Text("확인", style: CustomTextStyles.buildTextStyle(fontSize: 15, color: Colors.white),),
+  //     style: ButtonStyle(
+  //         backgroundColor: MaterialStateProperty.all(Colors.blueGrey)
+  //     ),
+  //     onPressed: () async {
+  //
+  //       // create RequestDto
+  //       EnneagramTestRequestDto enneagramTest = EnneagramTestRequestDto(
+  //         userId: AppController.to.userId.value!,
+  //         testType: TestType.select,
+  //         myEnneagramType: enneagramType,
+  //       );
+  //
+  //       // api request
+  //       var response = await postRequest("/api/saveSelectEnneagramTestResult", json.encode(enneagramTest.toJson()));
+  //       EnneagramTest responseEnneagramTest = EnneagramTest.fromJson(json.decode(response));
+  //
+  //       if (responseEnneagramTest.myEnneagramType == enneagramType) {
+  //         Get.to(MainScreens());
+  //         // show dialog
+  //       } else {
+  //         Get.back();
+  //       }
+  //     },
+  //   );
+  // }
 
-        // create RequestDto
-        EnneagramTestRequestDto enneagramTest = EnneagramTestRequestDto(
-          userId: AppController.to.userId.value!,
-          testType: TestType.select,
-          myEnneagramType: enneagramType,
-        );
-
-        // api request
-        var response = await postRequest("/api/saveSelectEnneagramTestResult", json.encode(enneagramTest.toJson()));
-        EnneagramTest responseEnneagramTest = EnneagramTest.fromJson(json.decode(response));
-
-        if (responseEnneagramTest.myEnneagramType == enneagramType) {
-          Get.to(MainScreens());
-          // show dialog
-        } else {
-          Get.back();
-        }
-      },
-    );
-  }
-
-  Widget _buildCancelButton() {
-    return ElevatedButton(
-      child: Text("취소", style: CustomTextStyles.buildTextStyle(fontSize: 15, color: Colors.white),),
-      onPressed: () {
-        Get.back();
-      },
-      style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(Colors.blueGrey)
-      ),
-    );
-  }
+  // Widget _buildCancelButton() {
+  //   return ElevatedButton(
+  //     child: Text("취소", style: CustomTextStyles.buildTextStyle(fontSize: 15, color: Colors.white),),
+  //     onPressed: () {
+  //       Get.back();
+  //     },
+  //     style: ButtonStyle(
+  //         backgroundColor: MaterialStateProperty.all(Colors.blueGrey)
+  //     ),
+  //   );
+  // }
 }

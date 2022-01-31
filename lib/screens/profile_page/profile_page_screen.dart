@@ -1,15 +1,17 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:logger/logger.dart';
-import 'package:wai/common/constants/constants.dart';
 import 'package:wai/common/controller/app_controller.dart';
 import 'package:wai/common/controller/enneagram_controller.dart';
+import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/controller/user_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
+import 'package:wai/screens/enneagram_page/enneagram_type_page_screen.dart';
 import 'package:wai/screens/introduction_screen.dart';
+import 'package:wai/utils/enneagram_dialog.dart';
 import 'package:wai/widgets/black.dart';
 import 'package:wai/widgets/block_text.dart';
 import 'package:wai/widgets/horizontal_border_line.dart';
@@ -17,11 +19,32 @@ import 'package:wai/widgets/horizontal_border_line.dart';
 import '../../main.dart';
 
 class ProfilePageScreen extends StatelessWidget {
-  const ProfilePageScreen({Key? key}) : super(key: key);
+  ProfilePageScreen({Key? key, this.enneagramType}) : super(key: key);
+  int? enneagramType;
 
   @override
   Widget build(BuildContext context) {
     Logger().d("=== build ProfilePage ===");
+
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      if (enneagramType != null && MainController.to.isShowEnneagramDialog.value == false
+          && MainController.to.currentTabIndex.value == TabItem.profilePageScreen.index) {
+        MainController.to.setIsShowEnneagramDialog(true);
+
+        EnneagramDialog.showEnneagramType(
+            context: context,
+            enneagramType: enneagramType!,
+            onPressed: () {
+              MainController.to.goIntoPage();
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) =>
+                      EnneagramTypePageScreen(enneagramType: enneagramType!,)
+                  )
+              );
+            }
+        );
+      }
+    });
 
     return FutureBuilder(
       future: UserController.to.initUserInfo(),
@@ -67,15 +90,32 @@ class ProfilePageScreen extends StatelessWidget {
     return SingleChildScrollView(
         child: Column(
         children: <Widget>[
-          _buildTopBackground(),
+          _buildTopBackground(context: context),
           // _buildMyInfoMation(),
           _buildSetting(),
+          ElevatedButton(
+              child: Text('show enneagramDialog'),
+              onPressed: () {
+                EnneagramDialog.showEnneagramType(
+                    context: context,
+                    enneagramType: 1,
+                    onPressed: () {
+                      MainController.to.goIntoPage();
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) =>
+                            EnneagramTypePageScreen(enneagramType: 1,)
+                          )
+                      );
+                    }
+                );
+              }
+          ),
         ]
       )
     );
   }
 
-  Container _buildTopBackground() {
+  Container _buildTopBackground({required BuildContext context}) {
     return Container(
       // height: 250,
       decoration: BoxDecoration(
@@ -92,11 +132,11 @@ class ProfilePageScreen extends StatelessWidget {
           ),
         ],
       ),
-      child: _buildEnneagramArea(),
+      child: _buildEnneagramArea(context: context),
     );
   }
 
-  Widget _buildEnneagramArea() {
+  Widget _buildEnneagramArea({required BuildContext context}) {
     return Container(
       width: double.infinity,
       // height: 180,
@@ -112,7 +152,14 @@ class ProfilePageScreen extends StatelessWidget {
           _buildMyEnneagramContent(),
           _buildNavigationButton(
               text: EnneagramController.to.enneagram![1]!.getFullName() + " 더 알아보기",
-              onPressed: () {}
+              onPressed: () {
+                MainController.to.goIntoPage();
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) =>
+                        EnneagramTypePageScreen(enneagramType: 1,)
+                    )
+                );
+              }
           ),
           Blank(height: 5),
           _buildNavigationButton(
@@ -276,10 +323,7 @@ class ProfilePageScreen extends StatelessWidget {
               child: Text('userKey delete'),
               onPressed: ()  async {
                 await AppController.to.removeUserKey();
-
-                var string = await AppController.to.getUserKey();
-                Logger().d(string);
-
+                //var string = await AppController.to.getUserKey();
                 Get.off(IntroductionSrceen());
               }
           ),
