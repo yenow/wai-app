@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -19,16 +18,37 @@ class PostWritePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // FocusNode focusNode = FocusNode();
+    // WidgetsBinding.instance!.addPostFrameCallback((_){
+    //   FocusScope.of(context).requestFocus(focusNode);
+    // });
+
+    // return Obx(() =>
+    //     SingleChildScrollView(
+    //         child: Column(
+    //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //           children: [
+    //             _buildInputTitle(),
+    //             _buildInputContent(),
+    //             _buildTail()
+    //           ],
+    //         ),
+    //     ),
+    // );
+
     return Obx(() =>
       Scaffold(
         appBar: _buildAppbar(context),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _buildInputTitle(),
-            _buildInputContent(),
-            _buildTail()
-          ],
+        resizeToAvoidBottomInset : false,
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              _buildInputTitle(),
+              _buildInputContent(),
+              _buildTail()
+            ],
+          ),
         ),
       ),
     );
@@ -100,7 +120,9 @@ class PostWritePage extends StatelessWidget {
   }
 
   Widget _buildInputTitle() {
-    return Container(
+    return SizedBox(
+      width: double.infinity,
+      height: 100,
       child: TextField(
           cursorColor: Colors.grey,
           maxLength: 100,
@@ -132,49 +154,47 @@ class PostWritePage extends StatelessWidget {
     );
   }
 
-  Flexible _buildInputContent() {
-    return Flexible(
-        flex: 7,
-        child: Container(
-          child: TextField(
-            cursorColor: Colors.grey,
-            maxLength: 4000,
-            maxLines: 100,
-            textAlign: TextAlign.justify,
-            style: CustomTextStyles.buildTextStyle(fontSize: 18, color: Colors.grey),
-            controller: TextEditingController(
-                text: PostController.to.writingPost.value.content
-            ),
-            onChanged: (String content) {
-              PostController.to.setWritingPostContent(content);
-            },
-            decoration: InputDecoration(
-              labelText: "이야기를 적어주세요.",
-              labelStyle: CustomTextStyles.buildTextStyle(fontSize: 18, color: Colors.grey),
-              //label: Text("이야기를 적어주세요", style: CustomTextStyles.buildTextStyle(fontSize: 18, color: Colors.grey)),
-              counterText:'',
-              fillColor: Colors.white,
-              filled: true,
-              border: UnderlineInputBorder(
-                borderSide: BorderSide(width: 1, color: Colors.grey),
-              ),
-              enabledBorder: UnderlineInputBorder (
-                borderSide: BorderSide(width: 1, color: Colors.grey),
-              ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(width: 1, color: Colors.grey),
-              ),
-
-            ),
-          ),
+  Widget _buildInputContent() {
+    return SizedBox(
+      height: 400,
+      child: TextField(
+        cursorColor: Colors.grey,
+        maxLength: 4000,
+        maxLines: 100,
+        textAlign: TextAlign.justify,
+        style: CustomTextStyles.buildTextStyle(fontSize: 18, color: Colors.grey),
+        controller: TextEditingController(
+            text: PostController.to.writingPost.value.content
         ),
-      );
+        onChanged: (String content) {
+          PostController.to.setWritingPostContent(content);
+        },
+        decoration: InputDecoration(
+          labelText: "이야기를 적어주세요.",
+          labelStyle: CustomTextStyles.buildTextStyle(fontSize: 18, color: Colors.grey),
+          //label: Text("이야기를 적어주세요", style: CustomTextStyles.buildTextStyle(fontSize: 18, color: Colors.grey)),
+          counterText:'',
+          fillColor: Colors.white,
+          filled: true,
+          border: UnderlineInputBorder(
+            borderSide: BorderSide(width: 1, color: Colors.grey),
+          ),
+          enabledBorder: UnderlineInputBorder (
+            borderSide: BorderSide(width: 1, color: Colors.grey),
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(width: 1, color: Colors.grey),
+          ),
+
+        ),
+      ),
+    );
   }
 
 
-  Flexible _buildTail() {
-    return Flexible(
-      flex: 1,
+  Widget _buildTail() {
+    return SizedBox(
+      height: 50,
       child: Container(
         color: Colors.white10,
       ),

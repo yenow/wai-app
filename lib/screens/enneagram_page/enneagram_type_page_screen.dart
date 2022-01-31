@@ -290,7 +290,7 @@ class EnneagramTypePageScreen extends StatelessWidget {
     return Column(
       children: [
         _buildHeadLine1(text: "장점"),
-        ListView.builder(
+        /*ListView.builder(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
           itemCount: EnneagramController.to.enneagramExplain![enneagramType]!.merits!.length,
@@ -298,7 +298,7 @@ class EnneagramTypePageScreen extends StatelessWidget {
 
             return _buildBodyTextList1(text: EnneagramController.to.enneagramExplain![enneagramType]!.merits![index]);
           }
-        ),
+        ),*/
         ListView(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),

@@ -16,6 +16,7 @@ import 'package:wai/models/user/user.dart';
 import 'package:wai/screens/who_am_i_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:wai/utils/function.dart';
+import 'package:wai/widgets/wai_dialog.dart';
 
 class IntroductionSrceen extends StatelessWidget {
 
@@ -26,12 +27,6 @@ class IntroductionSrceen extends StatelessWidget {
     IntroductionMessage(titleText: "3", subText : "3", imageUrl: ""),
   ];
 
-  final _items2 = [
-    Colors.grey,
-    Colors.grey,
-    Colors.grey,
-    Colors.grey
-  ];
   final _pageController = PageController();
   final _currentPageNotifier = ValueNotifier<int>(0);
 
@@ -63,7 +58,7 @@ class IntroductionSrceen extends StatelessWidget {
               ),
             ),
             /*_buildCircleIndicator(),*/
-            _buildButton(),
+            _buildButton(context),
           ],
         ),
       /*),*/
@@ -108,7 +103,7 @@ class IntroductionSrceen extends StatelessWidget {
     );
   }
 
-  Flexible _buildButton() {
+  Flexible _buildButton(BuildContext context) {
     return Flexible(
       flex: 1,
       child: ElevatedButton(
@@ -120,22 +115,21 @@ class IntroductionSrceen extends StatelessWidget {
         onPressed: () async {
           User user = User();
 
-          // create userKey
+          /* create userKey */
           String userKey = const Uuid().v1();
-          // store security
+          /* store security */
           AppController.to.writeUserKey(userKey);
 
-          // save DB
-          // Map data = { "userKey" : userKey };
+          /* save DB */
           var responseBody = await postRequest("/api/saveUserKey",userKey);
           int userId = json.decode(responseBody);
 
-          // save userId
+          /* save userId */
           user.userId = userId;
           await AppController.to.writeUserId(userId.toString());
-          AppController.to.setLoginInfo(user);
+          // AppController.to.setLoginInfo(user);
 
-          // go WhoAmIScreen
+          /* go WhoAmIScreen*/
           Get.off(WhoAmIScreen());
         },
       )

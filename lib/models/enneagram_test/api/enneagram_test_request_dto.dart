@@ -9,11 +9,12 @@ extension ParseToString on TestType {
 }
 
 class EnneagramTestRequestDto {
-  int? testId;
-  int userId;
+  String? testId;
+  String userId;
   TestType testType;
   int? myEnneagramType;
   int? myWingType;
+  String? uniqueString;
   int? type1Score;
   int? type2Score;
   int? type3Score;
@@ -30,6 +31,7 @@ class EnneagramTestRequestDto {
       required this.testType,
       this.myEnneagramType,
       this.myWingType,
+      this.uniqueString,
       this.type1Score,
       this.type2Score,
       this.type3Score,
@@ -46,6 +48,7 @@ class EnneagramTestRequestDto {
     'testType': testType.name,
     'myEnneagramType': myEnneagramType,
     'myWingType': myWingType,
+    'uniqueString': uniqueString,
     'type1Score': type1Score,
     'type2Score': type2Score,
     'type3Score': type3Score,

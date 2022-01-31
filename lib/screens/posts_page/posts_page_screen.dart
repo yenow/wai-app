@@ -23,7 +23,9 @@ class PostsPageScreen extends StatelessWidget {
         backgroundColor: Colors.blueGrey,
         onPressed: () {
           MainController.to.goIntoPage();
-          Navigator.push(context, MaterialPageRoute(builder: (context) => PostWritePage()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return PostWritePage();
+          }));
         },
       ),
       body: _buildPosts(),

@@ -46,6 +46,7 @@ class AutoLoginState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return FutureBuilder<bool>(
       future: AppController.to.initAppState(),
       builder: (context, snapshot) {
@@ -53,14 +54,15 @@ class AutoLoginState extends StatelessWidget {
         /*요청을 기다리는중*/
           case ConnectionState.waiting:
             return Scaffold(
-                body: const CircularProgressIndicator()
+              body: Center(
+                child: const CircularProgressIndicator()
+              )
             );
           default:
             if (snapshot.hasError) {    /*에러시*/
               return Text('Error: ${snapshot.error}');
             } else {
-              Logger().d("userKey : $snapshot.data");
-              return AppController.to.userKey.value == null ? IntroductionSrceen() : MainScreens();
+              return AppController.to.isBuildIntroducePage.value == "N" ? MainScreens() : IntroductionSrceen();
             }
         }
     });

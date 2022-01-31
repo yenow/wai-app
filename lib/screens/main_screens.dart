@@ -5,10 +5,12 @@ import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:logger/logger.dart';
 import 'package:wai/common/controller/app_controller.dart';
 import 'package:wai/common/controller/main_controller.dart';
+import 'package:wai/common/controller/user_controller.dart';
 import 'package:wai/screens/home_page/home_page_screen.dart';
 import 'package:wai/screens/posts_page/posts_page_screen.dart';
 import 'package:wai/screens/profile_page/profile_page_screen.dart';
 import 'package:wai/screens/search_page/search_page_screen.dart';
+import 'package:wai/widgets/wai_dialog.dart';
 import '../main.dart';
 import 'enneagram_page/enneagram_page_screen.dart';
 
@@ -22,12 +24,19 @@ class MainScreens extends GetView<MainController> {
     deviceHeight = MediaQuery.of(context).size.height;
     widthRatio = (deviceWidth / standardDeviceWidth);
     heightRatio = (deviceHeight / standardDeviceHeight);
+    Logger().d("==== build MainScreens ====");
 
+    return _buildBody(context);
+  }
+
+  Obx _buildBody(BuildContext context) {
     return Obx(() =>
-      WillPopScope(
-        onWillPop: MainController.to.onWillPop,   // 뒤로가기시 이벤트
+    WillPopScope(
+      onWillPop: MainController.to.onWillPop,   // 뒤로가기시 이벤트
+      child: SafeArea(
         child: Scaffold(
           // backgroundColor: MainController.to.appState.value.backgroundColor,
+          resizeToAvoidBottomInset : false,
           backgroundColor:  Colors.transparent,
           bottomNavigationBar: _buildBottomNavigationBar(),
           body: IndexedStack(
@@ -46,7 +55,8 @@ class MainScreens extends GetView<MainController> {
           ),
         ),
       ),
-    );
+    ),
+  );
   }
 
   BottomNavigationBar? _buildBottomNavigationBar() {

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:logger/logger.dart';
+import 'package:wai/common/controller/user_controller.dart';
 import 'package:wai/utils/app_state.dart';
 
 enum TabItem { homePageScreen, postPageScreen, enneagramPageScreen, profilePageScreen }
@@ -36,6 +37,11 @@ class MainController extends GetxController{
       TabItem.enneagramPageScreen.name: GlobalKey<NavigatorState>(),
       TabItem.profilePageScreen.name: GlobalKey<NavigatorState>(),
   };
+
+  Future<bool> initMainPageState() async {
+      await UserController.to.initUserInfo();
+      return true;
+  }
 
   Future<bool> onWillPop() async {
     goOutOfPage();

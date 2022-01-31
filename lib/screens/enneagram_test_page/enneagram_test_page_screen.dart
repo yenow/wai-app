@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
@@ -19,31 +21,39 @@ class EnneagramTestPageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          SizedBox(width:double.infinity, height: 30,),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 5),
-            child: Text(
-              '정밀테스트',
-              style: CustomTextStyles.buildTextStyle(fontSize: 26),
+    return SafeArea(
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(50),   // MainController.to.appBarState.value.appbarSize
+          child: AppBar(
+            title: Text("정밀테스트"),
+            elevation: 2.0,
+            backgroundColor: Colors.white,
+            leading: GestureDetector(
+              child: Icon(Icons.arrow_back_ios_outlined, size: 20, color: Colors.blueGrey,),
+              onTap: () {
+                Get.back();
+              },
             ),
           ),
-          Expanded(
-            child: PageView.builder(
-              itemCount: EnneagramTestController.to.enneagramPageList.value.length,
-              controller: _controller,
-              physics:const NeverScrollableScrollPhysics(),
-              itemBuilder: (BuildContext context, int pageIndex) {
-                Logger().d("pageIndex : $pageIndex");
-                List questionIndexList = EnneagramTestController.to.enneagramPageList.value[pageIndex];
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              child: PageView.builder(
+                itemCount: EnneagramTestController.to.enneagramPageList.value.length,
+                controller: _controller,
+                physics:const NeverScrollableScrollPhysics(),
+                itemBuilder: (BuildContext context, int pageIndex) {
+                  Logger().d("pageIndex : $pageIndex");
+                  List questionIndexList = EnneagramTestController.to.enneagramPageList.value[pageIndex];
 
-                return _buildPage(pageIndex, questionIndexList);
-              }
+                  return _buildPage(pageIndex, questionIndexList);
+                }
+              )
             )
-          )
-        ]
+          ]
+        ),
       ),
     );
   }
@@ -78,14 +88,15 @@ class EnneagramTestPageScreen extends StatelessWidget {
           style: CustomTextStyles.buildTextStyle(),
         ),*/
         Container(
-          margin: EdgeInsets.symmetric(vertical: 5),
-          width: 300,
+          margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+          width: double.infinity,
           height: 5,
           child: ClipRRect(
             borderRadius: BorderRadius.all(Radius.circular(10)),
             child: LinearProgressIndicator(
-              value: 0.4622,
+              value: EnneagramTestController.to.getProgressPercent(),
               backgroundColor: Colors.grey,
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.blueGrey),
             ),
           ),
         ),
@@ -95,43 +106,43 @@ class EnneagramTestPageScreen extends StatelessWidget {
 
   Obx _buildQuestionList(List<dynamic> questionIndexList, int index) {
     return Obx(() =>
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-            padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20.0),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey,
-                    offset: Offset(0.0, 1.0), //(x,y)
-                    blurRadius: 2.0,
-                  ),
-                ]
-            ),
-            child: Column(
-              children: [
-                _buildQuestion(questionIndexList[index]),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5),
-                  child: CustomRadioGroupButton(
-                    groupValue: EnneagramTestController.to.enneagramQuestionList.value[questionIndexList[index]].score,
-                    changeState: (int score) {
-                      EnneagramTestController.to.setScore(questionIndex: questionIndexList[index], score: score);
-                    },
-                  ),
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20.0),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey,
+                  offset: Offset(0.0, 1.0), //(x,y)
+                  blurRadius: 2.0,
                 ),
-              ],
-            ),
+              ]
           ),
-      );
+          child: Column(
+            children: [
+              _buildQuestion(questionIndexList[index]),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 5),
+                child: CustomRadioGroupButton(
+                  groupValue: EnneagramTestController.to.enneagramQuestionList.value[questionIndexList[index]].score,
+                  changeState: (int score) {
+                    EnneagramTestController.to.setScore(questionIndex: questionIndexList[index], score: score);
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+    );
   }
 
   Padding _buildQuestion(int questionIndex) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       child: Text(
-        EnneagramTestController.to.enneagramQuestionList.elementAt(questionIndex).question,
+        EnneagramTestController.to.enneagramQuestionList.elementAt(questionIndex).getFullQuestion(),
         style: GoogleFonts.jua(fontSize: 18, color: Colors.grey.shade800, fontWeight: FontWeight.w500),),
     );
   }

@@ -15,6 +15,7 @@ import 'package:wai/common/controller/enneagram_controller.dart';
 import 'package:wai/common/controller/enneagram_test_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/main.dart';
+import 'package:wai/models/enneagram_test/api/enneagram_test.dart';
 import 'package:wai/models/enneagram_test/enneagram_question.dart';
 import 'package:wai/models/enneagram_test/api/enneagram_test_request_dto.dart';
 import 'package:wai/models/enneagram/enneagram.dart';
@@ -34,16 +35,24 @@ class WhoAmIScreen extends StatelessWidget {
     return Obx(() =>
       SafeArea(
         child: Scaffold(
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(50),   // MainController.to.appBarState.value.appbarSize
+            child: AppBar(
+              title: Text("WHO AM I"),
+              elevation: 2.0,
+              backgroundColor: Colors.white,
+            ),
+          ),
           body: Column(
             children: [
-              /*SizedBox(width:double.infinity, height: 5,),*/
-              _buildText(text: 'WHO AM I', fontSize: 26),
               _buildText(text: '내 에니어그램 성향이 뭔지 알고 있다면, 골라주세요'),
               _buildEnneagramTypeGridView(context),
+              _buildNextButton(),
               _buildText(text: '에니어그램을 처음 해보신다면, 테스트를 진행해주세요.'),
               _buildSimpleTestButton(),
               _buildHardTestButton(),
-              _buildNextButton(),
+              // _buildText(text: '기존 아이디가 있으시다면, 로그인 해주세요.'),
+              // _buildHardTestButton(),
               SizedBox(width:double.infinity, height: 20,),
             ],
           ),
@@ -145,10 +154,12 @@ class WhoAmIScreen extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 40, vertical: 3),
         child: _buildButton(title: "간단테스트", onPressed: () {
-          /* DB 조회 */
-          EnneagramTestController.to.setEnneagramQuestion(dummyEnneagramQuestionList);
-          /*print(EnneagramTestController.to.enneagramQuestionList.value);
-                print(EnneagramTestController.to.enneagramPageList.value);*/
+          // /* DB 조회 */
+          // getRequest("/api/getSimpleEnneagramQuestion");
+          //
+          // EnneagramTestController.to.setEnneagramQuestion(dummyEnneagramQuestionList);
+          // /*print(EnneagramTestController.to.enneagramQuestionList.value);
+          //       print(EnneagramTestController.to.enneagramPageList.value);*/
 
           Get.to(SimpleEnneagramTestPageScreen());
         })
@@ -161,10 +172,11 @@ class WhoAmIScreen extends StatelessWidget {
       flex: 1,
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 40, vertical: 3),
-        child: _buildButton(title: "정밀테스트", onPressed: () {
-          EnneagramTestController.to.setEnneagramQuestion(dummyEnneagramQuestionList);
-          Get.to(EnneagramTestPageScreen());
-        })
+        child: _buildButton(
+          title: "정밀테스트 (20분 소요)",
+          onPressed: () {
+            Get.to(EnneagramTestPageScreen());
+          })
       ),
     );
   }
@@ -180,7 +192,7 @@ class WhoAmIScreen extends StatelessWidget {
             onPressed: () async {
 
               EnneagramTestRequestDto enneagramTest = EnneagramTestRequestDto(
-                userId: int.parse(AppController.to.userId.value!),
+                userId: AppController.to.userId.value!,
                 testType: TestType.select,
                 myEnneagramType: EnneagramTestController.to.selectedEnneagramType.value,
               );
@@ -191,6 +203,7 @@ class WhoAmIScreen extends StatelessWidget {
               Map responseMap = json.decode(response);
 
               if (responseMap["success"] == true) {
+                AppController.to.isBuildIntroducePage("N");
                 Get.to(MainScreens());
               } else {
                 Get.back();
@@ -228,18 +241,18 @@ class WhoAmIScreen extends StatelessWidget {
 
         // create RequestDto
         EnneagramTestRequestDto enneagramTest = EnneagramTestRequestDto(
-          userId: int.parse(AppController.to.userId.value!),
+          userId: AppController.to.userId.value!,
           testType: TestType.select,
           myEnneagramType: enneagramType,
         );
 
         // api request
-        var response = await postRequest("/api/enneagramTest", json.encode(enneagramTest.toJson()));
-        Logger().d(json.decode(response));
-        Map responseMap = json.decode(response);
+        var response = await postRequest("/api/saveSelectEnneagramTestResult", json.encode(enneagramTest.toJson()));
+        EnneagramTest responseEnneagramTest = EnneagramTest.fromJson(json.decode(response));
 
-        if (responseMap["success"] == true) {
+        if (responseEnneagramTest.myEnneagramType == enneagramType) {
           Get.to(MainScreens());
+          // show dialog
         } else {
           Get.back();
         }

@@ -1,8 +1,10 @@
+import 'package:enum_to_string/enum_to_string.dart';
+
 import 'enneagram_test_request_dto.dart';
 
-class EnneagramTestResponseDto {
+class EnneagramTest {
   int? testId;
-  int userId;
+  int? userId;
   TestType? testType;
   int? myEnneagramType;
   int? myWingType;
@@ -16,7 +18,7 @@ class EnneagramTestResponseDto {
   int? type8Score;
   int? type9Score;
 
-  EnneagramTestResponseDto({
+  EnneagramTest({
       this.testId,
       required this.userId,
       this.testType,
@@ -32,11 +34,11 @@ class EnneagramTestResponseDto {
       this.type8Score,
       this.type9Score});
 
-  factory EnneagramTestResponseDto.fromJson(Map<String, dynamic> json) {
-    return EnneagramTestResponseDto(
+  factory EnneagramTest.fromJson(Map<String, dynamic> json) {
+    return EnneagramTest(
       testId: json['testId'],
       userId: json['userId'],
-      /*testType: json['testType'],*/
+      testType: EnumToString.fromString(TestType.values, json['testType'] as String),
       myEnneagramType: json['myEnneagramType'],
       myWingType: json['myWingType'],
       type1Score: json['type1Score'],

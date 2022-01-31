@@ -18,68 +18,23 @@ class AppController extends GetxController{
   static AppController get to => Get.put(AppController());
 
   /* observable variable */
-  final isInitialized = false.obs;
-  final userKey = Rx<String?>(""); // "".obs;
-  final userId = Rx<String?>(""); // "".obs;
-  final loginInfo = LoginInfo().obs;
+  final userKey = Rx<String?>("");
+  final userId = Rx<String?>("");
+  final isBuildIntroducePage = Rx<String?>("");
+  // final loginInfo = LoginInfo().obs;
   final appState = AppState().obs;   // appbar 상태
   /* non-observable variable */
   final _accountNameController = TextEditingController(text: 'flutter_secure_storage_service');
   final storage = new FlutterSecureStorage();
 
-  // @override
-  // void onInit() {
-  //   initialize();
-  //   super.onInit();
-  // }
-
-  /*@override
-  void onClose() {
-    isInitialized.value = false;
-    super.onClose();
-  }*/
-
   Future<bool> initAppState() async {
-    initUserKeyAndUserId();
-    await EnneagramController.to.initEnneagramInfomation();
-    await EnneagramController.to.initEnneagramExplainInfomation();
-    return true;
-  }
-
-  Future<void> initUserKeyAndUserId() async {
-    // get UserKey, UserId
     userKey.value = await getUserKey();
     userId.value = await getUserId();
-    Logger().d("userKey : " + userKey.value!);
-    Logger().d("userId : " + userId.value! != null ? userId.value : "");
-
-    // get UserInfo by DB
-
-
-    // update LoginInfo
-    loginInfo.update((val) {
-      val!.userKey = userKey.value;
-    });
-
-    isInitialized.value = true;
-  }
-
-  Future<String?> getUserKey () async {
-    String? userKey = await storage.read(
-        key: "userKey",
-        iOptions: _getIOSOptions(),
-        aOptions: _getAndroidOptions()
-    );
-    return userKey;
-  }
-
-  Future<String?> getUserId () async {
-    String? userKey = await storage.read(
-        key: "userId",
-        iOptions: _getIOSOptions(),
-        aOptions: _getAndroidOptions()
-    );
-    return userKey;
+    isBuildIntroducePage.value = await getIsBuildIntroducePage();
+    await EnneagramController.to.initEnneagramInfomation();
+    await EnneagramTestController.to.initEnneagramQuestionList();
+    await EnneagramTestController.to.initSimpleEnneagramQuestionList();
+    return true;
   }
 
   IOSOptions _getIOSOptions() => IOSOptions(
@@ -95,10 +50,36 @@ class AppController extends GetxController{
       _accountNameController.text.isEmpty ? null : _accountNameController.text;
 
 
-  void setLoginInfo (User user) {
-    loginInfo.update((val) {
-      val!.userId = user.userId;
-    });
+  // void setLoginInfo (User user) {
+  //   loginInfo.update((val) {
+  //     val!.userId = user.userId;
+  //   });
+  // }
+  Future<String?> getUserKey() async {
+    String? userKey = await storage.read(
+        key: "userKey",
+        iOptions: _getIOSOptions(),
+        aOptions: _getAndroidOptions()
+    );
+    return userKey;
+  }
+
+  Future<String?> getUserId() async {
+    String? userKey = await storage.read(
+        key: "userId",
+        iOptions: _getIOSOptions(),
+        aOptions: _getAndroidOptions()
+    );
+    return userKey;
+  }
+
+  Future<String?> getIsBuildIntroducePage() async {
+    String? isBuildIntroducePage = await storage.read(
+        key: "isBuildIntroducePage",
+        iOptions: _getIOSOptions(),
+        aOptions: _getAndroidOptions()
+    );
+    return isBuildIntroducePage;
   }
 
   Future<void> writeUserKey (String userKey) async {
@@ -111,6 +92,11 @@ class AppController extends GetxController{
     await storage.write(key: "userId", value: userId);
   }
 
+  Future<void> writeIsBuildIntroducePage (String isBuildIntroducePage) async {
+    this.isBuildIntroducePage.value = isBuildIntroducePage;
+    await storage.write(key: "isBuildIntroducePage", value: isBuildIntroducePage);
+  }
+
   Future<void> removeUserKey () async {
     await storage.delete(
         key: "userKey",
@@ -119,6 +105,11 @@ class AppController extends GetxController{
     );
     await storage.delete(
         key: "userId",
+        iOptions: _getIOSOptions(),
+        aOptions: _getAndroidOptions()
+    );
+    await storage.delete(
+        key: "isBuildIntroducePage",
         iOptions: _getIOSOptions(),
         aOptions: _getAndroidOptions()
     );

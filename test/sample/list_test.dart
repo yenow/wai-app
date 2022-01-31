@@ -46,6 +46,9 @@ class Test {
 }
 
 void main() {
+  print(null ?? "Abcdfd");
+  print("123123" ?? "Abcdfd");
+
   Test test = Test();
   test.content = "c";
   test.title = "t";

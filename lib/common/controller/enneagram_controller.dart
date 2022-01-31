@@ -8,6 +8,7 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:wai/models/enneagram/enneagram.dart';
+import 'package:wai/models/enneagram/enneagram_explain.dart';
 import 'package:wai/utils/function.dart';
 
 class EnneagramController extends GetxController{
