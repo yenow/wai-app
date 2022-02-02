@@ -319,7 +319,6 @@ class EnneagramTestPageScreen extends StatelessWidget {
                     Logger().d(enneagramTest);
 
                     AppController.to.writeIsBuildIntroducePage("N");
-                    MainController.to.updateNavigationKeys();
                     MainController.to.isShowEnneagramDialog.value = false;
                     Get.offAll(MainScreens(enneagramType : enneagramTest.myEnneagramType));
                   }

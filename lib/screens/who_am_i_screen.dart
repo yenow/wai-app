@@ -161,7 +161,7 @@ class WhoAmIScreen extends StatelessWidget {
           // /*print(EnneagramTestController.to.enneagramQuestionList.value);
           //       print(EnneagramTestController.to.enneagramPageList.value);*/
 
-          Get.to(SimpleEnneagramTestPageScreen());
+          Get.to(() => SimpleEnneagramTestPageScreen());
         })
       ),
     );
@@ -175,7 +175,7 @@ class WhoAmIScreen extends StatelessWidget {
         child: _buildButton(
           title: "정밀테스트 (20분 소요)",
           onPressed: () {
-            Get.to(EnneagramTestPageScreen());
+            Get.to(() => EnneagramTestPageScreen());
           })
       ),
     );
@@ -188,21 +188,24 @@ class WhoAmIScreen extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 40, vertical: 3),
           child: _buildButton(
             title: EnneagramTestController.to.nextButtonText.value,
-            color: Colors.blueGrey.shade200,
+            color: Colors.blueGrey,
             onPressed: () async {
+              int selectedEnneagramType = EnneagramTestController.to.selectedEnneagramType.value;
 
-              EnneagramTestRequestDto enneagramTest = EnneagramTestRequestDto(
-                userId: AppController.to.userId.value!,
-                testType: TestType.select,
-                myEnneagramType: EnneagramTestController.to.selectedEnneagramType.value,
-              );
+              if (selectedEnneagramType != 0) {
+                EnneagramTestRequestDto enneagramTest = EnneagramTestRequestDto(
+                  userId: AppController.to.userId.value!,
+                  testType: TestType.select,
+                  myEnneagramType: EnneagramTestController.to.selectedEnneagramType.value,
+                );
 
-              // api request
-              var response = await postRequest("/api/saveSelectEnneagramTestResult", json.encode(enneagramTest.toJson()));
-              EnneagramTest responseEnneagramTest = EnneagramTest.fromJson(json.decode(response));
+                // api request
+                var response = await postRequest("/api/saveSelectEnneagramTestResult", json.encode(enneagramTest.toJson()));
+                EnneagramTest responseEnneagramTest = EnneagramTest.fromJson(json.decode(response));
 
-              AppController.to.writeIsBuildIntroducePage("N");
-              Get.to(MainScreens(enneagramType: responseEnneagramTest.myEnneagramType));
+                AppController.to.writeIsBuildIntroducePage("N");
+                Get.offAll(() => MainScreens(enneagramType: responseEnneagramTest.myEnneagramType));
+              }
           })
       ),
     );
@@ -225,45 +228,4 @@ class WhoAmIScreen extends StatelessWidget {
       onPressed: onPressed,
     );
   }
-
-  // Widget _buildConfirmButton({required int enneagramType}) {
-  //   return ElevatedButton(
-  //     child: Text("확인", style: CustomTextStyles.buildTextStyle(fontSize: 15, color: Colors.white),),
-  //     style: ButtonStyle(
-  //         backgroundColor: MaterialStateProperty.all(Colors.blueGrey)
-  //     ),
-  //     onPressed: () async {
-  //
-  //       // create RequestDto
-  //       EnneagramTestRequestDto enneagramTest = EnneagramTestRequestDto(
-  //         userId: AppController.to.userId.value!,
-  //         testType: TestType.select,
-  //         myEnneagramType: enneagramType,
-  //       );
-  //
-  //       // api request
-  //       var response = await postRequest("/api/saveSelectEnneagramTestResult", json.encode(enneagramTest.toJson()));
-  //       EnneagramTest responseEnneagramTest = EnneagramTest.fromJson(json.decode(response));
-  //
-  //       if (responseEnneagramTest.myEnneagramType == enneagramType) {
-  //         Get.to(MainScreens());
-  //         // show dialog
-  //       } else {
-  //         Get.back();
-  //       }
-  //     },
-  //   );
-  // }
-
-  // Widget _buildCancelButton() {
-  //   return ElevatedButton(
-  //     child: Text("취소", style: CustomTextStyles.buildTextStyle(fontSize: 15, color: Colors.white),),
-  //     onPressed: () {
-  //       Get.back();
-  //     },
-  //     style: ButtonStyle(
-  //         backgroundColor: MaterialStateProperty.all(Colors.blueGrey)
-  //     ),
-  //   );
-  // }
 }

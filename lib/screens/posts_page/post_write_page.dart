@@ -11,6 +11,7 @@ import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/models/post/post.dart';
 import 'package:wai/screens/posts_page/post_page_screen.dart';
 import 'package:wai/utils/function.dart';
+import 'package:wai/utils/logger.dart';
 import 'package:wai/widgets/wai_dialog.dart';
 
 class PostWritePage extends StatelessWidget {
@@ -18,6 +19,7 @@ class PostWritePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    loggerNoStack.d("build PostWritePage");
     // FocusNode focusNode = FocusNode();
     // WidgetsBinding.instance!.addPostFrameCallback((_){
     //   FocusScope.of(context).requestFocus(focusNode);
@@ -78,7 +80,7 @@ class PostWritePage extends StatelessWidget {
                 context: context,
                 content: "게시글 작성중입니다. 뒤로 가시겠습니까?",
                 confirmOnPress: () {
-                  MainController.to.back();
+                  Get.back();
                 }
             );
           },
@@ -111,7 +113,7 @@ class PostWritePage extends StatelessWidget {
             // todo, posts add
             // PostController.to.posts.value.insert(0, element);
             PostController.to.removeWritingPost();
-            MainController.to.back();
+            Get.back();
           }
         },
         child: Icon(FontAwesomeIcons.checkCircle, size: 25, color: Colors.blueGrey,),

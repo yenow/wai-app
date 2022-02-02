@@ -43,37 +43,11 @@ class ProfilePageScreen extends StatelessWidget {
             context: context,
             enneagramType: enneagramType!,
             onPressed: () {
-              MainController.to.goIntoPage();
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) =>
-                      EnneagramTypePageScreen(enneagramType: enneagramType!,)
-                  )
-              );
+              Get.to(() => EnneagramTypePageScreen(enneagramType: enneagramType!));
             }
         );
       }
     });
-
-    return FutureBuilder(
-      future: UserController.to.initUserInfo(),
-      builder: (context, snapshot) {
-        switch (snapshot.connectionState) {
-          /*요청을 기다리는중*/
-          case ConnectionState.waiting:
-            return Scaffold(
-                body: Center(
-                    child: const CircularProgressIndicator()
-                )
-            );
-          default:
-            if (snapshot.hasError) {    /*에러시*/
-              return Scaffold(body : Text('Error: ${snapshot.error}'));
-            } else {
-              return _buildScaffold(context);
-            }
-        }
-      }
-    );
 
     return _buildScaffold(context);
   }
@@ -110,12 +84,7 @@ class ProfilePageScreen extends StatelessWidget {
                     context: context,
                     enneagramType: 1,
                     onPressed: () {
-                      MainController.to.goIntoPage();
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) =>
-                            EnneagramTypePageScreen(enneagramType: 1,)
-                          )
-                      );
+                      Get.to(() => EnneagramTypePageScreen(enneagramType: enneagramType!));
                     }
                 );
               }
@@ -165,19 +134,14 @@ class ProfilePageScreen extends StatelessWidget {
           _buildNavigationButton(
               text: EnneagramController.to.enneagram![myEnneagramType]!.getFullName() + " 더 알아보기",
               onPressed: () {
-                MainController.to.goIntoPage();
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) =>
-                        EnneagramTypePageScreen(enneagramType: myEnneagramType,)
-                    )
-                );
+                Get.to(() => EnneagramTypePageScreen(enneagramType: myEnneagramType));
               }
           ),
           Blank(height: 5),
           _buildNavigationButton(
               text: "정밀테스트 하기",
               onPressed: () {
-                Get.to(EnneagramTestPageScreen());
+                Get.to(() => EnneagramTestPageScreen());
               }),
           Blank(height: 5),
         ],
@@ -336,9 +300,16 @@ class ProfilePageScreen extends StatelessWidget {
   }
 
   Widget _buildMyInfoMation() {
-    return Column(
-      children: [
-      ],
+    return Container(
+      width: double.infinity,
+      height: 100,
+      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      color: Colors.grey.shade300,
+      child: Column(
+        children: [
+
+        ],
+      ),
     );
   }
 
@@ -350,6 +321,8 @@ class ProfilePageScreen extends StatelessWidget {
         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         children: [
+          _buildSettingItem(text: "내 정보"),
+          const HorizontalBorderLine(height: 1,),
           _buildSettingItem(text: "앱 설정"),
           const HorizontalBorderLine(height: 1,),
           _buildSettingItem(text: "앱 정보"),

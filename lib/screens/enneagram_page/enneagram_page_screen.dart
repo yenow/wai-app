@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wai/common/constants/constants.dart';
 import 'package:wai/common/constants/custom_colors.dart';
@@ -125,13 +127,14 @@ class EnneagramPageScreen extends StatelessWidget {
           ],
         ),
         onPressed: () {
-          MainController.to.goIntoPage();
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) =>
-              EnneagramTypePageScreen(enneagramType: enneagramType,)
-            )
-          );
+          // MainController.to.goIntoPage();
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (context) =>
+          //     EnneagramTypePageScreen(enneagramType: enneagramType,)
+          //   )
+          // );
+          Get.to(() => EnneagramTypePageScreen(enneagramType: enneagramType));
         },
       ),
     );

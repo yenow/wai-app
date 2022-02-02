@@ -115,7 +115,7 @@ class SimpleLoginPageScreen extends StatelessWidget {
                           LoginResponseDto loginResponseDto = (await fetchLoginResponseDto(c.simpleLoginInfo.value)) as LoginResponseDto;
 
                           if (loginResponseDto.isLoginSuccess) {
-                            Get.to(MainScreens(), transition: Transition.fade);
+                            Get.to(() => MainScreens(), transition: Transition.fade);
                           }
                         }
                     },
@@ -129,7 +129,7 @@ class SimpleLoginPageScreen extends StatelessWidget {
                     textStyle: Theme.of(context).textTheme.loginPageButtonText,
                     buttonText: '로그인 페이지',
                     onPressed: () {
-                      Get.to(LoginPageScreen(), transition: Transition.fade);
+                      Get.to(() => LoginPageScreen(), transition: Transition.fade);
                     },
                   ),
                 ),

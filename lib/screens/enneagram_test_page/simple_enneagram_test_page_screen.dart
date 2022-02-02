@@ -229,7 +229,7 @@ class SimpleEnneagramTestPageScreen extends StatelessWidget {
                 EnneagramTest enneagramTest = EnneagramTest.fromJson(json.decode(response));
 
                 AppController.to.writeIsBuildIntroducePage("N");
-                Get.to(MainScreens(enneagramType : enneagramTest.myEnneagramType));
+                Get.offAll(() => MainScreens(enneagramType : enneagramTest.myEnneagramType));
 
                 // show Dialog enneagramType
               } else {

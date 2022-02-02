@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:wai/common/constants/custom_colors.dart';
 import 'package:wai/common/controller/app_controller.dart';
 import 'package:wai/common/controller/enneagram_controller.dart';
 import 'package:wai/common/controller/enneagram_test_controller.dart';
@@ -47,14 +50,15 @@ class EnneagramTypePageScreen extends StatelessWidget {
     return PreferredSize(
       preferredSize: Size.fromHeight(50),   // MainController.to.appBarState.value.appbarSize
       child: AppBar(
-        title: Text(EnneagramController.to.enneagram![enneagramType]!.getFullName(), style: CustomTextStyles.buildTextStyle(fontSize: 20),),
+        title: Text(EnneagramController.to.enneagram![enneagramType]!.getFullName(), style: CustomTextStyles.buildTextStyle(fontSize: 20, color: Colors.white),),
         /*elevation: 2.0,*/
-        backgroundColor: Colors.white,
+        backgroundColor: lightBlueGrey,
         leading: GestureDetector(
-          child: Icon(Icons.arrow_back_ios_outlined, size: 20, color: Colors.blueGrey,),
+          child: Icon(Icons.arrow_back_ios_outlined, size: 20, color: Colors.white),
           onTap: () {
-            MainController.to.goOutOfPage();
-            MainController.to.back();
+            /*MainController.to.goOutOfPage();
+            MainController.to.back();*/
+            Get.back();
           },
         ),
       ),

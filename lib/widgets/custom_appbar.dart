@@ -59,7 +59,7 @@ class CustomAppbar extends StatelessWidget {
     return GestureDetector(
       child: Icon(FontAwesomeIcons.arrowLeft, size: 20, color: Colors.blueGrey,),
       onTap: () {
-        MainController.to.back();
+
       },
     );
   }

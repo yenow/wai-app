@@ -27,34 +27,46 @@ class MainScreens extends StatelessWidget {
     heightRatio = (deviceHeight / standardDeviceHeight);
     loggerNoStack.d("build MainScreens");
 
+    return FutureBuilder(
+        future: MainController.to.initMainScreens(),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+          /*요청을 기다리는중*/
+            case ConnectionState.waiting:
+              return Scaffold(
+                  body: Center(
+                      child: const CircularProgressIndicator()
+                  )
+              );
+            default:
+              if (snapshot.hasError) {    /*에러시*/
+                return Scaffold(body : Text('Error: ${snapshot.error}'));
+              } else {
+                return _buildBody(context);
+              }
+          }
+        }
+    );
     return _buildBody(context);
   }
 
   Obx _buildBody(BuildContext context) {
     return Obx(() =>
-    WillPopScope(
-      onWillPop: MainController.to.onWillPop,   // 뒤로가기시 이벤트
-      child: SafeArea(
-        child: Scaffold(
-          // backgroundColor: MainController.to.appState.value.backgroundColor,
-          resizeToAvoidBottomInset : false,
-          backgroundColor:  Colors.transparent,
-          bottomNavigationBar: _buildBottomNavigationBar(),
-          body: IndexedStack(
-            index: MainController.to.currentTabIndex.value,
-            children: [
-              _buildOffstageNavigator(context,0),
-              _buildOffstageNavigator(context,1),
-              _buildOffstageNavigator(context,2),
-              _buildOffstageNavigator(context,3),
-              _buildOffstageNavigator(context,4),
-              /*HomePageScreen(),
-              PostsPageScreen(),
-              WritePageScreen(),
-              SearchPageScreen(),
-              ProfilePageScreen(),*/
-            ],
-          ),
+    SafeArea(
+      child: Scaffold(
+        // backgroundColor: MainController.to.appState.value.backgroundColor,
+        resizeToAvoidBottomInset : false,
+        backgroundColor:  Colors.transparent,
+        bottomNavigationBar: _buildBottomNavigationBar(),
+        body: IndexedStack(
+          index: MainController.to.currentTabIndex.value,
+          children: [
+            HomePageScreen(enneagramType: enneagramType),
+            PostsPageScreen(),
+            SearchPageScreen(),
+            EnneagramPageScreen(),
+            ProfilePageScreen(enneagramType: enneagramType),
+          ],
         ),
       ),
     ),
@@ -62,11 +74,6 @@ class MainScreens extends StatelessWidget {
   }
 
   BottomNavigationBar? _buildBottomNavigationBar() {
-
-    // Logger().d(MainController.to.pageDeptCount.value);
-    if (MainController.to.pageDeptCount.value > 0) {
-      return null;
-    }
 
     return BottomNavigationBar(
           currentIndex: MainController.to.currentTabIndex.value,
@@ -101,34 +108,5 @@ class MainScreens extends StatelessWidget {
             MainController.to.setTabIndex(nextTabIndex);
           },
         );
-  }
-
-  Widget _routeBuilders(BuildContext context, int index) {
-      return [
-        HomePageScreen(enneagramType: enneagramType),
-        PostsPageScreen(),
-        SearchPageScreen(),
-        EnneagramPageScreen(),
-        ProfilePageScreen(enneagramType: enneagramType),
-      ].elementAt(index);
-  }
-
-  Widget _buildOffstageNavigator(BuildContext context, int index) {
-
-    /* Offstage로 위젯을 안보이는 상태로 */
-    return Offstage(
-      offstage: MainController.to.currentTabIndex != index,
-      child: Navigator(
-          key: MainController.to.navigatorKeys[MainController.to.pageKeys.elementAt(index)],
-          onGenerateRoute: (routeSettings) {
-          return MaterialPageRoute(
-              builder: (context) {
-                return _routeBuilders(context, index);
-              }
-              // builder: (context) => routeBuilders[routeSettings.name](context),
-          );
-        },
-      ),
-    );
   }
 }

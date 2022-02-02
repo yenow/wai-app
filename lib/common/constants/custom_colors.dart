@@ -15,4 +15,9 @@ const buttonFloatingColor = Color.fromRGBO(100, 100, 100, 1);
 
 
 const skyColor = Color.fromRGBO(228, 251, 255,1);
+const lightGrey = Color.fromRGBO(211, 222, 220, 1);
+const lightBlueGrey = Color.fromRGBO(146, 169, 189,1);
+const lightPink = Color.fromRGBO(255, 239, 239, 1);
+
 const mainAppbarBackgroundColor = Colors.blueGrey;
+

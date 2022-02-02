@@ -1,14 +1,21 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:wai/common/constants/custom_colors.dart';
 import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/controller/post_controller.dart';
+import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/models/post/post.dart';
 import 'package:wai/screens/posts_page/components/post_item.dart';
 import 'package:wai/screens/posts_page/post_page_screen.dart';
 import 'package:wai/screens/posts_page/post_write_page.dart';
 import 'package:wai/widgets/custom_appbar.dart';
+import 'package:wai/widgets/horizontal_border_line.dart';
+
+import 'components/post_item_list_type.dart';
 
 class PostsPageScreen extends StatelessWidget {
   const PostsPageScreen({Key? key}) : super(key: key);
@@ -16,29 +23,71 @@ class PostsPageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
-      appBar: _buildAppbar(context),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        backgroundColor: Colors.blueGrey,
-        onPressed: () {
-          MainController.to.goIntoPage();
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return PostWritePage();
-          }));
-        },
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: _buildAppbar(context),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          backgroundColor: Colors.blueGrey,
+          onPressed: () {
+            Get.to(() => PostWritePage());
+          },
+        ),
+        body: Column(
+          children: [
+            _buildTabBarContainer(),
+            _buildTabBarView(),
+          ],
+        ),
       ),
-      body: _buildPosts(),
     );
   }
 
   PreferredSize _buildAppbar(BuildContext context) {
     return PreferredSize(
       preferredSize: Size.fromHeight(50),
-      child: CustomAppbar(
-        titleText: "게시글",
+      child: AppBar(
+        title: Text("게시글"),
         elevation: 2.0,
         backgroundColor: Colors.white,
+      ),
+    );
+  }
+
+  Container _buildTabBarContainer() {
+    return Container(
+      decoration: const BoxDecoration(
+        border: Border(
+          bottom: BorderSide(width: 0.5, color: Colors.grey),
+        ),
+      ),
+      child: _buildTabBar(),
+    );
+  }
+
+  TabBar _buildTabBar() {
+    return TabBar(
+      indicatorColor: lightBlueGrey,
+      tabs: <Widget>[
+        SizedBox(
+          height: 40,
+          child: Center(child: Text('전체글', style: CustomTextStyles.buildTextStyle(fontSize: 15, color: lightBlueGrey)))
+        ),
+        SizedBox(
+          height: 40,
+          child: Center(child: Text('인기글', style: CustomTextStyles.buildTextStyle(fontSize: 15, color: lightBlueGrey)))
+        ),
+      ],
+    );
+  }
+  Expanded _buildTabBarView() {
+    return Expanded(
+      child: TabBarView(
+        children: [
+          _buildPosts(),
+          _buildPopularPosts()
+        ],
       ),
     );
   }
@@ -52,20 +101,19 @@ class PostsPageScreen extends StatelessWidget {
       child: RefreshIndicator(
         onRefresh: PostController.to.readMoreNewPosts,
         child: Container(
-          padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
+          margin: EdgeInsets.symmetric(horizontal: 5),
           child: Obx(() =>
             Scrollbar(
               thickness: 8,
               child: ListView.separated(
-                separatorBuilder: (BuildContext context, int index) => const SizedBox(height: 5,),
+                separatorBuilder: (BuildContext context, int index) => const HorizontalBorderLine(height: 0.25,),
                 itemCount: PostController.to.posts.value.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return PostItem(
+                  return PostItemListType(
                     post: PostController.to.posts.value.elementAt(index),
                     onTap: () {
-                      MainController.to.goIntoPage();
-                      Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                          PostPageScreen(postId: PostController.to.posts.value.elementAt(index).postId!))
+                      Get.to(() => PostPageScreen(
+                          postId: PostController.to.posts.value.elementAt(index).postId!)
                       );
                     }
                   );
@@ -120,6 +168,12 @@ class PostsPageScreen extends StatelessWidget {
         }
       }
     }
+  }
+
+  Container _buildPopularPosts() {
+    return Container(
+      child: Text("게시글"),
+    );
   }
 }
 

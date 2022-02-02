@@ -20,7 +20,7 @@ class EnneagramTestController extends GetxController {
   final enneagramQuestionList = [].obs;
   final enneagramPageList = [].obs;
   final selectedEnneagramType = 0.obs;
-  final nextButtonText = "건너뛰기".obs;
+  final nextButtonText = "유형을 선택해주세요.".obs;
 
   final simpleEnneagramQuestionList = [].obs;
   final selectSimpleTestMap = {

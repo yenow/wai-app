@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:video_player/video_player.dart';
 import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
@@ -24,12 +26,13 @@ class HomePageScreen extends StatelessWidget {
             context: context,
             enneagramType: enneagramType!,
             onPressed: () {
-              MainController.to.goIntoPage();
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) =>
-                      EnneagramTypePageScreen(enneagramType: enneagramType!,)
-                  )
-              );
+              // MainController.to.goIntoPage();
+              // Navigator.push(context,
+              //     MaterialPageRoute(builder: (context) =>
+              //         EnneagramTypePageScreen(enneagramType: enneagramType!,)
+              //     )
+              // );
+              Get.to(() => EnneagramTypePageScreen(enneagramType: enneagramType!));
             }
         );
       }
@@ -46,14 +49,10 @@ class HomePageScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(50),   // MainController.to.appBarState.value.appbarSize
-          child: CustomAppbar(
-            titleText: "wai",
+          child: AppBar(
+            title: Text("wai"),
             backgroundColor: Colors.transparent,
-            // backgroundImage: const Image(
-            //   image: AssetImage("assets/images/background/trees-4741364_1920.png"),
-            //   fit: BoxFit.fill,
-            // ),
-          ),
+          )
         ),
         body: SingleChildScrollView(
           child: _buildContent(),
