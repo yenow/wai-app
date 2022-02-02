@@ -6,9 +6,9 @@ class BlockText extends StatelessWidget {
   final String text;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, {double fontSize = 14}) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 2,),
+      // margin: const EdgeInsets.symmetric(horizontal: 2,),
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
       decoration: const BoxDecoration(
         shape: BoxShape.rectangle,
@@ -17,7 +17,7 @@ class BlockText extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.all(0),
-        child: Text(text, style: CustomTextStyles.blockTextStyle(), maxLines: 1, overflow: TextOverflow.clip, textAlign: TextAlign.left,),
+        child: Text(text, style: CustomTextStyles.blockTextStyle(fontSize: fontSize), maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.left,),
       ),
     );
   }

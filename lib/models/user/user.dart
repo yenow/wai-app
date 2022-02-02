@@ -1,4 +1,5 @@
 import 'package:wai/models/enneagram/enneagram.dart';
+import 'package:wai/models/enneagram_test/enneagram_test.dart';
 import 'package:wai/models/post/post.dart';
 import 'package:wai/models/reply/reply.dart';
 
@@ -24,7 +25,7 @@ class User {
 
   List<Post>? posts;
   List<Reply>? replys;
-  List<Enneagram>? enneagrams;
+  List<EnneagramTest>? enneagramTests;
 
   User({
     this.userId,
@@ -36,7 +37,7 @@ class User {
     this.birthDay,
     this.gender,
     this.posts,
-    this.enneagrams,
+    this.enneagramTests,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -52,6 +53,15 @@ class User {
       posts = [];
     }
 
+    List<EnneagramTest> enneagramTests;
+    if (json['enneagramTests'] != null) {
+      enneagramTests = List<EnneagramTest>.from(json['enneagramTests'].map((model) {
+        return EnneagramTest.fromJson(model);
+      }));
+    } else {
+      enneagramTests = [];
+    }
+
     return User(
       userId: json['userId'],
       userKey: json['userKey'],
@@ -61,11 +71,12 @@ class User {
       birthDay: json['birthDay'],
       gender: json['gender'],
       posts : posts,
+      enneagramTests: enneagramTests,
     );
   }
 
   @override
   String toString() {
-    return 'User{userId: $userId, userKey: $userKey, password: $password, email: $email, phoneNumber: $phoneNumber, nickname: $nickname, birthDay: $birthDay, gender: $gender, posts: $posts, replys: $replys, enneagrams: $enneagrams}';
+    return 'User{userId: $userId, userKey: $userKey, password: $password, email: $email, phoneNumber: $phoneNumber, nickname: $nickname, birthDay: $birthDay, gender: $gender, posts: $posts, replys: $replys, enneagramTests: $enneagramTests}';
   }
 }

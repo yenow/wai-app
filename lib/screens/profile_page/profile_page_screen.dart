@@ -3,15 +3,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:wai/common/controller/app_controller.dart';
 import 'package:wai/common/controller/enneagram_controller.dart';
 import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/controller/user_controller.dart';
+import 'package:wai/common/controller/user_profile_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
+import 'package:wai/models/enneagram_test/enneagram_test.dart';
 import 'package:wai/screens/enneagram_page/enneagram_type_page_screen.dart';
+import 'package:wai/screens/enneagram_test_page/enneagram_test_page_screen.dart';
 import 'package:wai/screens/introduction_screen.dart';
 import 'package:wai/utils/enneagram_dialog.dart';
+import 'package:wai/utils/logger.dart';
 import 'package:wai/widgets/black.dart';
 import 'package:wai/widgets/block_text.dart';
 import 'package:wai/widgets/horizontal_border_line.dart';
@@ -22,9 +28,11 @@ class ProfilePageScreen extends StatelessWidget {
   ProfilePageScreen({Key? key, this.enneagramType}) : super(key: key);
   int? enneagramType;
 
+  final DateFormat formatter = DateFormat('yyyy-MM-dd');
+
   @override
   Widget build(BuildContext context) {
-    Logger().d("=== build ProfilePage ===");
+    loggerNoStack.d("build ProfilePage");
 
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       if (enneagramType != null && MainController.to.isShowEnneagramDialog.value == false
@@ -70,19 +78,21 @@ class ProfilePageScreen extends StatelessWidget {
     return _buildScaffold(context);
   }
 
-  Scaffold _buildScaffold(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(50),   // MainController.to.appBarState.value.appbarSize
-        child: AppBar(
-          title: Text("프로필"),
-          elevation: 2.0,
-          backgroundColor: Colors.white,
+  Widget _buildScaffold(BuildContext context) {
+    return Obx(() =>
+      Scaffold(
+        backgroundColor: Colors.white,
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(50),   // MainController.to.appBarState.value.appbarSize
+          child: AppBar(
+            title: Text("프로필"),
+            elevation: 2.0,
+            backgroundColor: Colors.white,
+          ),
         ),
+        body: _buildbody(context)
       ),
-      body: _buildbody(context)
-  );
+    );
   }
 
   SingleChildScrollView _buildbody(BuildContext context) {
@@ -137,6 +147,8 @@ class ProfilePageScreen extends StatelessWidget {
   }
 
   Widget _buildEnneagramArea({required BuildContext context}) {
+    int myEnneagramType = UserProfileController.to.currentEnneagram.value.myEnneagramType!;
+
     return Container(
       width: double.infinity,
       // height: 180,
@@ -148,15 +160,15 @@ class ProfilePageScreen extends StatelessWidget {
       child: Column(
         children: [
           _buildMyEnneagramTitle(),
-          Blank(height: 8,),
-          _buildMyEnneagramContent(),
+          // Blank(height: 4,),
+          _buildMyEnneagramContent(myEnneagramType),
           _buildNavigationButton(
-              text: EnneagramController.to.enneagram![1]!.getFullName() + " 더 알아보기",
+              text: EnneagramController.to.enneagram![myEnneagramType]!.getFullName() + " 더 알아보기",
               onPressed: () {
                 MainController.to.goIntoPage();
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) =>
-                        EnneagramTypePageScreen(enneagramType: 1,)
+                        EnneagramTypePageScreen(enneagramType: myEnneagramType,)
                     )
                 );
               }
@@ -165,7 +177,7 @@ class ProfilePageScreen extends StatelessWidget {
           _buildNavigationButton(
               text: "정밀테스트 하기",
               onPressed: () {
-
+                Get.to(EnneagramTestPageScreen());
               }),
           Blank(height: 5),
         ],
@@ -175,101 +187,126 @@ class ProfilePageScreen extends StatelessWidget {
 
   SizedBox _buildMyEnneagramTitle() {
     return SizedBox(
-        height: 30,
-        child: Stack(
+        // height: 55,
+        child: Column(
           children: [
-            _buildEnneagramTestDate(),
+            Blank(height: 5,),
             Align(
                 alignment: Alignment.topCenter,
                 child: Text("나의 에니어그램", style: CustomTextStyles.buildTextStyle(fontSize: 22))
-            )
+            ),
+            Blank(height: 5,),
+            _buildEnneagramTestDate(),
           ],
         )
     );
   }
 
-  Align _buildEnneagramTestDate() {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-        child: Row(
-          children: [
-            Icon(Icons.today_outlined, size: 14, color: Colors.grey),
-            Blank(width: 5,),
-            DropdownButton(
-              value: "2021-01-01",
+  Widget _buildEnneagramTestDate() {
+    final DateFormat formatter = DateFormat('yyyy-MM-dd hh:mm');
+
+    if (UserProfileController.to.currentEnneagram.value.insertDate == null) {
+      return const Blank();
+    }
+
+    List<String> items = [];
+    for (EnneagramTest temp in UserController.to.user.value.enneagramTests!) {
+      items.add(formatter.format(temp.insertDate!));
+    }
+
+    return SizedBox(
+      width: double.infinity,
+      height: 14,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.today_outlined, size: 14, color: Colors.grey),
+          Blank(width: 5,),
+          DropdownButtonHideUnderline(
+            child: DropdownButton(
+              value: formatter.format(UserProfileController.to.currentEnneagram.value.insertDate!),
               style: CustomTextStyles.buildTextStyle(fontSize: 12, color : Colors.grey),
-              items:  <String>['2021-01-01', '2021-01-02', '2021-01-03', '2021-01-04'].map<DropdownMenuItem<String>>((String value) {
+              items: items.map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Text(value),
                 );
               }).toList(),
-              onChanged: (String? value) {
-                print(value);
+              onChanged: (String? insertDate) {
+                UserProfileController.to.updateCurrentEnneagram(insertDate: insertDate!);
+              },
+              onTap: () {
+
               },
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Row _buildMyEnneagramContent(int myEnneagramType) {
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildMyEnneagramTypeImage(myEnneagramType),
+        _buildMyEnneagramExplain(myEnneagramType),
+      ],
+    );
+  }
+
+  Widget _buildMyEnneagramTypeImage(int myEnneagramType) {
+    String subName = EnneagramController.to.enneagram![myEnneagramType]!.subName;
+    
+    return SizedBox(
+      width: 110,
+      child: ElevatedButton(
+        child:  Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image(
+              image: AssetImage(EnneagramController.to.enneagram![myEnneagramType]!.imagePath), width: 60, height: 60,  fit: BoxFit.fill,
+            ),
+            Blank(height: 5),
+            Text("$myEnneagramType유형",
+              style: CustomTextStyles.buildTextStyle(fontSize: 14),
+              textAlign: TextAlign.left,
+            ),
+            Text("[$subName]",
+              style: CustomTextStyles.buildTextStyle(fontSize: 14),
+              textAlign: TextAlign.left,
+            ),
           ],
+        ),
+        onPressed: () {},
+        style: ButtonStyle(
+            shape: MaterialStateProperty.all(CircleBorder()),
+            padding: MaterialStateProperty.all(EdgeInsets.all(10)),
+            backgroundColor: MaterialStateProperty.all(Colors.transparent), // Button
+            shadowColor: MaterialStateProperty.all(Colors.transparent)
         ),
       ),
     );
   }
 
-  Row _buildMyEnneagramContent() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        _buildMyEnneagramTypeImage(),
-        _buildMyEnneagramExplain(),
-      ],
-    );
-  }
-
-  Widget _buildMyEnneagramTypeImage() {
-    return ElevatedButton(
-      child:  Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image(
-            image: AssetImage(EnneagramController.to.enneagram![1]!.imagePath), width: 60, height: 60,  fit: BoxFit.fill,
-          ),
-          Blank(height: 5),
-          Text(EnneagramController.to.enneagram![1]!.getFullName(),
-            style: CustomTextStyles.buildTextStyle(fontSize: 14),
-            textAlign: TextAlign.left,
-          ),
-        ],
-      ),
-      onPressed: () {},
-      style: ButtonStyle(
-          shape: MaterialStateProperty.all(CircleBorder()),
-          padding: MaterialStateProperty.all(EdgeInsets.all(10)),
-          backgroundColor: MaterialStateProperty.all(Colors.transparent), // Button
-          shadowColor: MaterialStateProperty.all(Colors.transparent)
-      ),
-    );
-  }
-
-  Widget _buildMyEnneagramExplain() {
+  Widget _buildMyEnneagramExplain(int myEnneagramType) {
     return Expanded(
       child: Column(
+        mainAxisSize: MainAxisSize.max,
         children: [
+          Blank(height: 15),
           Align(
               alignment: Alignment.centerLeft,
-              child: BlockText(text: EnneagramController.to.enneagram![1]!.simpleExplain,)
+              child: BlockText(text: EnneagramController.to.enneagram![myEnneagramType]!.simpleExplain,)
           ),
-          SizedBox(
-            height: 50,
-            child: Scrollbar(
-              child: ListView(
-                children: [
-                  Text(EnneagramController.to.enneagram![1]!.simpleExplain2,
-                    style: CustomTextStyles.buildTextStyle(fontSize: 16),
-                    textAlign: TextAlign.left,
-                  ),
-                ],
-              ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+            child: Text(EnneagramController.to.enneagram![myEnneagramType]!.simpleExplain2,
+              style: CustomTextStyles.buildTextStyle(fontSize: 16),
+              textAlign: TextAlign.left,
             ),
           ),
         ],

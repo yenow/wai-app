@@ -3,12 +3,12 @@ import 'api/enneagram_test_request_dto.dart';
 
 
 class EnneagramQuestion {
-  num? questionNumber;
+  int? questionNumber;
   String? question;
-  num? enneagramType;
+  int? enneagramType;
   TestType? testType;
   String? uniqueString;
-  num? score;
+  int? score;
 
   EnneagramQuestion(this.questionNumber, this.question, this.enneagramType, this.testType, this.uniqueString, this.score);
 

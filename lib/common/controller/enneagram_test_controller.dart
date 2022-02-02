@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -28,7 +29,7 @@ class EnneagramTestController extends GetxController {
   }.obs;
 
   /* non-observable variable */
-  final questionCount = 15;
+  final questionCount = 5;
 
   /*
   * Description : 정밀테스트 질문리스트 초기화
@@ -80,7 +81,7 @@ class EnneagramTestController extends GetxController {
 
   void setEnneagramPageList() {
 
-    int enneagramQuestionLength = enneagramQuestionList.value.length;
+    int enneagramQuestionLength = enneagramQuestionList.length;
 
     for (int i=0; i < enneagramQuestionLength; i=i+questionCount) {
       List tempList = [];
@@ -112,14 +113,14 @@ class EnneagramTestController extends GetxController {
   }
 
   void setScore({required int questionIndex, required int score}) {
-    enneagramQuestionList.value[questionIndex].score = score;
+    enneagramQuestionList[questionIndex].score = score;
   }
 
   bool checkEnneagramQuestionList() {
 
     bool flag = true;
 
-    for (var element in enneagramQuestionList.value) {
+    for (var element in enneagramQuestionList) {
 
       if (element.score == null) {
         flag = false;
@@ -161,5 +162,37 @@ class EnneagramTestController extends GetxController {
 
   String makeUniqueString() {
     return selectSimpleTestMap.value[1]! + selectSimpleTestMap.value[2]!;
+  }
+
+  bool checkCurrentPageEnneagramQuestionList(int pageIndex) {
+
+    bool flag = true;
+    for (EnneagramQuestion enneagramQuestion in enneagramQuestionList.sublist(pageIndex * questionCount, pageIndex * questionCount + questionCount)) {
+      Logger().d(enneagramQuestion);
+
+      if (enneagramQuestion.score == null) {
+        flag = false;
+        break;
+      }
+    }
+    return flag;
+  }
+
+  void randomInputScore() {
+    for (EnneagramQuestion enneagramQuestion in enneagramQuestionList) {
+
+      enneagramQuestion.score = Random().nextInt(5) + 1;
+    }
+  }
+
+  int getScoreByEneagramType(int enneagramType) {
+    int result = 0;
+    for (EnneagramQuestion enneagramQuestion in enneagramQuestionList) {
+
+      if (enneagramQuestion.enneagramType == enneagramType) {
+        result = result + enneagramQuestion.score!;
+      }
+    }
+    return result;
   }
 }

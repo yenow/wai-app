@@ -13,5 +13,5 @@ class HorizontalBorderLine extends StatelessWidget {
         child: Divider(thickness: 0.5, height: height, color: bodyBorderColor),
         preferredSize: const Size.fromHeight(0.5)
     );
-    }
+  }
 }

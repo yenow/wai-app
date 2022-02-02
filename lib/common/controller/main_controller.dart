@@ -4,9 +4,11 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:logger/logger.dart';
 import 'package:wai/common/controller/user_controller.dart';
+import 'package:wai/sample/add_interactivity.dart';
 import 'package:wai/utils/app_state.dart';
+import 'package:wai/utils/logger.dart';
 
-enum TabItem { homePageScreen, postPageScreen, enneagramPageScreen, profilePageScreen }
+enum TabItem { homePageScreen, postPageScreen, searchPageScreen ,enneagramPageScreen, profilePageScreen }
 
 extension ParseToString on TabItem {
   String get name {
@@ -29,12 +31,14 @@ class MainController extends GetxController{
   final pageKeys = [
     TabItem.homePageScreen.name,
     TabItem.postPageScreen.name,
+    TabItem.searchPageScreen.name,
     TabItem.enneagramPageScreen.name,
     TabItem.profilePageScreen.name
   ];
   final Map<String, GlobalKey<NavigatorState>> navigatorKeys = {
       TabItem.homePageScreen.name: GlobalKey<NavigatorState>(),
       TabItem.postPageScreen.name: GlobalKey<NavigatorState>(),
+      TabItem.searchPageScreen.name: GlobalKey<NavigatorState>(),
       TabItem.enneagramPageScreen.name: GlobalKey<NavigatorState>(),
       TabItem.profilePageScreen.name: GlobalKey<NavigatorState>(),
   };
@@ -46,7 +50,6 @@ class MainController extends GetxController{
 
   Future<bool> onWillPop() async {
     goOutOfPage();
-    print(currentTabIndex.value);
 
     switch (currentTabIndex.value) {
       case 0 :
@@ -56,6 +59,8 @@ class MainController extends GetxController{
       case 2 :
         return !await navigatorKeys[TabItem.enneagramPageScreen.name]!.currentState!.maybePop();
       case 3 :
+        return !await navigatorKeys[TabItem.searchPageScreen.name]!.currentState!.maybePop();
+      case 4 :
         return !await navigatorKeys[TabItem.profilePageScreen.name]!.currentState!.maybePop();
       default:
         return true;
@@ -71,14 +76,24 @@ class MainController extends GetxController{
   }
 
   void goIntoPage({Widget? page}) {
+    loggerNoStack.d("pageDeptCount.value : " + pageDeptCount.value.toString());
     pageDeptCount.value++;
   }
 
   void goOutOfPage() {
+    loggerNoStack.d("pageDeptCount.value : " + pageDeptCount.value.toString());
     pageDeptCount.value--;
   }
 
   void setIsShowEnneagramDialog(bool bool) {
     isShowEnneagramDialog.value = bool;
+  }
+
+  void updateNavigationKeys() {
+    navigatorKeys.update(TabItem.homePageScreen.name, (value) => GlobalKey<NavigatorState>());
+    navigatorKeys.update(TabItem.postPageScreen.name, (value) => GlobalKey<NavigatorState>());
+    navigatorKeys.update(TabItem.searchPageScreen.name, (value) => GlobalKey<NavigatorState>());
+    navigatorKeys.update(TabItem.enneagramPageScreen.name, (value) => GlobalKey<NavigatorState>());
+    navigatorKeys.update(TabItem.profilePageScreen.name, (value) => GlobalKey<NavigatorState>());
   }
 }

@@ -4,9 +4,11 @@ import 'package:logger/logger.dart';
 import 'package:wai/common/constants/constants.dart';
 import 'package:http/http.dart' as http;
 
+import 'logger.dart';
+
 Future<dynamic> postRequest (String url, String jsonString) async {
 
-  Logger().d(apiUrl + url);
+  loggerNoStack.i(apiUrl + url);
 
   final response = await http.post(
       Uri.parse(apiUrl + url),
@@ -26,7 +28,7 @@ Future<dynamic> postRequest (String url, String jsonString) async {
 
 Future<dynamic> getRequest (String url) async {
 
-  Logger().d(apiUrl + url);
+  loggerNoStack.i(apiUrl + url);
 
   final response = await http.get(
       Uri.parse(apiUrl + url),

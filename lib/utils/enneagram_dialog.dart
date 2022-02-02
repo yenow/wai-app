@@ -55,9 +55,9 @@ class EnneagramDialog {
           Image(
             image: AssetImage(EnneagramController.to.enneagram![enneagramType]!.imagePath), width: 130, height: 130,  fit: BoxFit.fill,
           ),
-          Blank(height: 5),
+          Blank(height: 10),
           Text(EnneagramController.to.enneagram![enneagramType]!.getFullName(),
-            style: CustomTextStyles.buildTextStyle(fontSize: 14),
+            style: CustomTextStyles.buildTextStyle(fontSize: 16),
             textAlign: TextAlign.left,
           ),
         ],

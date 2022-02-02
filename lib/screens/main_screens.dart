@@ -10,8 +10,7 @@ import 'package:wai/screens/home_page/home_page_screen.dart';
 import 'package:wai/screens/posts_page/posts_page_screen.dart';
 import 'package:wai/screens/profile_page/profile_page_screen.dart';
 import 'package:wai/screens/search_page/search_page_screen.dart';
-import 'package:wai/utils/enneagram_dialog.dart';
-import 'package:wai/widgets/wai_dialog.dart';
+import 'package:wai/utils/logger.dart';
 import '../main.dart';
 import 'enneagram_page/enneagram_page_screen.dart';
 import 'enneagram_page/enneagram_type_page_screen.dart';
@@ -26,7 +25,7 @@ class MainScreens extends StatelessWidget {
     deviceHeight = MediaQuery.of(context).size.height;
     widthRatio = (deviceWidth / standardDeviceWidth);
     heightRatio = (deviceHeight / standardDeviceHeight);
-    Logger().d("==== build MainScreens ====");
+    loggerNoStack.d("build MainScreens");
 
     return _buildBody(context);
   }
@@ -48,6 +47,7 @@ class MainScreens extends StatelessWidget {
               _buildOffstageNavigator(context,1),
               _buildOffstageNavigator(context,2),
               _buildOffstageNavigator(context,3),
+              _buildOffstageNavigator(context,4),
               /*HomePageScreen(),
               PostsPageScreen(),
               WritePageScreen(),
@@ -85,6 +85,10 @@ class MainScreens extends StatelessWidget {
               icon: Icon(Icons.article_outlined),
             ),
             BottomNavigationBarItem(
+              label: '검색',
+              icon: Icon(Icons.search_outlined),
+            ),
+            BottomNavigationBarItem(
               label: '에니어그램',
               icon: Icon(CupertinoIcons.book),    //  CupertinoIcons.book
             ),
@@ -103,6 +107,7 @@ class MainScreens extends StatelessWidget {
       return [
         HomePageScreen(enneagramType: enneagramType),
         PostsPageScreen(),
+        SearchPageScreen(),
         EnneagramPageScreen(),
         ProfilePageScreen(enneagramType: enneagramType),
       ].elementAt(index);

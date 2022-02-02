@@ -76,7 +76,7 @@ class LoginPageScreen extends StatelessWidget {
                         textStyle: TextStyle(fontSize: bodyText1Size, color: Colors.black)
                     ),
                     onPressed: () {
-                      debugPrint('Received click');
+                      // debugPrint('Received click');
                     },
                     child: Text('로그인', style: textTheme().bodyText1,),
                   )
@@ -89,7 +89,7 @@ class LoginPageScreen extends StatelessWidget {
                         textStyle: TextStyle(fontSize: bodyText1Size, color: Colors.black)
                     ),
                     onPressed: () {
-                      debugPrint('Received click');
+                      // debugPrint('Received click');
                     },
                     child: Text('회원가입', style: textTheme().bodyText1,),
                   )
@@ -102,7 +102,7 @@ class LoginPageScreen extends StatelessWidget {
                         textStyle: TextStyle(fontSize: bodyText1Size, color: Colors.black)
                     ),
                     onPressed: () {
-                      debugPrint('Received click');
+                      // debugPrint('Received click');
                     },
                     child: Text('네이버로그인', style: textTheme().bodyText1,),
                   )

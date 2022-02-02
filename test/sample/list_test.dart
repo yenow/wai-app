@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 
@@ -46,20 +47,27 @@ class Test {
 }
 
 void main() {
-  print(null ?? "Abcdfd");
-  print("123123" ?? "Abcdfd");
+  List list = [];
+  print(list==null);
 
-  Test test = Test();
-  test.content = "c";
-  test.title = "t";
-
-  print(test);
-
-  list.insert(0, 10);
-  list.insert(0, 20);
-  list.insert(0, 30);
-
-  print(list);
+  // for (int i=0; i<100; i++) {
+  //   print(Random().nextInt(5));
+  // }
+  //
+  // print(null ?? "Abcdfd");
+  // print("123123" ?? "Abcdfd");
+  //
+  // Test test = Test();
+  // test.content = "c";
+  // test.title = "t";
+  //
+  // print(test);
+  //
+  // list.insert(0, 10);
+  // list.insert(0, 20);
+  // list.insert(0, 30);
+  //
+  // print(list);
   // print("" == null);
   // var a1 = '0';
   // num b1 = json.decode(a1);
