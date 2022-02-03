@@ -25,7 +25,6 @@ class UserController extends GetxController {
 
     var response = await postRequest("/api/getUserInfomation", json.encode(userRequestDto));
     user.value = User.fromJson(json.decode(response));
-    Logger().d(user.value);
 
     UserProfileController.to.initUserProfile();
 

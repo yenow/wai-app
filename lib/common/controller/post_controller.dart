@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
@@ -8,6 +9,7 @@ import 'package:logger/logger.dart';
 import 'package:wai/models/post/api/post_request_dto.dart';
 import 'package:wai/models/post/api/post_save_request_dto.dart';
 import 'package:wai/models/post/post.dart';
+import 'package:wai/sample/add_interactivity.dart';
 import 'package:wai/utils/function.dart';
 
 class PostController extends GetxController {
@@ -20,14 +22,9 @@ class PostController extends GetxController {
   final isMoreRequesting = false.obs;
   // non-observable variable
   final int postsCount = 10;
+  final formKey = GlobalKey<FormState>();
 
-  @override
-  void onInit() {
-    initialize();
-    super.onInit();
-  }
-
-  Future<void> initialize() async {
+  Future<void> initPosts() async {
     // init
     PostRequestDto postRequestDto = PostRequestDto();
     postRequestDto.postsCount = postsCount;
@@ -54,6 +51,7 @@ class PostController extends GetxController {
       postRequestDto.startPostId = 0;
       postRequestDto.endPostId = 0;
     }
+    logger.d(postRequestDto);
 
     // api request
     var response = await postRequest("/api/readMoreNewPosts", json.encode(postRequestDto.toJson()));

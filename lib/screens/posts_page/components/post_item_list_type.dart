@@ -1,19 +1,14 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:wai/common/components/image_container.dart';
-import 'package:wai/common/constants/constants.dart';
-import 'package:wai/common/controller/main_controller.dart';
-import 'package:wai/common/theme/custom_loginpage_textstyle.dart';
-import 'package:wai/common/theme/custom_postpage_textstyle.dart';
+import 'package:intl/intl.dart';
+import 'package:wai/common/controller/enneagram_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/models/post/post.dart';
-import 'package:wai/common/theme/theme.dart';
-import 'package:wai/sample/understand_constraint.dart';
-import 'package:wai/screens/posts_page/post_page_screen.dart';
+import 'package:wai/screens/reply_page/reply_page_screen.dart';
 import 'package:wai/widgets/black.dart';
 
 class PostItemListType extends StatelessWidget {
@@ -67,65 +62,95 @@ class PostItemListType extends StatelessWidget {
         child: Row(
           children: [
             _buildAuthor(context),
-            // Text('별명', style: CustomTextStyles.buildTextStyle(fontSize: 15, color: Colors.black45)),
             const Blank(width: 8,),
-            Text("14:24", style: CustomTextStyles.buildTextStyle(fontSize: 15, color: Colors.black45)),
+            _buildDateTime(),
             const Blank(width: 8,),
-            Row(
-              children: [
-                const Icon(Icons.visibility_outlined, size: 15, color: Colors.black45 ),
-                const Blank(width: 2,),
-                Text("14", style: CustomTextStyles.buildTextStyle(fontSize: 15, color: Colors.black45)),
-              ],
-            ),
+            _buildCount(),
             const Blank(width: 8,),
-            Row(
-              children: [
-                const Icon(Icons.favorite_border_outlined, size: 15, color: Colors.black45 ),
-                const Blank(width: 2,),
-                Text("14", style: CustomTextStyles.buildTextStyle(fontSize: 15, color: Colors.black45)),
-              ],
-            )
-            // const Padding(
-            //   padding: EdgeInsets.fromLTRB(2.0,0,0,0),
-            //   child: Image(image: AssetImage('assets/images/enneagram/cat.png'), width: 15, height: 15,  fit: BoxFit.fill,),
-            // ),
-            // _buildEnneagramType(context),
+            _buildLikeCount()
           ],
         ),
       ),
     );
   }
 
-  Container _buildReplyArea() {
-    return Container(
-        child: SizedBox(
-          width: 40,
-          height: 60,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('1', style: CustomTextStyles.buildTextStyle(fontSize: 13, color: Colors.black54),),
-              Text('댓글', style: CustomTextStyles.buildTextStyle(fontSize: 13, color: Colors.black54),),
-              // const Icon(FontAwesomeIcons.commentDots, size: 15, color: Colors.black54 )
-            ],
-          ),
-        ),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5.0),
-          color: Colors.grey.shade200,
-        )
-    );
-  }
-
   Row _buildAuthor(BuildContext context) {
+    String author = post.author ?? "익명";
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Image(image: AssetImage('assets/images/enneagram/cat.png'), width: 15, height: 15,  fit: BoxFit.fill,),
-        const Blank(width: 2,),
-        Text('별명', style: CustomTextStyles.buildTextStyle(fontSize: 15, color: Colors.black45)),
+        Image(image: AssetImage(EnneagramController.to.enneagram![post.user!.myEnneagramType!]!.imagePath), width: 17, height: 17,  fit: BoxFit.fill,),
+        const Blank(width: 5,),
+        Text(author, style: CustomTextStyles.buildTextStyle(fontSize: 15, color: Colors.black45)),
       ],
     );
   }
+
+  Text _buildDateTime() {
+    DateTime now = DateTime.now();
+    DateTime insertDate = post.insertDate!;
+    String text = "";
+
+    if (now.year == insertDate.year && now.month == insertDate.month
+        && now.day == insertDate.day) {
+      int differentHour = now.hour - insertDate.hour;
+      text = differentHour.toString() + "시간 전";
+    } else if (now.year == insertDate.year) {
+      text = DateFormat('MM.dd').format(insertDate);
+    } else {
+      text = DateFormat('yyyy.MM.dd').format(insertDate);
+    }
+
+    return Text(text, style: CustomTextStyles.buildTextStyle(fontSize: 14, color: Colors.black45));
+  }
+
+  Row _buildCount() {
+    int clickCount = post.clickCount!;
+
+    return Row(
+      children: [
+        const Icon(Icons.visibility_outlined, size: 15, color: Colors.black45 ),
+        const Blank(width: 2),
+        Text("$clickCount", style: CustomTextStyles.buildTextStyle(fontSize: 15, color: Colors.black45)),
+      ],
+    );
+  }
+
+  Row _buildLikeCount() {
+    return Row(
+      children: [
+        const Icon(Icons.favorite_border_outlined, size: 15, color: Colors.black45 ),
+        const Blank(width: 2,),
+        Text("14", style: CustomTextStyles.buildTextStyle(fontSize: 15, color: Colors.black45)),
+      ],
+    );
+  }
+
+  Container _buildReplyArea() {
+    int replyLength = post.replys!.length;
+
+    return Container(
+      width: 40,
+      height: 60,
+      child: TextButton(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("$replyLength", style: CustomTextStyles.buildTextStyle(fontSize: 13, color: Colors.black54),),
+            Text('댓글', style: CustomTextStyles.buildTextStyle(fontSize: 13, color: Colors.black54),),
+            // const Icon(FontAwesomeIcons.commentDots, size: 15, color: Colors.black54 )
+          ],
+        ),
+        onPressed: () {
+          Get.to(() => ReplyPageScreen(postId: post.postId!), transition: Transition.downToUp);
+        },
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5.0),
+        color: Colors.grey.shade200,
+      )
+    );
+  }
+
 }

@@ -1,3 +1,4 @@
+import 'package:enum_to_string/enum_to_string.dart';
 import 'package:wai/models/enneagram/enneagram.dart';
 import 'package:wai/models/enneagram_test/enneagram_test.dart';
 import 'package:wai/models/post/post.dart';
@@ -21,6 +22,7 @@ class User {
   String? phoneNumber;
   String? nickname;
   String? birthDay;
+  int? myEnneagramType;
   Gender? gender;
 
   List<Post>? posts;
@@ -35,6 +37,7 @@ class User {
     this.phoneNumber,
     this.nickname,
     this.birthDay,
+    this.myEnneagramType,
     this.gender,
     this.posts,
     this.enneagramTests,
@@ -69,7 +72,8 @@ class User {
       email: json['email'],
       phoneNumber: json['phoneNumber'],
       birthDay: json['birthDay'],
-      gender: json['gender'],
+      myEnneagramType: json['myEnneagramType'],
+      // gender: EnumToString.fromString(Gender.values, json['gender'] as String),
       posts : posts,
       enneagramTests: enneagramTests,
     );
@@ -77,6 +81,6 @@ class User {
 
   @override
   String toString() {
-    return 'User{userId: $userId, userKey: $userKey, password: $password, email: $email, phoneNumber: $phoneNumber, nickname: $nickname, birthDay: $birthDay, gender: $gender, posts: $posts, replys: $replys, enneagramTests: $enneagramTests}';
+    return 'User{userId: $userId, userKey: $userKey, password: $password, email: $email, phoneNumber: $phoneNumber, nickname: $nickname, birthDay: $birthDay, myEnneagramType: $myEnneagramType, gender: $gender, posts: $posts, replys: $replys, enneagramTests: $enneagramTests}';
   }
 }

@@ -1,15 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:wai/common/constants/constants.dart';
 import 'package:wai/common/constants/custom_colors.dart';
+import 'package:wai/common/controller/enneagram_controller.dart';
 import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/controller/post_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/models/post/post.dart';
+import 'package:wai/screens/reply_page/reply_page_screen.dart';
+import 'package:wai/utils/date_util.dart';
 import 'package:wai/utils/logger.dart';
 import 'package:wai/widgets/black.dart';
 import 'package:wai/widgets/block_text.dart';
@@ -32,16 +37,24 @@ class PostPageScreen extends StatelessWidget {
 
         switch(snapshot.connectionState) {
           case ConnectionState.waiting :
-            return const CircularProgressIndicator();
+            return const Scaffold(
+                body: Center(
+                    child: CircularProgressIndicator()
+                )
+            );
           default :
             if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
             } else {
               post = snapshot.data;
+              if (post!.isDelete ?? false) {
+                Get.back();
+              }
               return _buildScaffold(context);
             }
         }
-      });
+      }
+    );
   }
 
   Widget _buildScaffold(BuildContext context) {
@@ -80,25 +93,7 @@ class PostPageScreen extends StatelessWidget {
                   const Blank(height: 10,),
                   _buildReplyList(context: context),
                   const HorizontalBorderLine(),
-                  SizedBox(
-                    height: 50,
-                    child: TextButton.icon(
-                      icon: Icon(FontAwesomeIcons.commentDots, size: 20, color: Colors.grey,),
-                      label: Text("댓글을 남겨보세요.",
-                        style: CustomTextStyles.buildTextStyle(fontSize: 15, color: Colors.grey),
-                      ),
-                      // child: Text("댓글을 남겨보세요.",
-                      //   style: CustomTextStyles.buildTextStyle(fontSize: 15, color: Colors.grey),
-                      // ),
-                      onPressed: () {
-
-                      },
-                      style: TextButton.styleFrom(
-                        padding: EdgeInsets.symmetric(horizontal:10),
-                        alignment: Alignment.centerLeft
-                      ),
-                    ),
-                  )
+                  _buildReplyFormButton()
                 ]
               ),
             ),
@@ -114,7 +109,7 @@ class PostPageScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Row(
         children: [
-          Image(image: AssetImage('assets/images/enneagram/cat.png'), width: 26, height: 26,  fit: BoxFit.fill,),
+          Image(image: AssetImage(EnneagramController.to.enneagram![post!.user!.myEnneagramType!]!.imagePath), width: 26, height: 26,  fit: BoxFit.fill,),
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -138,31 +133,36 @@ class PostPageScreen extends StatelessWidget {
   }
 
   Widget _buildAuthor() {
+    String author = post!.author ?? "익명";
+    int myEnneagramType = post!.user!.myEnneagramType!;
+
     return Container(
       padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
       alignment: Alignment.centerLeft,
       child: Row(
         children: [
-          Text('별명입니다', style: CustomTextStyles.buildTextStyle(fontSize: 15, color: Colors.black45)),
+          Text(author, style: CustomTextStyles.buildTextStyle(fontSize: 15, color: Colors.black45)),
           const Blank(width: 10,),
-          BlockText(text: "1유형"),
+          BlockText(text: "$myEnneagramType유형"),
         ],
       )
     );
   }
 
   Widget _buildPostInfomation() {
+    int postCount = post!.clickCount ?? 0;
+
     return Container(
       padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
       child: Row(
         children: [
-          Text("2021-02-02 14:24", style: CustomTextStyles.buildTextStyle(fontSize: 15, color: Colors.black45)),
+          Text(DateFormat('yyyy.MM.dd hh:mm').format(post!.insertDate!), style: CustomTextStyles.buildTextStyle(fontSize: 15, color: Colors.black45)),
           const Blank(width: 8,),
           Row(
             children: [
               const Icon(Icons.visibility_outlined, size: 15, color: Colors.black45 ),
               const Blank(width: 2,),
-              Text("14", style: CustomTextStyles.buildTextStyle(fontSize: 15, color: Colors.black45)),
+              Text("$postCount", style: CustomTextStyles.buildTextStyle(fontSize: 15, color: Colors.black45)),
             ],
           ),
           const Blank(width: 8,),
@@ -262,20 +262,6 @@ class PostPageScreen extends StatelessWidget {
     );
   }
 
-  // Widget _buildReplyAuthor() {
-  //   return Container(
-  //       padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-  //       alignment: Alignment.centerLeft,
-  //       child: Row(
-  //         children: [
-  //           Text('별명입니다', style: CustomTextStyles.buildTextStyle(fontSize: 15, color: Colors.black45)),
-  //           const Blank(width: 10,),
-  //           BlockText(text: "1유형"),
-  //         ],
-  //       )
-  //   );
-  // }
-
   Widget _replyContent() {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
@@ -325,43 +311,26 @@ class PostPageScreen extends StatelessWidget {
               ],
             ),
           ),
-          /*
-          Expanded(child: _buildReplyInput()),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Icon(FontAwesomeIcons.reply, size: 20, color: Colors.grey),
-          ),
-          */
         ],
       ),
     );
   }
 
-  Widget _buildReplyInput() {
-
-    return GestureDetector(
-
-      child: TextField(
-          cursorColor: Colors.grey,
-          maxLength: 4000,
-          maxLines: 100,
-          style: CustomTextStyles.buildTextStyle(fontSize: 18, color: Colors.grey),
-          decoration: InputDecoration(
-            labelText: "댓글을 입력해주세요.",
-            labelStyle: CustomTextStyles.buildTextStyle(fontSize: 18, color: Colors.grey),
-            floatingLabelBehavior: FloatingLabelBehavior.never,
-            fillColor: Colors.white,
-            filled: true,
-            enabledBorder: const UnderlineInputBorder (
-              borderSide: BorderSide(width: 0.5, color: Colors.grey),
-            ),
-            focusedBorder: const UnderlineInputBorder(
-              borderSide: BorderSide(width: 0.5, color: Colors.grey),
-            ),
-            counterText:'',
-            // prefixIcon: prefixIcon,
-            // focusColor: Colors.grey,
-          )
+  SizedBox _buildReplyFormButton() {
+    return SizedBox(
+      height: 50,
+      child: TextButton.icon(
+        icon: Icon(FontAwesomeIcons.commentDots, size: 20, color: Colors.grey,),
+        label: Text("댓글을 남겨보세요.",
+          style: CustomTextStyles.buildTextStyle(fontSize: 15, color: Colors.grey),
+        ),
+        onPressed: () {
+          Get.to(() => ReplyPageScreen(postId: post!.postId!), transition: Transition.downToUp);
+        },
+        style: TextButton.styleFrom(
+            padding: EdgeInsets.symmetric(horizontal:10),
+            alignment: Alignment.centerLeft
+        ),
       ),
     );
   }

@@ -8,7 +8,7 @@ import 'logger.dart';
 
 Future<dynamic> postRequest (String url, String jsonString) async {
 
-  loggerNoStack.i(apiUrl + url);
+  loggerNoStack.i("post request : $apiUrl$url");
 
   final response = await http.post(
       Uri.parse(apiUrl + url),
@@ -28,7 +28,7 @@ Future<dynamic> postRequest (String url, String jsonString) async {
 
 Future<dynamic> getRequest (String url) async {
 
-  loggerNoStack.i(apiUrl + url);
+  loggerNoStack.i("get request : $apiUrl$url");
 
   final response = await http.get(
       Uri.parse(apiUrl + url),
