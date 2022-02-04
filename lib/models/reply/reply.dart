@@ -8,6 +8,7 @@ class Reply {
   Post? post;
   String? replyContent;
   DateTime? insertDate;
+  DateTime? nowServerTime;
 
   Reply({
     this.replyId,
@@ -15,7 +16,8 @@ class Reply {
     this.user,
     this.post,
     this.replyContent,
-    this.insertDate
+    this.insertDate,
+    this.nowServerTime
   });
 
   factory Reply.fromJson(Map<String, dynamic> json) {
@@ -29,6 +31,7 @@ class Reply {
       post: post,
       replyContent: json['replyContent'],
       insertDate: DateTime.parse(json['insertDate']),
+      nowServerTime: DateTime.parse(json['nowServerTime']),
     );
   }
 

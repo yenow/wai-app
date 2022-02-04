@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
@@ -20,37 +21,18 @@ class PostWritePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     loggerNoStack.d("build PostWritePage");
-    // FocusNode focusNode = FocusNode();
-    // WidgetsBinding.instance!.addPostFrameCallback((_){
-    //   FocusScope.of(context).requestFocus(focusNode);
-    // });
-
-    // return Obx(() =>
-    //     SingleChildScrollView(
-    //         child: Column(
-    //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //           children: [
-    //             _buildInputTitle(),
-    //             _buildInputContent(),
-    //             _buildTail()
-    //           ],
-    //         ),
-    //     ),
-    // );
 
     return Obx(() =>
       Scaffold(
         appBar: _buildAppbar(context),
-        resizeToAvoidBottomInset : false,
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              _buildInputTitle(),
-              _buildInputContent(),
-              _buildTail()
-            ],
-          ),
+        // resizeToAvoidBottomInset : false,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _buildInputTitle(),
+            _buildInputContent(),
+            _buildTail()
+          ],
         ),
       ),
     );
@@ -73,18 +55,18 @@ class PostWritePage extends StatelessWidget {
 
   GestureDetector _buildAppbarLeading(BuildContext context) {
     return GestureDetector(
-          child: Icon(FontAwesomeIcons.chevronLeft, size: 20, color: Colors.blueGrey,),
-          onTap: () {
-
-            WaiDialog.showConfirmMessage(
-                context: context,
-                content: "게시글 작성중입니다. 뒤로 가시겠습니까?",
-                confirmOnPress: () {
-                  Get.back();
-                }
-            );
-          },
-        );
+      child: Icon(FontAwesomeIcons.chevronLeft, size: 20, color: Colors.blueGrey,),
+      onTap: () {
+        Get.back();
+        // WaiDialog.showConfirmMessage(
+        //     context: context,
+        //     content: "게시글 작성중입니다. 뒤로 가시겠습니까?",
+        //     confirmOnPress: () {
+        //       Get.back();
+        //     }
+        // );
+      },
+    );
   }
 
   Widget _buildAppbarActions(BuildContext context) {
@@ -105,14 +87,15 @@ class PostWritePage extends StatelessWidget {
             Post post = Post.fromJson(json.decode(responseBody));
 
             // message
-            WaiDialog.showMessage(
-              context: context,
-              content: "게시글이 등록되었습니다",
-            );
+            // WaiDialog.showMessage(
+            //   context: context,
+            //   content: "게시글이 등록되었습니다",
+            // );
 
             // todo, posts add
             // PostController.to.posts.value.insert(0, element);
             PostController.to.removeWritingPost();
+            PostController.to.readMoreNewPosts();
             Get.back();
           }
         },
@@ -122,47 +105,47 @@ class PostWritePage extends StatelessWidget {
   }
 
   Widget _buildInputTitle() {
-    return SizedBox(
-      width: double.infinity,
-      height: 100,
-      child: TextField(
-          cursorColor: Colors.grey,
-          maxLength: 100,
-          maxLines: 1,
-          style: CustomTextStyles.buildTextStyle(fontSize: 20, color: Colors.grey),
-          controller: TextEditingController(
-            text: PostController.to.writingPost.value.title
+    return TextField(
+        cursorColor: Colors.grey,
+        maxLength: 100,
+        maxLengthEnforcement: MaxLengthEnforcement.enforced,
+        maxLines: 1,
+        style: CustomTextStyles.buildTextStyle(fontSize: 20, color: Colors.grey),
+        controller: TextEditingController(
+          text: PostController.to.writingPost.value.title
+        ),
+        onChanged: (String title) {
+          PostController.to.setWritingPostTitle(title);
+        },
+        decoration: InputDecoration(
+          labelText: "제목을 입력해주세요.",
+          labelStyle: CustomTextStyles.buildTextStyle(fontSize: 18, color: Colors.grey),
+          floatingLabelBehavior: FloatingLabelBehavior.auto,
+          fillColor: Colors.white,
+          filled: true,
+          enabledBorder: UnderlineInputBorder (
+            borderSide: BorderSide(width: 1, color: Colors.grey),
           ),
-          onChanged: (String title) {
-            PostController.to.setWritingPostTitle(title);
-          },
-          decoration: InputDecoration(
-            labelText: "제목을 입력해주세요.",
-            labelStyle: CustomTextStyles.buildTextStyle(fontSize: 18, color: Colors.grey),
-            floatingLabelBehavior: FloatingLabelBehavior.auto,
-            fillColor: Colors.white,
-            filled: true,
-            enabledBorder: UnderlineInputBorder (
-              borderSide: BorderSide(width: 1, color: Colors.grey),
-            ),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(width: 1, color: Colors.grey),
-            ),
-            counterText:'',
-            // prefixIcon: prefixIcon,
-            // focusColor: Colors.grey,
-          )
-      ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(width: 1, color: Colors.grey),
+          ),
+          counterText:'',
+          // prefixIcon: prefixIcon,
+          // focusColor: Colors.grey,
+        )
     );
   }
 
   Widget _buildInputContent() {
-    return SizedBox(
-      height: 400,
+    return Flexible(
+      flex: 9,
+      fit: FlexFit.loose,
       child: TextField(
         cursorColor: Colors.grey,
         maxLength: 4000,
-        maxLines: 100,
+        // minLines: 1,
+        maxLines: null,
+        expands: true,
         textAlign: TextAlign.justify,
         style: CustomTextStyles.buildTextStyle(fontSize: 18, color: Colors.grey),
         controller: TextEditingController(
@@ -196,9 +179,32 @@ class PostWritePage extends StatelessWidget {
 
   Widget _buildTail() {
     return SizedBox(
-      height: 50,
+      height: 40,
       child: Container(
         color: Colors.white10,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+          child: LayoutBuilder(builder: (context, constraint) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Center(
+                  child: IconButton(
+                    icon: Icon(Icons.photo_camera_outlined, size: constraint.biggest.height, color: Colors.grey),
+                    padding: EdgeInsets.zero,
+                    onPressed: () {
+
+                    },
+                  )
+                ),
+              ],
+            );
+          }),
+        ),/*Row(
+          children: [
+            Icon(Icons.photo_camera_outlined, size: 50, color: Colors.grey),
+          ],
+        ),*/
       ),
     );
   }

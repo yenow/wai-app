@@ -5,10 +5,12 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:intl/intl.dart';
+import 'package:wai/common/controller/app_controller.dart';
 import 'package:wai/common/controller/enneagram_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/models/post/post.dart';
 import 'package:wai/screens/reply_page/reply_page_screen.dart';
+import 'package:wai/utils/date_util.dart';
 import 'package:wai/widgets/black.dart';
 
 class PostItemListType extends StatelessWidget {
@@ -88,21 +90,8 @@ class PostItemListType extends StatelessWidget {
   }
 
   Text _buildDateTime() {
-    DateTime now = DateTime.now();
-    DateTime insertDate = post.insertDate!;
-    String text = "";
 
-    if (now.year == insertDate.year && now.month == insertDate.month
-        && now.day == insertDate.day) {
-      int differentHour = now.hour - insertDate.hour;
-      text = differentHour.toString() + "시간 전";
-    } else if (now.year == insertDate.year) {
-      text = DateFormat('MM.dd').format(insertDate);
-    } else {
-      text = DateFormat('yyyy.MM.dd').format(insertDate);
-    }
-
-    return Text(text, style: CustomTextStyles.buildTextStyle(fontSize: 14, color: Colors.black45));
+    return Text(dateTimeToString(AppController.to.nowServerTime.value ,post.insertDate!), style: CustomTextStyles.buildTextStyle(fontSize: 14, color: Colors.black45));
   }
 
   Row _buildCount() {
@@ -118,11 +107,13 @@ class PostItemListType extends StatelessWidget {
   }
 
   Row _buildLikeCount() {
+    int likeyCount = post.likeyCount!;
+
     return Row(
       children: [
         const Icon(Icons.favorite_border_outlined, size: 15, color: Colors.black45 ),
         const Blank(width: 2,),
-        Text("14", style: CustomTextStyles.buildTextStyle(fontSize: 15, color: Colors.black45)),
+        Text("$likeyCount", style: CustomTextStyles.buildTextStyle(fontSize: 15, color: Colors.black45)),
       ],
     );
   }

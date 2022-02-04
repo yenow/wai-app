@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
@@ -5,6 +7,8 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:wai/models/reply/api/reply_request_dto.dart';
 import 'package:wai/models/reply/reply.dart';
 import 'package:wai/sample/add_interactivity.dart';
+import 'package:wai/utils/function.dart';
+import 'package:wai/utils/logger.dart';
 
 class ReplyController extends GetxController {
   static ReplyController get to => Get.put(ReplyController());
@@ -12,6 +16,15 @@ class ReplyController extends GetxController {
   final replys = Rx<List<Reply>>([]);
   final replyWrintingInfomation = ReplyRequestDto().obs;
   final replyContainerHeight = 80.0.obs;
+
+  Future<void> readReplysByPostId(int postId) async {
+
+    var response = await getRequest("/api/readReplysByPostId/$postId");
+
+    replys.value = List<Reply>.from(json.decode(response).map((model) {
+      return Reply.fromJson(model);
+    }));
+  }
 
   void addReply(Reply reply) {
     replys.update((val) {
@@ -33,7 +46,6 @@ class ReplyController extends GetxController {
       val!.userId = "";
       val.postId = "";
       val.parentReplyId = "";
-      val.replyContent = "";
       val.parentReplyNickname = "";
     });
   }
@@ -59,6 +71,12 @@ class ReplyController extends GetxController {
       }
     }
     return returnValue;
+  }
+
+  void removeReplyContent() {
+    replyWrintingInfomation.update((val) {
+      val!.replyContent = "";
+    });
   }
 
   void writeReplyContent(String replyContent) {

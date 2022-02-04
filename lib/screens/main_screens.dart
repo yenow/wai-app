@@ -25,6 +25,7 @@ class MainScreens extends StatefulWidget {
 
 class _MainScreensState extends State<MainScreens> {
   late Future<void> initBool;
+  final PageController _pageController = PageController();
 
   @override
   void initState() {
@@ -71,7 +72,20 @@ class _MainScreensState extends State<MainScreens> {
             resizeToAvoidBottomInset : false,
             backgroundColor:  Colors.transparent,
             bottomNavigationBar: _buildBottomNavigationBar(),
-            body: IndexedStack(
+            body: PageView(
+              controller: _pageController,
+              onPageChanged: (nextTabIndex) {
+                MainController.to.setTabIndex(nextTabIndex);
+                // MainController.to.currentTabIndex.value;
+              },
+              children: <Widget>[
+                HomePageScreen(enneagramType: widget.enneagramType),
+                PostsPageScreen(),
+                SearchPageScreen(),
+                EnneagramPageScreen(),
+                ProfilePageScreen(enneagramType: widget.enneagramType),
+              ],
+            ),/*IndexedStack(
               index: MainController.to.currentTabIndex.value,
               children: [
                 HomePageScreen(enneagramType: widget.enneagramType),
@@ -80,7 +94,7 @@ class _MainScreensState extends State<MainScreens> {
                 EnneagramPageScreen(),
                 ProfilePageScreen(enneagramType: widget.enneagramType),
               ],
-            ),
+            ),*/
           ),
         ),
     );
@@ -119,104 +133,8 @@ class _MainScreensState extends State<MainScreens> {
       ],
       onTap: (nextTabIndex) {
         MainController.to.setTabIndex(nextTabIndex);
+        _pageController.animateToPage(nextTabIndex, duration: Duration(milliseconds: 500), curve: Curves.easeOut);
       },
     );
   }
 }
-
-//
-// class MainScreens extends StatelessWidget {
-//   MainScreens({Key? key, this.enneagramType}) : super(key: key);
-//   int? enneagramType;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     deviceWidth = MediaQuery.of(context).size.width;
-//     deviceHeight = MediaQuery.of(context).size.height;
-//     widthRatio = (deviceWidth / standardDeviceWidth);
-//     heightRatio = (deviceHeight / standardDeviceHeight);
-//     loggerNoStack.d("build MainScreens");
-//
-//     return FutureBuilder(
-//         future: MainController.to.initMainScreens(),
-//         builder: (context, snapshot) {
-//           switch (snapshot.connectionState) {
-//           /*요청을 기다리는중*/
-//             case ConnectionState.waiting:
-//               return Scaffold(
-//                   body: Center(
-//                       child: const CircularProgressIndicator()
-//                   )
-//               );
-//             default:
-//               if (snapshot.hasError) {    /*에러시*/
-//                 return Scaffold(body : Text('Error: ${snapshot.error}'));
-//               } else {
-//                 return _buildBody(context);
-//               }
-//           }
-//         }
-//     );
-//     return _buildBody(context);
-//   }
-//
-//   Obx _buildBody(BuildContext context) {
-//     return Obx(() =>
-//     SafeArea(
-//       child: Scaffold(
-//         // backgroundColor: MainController.to.appState.value.backgroundColor,
-//         resizeToAvoidBottomInset : false,
-//         backgroundColor:  Colors.transparent,
-//         bottomNavigationBar: _buildBottomNavigationBar(),
-//         body: IndexedStack(
-//           index: MainController.to.currentTabIndex.value,
-//           children: [
-//             HomePageScreen(enneagramType: enneagramType),
-//             PostsPageScreen(),
-//             SearchPageScreen(),
-//             EnneagramPageScreen(),
-//             ProfilePageScreen(enneagramType: enneagramType),
-//           ],
-//         ),
-//       ),
-//     ),
-//   );
-//   }
-//
-//   BottomNavigationBar? _buildBottomNavigationBar() {
-//
-//     return BottomNavigationBar(
-//           currentIndex: MainController.to.currentTabIndex.value,
-//           backgroundColor: AppController.to.appState.value.bottomNavigationBackgroundColor,
-//           unselectedItemColor: Colors.grey,
-//           selectedItemColor: Colors.blueGrey,
-//           type: BottomNavigationBarType.fixed,
-//           /* navigationBar item */
-//           items: const [
-//             BottomNavigationBarItem(
-//               label: '홈',
-//               icon: Icon(Icons.home_outlined,),  // CupertinoIcons.home
-//             ),
-//             BottomNavigationBarItem(
-//               label: '게시글',
-//               icon: Icon(Icons.article_outlined),
-//             ),
-//             BottomNavigationBarItem(
-//               label: '검색',
-//               icon: Icon(Icons.search_outlined),
-//             ),
-//             BottomNavigationBarItem(
-//               label: '에니어그램',
-//               icon: Icon(CupertinoIcons.book),    //  CupertinoIcons.book
-//             ),
-//             BottomNavigationBarItem(
-//               label: '프로필',
-//               icon: Icon(Icons.account_circle_outlined)
-//             )
-//           ],
-//           onTap: (nextTabIndex) {
-//             MainController.to.setTabIndex(nextTabIndex);
-//           },
-//         );
-//   }
-// }

@@ -19,7 +19,7 @@ class HomePageScreen extends StatelessWidget {
 
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       if (enneagramType != null && MainController.to.isShowEnneagramDialog.value == false
-          && MainController.to.currentTabIndex.value == TabItem.homePageScreen.index) {
+          /*&& MainController.to.currentTabIndex.value == TabItem.homePageScreen.index*/) {
         MainController.to.setIsShowEnneagramDialog(true);
 
         EnneagramDialog.showEnneagramType(

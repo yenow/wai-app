@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -6,11 +8,13 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:logger/logger.dart';
 import 'package:wai/common/controller/enneagram_test_controller.dart';
+import 'package:wai/models/api/response_dto.dart';
 import 'package:wai/models/login/login_info.dart';
 import 'package:wai/models/post/post.dart';
 import 'package:wai/models/simply_login_info.dart';
 import 'package:wai/models/user/user.dart';
 import 'package:wai/utils/app_state.dart';
+import 'package:wai/utils/function.dart';
 
 import 'enneagram_controller.dart';
 
@@ -21,8 +25,9 @@ class AppController extends GetxController{
   final userKey = Rx<String?>("");
   final userId = Rx<String?>("");
   final isBuildIntroducePage = Rx<String?>("");
-  // final loginInfo = LoginInfo().obs;
+  final nowServerTime = DateTime(0).obs;
   final appState = AppState().obs;   // appbar 상태
+
   /* non-observable variable */
   final _accountNameController = TextEditingController(text: 'flutter_secure_storage_service');
   final storage = new FlutterSecureStorage();
@@ -31,6 +36,7 @@ class AppController extends GetxController{
     userKey.value = await getUserKey();
     userId.value = await getUserId();
     isBuildIntroducePage.value = await getIsBuildIntroducePage();
+    getServerTime();
     await EnneagramController.to.initEnneagramInfomation();
     await EnneagramTestController.to.initEnneagramQuestionList();
     await EnneagramTestController.to.initSimpleEnneagramQuestionList();
@@ -49,12 +55,13 @@ class AppController extends GetxController{
   String? _getAccountName() =>
       _accountNameController.text.isEmpty ? null : _accountNameController.text;
 
+  Future<void> getServerTime() async {
+    var response = await getServerTimeRequest();
+    ResponseDto dto = ResponseDto.fromJson(json.decode(response));
+    nowServerTime.value = dto.nowServerTime!;
 
-  // void setLoginInfo (User user) {
-  //   loginInfo.update((val) {
-  //     val!.userId = user.userId;
-  //   });
-  // }
+  }
+
   Future<String?> getUserKey() async {
     String? userKey = await storage.read(
         key: "userKey",
@@ -114,6 +121,8 @@ class AppController extends GetxController{
         aOptions: _getAndroidOptions()
     );
   }
+
+
 
 
 

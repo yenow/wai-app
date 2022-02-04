@@ -1,5 +1,6 @@
 import 'package:wai/models/reply/reply.dart';
 import 'package:wai/models/user/user.dart';
+import 'package:wai/sample/add_interactivity.dart';
 
 class Post {
   int? postId;
@@ -13,7 +14,10 @@ class Post {
   String? nickname;
   int? enneagramType;
   int? clickCount;
+  int? likeyCount;
+  List<int>? likeys;
   DateTime? insertDate;
+  DateTime? nowServerTime;
 
   Post({
     this.postId,
@@ -27,7 +31,10 @@ class Post {
     this.nickname,
     this.enneagramType,
     this.clickCount,
-    this.insertDate
+    this.likeyCount,
+    this.likeys,
+    this.insertDate,
+    this.nowServerTime
   });
 
   factory Post.fromJson(Map<String, dynamic> json) {
@@ -42,6 +49,13 @@ class Post {
       replys = [];
     }
 
+    List<int> likeys;
+    if (json['likeys'] != null) {
+      likeys = List<int>.from(json['likeys']);
+    } else {
+      likeys = [];
+    }
+
     return Post(
       postId: json['postId'],
       user : user,
@@ -53,7 +67,10 @@ class Post {
       isDelete: json['isDelete'],
       enneagramType: json['enneagramType'],
       clickCount: json['clickCount'] ?? 0,
+      likeyCount: json['likeyCount'],
+      likeys: likeys,
       insertDate: json['insertDate'] != null ? DateTime.parse(json['insertDate']) : null,
+      nowServerTime: json['nowServerTime'] != null ? DateTime.parse(json['nowServerTime']) : null,
     );
   }
 

@@ -11,7 +11,9 @@ import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/models/post/post.dart';
 import 'package:wai/models/reply/reply.dart';
 import 'package:wai/sample/add_interactivity.dart';
+import 'package:wai/screens/posts_page/post_page_screen.dart';
 import 'package:wai/screens/reply_page/components/reply_form.dart';
+import 'package:wai/utils/logger.dart';
 import 'package:wai/widgets/black.dart';
 import 'package:wai/widgets/block_text.dart';
 import 'package:wai/widgets/horizontal_border_line.dart';
@@ -19,9 +21,10 @@ import 'package:wai/widgets/horizontal_border_line.dart';
 import 'components/reply_items.dart';
 
 class ReplyPageScreen extends StatefulWidget {
-  ReplyPageScreen({Key? key, required this.postId, this.parentReplyId}) : super(key: key);
+  ReplyPageScreen({Key? key, required this.postId, this.parentReplyId, this.parentRebuild}) : super(key: key);
   int postId;
   int? parentReplyId;
+  VoidCallback? parentRebuild;
 
 
   @override
@@ -29,20 +32,22 @@ class ReplyPageScreen extends StatefulWidget {
 }
 
 class _ReplyPageScreenState extends State<ReplyPageScreen> {
-  late Future<Post?> FuturePost;
   Post? post;
-  // List<Reply>? replys;
 
   @override
   void initState() {
     super.initState();
-    FuturePost = PostController.to.readPost(widget.postId);
+  }
+
+  void rebuildMethod() {
+    logger.i("ReplyPageScreen rebuildMethod()");
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Post?>(
-        future: FuturePost,   // PostController.to.readPost(postId)
+        future: PostController.to.readPost(widget.postId),
         builder: (context, snapshot) {
 
           switch(snapshot.connectionState) {
@@ -55,14 +60,18 @@ class _ReplyPageScreenState extends State<ReplyPageScreen> {
             default :
               if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
+
               } else {
                 post = snapshot.data;
 
                 ReplyController.to.replys.value = post!.replys!;
-                logger.d(ReplyController.to.replys.value);
+                loggerNoStack.d("widget.postId : " + widget.postId.toString());
+                loggerNoStack.d(ReplyController.to.replys.value);
+
                 if (post!.isDelete ?? false) {
                   Get.back();
                 }
+
                 ReplyController.to.initReplyWritingInfomation(
                   userId: AppController.to.userId.value!,
                   postId: post!.postId!.toString(),
@@ -92,20 +101,30 @@ class _ReplyPageScreenState extends State<ReplyPageScreen> {
                 onTap: () {
                   ReplyController.to.removeReplyWritingInfomation();
                   Get.back();
+
+                  if (widget.parentRebuild != null) {
+                    widget.parentRebuild!();
+                  }
                 },
               ),
             ),
           ),
-          body: Column(
-            children: [
-              Expanded(
-                child: ReplyItems(
-                  replys: ReplyController.to.replys.value,
-                  reReplyFunction: () {},
-                ) // _buildReplyList(context: context)
-              ),
-              ReplyForm()
-            ],
+          body: RefreshIndicator(
+            onRefresh: () async {
+              rebuildMethod();
+            },
+            child: Column(
+              children: [
+                Expanded(
+                  child: ReplyItems(
+                    replys: ReplyController.to.replys.value,
+                    isScroll: true,
+                    reReplyFunction: () {},
+                  ) // _buildReplyList(context: context)
+                ),
+                ReplyForm(parentRebuild : rebuildMethod)
+              ],
+            ),
           ),
         ),
       ),

@@ -10,9 +10,12 @@ import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/models/reply/reply.dart';
 import 'package:wai/sample/add_interactivity.dart';
 import 'package:wai/utils/function.dart';
+import 'package:wai/utils/logger.dart';
 
 class ReplyForm extends StatelessWidget {
-  ReplyForm({Key? key}) : super(key: key);
+  ReplyForm({Key? key, this.parentRebuild}) : super(key: key);
+  final VoidCallback? parentRebuild;
+
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -58,12 +61,16 @@ class ReplyForm extends StatelessWidget {
 
                             var response = await postRequest("/api/saveReply", json.encode(ReplyController.to.replyWrintingInfomation.value.toJson()));
                             Reply reply = Reply.fromJson(json.decode(response));
-                            logger.d("/api/saveReply result : $reply");
+                            loggerNoStack.d("/api/saveReply result : $reply");
 
                             // todo  함수로 변경해야할듯?
-                            ReplyController.to.addReply(reply);
-                            ReplyController.to.removeReplyWritingInfomation();
-                            logger.d(ReplyController.to.replyWrintingInfomation);
+                            // ReplyController.to.addReply(reply);
+                            ReplyController.to.removeReplyContent();
+
+                            if (parentRebuild != null) {
+                              parentRebuild!();
+                            }
+
                           } else {
                             // 값을 입력 안했을 경우
                           }

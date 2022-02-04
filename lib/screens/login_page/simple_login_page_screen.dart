@@ -6,7 +6,7 @@ import 'package:logger/logger.dart';
 import 'package:wai/common/constants/custom_colors.dart';
 import 'package:wai/common/theme/custom_loginpage_textstyle.dart';
 import 'package:wai/common/constants/constants.dart';
-import 'package:wai/models/api_response/login_response_dto.dart';
+import 'package:wai/models/api/login_response_dto.dart';
 import 'package:wai/models/simply_login_info.dart';
 import 'package:wai/net/login/login_api.dart';
 import 'package:wai/screens/introduction_screen.dart';

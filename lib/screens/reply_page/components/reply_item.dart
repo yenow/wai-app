@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:wai/common/controller/app_controller.dart';
 import 'package:wai/common/controller/enneagram_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/models/reply/reply.dart';
@@ -63,7 +64,7 @@ class ReplyItem extends StatelessWidget {
       child: Row(
         children: [
           const Blank(width: 20,),
-          Text(dateTimeToString(reply.insertDate!), style: CustomTextStyles.buildTextStyle(fontSize: 12, color: Colors.grey)),
+          Text(dateTimeToString(AppController.to.nowServerTime.value ,reply.insertDate!), style: CustomTextStyles.buildTextStyle(fontSize: 12, color: Colors.grey)),
           const Blank(width: 10,),
           TextButton(
             child: Text("답글쓰기", style: CustomTextStyles.buildTextStyle(fontSize: 12, color: Colors.grey)),

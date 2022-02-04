@@ -38,6 +38,7 @@ dependencies:
 
   # api
   http: ^0.13.0+2
+  ntp: ^2.0.0
 
   # log
   logger: ^1.1.0
@@ -52,8 +53,6 @@ dependencies:
   video_player: ^2.2.15  # 동영상 플레이어 라이브러리
   chewie: ^1.0.0   # 동영상 플레이어 라이브러리
   uuid: ^3.0.5
-
-  numberpicker: ^2.1.1
 
   #tree view
   tree_view: ^0.0.6

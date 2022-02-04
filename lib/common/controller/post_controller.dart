@@ -9,31 +9,83 @@ import 'package:logger/logger.dart';
 import 'package:wai/models/post/api/post_request_dto.dart';
 import 'package:wai/models/post/api/post_save_request_dto.dart';
 import 'package:wai/models/post/post.dart';
+import 'package:wai/models/reply/reply.dart';
 import 'package:wai/sample/add_interactivity.dart';
 import 'package:wai/utils/function.dart';
+import 'package:wai/utils/logger.dart';
+
+import 'app_controller.dart';
 
 class PostController extends GetxController {
   static PostController get to => Get.put(PostController());
 
-  // observable variable
+  /* observable variable */
   final posts = [].obs;
+
+  final post = Post().obs;
+
   final writingPost = PostSaveRequestDto().obs;   //PostSaveRequestDto
   final dragDistance = 0.0.obs;
   final isMoreRequesting = false.obs;
-  // non-observable variable
+  final isNoMorePost = false.obs;
+
+  /* non-observable variable */
   final int postsCount = 10;
   final formKey = GlobalKey<FormState>();
+
+  void addReply(Reply reply) {
+    post.update((val) {
+      val!.replys!.add(reply);
+    });
+  }
+
+  bool getIsLikey() {
+    bool flag = false;
+    for (int userId in post.value.likeys!) {
+
+      if (userId.toString() == AppController.to.userId.value) {
+        flag = true;
+        break;
+      }
+    }
+    return flag;
+  }
+
+  void addLikey() {
+    post.update((val) {
+      val!.likeys!.add(int.parse(AppController.to.userId.value!));
+      val.likeyCount = val.likeyCount! + 1;
+    });
+
+    int postId = post.value.postId!;
+    String userId = AppController.to.userId.value!;
+    getRequest("/api/addLikey/$postId/$userId");
+  }
+
+  void removeLikey() {
+    post.update((val) {
+      val!.likeys!.remove(int.parse(AppController.to.userId.value!));
+      val.likeyCount = val.likeyCount! - 1;
+    });
+
+    int postId = post.value.postId!;
+    String userId = AppController.to.userId.value!;
+    getRequest("/api/removeLikey/$postId/$userId");
+  }
 
   Future<void> initPosts() async {
     // init
     PostRequestDto postRequestDto = PostRequestDto();
     postRequestDto.postsCount = postsCount;
+    logger.d(postRequestDto);
 
     // api request
+    AppController.to.getServerTime();
     var response = await postRequest("/api/readInitPosts", json.encode(postRequestDto.toJson()));
 
     // add posts
     List list = json.decode(response);
+    logger.d(list.length);
     for (var element in list) {
       posts.add(Post.fromJson(element));
     }
@@ -54,10 +106,12 @@ class PostController extends GetxController {
     logger.d(postRequestDto);
 
     // api request
+    AppController.to.getServerTime();
     var response = await postRequest("/api/readMoreNewPosts", json.encode(postRequestDto.toJson()));
 
     // add posts
     List list = json.decode(response);
+    logger.d(list.length);
     for (var element in list) {
       posts.insert(0, Post.fromJson(element));
     }
@@ -75,14 +129,22 @@ class PostController extends GetxController {
       postRequestDto.startPostId = 0;
       postRequestDto.endPostId = 0;
     }
+    logger.d(postRequestDto);
 
     // api request
-    var response = await postRequest("/api/readMoreNewPosts", json.encode(postRequestDto.toJson()));
+    AppController.to.getServerTime();
+    var response = await postRequest("/api/readMoreOldPosts", json.encode(postRequestDto.toJson()));
 
     // add posts
     List list = json.decode(response);
+    logger.d(list.length);
+
     for (var element in list) {
-      posts.insert(0, Post.fromJson(element));
+      posts.add(Post.fromJson(element));
+    }
+
+    if (list.length < postRequestDto.postsCount!) {
+      isNoMorePost.value = true;
     }
   }
 

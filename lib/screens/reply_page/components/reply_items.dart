@@ -9,9 +9,10 @@ import 'package:wai/widgets/block_text.dart';
 import 'package:wai/widgets/horizontal_border_line.dart';
 
 class ReplyItems extends StatelessWidget {
-  const ReplyItems({Key? key, required this.replys, required this.reReplyFunction}) : super(key: key);
+  const ReplyItems({Key? key, required this.replys, required this.reReplyFunction, required this.isScroll}) : super(key: key);
   final List<Reply> replys;
   final VoidCallback reReplyFunction;
+  final bool isScroll;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class ReplyItems extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: ListView.separated(
         shrinkWrap: true,
-        // physics: NeverScrollableScrollPhysics(),
+        physics: isScroll ? null : NeverScrollableScrollPhysics(),
         itemCount: replys.length,
         itemBuilder: (BuildContext context, int index) {
           return ReplyItem(
