@@ -4,24 +4,27 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:wai/common/constants/custom_colors.dart';
+import 'package:wai/common/constants/wai_colors.dart';
 import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/controller/post_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/models/post/post.dart';
-import 'package:wai/screens/posts_page/components/post_item.dart';
+import 'package:wai/screens/posts_page/components/post_item_back.dart';
 import 'package:wai/screens/posts_page/post_page_screen.dart';
 import 'package:wai/screens/posts_page/post_write_page.dart';
-import 'package:wai/widgets/custom_appbar.dart';
-import 'package:wai/widgets/horizontal_border_line.dart';
+import 'package:wai/common/utils/logger.dart';
+import 'package:wai/common/widgets/custom_appbar.dart';
+import 'package:wai/common/widgets/horizontal_border_line.dart';
 
-import 'components/post_item_list_type.dart';
+import 'components/post_item.dart';
+import 'components/post_items.dart';
 
 class PostsPageScreen extends StatelessWidget {
   const PostsPageScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    loggerNoStack.i("PostsPageScreen");
 
     return DefaultTabController(
       length: 2,
@@ -85,46 +88,56 @@ class PostsPageScreen extends StatelessWidget {
     return Expanded(
       child: TabBarView(
         children: [
-          _buildPosts(),
+          _buildAllPosts(),
           _buildPopularPosts()
         ],
       ),
     );
   }
 
-  Widget _buildPosts() {
+  Widget _buildAllPosts() {
     return NotificationListener<ScrollNotification>(
       onNotification: (ScrollNotification notification) {
         scrollNotification(notification);
         return false;
       },
-      child: RefreshIndicator(
-        onRefresh: PostController.to.readMoreNewPosts,
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 5),
-          child: Obx(() =>
-            Scrollbar(
-              thickness: 8,
-              child: ListView.separated(
-                separatorBuilder: (BuildContext context, int index) => const HorizontalBorderLine(height: 0.25,),
-                itemCount: PostController.to.posts.value.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return PostItemListType(
-                    post: PostController.to.posts.value.elementAt(index),
-                    onTap: () {
-                      Get.to(() => PostPageScreen(
-                          postId: PostController.to.posts.value.elementAt(index).postId!)
-                      );
-                    }
-                  );
-                },
-              ),
-            ),
-          )
-        ),
-      ),
+      child: PostItems()
     );
   }
+
+  // Widget _buildAllPosts() {
+  //   return NotificationListener<ScrollNotification>(
+  //     onNotification: (ScrollNotification notification) {
+  //       scrollNotification(notification);
+  //       return false;
+  //     },
+  //     child: RefreshIndicator(
+  //       onRefresh: PostController.to.readMoreNewPosts,
+  //       child: Container(
+  //         margin: EdgeInsets.symmetric(horizontal: 5),
+  //         child: Obx(() =>
+  //           Scrollbar(
+  //             thickness: 8,
+  //             child: ListView.separated(
+  //               separatorBuilder: (BuildContext context, int index) => const HorizontalBorderLine(height: 0.25,),
+  //               itemCount: PostController.to.posts.value.length,
+  //               itemBuilder: (BuildContext context, int index) {
+  //                 return PostItem(
+  //                   post: PostController.to.posts.value.elementAt(index),
+  //                   onTap: () {
+  //                     Get.to(() => PostPageScreen(
+  //                         postId: PostController.to.posts.value.elementAt(index).postId!)
+  //                     );
+  //                   }
+  //                 );
+  //               },
+  //             ),
+  //           ),
+  //         )
+  //       ),
+  //     ),
+  //   );
+  // }
 
   scrollNotification(notification) {
     // 스크롤 최대 범위

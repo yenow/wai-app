@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
-import 'package:wai/widgets/black.dart';
+import 'package:wai/common/widgets/blank.dart';
 
 class LikeyButton extends StatefulWidget {
   const LikeyButton({Key? key, required this.isLikey,required this.likeyCount, required this.onPressed}) : super(key: key);

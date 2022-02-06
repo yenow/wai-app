@@ -12,7 +12,7 @@ import 'package:wai/models/enneagram_test/enneagram_test.dart';
 import 'package:wai/models/reply/api/reply_request_dto.dart';
 import 'package:wai/models/user/api/user_request_dto.dart';
 import 'package:wai/models/user/user.dart';
-import 'package:wai/utils/function.dart';
+import 'package:wai/common/utils/function.dart';
 
 class UserProfileController extends GetxController {
   static UserProfileController get to => Get.put(UserProfileController());

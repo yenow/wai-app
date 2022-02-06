@@ -8,13 +8,17 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:logger/logger.dart';
 import 'package:wai/common/controller/enneagram_test_controller.dart';
+import 'package:wai/common/controller/post_controller.dart';
+import 'package:wai/common/controller/user_controller.dart';
+import 'package:wai/common/controller/user_profile_controller.dart';
 import 'package:wai/models/api/response_dto.dart';
 import 'package:wai/models/login/login_info.dart';
 import 'package:wai/models/post/post.dart';
 import 'package:wai/models/simply_login_info.dart';
 import 'package:wai/models/user/user.dart';
-import 'package:wai/utils/app_state.dart';
-import 'package:wai/utils/function.dart';
+import 'package:wai/common/utils/app_state.dart';
+import 'package:wai/common/utils/function.dart';
+import 'package:wai/common/utils/logger.dart';
 
 import 'enneagram_controller.dart';
 
@@ -22,26 +26,15 @@ class AppController extends GetxController{
   static AppController get to => Get.put(AppController());
 
   /* observable variable */
-  final userKey = Rx<String?>("");
-  final userId = Rx<String?>("");
-  final isBuildIntroducePage = Rx<String?>("");
+  final userKey = "".obs;  // Rx<String?>("");
+  final userId = "".obs;
+  final isBuildIntroducePage = "".obs;
   final nowServerTime = DateTime(0).obs;
   final appState = AppState().obs;   // appbar 상태
 
   /* non-observable variable */
   final _accountNameController = TextEditingController(text: 'flutter_secure_storage_service');
   final storage = new FlutterSecureStorage();
-
-  Future<bool> initAppState() async {
-    userKey.value = await getUserKey();
-    userId.value = await getUserId();
-    isBuildIntroducePage.value = await getIsBuildIntroducePage();
-    getServerTime();
-    await EnneagramController.to.initEnneagramInfomation();
-    await EnneagramTestController.to.initEnneagramQuestionList();
-    await EnneagramTestController.to.initSimpleEnneagramQuestionList();
-    return true;
-  }
 
   IOSOptions _getIOSOptions() => IOSOptions(
     accountName: _getAccountName(),
@@ -59,34 +52,37 @@ class AppController extends GetxController{
     var response = await getServerTimeRequest();
     ResponseDto dto = ResponseDto.fromJson(json.decode(response));
     nowServerTime.value = dto.nowServerTime!;
-
   }
 
-  Future<String?> getUserKey() async {
-    String? userKey = await storage.read(
+  Future<void> initUserKey() async {
+    String? tempUserKey = await storage.read(
         key: "userKey",
         iOptions: _getIOSOptions(),
         aOptions: _getAndroidOptions()
     );
-    return userKey;
+
+    userKey.value = tempUserKey ?? "";
+    loggerNoStack.d("userKey :" + userKey.value);
   }
 
-  Future<String?> getUserId() async {
-    String? userKey = await storage.read(
+  Future<void> initUserId() async {
+    String? temUserId = await storage.read(
         key: "userId",
         iOptions: _getIOSOptions(),
         aOptions: _getAndroidOptions()
     );
-    return userKey;
+
+    userId.value = temUserId ?? "";
+    loggerNoStack.d("userKey :" + userId.value);
   }
 
-  Future<String?> getIsBuildIntroducePage() async {
-    String? isBuildIntroducePage = await storage.read(
+  Future<void> initIsBuildIntroducePage() async {
+    String? tempIsBuildIntroducePage = await storage.read(
         key: "isBuildIntroducePage",
         iOptions: _getIOSOptions(),
         aOptions: _getAndroidOptions()
     );
-    return isBuildIntroducePage;
+    isBuildIntroducePage.value = tempIsBuildIntroducePage ?? "";
   }
 
   Future<void> writeUserKey (String userKey) async {
@@ -121,47 +117,4 @@ class AppController extends GetxController{
         aOptions: _getAndroidOptions()
     );
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  RxInt count = 0.obs;
-  final isGenderList = <bool>[true,false].obs;
-  final postItems = <Post>[].obs;
-  final simpleLoginInfo = Rxn<SimpleLoginInfo>(SimpleLoginInfo(year: 2021, month: 1, day: 1)); // DateTime.now().year
-  // final simpleLoginInfo = SimpleLoginInfo(year: 2021, month: 1, day: 1).obs; // DateTime.now().year
-
-  setSimpleLoginInfoYear(int newYear) => simpleLoginInfo.value!.year = newYear;
-
-  setNickname(String value) => simpleLoginInfo.value!.nickname = value;
-
-  setBirthDay(String value) => simpleLoginInfo.value!.birthDay = value;
-
-  setGender(int index) => {
-
-    if (index == 0) {
-      simpleLoginInfo.value!.gender = 'man',
-      isGenderList.value = <bool>[true,false].obs
-    } else if (index == 1) {
-      simpleLoginInfo.value!.gender = 'woman',
-      isGenderList.value = <bool>[false,true].obs
-    }
-  };
-
-  increment() => count++;
 }

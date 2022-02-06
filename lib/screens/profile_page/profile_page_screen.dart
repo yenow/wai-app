@@ -15,12 +15,12 @@ import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/models/enneagram_test/enneagram_test.dart';
 import 'package:wai/screens/enneagram_page/enneagram_type_page_screen.dart';
 import 'package:wai/screens/enneagram_test_page/enneagram_test_page_screen.dart';
-import 'package:wai/screens/introduction_screen.dart';
-import 'package:wai/utils/enneagram_dialog.dart';
-import 'package:wai/utils/logger.dart';
-import 'package:wai/widgets/black.dart';
-import 'package:wai/widgets/block_text.dart';
-import 'package:wai/widgets/horizontal_border_line.dart';
+import 'package:wai/screens/introduce_page/introduction_screen.dart';
+import 'package:wai/common/utils/enneagram_dialog.dart';
+import 'package:wai/common/utils/logger.dart';
+import 'package:wai/common/widgets/blank.dart';
+import 'package:wai/common/widgets/block_text.dart';
+import 'package:wai/common/widgets/horizontal_border_line.dart';
 
 import '../../main.dart';
 

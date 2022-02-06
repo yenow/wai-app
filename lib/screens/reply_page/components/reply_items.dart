@@ -4,9 +4,9 @@ import 'package:wai/common/controller/reply_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/models/reply/reply.dart';
 import 'package:wai/screens/reply_page/components/reply_item.dart';
-import 'package:wai/widgets/black.dart';
-import 'package:wai/widgets/block_text.dart';
-import 'package:wai/widgets/horizontal_border_line.dart';
+import 'package:wai/common/widgets/blank.dart';
+import 'package:wai/common/widgets/block_text.dart';
+import 'package:wai/common/widgets/horizontal_border_line.dart';
 
 class ReplyItems extends StatelessWidget {
   const ReplyItems({Key? key, required this.replys, required this.reReplyFunction, required this.isScroll}) : super(key: key);

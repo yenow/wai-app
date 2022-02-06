@@ -14,8 +14,8 @@ import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/models/enneagram_test/enneagram_test.dart';
 import 'package:wai/models/enneagram_test/api/enneagram_test_request_dto.dart';
 import 'package:wai/models/enneagram_test/enneagram_question.dart';
-import 'package:wai/utils/function.dart';
-import 'package:wai/widgets/wai_dialog.dart';
+import 'package:wai/common/utils/function.dart';
+import 'package:wai/common/widgets/wai_dialog.dart';
 
 import '../main_screens.dart';
 import 'component/custom_radio_group_buton.dart';
@@ -300,7 +300,7 @@ class EnneagramTestPageScreen extends StatelessWidget {
                     );
                   } else {
                     EnneagramTestRequestDto dto = EnneagramTestRequestDto(
-                      userId: AppController.to.userId.value!,
+                      userId: AppController.to.userId.value,
                       testType: TestType.hard,
                       type1Score: EnneagramTestController.to.getScoreByEneagramType(1),
                       type2Score: EnneagramTestController.to.getScoreByEneagramType(2),

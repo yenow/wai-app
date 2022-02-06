@@ -9,7 +9,7 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:logger/logger.dart';
 import 'package:wai/models/enneagram/enneagram.dart';
 import 'package:wai/models/enneagram_test/enneagram_question.dart';
-import 'package:wai/utils/function.dart';
+import 'package:wai/common/utils/function.dart';
 
 import 'enneagram_controller.dart';
 

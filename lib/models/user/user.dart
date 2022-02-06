@@ -1,8 +1,10 @@
 import 'package:enum_to_string/enum_to_string.dart';
+import 'package:wai/models/api/response_dto.dart';
 import 'package:wai/models/enneagram/enneagram.dart';
 import 'package:wai/models/enneagram_test/enneagram_test.dart';
 import 'package:wai/models/post/post.dart';
 import 'package:wai/models/reply/reply.dart';
+import 'package:wai/models/user/api/user_request_dto.dart';
 
 enum Gender {
   man, woman
@@ -14,7 +16,7 @@ extension ParseToString on Gender {
   }
 }
 
-class User {
+class User extends ResponseDto{
   int? userId;
   String? userKey;
   String? password;
@@ -43,9 +45,18 @@ class User {
     this.enneagramTests,
   });
 
+  // void setDto(ResponseDto responseDto) {
+  //   isSuccess = responseDto.isSuccess;
+  //   errorCode = responseDto.errorCode;
+  //   errorMessage =  responseDto.errorMessage;
+  // }
+
+  UserRequestDto toUserRequestDto() {
+    return UserRequestDto(userId: userId!, userKey: userKey!);
+  }
+
   factory User.fromJson(Map<String, dynamic> json) {
-    //Iterable l = json.decode(response.body);
-    //List<Post> posts = List<Post>.from(l.map(  (model) => Post.fromJson(model) ));
+
     List<Post> posts;
     if (json['posts'] != null) {
       posts = List<Post>.from(json['posts'].map((model) {

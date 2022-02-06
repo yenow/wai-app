@@ -6,7 +6,7 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/theme/theme.dart';
 import 'package:wai/sample/page/sample_button_page.dart';
-import 'package:wai/widgets/custom_appbar.dart';
+import 'package:wai/common/widgets/custom_appbar.dart';
 import 'package:wai/screens/enneagram_test_page/component/custom_radio_button.dart';
 import 'package:wai/screens/enneagram_test_page/component/custom_radio_group_buton.dart';
 

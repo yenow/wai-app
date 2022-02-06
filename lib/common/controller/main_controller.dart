@@ -7,8 +7,8 @@ import 'package:wai/common/controller/post_controller.dart';
 import 'package:wai/common/controller/user_controller.dart';
 import 'package:wai/common/controller/user_profile_controller.dart';
 import 'package:wai/sample/add_interactivity.dart';
-import 'package:wai/utils/app_state.dart';
-import 'package:wai/utils/logger.dart';
+import 'package:wai/common/utils/app_state.dart';
+import 'package:wai/common/utils/logger.dart';
 
 enum TabItem { homePageScreen, postPageScreen, searchPageScreen ,enneagramPageScreen, profilePageScreen }
 
@@ -27,11 +27,14 @@ class MainController extends GetxController{
   final pageDeptCount = 0.obs;
 
   Future<bool> initMainScreens() async {
-      await UserController.to.initUserInfo();
-      await UserProfileController.to.initUserProfile();
-      await PostController.to.initPosts();
-      // await PostController.to.init
-      return true;
+    // 삭제 예정
+    await UserController.to.initUserInfo();
+    await UserProfileController.to.initUserProfile();
+
+
+    await PostController.to.initPosts();
+    // await PostController.to.init
+    return true;
   }
 
   void setTabIndex(int nextTabIndex) {

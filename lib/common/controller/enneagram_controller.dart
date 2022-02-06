@@ -9,7 +9,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:wai/models/enneagram/enneagram.dart';
 import 'package:wai/models/enneagram/enneagram_explain.dart';
-import 'package:wai/utils/function.dart';
+import 'package:wai/common/utils/function.dart';
 
 class EnneagramController extends GetxController{
   static EnneagramController get to => Get.put(EnneagramController());

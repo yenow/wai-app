@@ -7,8 +7,8 @@ import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/main.dart';
 import 'package:wai/screens/enneagram_page/enneagram_type_page_screen.dart';
-import 'package:wai/utils/enneagram_dialog.dart';
-import 'package:wai/widgets/custom_appbar.dart';
+import 'package:wai/common/utils/enneagram_dialog.dart';
+import 'package:wai/common/widgets/custom_appbar.dart';
 
 class HomePageScreen extends StatelessWidget {
   HomePageScreen({Key? key, this.enneagramType}) : super(key: key);

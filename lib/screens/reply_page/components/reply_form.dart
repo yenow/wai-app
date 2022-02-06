@@ -9,8 +9,8 @@ import 'package:wai/common/controller/reply_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/models/reply/reply.dart';
 import 'package:wai/sample/add_interactivity.dart';
-import 'package:wai/utils/function.dart';
-import 'package:wai/utils/logger.dart';
+import 'package:wai/common/utils/function.dart';
+import 'package:wai/common/utils/logger.dart';
 
 class ReplyForm extends StatelessWidget {
   ReplyForm({Key? key, this.parentRebuild}) : super(key: key);
@@ -78,16 +78,6 @@ class ReplyForm extends StatelessWidget {
                       ),
                     ),
                     counterText:'',
-                    // // floatingLabelBehavior: FloatingLabelBehavior.never,
-                    // fillColor: Colors.white,
-                    // filled: true,
-                    // enabledBorder: const UnderlineInputBorder (
-                    //   borderSide: BorderSide(width: 0.5, color: Colors.grey),
-                    // ),
-                    // focusedBorder: const UnderlineInputBorder(
-                    //   borderSide: BorderSide(width: 0.5, color: Colors.grey),
-                    // ),
-                    // focusColor: Colors.grey,
                   )
               ),
             ),

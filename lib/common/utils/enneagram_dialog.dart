@@ -6,8 +6,8 @@ import 'package:wai/common/controller/enneagram_controller.dart';
 import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/screens/enneagram_page/enneagram_type_page_screen.dart';
-import 'package:wai/widgets/black.dart';
-import 'package:wai/widgets/block_text.dart';
+import 'package:wai/common/widgets/blank.dart';
+import 'package:wai/common/widgets/block_text.dart';
 
 class EnneagramDialog {
 

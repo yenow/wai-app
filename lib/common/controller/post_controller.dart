@@ -11,8 +11,8 @@ import 'package:wai/models/post/api/post_save_request_dto.dart';
 import 'package:wai/models/post/post.dart';
 import 'package:wai/models/reply/reply.dart';
 import 'package:wai/sample/add_interactivity.dart';
-import 'package:wai/utils/function.dart';
-import 'package:wai/utils/logger.dart';
+import 'package:wai/common/utils/function.dart';
+import 'package:wai/common/utils/logger.dart';
 
 import 'app_controller.dart';
 
@@ -20,7 +20,7 @@ class PostController extends GetxController {
   static PostController get to => Get.put(PostController());
 
   /* observable variable */
-  final posts = [].obs;
+  final posts = <Post>[].obs;
 
   final post = Post().obs;
 
@@ -53,23 +53,23 @@ class PostController extends GetxController {
 
   void addLikey() {
     post.update((val) {
-      val!.likeys!.add(int.parse(AppController.to.userId.value!));
+      val!.likeys!.add(int.parse(AppController.to.userId.value));
       val.likeyCount = val.likeyCount! + 1;
     });
 
     int postId = post.value.postId!;
-    String userId = AppController.to.userId.value!;
+    String userId = AppController.to.userId.value;
     getRequest("/api/addLikey/$postId/$userId");
   }
 
   void removeLikey() {
     post.update((val) {
-      val!.likeys!.remove(int.parse(AppController.to.userId.value!));
+      val!.likeys!.remove(int.parse(AppController.to.userId.value));
       val.likeyCount = val.likeyCount! - 1;
     });
 
     int postId = post.value.postId!;
-    String userId = AppController.to.userId.value!;
+    String userId = AppController.to.userId.value;
     getRequest("/api/removeLikey/$postId/$userId");
   }
 
@@ -96,9 +96,9 @@ class PostController extends GetxController {
     PostRequestDto postRequestDto = PostRequestDto();
     postRequestDto.postsCount = postsCount;
 
-    if (posts.value.isNotEmpty) {
-      postRequestDto.startPostId = posts.value.elementAt(0).postId;
-      postRequestDto.endPostId = posts.value.elementAt(posts.value.length - 1).postId;
+    if (posts.isNotEmpty) {
+      postRequestDto.startPostId = posts.elementAt(0).postId;
+      postRequestDto.endPostId = posts.elementAt(posts.length - 1).postId;
     } else {
       postRequestDto.startPostId = 0;
       postRequestDto.endPostId = 0;
@@ -122,9 +122,9 @@ class PostController extends GetxController {
     PostRequestDto postRequestDto = PostRequestDto();
     postRequestDto.postsCount = postsCount;
 
-    if (posts.value.isNotEmpty) {
-      postRequestDto.startPostId = posts.value.elementAt(0).postId;
-      postRequestDto.endPostId = posts.value.elementAt(posts.value.length - 1).postId;
+    if (posts.isNotEmpty) {
+      postRequestDto.startPostId = posts.elementAt(0).postId;
+      postRequestDto.endPostId = posts.elementAt(posts.length - 1).postId;
     } else {
       postRequestDto.startPostId = 0;
       postRequestDto.endPostId = 0;
@@ -154,8 +154,9 @@ class PostController extends GetxController {
     var response = await getRequest("/api/readPost/$postId");
 
     // add posts
-    Post? post = Post.fromJson(json.decode(response));
-    return post;
+    post.value = Post.fromJson(json.decode(response));
+
+    return post.value;
   }
 
   void setWritingPostTitle (String title) {
@@ -174,4 +175,5 @@ class PostController extends GetxController {
   void setIsMoreRequesting (bool bool) {
     isMoreRequesting.value = bool;
   }
+
 }

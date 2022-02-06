@@ -4,18 +4,30 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:wai/common/controller/post_controller.dart';
 import 'package:wai/models/reply/api/reply_request_dto.dart';
 import 'package:wai/models/reply/reply.dart';
 import 'package:wai/sample/add_interactivity.dart';
-import 'package:wai/utils/function.dart';
-import 'package:wai/utils/logger.dart';
+import 'package:wai/common/utils/function.dart';
+import 'package:wai/common/utils/logger.dart';
+
+import 'app_controller.dart';
 
 class ReplyController extends GetxController {
   static ReplyController get to => Get.put(ReplyController());
 
-  final replys = Rx<List<Reply>>([]);
+  final replys = <Reply>[].obs;
   final replyWrintingInfomation = ReplyRequestDto().obs;
   final replyContainerHeight = 80.0.obs;
+
+  void initReplys(int? parentReplyId) {
+    ReplyController.to.replys.value = PostController.to.post.value.replys!;
+    ReplyController.to.initReplyWritingInfomation(
+        userId: AppController.to.userId.value,
+        postId: PostController.to.post.value.postId!.toString(),
+        parentReplyId: parentReplyId != null ? parentReplyId.toString() : ""
+    );
+  }
 
   Future<void> readReplysByPostId(int postId) async {
 
@@ -27,9 +39,7 @@ class ReplyController extends GetxController {
   }
 
   void addReply(Reply reply) {
-    replys.update((val) {
-      val!.add(reply);
-    });
+    replys.add(reply);
   }
 
   void initReplyWritingInfomation({required String userId, required String postId,  String? parentReplyId}) {
@@ -92,15 +102,4 @@ class ReplyController extends GetxController {
 
     return true;
   }
-
-  // void updateReplyContainerHeight() {
-  //   if (replyWrintingInfomation.value.replyContent!.length < 50) {
-  //     replyContainerHeight.value = 70;
-  //   } else if (replyWrintingInfomation.value.replyContent!.length >= 50) {
-  //     replyContainerHeight.value = 90;
-  //   } else if (replyWrintingInfomation.value.replyContent!.length >= 100) {
-  //     replyContainerHeight.value = 110;
-  //   }
-  //   logger.d(replyContainerHeight.value);
-  // }
 }

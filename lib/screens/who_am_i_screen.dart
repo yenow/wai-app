@@ -21,7 +21,7 @@ import 'package:wai/models/enneagram_test/api/enneagram_test_request_dto.dart';
 import 'package:wai/models/enneagram/enneagram.dart';
 import 'package:wai/screens/enneagram_test_page/simple_enneagram_test_page_screen.dart';
 import 'package:wai/screens/main_screens.dart';
-import 'package:wai/utils/function.dart';
+import 'package:wai/common/utils/function.dart';
 
 import 'enneagram_test_page/enneagram_test_page_screen.dart';
 
@@ -194,7 +194,7 @@ class WhoAmIScreen extends StatelessWidget {
 
               if (selectedEnneagramType != 0) {
                 EnneagramTestRequestDto enneagramTest = EnneagramTestRequestDto(
-                  userId: AppController.to.userId.value!,
+                  userId: AppController.to.userId.value,
                   testType: TestType.select,
                   myEnneagramType: EnneagramTestController.to.selectedEnneagramType.value,
                 );
@@ -204,6 +204,7 @@ class WhoAmIScreen extends StatelessWidget {
                 EnneagramTest responseEnneagramTest = EnneagramTest.fromJson(json.decode(response));
 
                 AppController.to.writeIsBuildIntroducePage("N");
+
                 Get.offAll(() => MainScreens(enneagramType: responseEnneagramTest.myEnneagramType));
               }
           })

@@ -8,7 +8,8 @@ class CustomTextStyles  {
     return GoogleFonts.jua(
         fontSize: fontSize,
         fontWeight: FontWeight.w400,
-        color: color
+        color: color,
+
     );
   }
 

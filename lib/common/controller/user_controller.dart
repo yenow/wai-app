@@ -10,7 +10,7 @@ import 'package:wai/common/controller/user_profile_controller.dart';
 import 'package:wai/models/reply/api/reply_request_dto.dart';
 import 'package:wai/models/user/api/user_request_dto.dart';
 import 'package:wai/models/user/user.dart';
-import 'package:wai/utils/function.dart';
+import 'package:wai/common/utils/function.dart';
 
 class UserController extends GetxController {
   static UserController get to => Get.put(UserController());
@@ -18,15 +18,18 @@ class UserController extends GetxController {
   final user = User().obs;
   
   Future<bool> initUserInfo() async {
-    UserRequestDto userRequestDto = UserRequestDto(
-        userId: int.parse(AppController.to.userId.value!),
-        userKey:  AppController.to.userKey.value!
-    );
 
-    var response = await postRequest("/api/getUserInfomation", json.encode(userRequestDto));
-    user.value = User.fromJson(json.decode(response));
+    if (AppController.to.userId.value.isNotEmpty) {
+      UserRequestDto userRequestDto = UserRequestDto(
+          userId: int.parse(AppController.to.userId.value),
+          userKey: AppController.to.userKey.value
+      );
 
-    UserProfileController.to.initUserProfile();
+      var response = await postRequest("/api/getUserInfomation", json.encode(userRequestDto));
+      user.value = User.fromJson(json.decode(response));
+
+      UserProfileController.to.initUserProfile();
+    }
 
     return true;
   }

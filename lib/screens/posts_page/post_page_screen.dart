@@ -7,7 +7,7 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:wai/common/constants/constants.dart';
-import 'package:wai/common/constants/custom_colors.dart';
+import 'package:wai/common/constants/wai_colors.dart';
 import 'package:wai/common/controller/enneagram_controller.dart';
 import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/controller/post_controller.dart';
@@ -15,12 +15,12 @@ import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/models/post/post.dart';
 import 'package:wai/screens/reply_page/components/reply_items.dart';
 import 'package:wai/screens/reply_page/reply_page_screen.dart';
-import 'package:wai/utils/date_util.dart';
-import 'package:wai/utils/logger.dart';
-import 'package:wai/widgets/black.dart';
-import 'package:wai/widgets/block_text.dart';
-import 'package:wai/widgets/custom_appbar.dart';
-import 'package:wai/widgets/horizontal_border_line.dart';
+import 'package:wai/common/utils/date_util.dart';
+import 'package:wai/common/utils/logger.dart';
+import 'package:wai/common/widgets/blank.dart';
+import 'package:wai/common/widgets/block_text.dart';
+import 'package:wai/common/widgets/custom_appbar.dart';
+import 'package:wai/common/widgets/horizontal_border_line.dart';
 
 import 'components/likey_button.dart';
 
@@ -33,14 +33,9 @@ class PostPageScreen extends StatefulWidget {
 }
 
 class _PostPageScreenState extends State<PostPageScreen> {
+  late Post post;
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  void rebuildMethod() {
-    loggerNoStack.i("rebuildMethod()");
+  void rebuild() {
     setState(() {});
   }
 
@@ -64,6 +59,7 @@ class _PostPageScreenState extends State<PostPageScreen> {
                 return Text('Error: ${snapshot.error}');
               } else {
                 // post = snapshot.data;
+                post = snapshot.data!;
                 if (snapshot.data!.isDelete ?? false) {
                   Get.back();
                 }
@@ -76,26 +72,14 @@ class _PostPageScreenState extends State<PostPageScreen> {
   }
 
   Widget _buildScaffold(BuildContext context) {
+
     return Obx(()=>
         SafeArea(
           child: Scaffold(
-              appBar: PreferredSize(
-                preferredSize: Size.fromHeight(50),   // MainController.to.appBarState.value.appbarSize
-                child: AppBar(
-                  title: Text("게시글", style: CustomTextStyles.buildTextStyle(fontSize: 20, color: Colors.white),),
-                  // elevation: 2.0,
-                  backgroundColor: lightBlueGrey,   // Colors.white
-                  leading: GestureDetector(
-                    child: Icon(Icons.arrow_back_ios_outlined, size: 20, color: Colors.white,),
-                    onTap: () {
-                      Get.back();
-                    },
-                  ),
-                ),
-              ),
+              appBar: _buildAppbar(context),
               body: RefreshIndicator(
                 onRefresh: () async {
-                  rebuildMethod();
+                  rebuild();
                 },
                 child: Column(
                   children: [
@@ -127,6 +111,23 @@ class _PostPageScreenState extends State<PostPageScreen> {
           ),
         ),
     );
+  }
+
+  PreferredSize _buildAppbar(BuildContext context) {
+    return PreferredSize(
+              preferredSize: Size.fromHeight(50),   // MainController.to.appBarState.value.appbarSize
+              child: AppBar(
+                title: Text("게시글", style: CustomTextStyles.buildTextStyle(fontSize: 20, color: Colors.white),),
+                // elevation: 2.0,
+                backgroundColor: lightBlueGrey,   // Colors.white
+                leading: GestureDetector(
+                  child: const Icon(Icons.arrow_back_ios_outlined, size: 20, color: Colors.white,),
+                  onTap: () {
+                    Navigator.pop(context, PostController.to.post.value);
+                  },
+                ),
+              ),
+            );
   }
 
   Padding _buildInformation() {
@@ -239,21 +240,6 @@ class _PostPageScreenState extends State<PostPageScreen> {
         reReplyFunction: () {
         }
     );
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: ListView.separated(
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        itemCount: 5,
-        itemBuilder: (BuildContext context, int index) {
-          return _buildReply();
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return const HorizontalBorderLine();
-        },
-      ),
-    );
   }
 
   Column _buildReply() {
@@ -348,9 +334,6 @@ class _PostPageScreenState extends State<PostPageScreen> {
                   },
                 ),
                 _buildReplyButton(PostController.to.post.value.replys!.length),
-                // const Icon(FontAwesomeIcons.commentDots, size: 18, color: Colors.black45 ),
-                // const Blank(width: 5),
-                // Text("$replyLength", style: CustomTextStyles.buildTextStyle(fontSize: 16, color: Colors.black45)),
               ],
             ),
           ),
@@ -370,8 +353,9 @@ class _PostPageScreenState extends State<PostPageScreen> {
       ),
       iconSize: 18,
       padding: EdgeInsets.zero,
-      onPressed: () {
-        Get.to(() => ReplyPageScreen(postId: PostController.to.post.value.postId!));
+      onPressed: () async {
+
+        await _GoIntoReplyPageScreen();
       },
     );
   }
@@ -384,8 +368,8 @@ class _PostPageScreenState extends State<PostPageScreen> {
         label: Text("댓글을 남겨보세요.",
           style: CustomTextStyles.buildTextStyle(fontSize: 15, color: Colors.grey),
         ),
-        onPressed: () {
-          Get.to(() => ReplyPageScreen(postId: PostController.to.post.value.postId!, parentRebuild: rebuildMethod,), transition: Transition.downToUp);
+        onPressed: () async {
+          await _GoIntoReplyPageScreen();
         },
         style: TextButton.styleFrom(
             padding: EdgeInsets.symmetric(horizontal:10),
@@ -393,5 +377,15 @@ class _PostPageScreenState extends State<PostPageScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _GoIntoReplyPageScreen() async {
+    Post returnPost = await Navigator.push(context,
+      MaterialPageRoute(builder: (context) => ReplyPageScreen(postId: PostController.to.post.value.postId!)),
+    );
+
+    setState(() {
+      post = returnPost;
+    });
   }
 }

@@ -6,14 +6,14 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wai/common/constants/constants.dart';
-import 'package:wai/common/constants/custom_colors.dart';
+import 'package:wai/common/constants/wai_colors.dart';
 import 'package:wai/common/controller/app_controller.dart';
 import 'package:wai/common/controller/enneagram_controller.dart';
 import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/theme/custom_postpage_textstyle.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/models/enneagram/enneagram.dart';
-import 'package:wai/widgets/custom_appbar.dart';
+import 'package:wai/common/widgets/custom_appbar.dart';
 
 import '../../main.dart';
 import 'enneagram_type_page_screen.dart';

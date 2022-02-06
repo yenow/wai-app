@@ -18,9 +18,9 @@ import 'package:wai/models/enneagram_test/enneagram_test.dart';
 import 'package:wai/models/enneagram_test/api/enneagram_test_request_dto.dart';
 import 'package:wai/models/enneagram_test/enneagram_question.dart';
 import 'package:wai/screens/main_screens.dart';
-import 'package:wai/utils/function.dart';
-import 'package:wai/widgets/black.dart';
-import 'package:wai/widgets/wai_dialog.dart';
+import 'package:wai/common/utils/function.dart';
+import 'package:wai/common/widgets/blank.dart';
+import 'package:wai/common/widgets/wai_dialog.dart';
 
 import 'component/custom_radio_group_buton.dart';
 
@@ -220,7 +220,7 @@ class SimpleEnneagramTestPageScreen extends StatelessWidget {
 
                 /* api request*/
                 EnneagramTestRequestDto dto = EnneagramTestRequestDto(
-                  userId: AppController.to.userId.value!,
+                  userId: AppController.to.userId.value,
                   testType: TestType.simple,
                   uniqueString: EnneagramTestController.to.makeUniqueString(),
                 );

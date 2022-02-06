@@ -10,7 +10,8 @@ import 'package:wai/screens/home_page/home_page_screen.dart';
 import 'package:wai/screens/posts_page/posts_page_screen.dart';
 import 'package:wai/screens/profile_page/profile_page_screen.dart';
 import 'package:wai/screens/search_page/search_page_screen.dart';
-import 'package:wai/utils/logger.dart';
+import 'package:wai/screens/splash_screen.dart';
+import 'package:wai/common/utils/logger.dart';
 import '../main.dart';
 import 'enneagram_page/enneagram_page_screen.dart';
 import 'enneagram_page/enneagram_type_page_screen.dart';
@@ -24,14 +25,7 @@ class MainScreens extends StatefulWidget {
 }
 
 class _MainScreensState extends State<MainScreens> {
-  late Future<void> initBool;
   final PageController _pageController = PageController();
-
-  @override
-  void initState() {
-    super.initState();
-    initBool =  MainController.to.initMainScreens();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,19 +33,14 @@ class _MainScreensState extends State<MainScreens> {
     deviceHeight = MediaQuery.of(context).size.height;
     widthRatio = (deviceWidth / standardDeviceWidth);
     heightRatio = (deviceHeight / standardDeviceHeight);
-    loggerNoStack.d("build MainScreens");
 
     return FutureBuilder(
-        future: initBool,
+        future: MainController.to.initMainScreens(),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
           /*요청을 기다리는중*/
             case ConnectionState.waiting:
-              return const Scaffold(
-                  body: Center(
-                      child: CircularProgressIndicator()
-                  )
-              );
+              return const WaitingScreen();
             default:
               if (snapshot.hasError) {    /*에러시*/
                 return Scaffold(body : Text('Error: ${snapshot.error}'));
@@ -61,7 +50,6 @@ class _MainScreensState extends State<MainScreens> {
           }
         }
     );
-    return _buildBody(context);
   }
 
   Obx _buildBody(BuildContext context) {

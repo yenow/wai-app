@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:wai/common/constants/custom_colors.dart';
+import 'package:wai/common/constants/wai_colors.dart';
 import '../constants/constants.dart';
 
 

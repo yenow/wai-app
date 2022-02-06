@@ -6,7 +6,7 @@
 // import 'package:get/get_navigation/src/extension_navigation.dart';
 // import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 // import 'package:logger/logger.dart';
-// import 'package:wai/common/constants/custom_colors.dart';
+// import 'package:wai/common/constants/wai_colors.dart';
 // import 'package:wai/common/constants/constants.dart';
 // import 'package:wai/common/controller/main_controller.dart';
 // import 'package:wai/common/theme/custom_textstyles.dart';

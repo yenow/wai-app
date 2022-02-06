@@ -4,9 +4,9 @@ import 'package:wai/common/controller/app_controller.dart';
 import 'package:wai/common/controller/enneagram_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/models/reply/reply.dart';
-import 'package:wai/utils/date_util.dart';
-import 'package:wai/widgets/black.dart';
-import 'package:wai/widgets/block_text.dart';
+import 'package:wai/common/utils/date_util.dart';
+import 'package:wai/common/widgets/blank.dart';
+import 'package:wai/common/widgets/block_text.dart';
 
 class ReplyItem extends StatelessWidget {
   const ReplyItem({Key? key, required this.reply, this.reReplyFunction}) : super(key: key);

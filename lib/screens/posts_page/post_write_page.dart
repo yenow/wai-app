@@ -11,9 +11,9 @@ import 'package:wai/common/controller/post_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/models/post/post.dart';
 import 'package:wai/screens/posts_page/post_page_screen.dart';
-import 'package:wai/utils/function.dart';
-import 'package:wai/utils/logger.dart';
-import 'package:wai/widgets/wai_dialog.dart';
+import 'package:wai/common/utils/function.dart';
+import 'package:wai/common/utils/logger.dart';
+import 'package:wai/common/widgets/wai_dialog.dart';
 
 class PostWritePage extends StatelessWidget {
   const PostWritePage({Key? key}) : super(key: key);
@@ -75,8 +75,8 @@ class PostWritePage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal:20),
       child: GestureDetector(
         onTap: () async {
-          PostController.to.writingPost.value.userId = AppController.to.userId.value!;
-          PostController.to.writingPost.value.userKey = AppController.to.userKey.value!;
+          PostController.to.writingPost.value.userId = AppController.to.userId.value;
+          PostController.to.writingPost.value.userKey = AppController.to.userKey.value;
 
           // check Value
           if (checkValue(context: context)) {
@@ -161,13 +161,13 @@ class PostWritePage extends StatelessWidget {
           counterText:'',
           fillColor: Colors.white,
           filled: true,
-          border: UnderlineInputBorder(
+          border: const UnderlineInputBorder(
             borderSide: BorderSide(width: 1, color: Colors.grey),
           ),
-          enabledBorder: UnderlineInputBorder (
+          enabledBorder: const UnderlineInputBorder (
             borderSide: BorderSide(width: 1, color: Colors.grey),
           ),
-          focusedBorder: UnderlineInputBorder(
+          focusedBorder: const UnderlineInputBorder(
             borderSide: BorderSide(width: 1, color: Colors.grey),
           ),
 

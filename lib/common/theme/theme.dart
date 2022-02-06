@@ -36,7 +36,7 @@ AppBarTheme appTheme() {
 ThemeData theme() {
   return ThemeData(
     scaffoldBackgroundColor: Colors.white,
-    textTheme: TextTheme(),
+    textTheme: const TextTheme(),
     appBarTheme: appTheme(),
   );
 }

@@ -10,13 +10,16 @@ import 'package:page_view_indicators/circle_page_indicator.dart';
 import 'package:uuid/uuid.dart';
 import 'package:wai/common/constants/constants.dart';
 import 'package:wai/common/controller/app_controller.dart';
+import 'package:wai/common/controller/user_controller.dart';
 import 'package:wai/main.dart';
 import 'package:wai/models/introduction_message.dart';
 import 'package:wai/models/user/user.dart';
 import 'package:wai/screens/who_am_i_screen.dart';
 import 'package:http/http.dart' as http;
-import 'package:wai/utils/function.dart';
-import 'package:wai/widgets/wai_dialog.dart';
+import 'package:wai/common/utils/function.dart';
+import 'package:wai/common/widgets/wai_dialog.dart';
+
+import 'input_user_infomation_page.dart';
 
 class IntroductionSrceen extends StatelessWidget {
 
@@ -127,10 +130,14 @@ class IntroductionSrceen extends StatelessWidget {
           /* save userId */
           user.userId = userId;
           await AppController.to.writeUserId(userId.toString());
+
+          UserController.to.user.value.userId = userId;
+          UserController.to.user.value.userKey = userKey;
           // AppController.to.setLoginInfo(user);
 
           /* go WhoAmIScreen*/
-          Get.off(WhoAmIScreen());
+          Get.off(InputUserInfomationPage());
+          //Get.off(WhoAmIScreen());
         },
       )
     );
