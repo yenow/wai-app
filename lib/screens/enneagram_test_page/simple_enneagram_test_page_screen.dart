@@ -9,11 +9,14 @@ import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
 import 'package:wai/common/constants/constants.dart';
+import 'package:wai/common/constants/wai_colors.dart';
 import 'package:wai/common/controller/app_controller.dart';
 import 'package:wai/common/controller/enneagram_controller.dart';
 import 'package:wai/common/controller/enneagram_test_controller.dart';
 import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
+import 'package:wai/common/theme/wai_textstyle.dart';
+import 'package:wai/common/widgets/wai_appbar.dart';
 import 'package:wai/models/enneagram_test/enneagram_test.dart';
 import 'package:wai/models/enneagram_test/api/enneagram_test_request_dto.dart';
 import 'package:wai/models/enneagram_test/enneagram_question.dart';
@@ -37,24 +40,14 @@ class SimpleEnneagramTestPageScreen extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(50),   // MainController.to.appBarState.value.appbarSize
-          child: AppBar(
-            title: Text("간단테스트"),
-            elevation: 2.0,
-            backgroundColor: Colors.white,
-            leading: GestureDetector(
-              child: Icon(Icons.arrow_back_ios_outlined, size: 20, color: Colors.blueGrey,),
-              onTap: () {
-                Get.back();
-              },
-            ),
-          ),
+        appBar: const WaiAppbar(
+          title: Text("간단테스트"),
+          isBackLeading: true,
         ),
         body: PageView.builder(
           itemCount: 2,
           controller: _pageController,
-          physics:const NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (BuildContext context, int index) {
 
             return _buildPage(context,index);
@@ -99,66 +92,64 @@ class SimpleEnneagramTestPageScreen extends StatelessWidget {
           List<EnneagramQuestion> list = EnneagramTestController.to.getSimpleQuestionsByPageIndex(pageIndex);
           String uniqueString = list[questionIndex].uniqueString!;
 
-          return _buildSimpeEnneagramQuestion(uniqueString, pageIndex, questionIndex, list);
+          return _buildSimpleEnneagramQuestion(uniqueString, pageIndex, questionIndex, list);
         }
       );
   }
 
   Container _buildNotification() {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20.0),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey,
-            offset: Offset(0.0, 1.0), //(x,y)
-            blurRadius: 2.0,
-          ),
-        ],
+        borderRadius: BorderRadius.circular(10.0),
+        color: WaiColors.puppy,
       ),
       height: 50,
-      child: Center(child: Text("세가지 질문중 나에게 가장 가까운 질문 하나를 선택해주세요.", style: CustomTextStyles.buildTextStyle())),
+      child: Center(
+          child: Text(
+            "세가지 질문중 나에게 가장 가까운 질문 하나를 선택해주세요.",
+            style: WaiTextStyle(color: WaiColors.white).basic()
+          )
+      ),
     );
   }
 
-  Widget _buildSimpeEnneagramQuestion(String uniqueString, int pageIndex, int questionIndex, List<EnneagramQuestion> list) {
+  Widget _buildSimpleEnneagramQuestion(String uniqueString, int pageIndex, int questionIndex, List<EnneagramQuestion> list) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),
         color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey,
-            offset: Offset(0.0, 1.0), //(x,y)
-            blurRadius: 2.0,
-          ),
-        ],
+        // boxShadow: const [
+        //   BoxShadow(
+        //     color: Colors.grey,
+        //     offset: Offset(0.0, 1.0), //(x,y)
+        //     blurRadius: 2.0,
+        //   ),
+        // ],
       ),
       child: ElevatedButton(
         onPressed: () {
-          print(uniqueString);
           EnneagramTestController.to.setSimpleTestSelectMap(pageIndex: pageIndex, uniqueString: uniqueString);
         },
         child: Text(
             list[questionIndex].getFullSimpleQuestion(),
-            style: CustomTextStyles.buildTextStyle(color: Colors.black54)
+            style: WaiTextStyle(color: Colors.black54).basic()
         ),
         style: ButtonStyle(
-          shape: MaterialStateProperty.all(RoundedRectangleBorder(
-            side: BorderSide.none,
-            borderRadius: BorderRadius.all(Radius.circular(10))
+          elevation: MaterialStateProperty.all(0.0),
+          shadowColor: MaterialStateProperty.all(Colors.transparent),
+          padding: MaterialStateProperty.all(const EdgeInsets.all(15)),
+          shape: MaterialStateProperty.all(const RoundedRectangleBorder(
+              side: BorderSide(width: 1, color: Colors.grey),
+              borderRadius: BorderRadius.all(Radius.circular(10))
           )),
-          padding: MaterialStateProperty.all(EdgeInsets.all(10)),
           backgroundColor: MaterialStateProperty.resolveWith((states) {
             if (EnneagramTestController.to.selectSimpleTestMap[pageIndex] == uniqueString) {
-              return Colors.blueGrey.shade300;
+              return Colors.blueGrey.shade100;
             } else {
               return Colors.white;
             }
-
           }), // Button color
           overlayColor: MaterialStateProperty.resolveWith<Color?>((states) {
             if (states.contains(MaterialState.pressed)) return Colors.blueGrey.shade100; // Splash color

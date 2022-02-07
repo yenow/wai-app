@@ -9,6 +9,7 @@ import 'package:wai/common/controller/app_controller.dart';
 import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/controller/post_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
+import 'package:wai/common/widgets/focus_out_container.dart';
 import 'package:wai/models/post/post.dart';
 import 'package:wai/screens/posts_page/post_page_screen.dart';
 import 'package:wai/common/utils/function.dart';
@@ -26,13 +27,15 @@ class PostWritePage extends StatelessWidget {
       Scaffold(
         appBar: _buildAppbar(context),
         // resizeToAvoidBottomInset : false,
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _buildInputTitle(),
-            _buildInputContent(),
-            _buildTail()
-          ],
+        body: FocusOutContainer(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _buildInputTitle(),
+              _buildInputContent(),
+              _buildTail()
+            ],
+          ),
         ),
       ),
     );

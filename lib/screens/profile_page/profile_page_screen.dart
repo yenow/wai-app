@@ -334,7 +334,7 @@ class ProfilePageScreen extends StatelessWidget {
               onPressed: ()  async {
                 await AppController.to.removeUserKey();
                 //var string = await AppController.to.getUserKey();
-                Get.off(IntroductionSrceen());
+                Get.off(IntroductionScreen());
               }
           ),
         ],

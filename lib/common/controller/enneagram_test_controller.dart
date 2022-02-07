@@ -29,7 +29,7 @@ class EnneagramTestController extends GetxController {
   }.obs;
 
   /* non-observable variable */
-  final questionCount = 5;
+  final questionCount = 15;
 
   /*
   * Description : 정밀테스트 질문리스트 초기화

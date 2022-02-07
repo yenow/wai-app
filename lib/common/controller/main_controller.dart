@@ -26,16 +26,6 @@ class MainController extends GetxController{
   final isShowEnneagramDialog = false.obs;
   final pageDeptCount = 0.obs;
 
-  Future<bool> initMainScreens() async {
-    // 삭제 예정
-    await UserController.to.initUserInfo();
-    await UserProfileController.to.initUserProfile();
-
-
-    await PostController.to.initPosts();
-    // await PostController.to.init
-    return true;
-  }
 
   void setTabIndex(int nextTabIndex) {
     currentTabIndex.value = nextTabIndex;

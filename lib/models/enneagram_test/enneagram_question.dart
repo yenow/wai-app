@@ -22,7 +22,7 @@ class EnneagramQuestion {
   }
 
   String getFullSimpleQuestion() {
-    return "$uniqueString. $question";
+    return "$question";
   }
 
   factory EnneagramQuestion.fromJson(Map<String, dynamic> map) {

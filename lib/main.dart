@@ -57,7 +57,10 @@ class RootScreen extends StatelessWidget {
     await EnneagramController.to.initEnneagramInfomation();
     await EnneagramTestController.to.initEnneagramQuestionList();
     await EnneagramTestController.to.initSimpleEnneagramQuestionList();
+
     await UserController.to.initUserInfo();
+    await UserProfileController.to.initUserProfile();
+    await PostController.to.initPosts();
 
     await Future.delayed(const Duration(seconds: 1), () {});
 
@@ -80,7 +83,7 @@ class RootScreen extends StatelessWidget {
               return Text('Error: ${snapshot.error}');
             } else {
 
-              return AppController.to.isBuildIntroducePage.value == "N" ? MainScreens() : IntroductionSrceen();
+              return AppController.to.isBuildIntroducePage.value == "N" ? MainScreens() : IntroductionScreen();
             }
         }
     });

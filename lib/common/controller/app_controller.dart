@@ -34,7 +34,9 @@ class AppController extends GetxController{
 
   /* non-observable variable */
   final _accountNameController = TextEditingController(text: 'flutter_secure_storage_service');
-  final storage = new FlutterSecureStorage();
+  final storage = const FlutterSecureStorage();
+
+
 
   IOSOptions _getIOSOptions() => IOSOptions(
     accountName: _getAccountName(),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:logger/logger.dart';
@@ -16,15 +18,9 @@ import '../main.dart';
 import 'enneagram_page/enneagram_page_screen.dart';
 import 'enneagram_page/enneagram_type_page_screen.dart';
 
-class MainScreens extends StatefulWidget {
+class MainScreens extends StatelessWidget {
   MainScreens({Key? key, this.enneagramType}) : super(key: key);
   int? enneagramType;
-
-  @override
-  _MainScreensState createState() => _MainScreensState();
-}
-
-class _MainScreensState extends State<MainScreens> {
   final PageController _pageController = PageController();
 
   @override
@@ -34,29 +30,13 @@ class _MainScreensState extends State<MainScreens> {
     widthRatio = (deviceWidth / standardDeviceWidth);
     heightRatio = (deviceHeight / standardDeviceHeight);
 
-    return FutureBuilder(
-        future: MainController.to.initMainScreens(),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-          /*요청을 기다리는중*/
-            case ConnectionState.waiting:
-              return const WaitingScreen();
-            default:
-              if (snapshot.hasError) {    /*에러시*/
-                return Scaffold(body : Text('Error: ${snapshot.error}'));
-              } else {
-                return _buildBody(context);
-              }
-          }
-        }
-    );
+    return _buildBody(context);
   }
 
   Obx _buildBody(BuildContext context) {
     return Obx(() =>
         SafeArea(
           child: Scaffold(
-            // backgroundColor: MainController.to.appState.value.backgroundColor,
             resizeToAvoidBottomInset : false,
             backgroundColor:  Colors.transparent,
             bottomNavigationBar: _buildBottomNavigationBar(),
@@ -64,25 +44,15 @@ class _MainScreensState extends State<MainScreens> {
               controller: _pageController,
               onPageChanged: (nextTabIndex) {
                 MainController.to.setTabIndex(nextTabIndex);
-                // MainController.to.currentTabIndex.value;
               },
               children: <Widget>[
-                HomePageScreen(enneagramType: widget.enneagramType),
+                HomePageScreen(enneagramType: enneagramType),
                 PostsPageScreen(),
                 SearchPageScreen(),
                 EnneagramPageScreen(),
-                ProfilePageScreen(enneagramType: widget.enneagramType),
+                ProfilePageScreen(enneagramType: enneagramType),
               ],
-            ),/*IndexedStack(
-              index: MainController.to.currentTabIndex.value,
-              children: [
-                HomePageScreen(enneagramType: widget.enneagramType),
-                PostsPageScreen(),
-                SearchPageScreen(),
-                EnneagramPageScreen(),
-                ProfilePageScreen(enneagramType: widget.enneagramType),
-              ],
-            ),*/
+            ),
           ),
         ),
     );

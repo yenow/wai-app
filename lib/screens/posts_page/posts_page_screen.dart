@@ -84,6 +84,7 @@ class PostsPageScreen extends StatelessWidget {
       ],
     );
   }
+
   Expanded _buildTabBarView() {
     return Expanded(
       child: TabBarView(
@@ -101,7 +102,7 @@ class PostsPageScreen extends StatelessWidget {
         scrollNotification(notification);
         return false;
       },
-      child: PostItems()
+      child: PostItems(posts: PostController.to.posts, getPostFunction: PostController.to.readMoreNewPosts,)
     );
   }
 
@@ -172,7 +173,6 @@ class PostsPageScreen extends StatelessWidget {
 
           PostController.to.setIsMoreRequesting(true);
 
-          // 서버에서 데이터 가져온다
           PostController.to.readMoreOldPosts().then((value) {
 
             // 다 가져오면 하단 표시 서클 제거

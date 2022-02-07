@@ -3,16 +3,40 @@ import 'package:flutter/material.dart';
 
 class WaiColors {
   static const black = Color.fromRGBO(29, 29, 29, 1.0);
-  static const darkBlueGrey = Color.fromRGBO(75, 109, 116, 1.0);
-  static const blueGrey = Colors.blueGrey;
-  static const lightBlueGrey2 = Color.fromRGBO(124, 153, 172,1);
-  static const lightBlueGrey = Color.fromRGBO(146, 169, 189,1);
-  static const skyColor = Color.fromRGBO(228, 251, 255,1);
+  static const lightBlack = Color.fromRGBO(45, 45, 45, 1.0);
+  static const darkGrey = Colors.grey;
   static const grey = Colors.grey;
   static const lightGrey = Color.fromRGBO(211, 222, 220, 1);
+  static const white =  Color(0xFFFFFFFF);
+
+
+  static const deepDarkBlueGrey = Color(0xFF294C5D);
+  static const darkBlueGrey = Color.fromRGBO(75, 109, 116, 1.0);
+  static const blueGrey = Colors.blueGrey;
+  // static const lightBlueGrey2 = Color.fromRGBO(124, 153, 172,1);
+  // static const lightBlueGrey = Color.fromRGBO(146, 169, 189,1);
+  static const lightBlueGrey = Color(0xFF859AA4);
+  static const deepLightBlueGrey = Color(0xFFBCC8CE);
+  static const skyColor = Color.fromRGBO(228, 251, 255,1);
+
   static const lightPink = Color.fromRGBO(255, 239, 239, 1);
 
 
+  static const lightYellow = Color(0xFFFFF9E8);
+  static const yellow = Color(0xFFDCC894);
+
+  static const puppy = Color(0xFF6D7297);
+  static const lightPuppy = Color(0xFF9397B2);
+  static const puppy2 = Color(0xFF6C729F);
+
+
+  static const red = Color(0xFFDCA394);
+  static const red2 = Color(0xFFE7A492);
+  static const darkRed2 = Color(0xFFCE7D68);
+
+  // static const test2 = Color(0xFFFFF9E8);
+  // static const test3 = Color(0xFFB8A162);
+  // static const test = Color.fromRGBO(2, 85, 113, 1.0);
   static const errorRed = Color.fromRGBO(253, 126, 126, 1.0);
 }
 

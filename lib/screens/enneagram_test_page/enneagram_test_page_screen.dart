@@ -7,13 +7,17 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
+import 'package:wai/common/constants/wai_colors.dart';
 import 'package:wai/common/controller/app_controller.dart';
 import 'package:wai/common/controller/enneagram_test_controller.dart';
 import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
+import 'package:wai/common/theme/wai_textstyle.dart';
+import 'package:wai/common/widgets/blank.dart';
+import 'package:wai/common/widgets/horizontal_border_line.dart';
+import 'package:wai/common/widgets/wai_appbar.dart';
 import 'package:wai/models/enneagram_test/enneagram_test.dart';
 import 'package:wai/models/enneagram_test/api/enneagram_test_request_dto.dart';
-import 'package:wai/models/enneagram_test/enneagram_question.dart';
 import 'package:wai/common/utils/function.dart';
 import 'package:wai/common/widgets/wai_dialog.dart';
 
@@ -25,38 +29,26 @@ class EnneagramTestPageScreen extends StatelessWidget {
   EnneagramTestPageScreen({Key? key}) : super(key: key);
 
   final _controller = PageController();
-  static const _kDuration = const Duration(milliseconds: 300);
+  static const _kDuration = Duration(milliseconds: 300);
   static const _kCurve = Curves.ease;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(50),   // MainController.to.appBarState.value.appbarSize
-          child: AppBar(
-            title: Text("정밀테스트"),
-            elevation: 2.0,
-            backgroundColor: Colors.white,
-            leading: GestureDetector(
-              child: Icon(Icons.arrow_back_ios_outlined, size: 20, color: Colors.blueGrey,),
-              onTap: () {
-                Get.back();
-              },
-            ),
-          ),
+        appBar: const WaiAppbar(
+          title: Text("정밀테스트"),
+          isBackLeading: true,
         ),
         body: Column(
           children: [
             Expanded(
               child: PageView.builder(
-                itemCount: EnneagramTestController.to.enneagramPageList.value.length,
+                itemCount: EnneagramTestController.to.enneagramPageList.length,
                 controller: _controller,
-                physics:const NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (BuildContext context, int pageIndex) {
-                  // Logger().d("pageIndex : $pageIndex");
-                  List questionIndexList = EnneagramTestController.to.enneagramPageList.value[pageIndex];
-
+                  List questionIndexList = EnneagramTestController.to.enneagramPageList[pageIndex];
                   return _buildPage(pageIndex, questionIndexList, context: context);
                 }
               )
@@ -69,7 +61,6 @@ class EnneagramTestPageScreen extends StatelessWidget {
 
   Widget _buildPage(int pageIndex, List questionIndexList, {required BuildContext context}) {
 
-    /* 질문 리스트 */
     return Column(
       children: [
         Flexible(
@@ -77,8 +68,9 @@ class EnneagramTestPageScreen extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                _buildNotification(),
+                _buildNotification(pageIndex),
                 _buildProgressBar(),
+                const Blank(height: 5),
                 _buildQuestionListView(questionIndexList),
               ],
             ),
@@ -92,58 +84,48 @@ class EnneagramTestPageScreen extends StatelessWidget {
     );
   }
 
-  Container _buildNotification() {
+  Container _buildNotification(int pageIndex) {
+
+
     return Container(
-          width: double.infinity,
-          margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-          padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20.0),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey,
-                  offset: Offset(0.0, 1.0), //(x,y)
-                  blurRadius: 2.0,
-                ),
-              ]
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          color: WaiColors.puppy,
+      ),
+      child: Column(
+        children: [
+          Text(
+            notificationList[pageIndex % 9],
+            style: WaiTextStyle(color: WaiColors.white).basic(),
           ),
-          child: Column(
-            children: [
-              Text(
-                "가능한 보통이다는 피해주는게 좋아요!",
-                style: CustomTextStyles.buildTextStyle(),
-              ),
-              ElevatedButton(
-                child: Text('임시버튼'),
-                onPressed: () {
-                  //
-                  EnneagramTestController.to.randomInputScore();
-                  _controller.jumpToPage(EnneagramTestController.to.enneagramPageList.length - 1);
-                }
-              )
-            ],
-          ),
-        );
+          ElevatedButton(
+              child: Text('임시버튼'),
+              onPressed: () {
+                EnneagramTestController.to.randomInputScore();
+                _controller.jumpToPage(EnneagramTestController.to.enneagramPageList.length - 1);
+              }
+          )
+        ],
+      ),
+    );
   }
 
   Column _buildProgressBar() {
     return Column(
       children: <Widget>[
-        // Text(
-        //   '진행률',
-        //   style: CustomTextStyles.buildTextStyle(),
-        // ),
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
           width: double.infinity,
           height: 5,
           child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
             child: LinearProgressIndicator(
               value: EnneagramTestController.to.getProgressPercent(),
               backgroundColor: Colors.grey,
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.blueGrey),
+              valueColor: const AlwaysStoppedAnimation<Color>(WaiColors.puppy),
             ),
           ),
         ),
@@ -151,47 +133,41 @@ class EnneagramTestPageScreen extends StatelessWidget {
     );
   }
 
-  ListView _buildQuestionListView(List<dynamic> questionIndexList) {
-    return ListView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: EnneagramTestController.to.questionCount,
-          itemBuilder: (BuildContext context, int index) {
-            /* questionIndexList[index] => question 번호 */
-            return _buildQuestionList(questionIndexList, index);
-        });
+  Widget _buildQuestionListView(List<dynamic> questionIndexList) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),
+      child: ListView.separated(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: EnneagramTestController.to.questionCount,
+        separatorBuilder: (BuildContext context, int index) {
+          return const Padding(
+            padding: EdgeInsets.symmetric(vertical: 5),
+            child: HorizontalBorderLine(),
+          );
+        },
+        itemBuilder: (BuildContext context, int index) {
+          /* questionIndexList[index] => question 번호 */
+          return _buildQuestionList(questionIndexList, index);
+      }),
+    );
   }
 
   Obx _buildQuestionList(List<dynamic> questionIndexList, int index) {
     return Obx(() =>
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-          padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20.0),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey,
-                  offset: Offset(0.0, 1.0), //(x,y)
-                  blurRadius: 2.0,
-                ),
-              ]
-          ),
-          child: Column(
-            children: [
-              _buildQuestion(questionIndexList[index]),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 5),
-                child: CustomRadioGroupButton(
-                  groupValue: EnneagramTestController.to.enneagramQuestionList.value[questionIndexList[index]].score,
-                  changeState: (int score) {
-                    EnneagramTestController.to.setScore(questionIndex: questionIndexList[index], score: score);
-                  },
-                ),
+        Column(
+          children: [
+            _buildQuestion(questionIndexList[index]),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 5),
+              child: CustomRadioGroupButton(
+                groupValue: EnneagramTestController.to.enneagramQuestionList.value[questionIndexList[index]].score,
+                changeState: (int score) {
+                  EnneagramTestController.to.setScore(questionIndex: questionIndexList[index], score: score);
+                },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
     );
   }
@@ -203,7 +179,7 @@ class EnneagramTestPageScreen extends StatelessWidget {
         alignment: Alignment.center,
         child: Text(
           EnneagramTestController.to.enneagramQuestionList.elementAt(questionIndex).getFullQuestion(),
-          style: GoogleFonts.jua(fontSize: 18, color: Colors.grey.shade800, fontWeight: FontWeight.w500),
+          style: WaiTextStyle().enneagramQuestion(),
         ),
       ),
     );
@@ -316,7 +292,6 @@ class EnneagramTestPageScreen extends StatelessWidget {
                     /* api request */
                     var response = await postRequest("/api/saveHardEnneagramTestResult", json.encode(dto.toJson()));
                     EnneagramTest enneagramTest = EnneagramTest.fromJson(json.decode(response));
-                    Logger().d(enneagramTest);
 
                     AppController.to.writeIsBuildIntroducePage("N");
                     MainController.to.isShowEnneagramDialog.value = false;
@@ -353,8 +328,8 @@ class EnneagramTestPageScreen extends StatelessWidget {
     return ElevatedButton(
       child: Text(buttonTitle, style: CustomTextStyles.buildTextStyle(color: Colors.white)),
       style: ButtonStyle(
-        fixedSize: MaterialStateProperty.all(Size.fromHeight(50)),
-        shape: MaterialStateProperty.all(RoundedRectangleBorder(
+        fixedSize: MaterialStateProperty.all(const Size.fromHeight(50)),
+        shape: MaterialStateProperty.all(const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(0))
         )),
         backgroundColor: MaterialStateProperty.all(Colors.blueGrey),
@@ -363,3 +338,15 @@ class EnneagramTestPageScreen extends StatelessWidget {
     );
   }
 }
+
+List<String> notificationList = [
+  "가능한 보통이다는 피해주는게 좋아요!",
+  "너무 깊게 생각하지말고 체크해주세요!",
+  "솔직하게 체크해주세요!",
+  "세상에 사람을 완벽하게 이해할 수 있는 도구는 없어요! 개인마다 모두 차이가 있어요!",
+  "에니어그램은 내 단점을 통해 찾는게 더 쉬울수 있어요!",
+  "에니어그램을 통해 내 단점을 마주할수 있어요. 하지만 자신의 단점을 마주하면서 너무 자책하지 않아도 되요. 고쳐나가면 되니까요!",
+  "너무 질문이 많으신가요? 그래도 조금만 참아주세요! 더 정확한 결과를 위해서니까요.",
+  "에니어그램을 통해 남을 평가할 필요는 없어요.",
+  "에니어그램은 표지판이에요. 가는 길은 본인이 정해요!",
+];

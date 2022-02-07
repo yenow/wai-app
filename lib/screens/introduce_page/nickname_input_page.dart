@@ -13,19 +13,45 @@ import 'package:wai/common/widgets/wai_text.dart';
 import 'package:wai/common/widgets/wai_text_field.dart';
 import 'package:wai/models/user/api/user_request_dto.dart';
 import 'package:wai/net/login/login_api.dart';
-import 'package:wai/screens/who_am_i_screen.dart';
+import 'package:wai/screens/introduce_page/who_am_i_screen.dart';
 
-class InputUserInfomationPage extends StatefulWidget {
-  const InputUserInfomationPage({Key? key}) : super(key: key);
+class NicknameInputPage extends StatefulWidget {
+  const NicknameInputPage({Key? key}) : super(key: key);
 
   @override
-  _InputUserInfomationPageState createState() => _InputUserInfomationPageState();
+  _NicknameInputPageState createState() => _NicknameInputPageState();
 }
 
-class _InputUserInfomationPageState extends State<InputUserInfomationPage> {
+class _NicknameInputPageState extends State<NicknameInputPage> {
   final _formKey = GlobalKey<FormState>();
   String nickname = "";
-  // String? errorMessage;
+  String errorMessage = "";
+
+  void clickNextButton() async {
+    setState(() {
+      errorMessage = "";
+    });
+
+    // validation 이 성공하면 true 가 리턴
+    if (_formKey.currentState!.validate()) {
+      // validation 이 성공하면 폼 저장하기
+      _formKey.currentState!.save();
+
+      UserRequestDto userRequestDto = UserController.to.user.value.toUserRequestDto();
+      userRequestDto.nickname = nickname;
+      bool flag = await saveNickname(userRequestDto);
+
+      if (flag) {
+        Get.off(()=> WhoAmIScreen(), transition: Transition.rightToLeft);
+      } else {
+
+        setState(() {
+          errorMessage = "이미 사용중인 별명입니다.";
+        });
+        _formKey.currentState!.validate();
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +66,7 @@ class _InputUserInfomationPageState extends State<InputUserInfomationPage> {
         },
         child: Scaffold(
           appBar: const WaiAppbar(
-            title: Text("정보입력"),
+            title: Text("입력"),
           ),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -68,6 +94,10 @@ class _InputUserInfomationPageState extends State<InputUserInfomationPage> {
                       } else if (nickname.length > 10) {
                         return "별명은 10자리까지 가능합니다.";
                       }
+
+                      if (errorMessage.isNotEmpty) {
+                        return errorMessage;
+                      }
                       return null;
                     },
                   ),
@@ -84,28 +114,7 @@ class _InputUserInfomationPageState extends State<InputUserInfomationPage> {
                           borderRadius: BorderRadius.circular(10.0),
                         ))
                     ),
-                    onPressed: () async {
-                      // validation 이 성공하면 true 가 리턴
-                      if (_formKey.currentState!.validate()) {
-                        // validation 이 성공하면 폼 저장하기
-                        _formKey.currentState!.save();
-
-                        UserRequestDto userRequestDto = UserController.to.user.value.toUserRequestDto();
-                        userRequestDto.nickname = nickname;
-                        bool flag = await saveNickname(userRequestDto);
-
-                        if (flag) {
-                          // Get.off(()=> WhoAmIScreen(), transition: Transition.rightToLeft);
-                        } else {
-
-                          Get.snackbar(
-                            '알림',
-                            '이미 사용중인 별명입니다.',
-                            backgroundColor: Colors.white,
-                          );
-                        }
-                      }
-                    },
+                    onPressed: clickNextButton,
                   ),
                 )
               ],
