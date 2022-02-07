@@ -47,8 +47,43 @@ class WaiApp extends StatelessWidget {
   }
 }
 
-class RootScreen extends StatelessWidget {
+class RootScreen extends StatefulWidget {
   const RootScreen({Key? key}) : super(key: key);
+
+  @override
+  _RootScreenState createState() => _RootScreenState();
+}
+
+class _RootScreenState extends State<RootScreen> {
+  late Future<void> _future;
+
+  @override
+  void initState() {
+    _future = initAppState();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return FutureBuilder<void>(
+      future: _future,
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+        /* 요청을 기다리는중 */
+          case ConnectionState.waiting:
+            return const SplashScreen();
+          default:
+          /* 에러시 */
+            if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              return AppController.to.isBuildIntroducePage.value == "N" ? MainScreens() : IntroductionScreen();
+            }
+        }
+      }
+    );
+  }
 
   Future<bool> initAppState() async {
     await AppController.to.initUserKey();
@@ -66,26 +101,31 @@ class RootScreen extends StatelessWidget {
 
     return true;
   }
-
-  @override
-  Widget build(BuildContext context) {
-
-    return FutureBuilder<bool>(
-      future: initAppState(),
-      builder: (context, snapshot) {
-        switch (snapshot.connectionState) {
-          /* 요청을 기다리는중 */
-          case ConnectionState.waiting:
-            return const SplashScreen();
-          default:
-            /* 에러시 */
-            if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
-            } else {
-
-              return AppController.to.isBuildIntroducePage.value == "N" ? MainScreens() : IntroductionScreen();
-            }
-        }
-    });
-  }
 }
+
+//
+// class RootScreen extends StatelessWidget {
+//   const RootScreen({Key? key}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//
+//     return FutureBuilder<bool>(
+//       future: AppController.to.initAppState(),
+//       builder: (context, snapshot) {
+//         switch (snapshot.connectionState) {
+//           /* 요청을 기다리는중 */
+//           case ConnectionState.waiting:
+//             return const SplashScreen();
+//           default:
+//             /* 에러시 */
+//             if (snapshot.hasError) {
+//               return Text('Error: ${snapshot.error}');
+//             } else {
+//               logger.d(AppController.to.isBuildIntroducePage.value);
+//               return AppController.to.isBuildIntroducePage.value == "N" ? MainScreens() : IntroductionScreen();
+//             }
+//         }
+//     });
+//   }
+// }

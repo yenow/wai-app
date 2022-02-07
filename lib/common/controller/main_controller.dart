@@ -14,7 +14,7 @@ enum TabItem { homePageScreen, postPageScreen, searchPageScreen ,enneagramPageSc
 
 extension ParseToString on TabItem {
   String get name {
-    return this.toString().split('.').last;
+    return toString().split('.').last;
   }
 }
 

@@ -21,6 +21,7 @@ class PostController extends GetxController {
 
   /* observable variable */
   final posts = <Post>[].obs;
+  final popularPosts = <Post>[].obs;
 
   final post = Post().obs;
 
