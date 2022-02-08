@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -12,6 +11,8 @@ import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/controller/user_controller.dart';
 import 'package:wai/common/controller/user_profile_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
+import 'package:wai/common/widgets/wai_appbar.dart';
+import 'package:wai/models/enneagram_test/api/enneagram_test_request_dto.dart';
 import 'package:wai/models/enneagram_test/enneagram_test.dart';
 import 'package:wai/screens/enneagram_page/enneagram_type_page_screen.dart';
 import 'package:wai/screens/enneagram_test_page/enneagram_test_page_screen.dart';
@@ -23,17 +24,16 @@ import 'package:wai/common/widgets/block_text.dart';
 import 'package:wai/common/widgets/horizontal_border_line.dart';
 
 import '../../main.dart';
+import 'components/enneagram_chart.dart';
 
 class ProfilePageScreen extends StatelessWidget {
   ProfilePageScreen({Key? key, this.enneagramType}) : super(key: key);
-  int? enneagramType;
+  final int? enneagramType;
 
   final DateFormat formatter = DateFormat('yyyy-MM-dd');
 
   @override
   Widget build(BuildContext context) {
-    loggerNoStack.d("build ProfilePage");
-
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       if (enneagramType != null && MainController.to.isShowEnneagramDialog.value == false
           /*&& MainController.to.currentTabIndex.value == TabItem.profilePageScreen.index*/) {
@@ -48,7 +48,6 @@ class ProfilePageScreen extends StatelessWidget {
         );
       }
     });
-
     return _buildScaffold(context);
   }
 
@@ -56,21 +55,15 @@ class ProfilePageScreen extends StatelessWidget {
     return Obx(() =>
       Scaffold(
         backgroundColor: Colors.white,
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(50),   // MainController.to.appBarState.value.appbarSize
-          child: AppBar(
-            title: Text("프로필"),
-            elevation: 2.0,
-            backgroundColor: Colors.white,
-          ),
+        appBar: const WaiAppbar(
+          title: Text("프로필"),
         ),
-        body: _buildbody(context)
+        body: _buildBody(context)
       ),
     );
   }
 
-  SingleChildScrollView _buildbody(BuildContext context) {
-
+  SingleChildScrollView _buildBody(BuildContext context) {
     return SingleChildScrollView(
         child: Column(
         children: <Widget>[
@@ -99,17 +92,10 @@ class ProfilePageScreen extends StatelessWidget {
       // height: 250,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("assets/images/background/mesh.png"),
-          colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.7), BlendMode.dstATop),
+          image: const AssetImage("assets/images/background/mesh.png"),
+          colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.7), BlendMode.dstATop),
           fit: BoxFit.fill,
         ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.shade300,
-            offset: Offset(0.0, 1.0), //(x,y)
-            blurRadius: 2.0,
-          ),
-        ],
       ),
       child: _buildEnneagramArea(context: context),
     );
@@ -121,48 +107,51 @@ class ProfilePageScreen extends StatelessWidget {
     return Container(
       width: double.infinity,
       // height: 180,
-      margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+      margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),
-        color: Color.fromRGBO(255, 255, 255, 0.8),
+        color: const Color.fromRGBO(255, 255, 255, 0.8),
       ),
       child: Column(
         children: [
           _buildMyEnneagramTitle(),
           // Blank(height: 4,),
           _buildMyEnneagramContent(myEnneagramType),
+          _buildEnneagramChart(),
           _buildNavigationButton(
               text: EnneagramController.to.enneagram![myEnneagramType]!.getFullName() + " 더 알아보기",
               onPressed: () {
                 Get.to(() => EnneagramTypePageScreen(enneagramType: myEnneagramType));
               }
           ),
-          Blank(height: 5),
+          const Blank(height: 5),
           _buildNavigationButton(
               text: "정밀테스트 하기",
               onPressed: () {
                 Get.to(() => EnneagramTestPageScreen());
               }),
-          Blank(height: 5),
+          const Blank(height: 5),
         ],
       ),
     );
   }
 
+  Widget _buildEnneagramChart() => UserProfileController.to.currentEnneagram.value.testType == TestType.hard ?
+      EnneagramChart(enneagramTest: UserProfileController.to.currentEnneagram.value)
+      : Container();
+
   SizedBox _buildMyEnneagramTitle() {
     return SizedBox(
-        // height: 55,
-        child: Column(
-          children: [
-            Blank(height: 5,),
-            Align(
-                alignment: Alignment.topCenter,
-                child: Text("나의 에니어그램", style: CustomTextStyles.buildTextStyle(fontSize: 22))
-            ),
-            Blank(height: 5,),
-            _buildEnneagramTestDate(),
-          ],
-        )
+      child: Column(
+        children: [
+          const Blank(height: 3,),
+          Align(
+              alignment: Alignment.topCenter,
+              child: Text("나의 에니어그램", style: CustomTextStyles.buildTextStyle(fontSize: 22))
+          ),
+          _buildEnneagramTestDate(),
+        ],
+      )
     );
   }
 
@@ -280,7 +269,7 @@ class ProfilePageScreen extends StatelessWidget {
 
   Padding _buildNavigationButton({required String text, required void Function()? onPressed}) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       child: SizedBox(
         width: double.infinity,
         height: 30,
@@ -290,7 +279,7 @@ class ProfilePageScreen extends StatelessWidget {
                 padding: MaterialStateProperty.all(EdgeInsets.all(5)),
                 backgroundColor: MaterialStateProperty.all(Colors.blueGrey),
                 shape : MaterialStateProperty.all(RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20))
+                    borderRadius: BorderRadius.circular(10))
                 )
             ),
             onPressed: onPressed

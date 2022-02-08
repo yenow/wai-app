@@ -33,4 +33,12 @@ class WaiTextStyle {
       fontWeight: fontWeight ?? FontWeight.w400,
     );
   }
+
+  TextStyle bodyText() {
+    return GoogleFonts.jua(
+      fontSize: fontSize ?? 15,
+      color: color ?? Colors.black54,
+      fontWeight: fontWeight ?? FontWeight.w400,
+    );
+  }
 }

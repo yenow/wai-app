@@ -22,7 +22,7 @@ class UserProfileController extends GetxController {
   Future<void> initUserProfile() async {
     List<EnneagramTest> list =  UserController.to.user.value.enneagramTests!;
 
-    if (list.length == 0) {
+    if (list.isEmpty) {
       currentEnneagram.value.myEnneagramType = 0;
     } else {
       currentEnneagram.value = list.elementAt(0);

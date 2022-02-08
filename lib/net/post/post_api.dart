@@ -2,12 +2,33 @@
 
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:wai/common/constants/wai_colors.dart';
 import 'package:wai/common/controller/app_controller.dart';
 import 'package:wai/common/controller/post_controller.dart';
 import 'package:wai/common/utils/function.dart';
 import 'package:wai/common/utils/logger.dart';
+import 'package:wai/common/widgets/toast.dart';
 import 'package:wai/models/post/api/post_request_dto.dart';
 import 'package:wai/models/post/post.dart';
+
+Future<List<Post>> initPosts(List<Post> posts, PostRequestDto postRequestDto) async {
+  // init
+  logger.d(postRequestDto);
+
+  // api request
+  var response = await postRequest("/api/readInitPosts", json.encode(postRequestDto.toJson()));
+
+  // add posts
+  List<Post> returnList = List<Post>.from(json.decode(response).map((model) {
+    return Post.fromJson(model);
+  }));
+  posts.addAll(returnList);
+  logger.d(returnList.length);
+
+  return returnList;
+}
 
 Future<List<Post>> readMoreNewPosts(List<Post> posts, PostRequestDto postRequestDto) async {
 
@@ -21,7 +42,6 @@ Future<List<Post>> readMoreNewPosts(List<Post> posts, PostRequestDto postRequest
   logger.d(postRequestDto);
 
   // api request
-  AppController.to.getServerTime();
   var response = await postRequest("/api/readMoreNewPosts", json.encode(postRequestDto.toJson()));
 
   // add posts
@@ -29,6 +49,10 @@ Future<List<Post>> readMoreNewPosts(List<Post> posts, PostRequestDto postRequest
     return Post.fromJson(model);
   }));
   logger.d(returnList.length);
+
+  if (returnList.isEmpty) {
+    showToast("더 이상 게시글이 존재하지 않습니다.");
+  }
 
   return returnList;
 }
@@ -42,7 +66,6 @@ Future<List<Post>> readMoreOldPosts(List<Post> posts, PostRequestDto postRequest
   logger.d(postRequestDto);
 
   // api request
-  AppController.to.getServerTime();
   var response = await postRequest("/api/readMoreOldPosts", json.encode(postRequestDto.toJson()));
 
   // add posts
@@ -51,8 +74,8 @@ Future<List<Post>> readMoreOldPosts(List<Post> posts, PostRequestDto postRequest
   }));
   logger.d(returnList.length);
 
-  if (returnList.length < postRequestDto.postsCount!) {
-    PostController.to.isNoMorePost.value = true;
+  if (returnList.isEmpty) {
+    showToast("더 이상 게시글이 존재하지 않습니다.");
   }
 
   addOldPostToList(returnList);

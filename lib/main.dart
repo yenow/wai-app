@@ -10,6 +10,7 @@ import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wai/common/controller/app_controller.dart';
 import 'package:wai/common/utils/logger.dart';
+import 'package:wai/models/post/api/post_request_dto.dart';
 import 'package:wai/screens/introduce_page/introduction_screen.dart';
 import 'package:wai/screens/main_screens.dart';
 import 'package:wai/screens/posts_page/post_page_screen.dart';
@@ -20,6 +21,7 @@ import 'common/controller/post_controller.dart';
 import 'common/controller/user_controller.dart';
 import 'common/controller/user_profile_controller.dart';
 import 'common/theme/theme.dart';
+import 'net/post/post_api.dart';
 
 double deviceWidth = 411.42857142857144;
 double deviceHeight = 683.4285714285714;
@@ -89,43 +91,31 @@ class _RootScreenState extends State<RootScreen> {
     await AppController.to.initUserKey();
     await AppController.to.initUserId();
     await AppController.to.initIsBuildIntroducePage();
+
     await EnneagramController.to.initEnneagramInfomation();
     await EnneagramTestController.to.initEnneagramQuestionList();
     await EnneagramTestController.to.initSimpleEnneagramQuestionList();
 
     await UserController.to.initUserInfo();
     await UserProfileController.to.initUserProfile();
-    await PostController.to.initPosts();
+
+    await initPosts(
+      PostController.to.posts,
+      PostRequestDto(
+        postsCount: PostController.to.postsCount,
+        postSearchType: PostSearchType.all
+      )
+    );
+    await initPosts(
+      PostController.to.popularPosts,
+      PostRequestDto(
+        postsCount: PostController.to.postsCount,
+        postSearchType: PostSearchType.popular
+      )
+    );
 
     await Future.delayed(const Duration(seconds: 1), () {});
 
     return true;
   }
 }
-
-//
-// class RootScreen extends StatelessWidget {
-//   const RootScreen({Key? key}) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//
-//     return FutureBuilder<bool>(
-//       future: AppController.to.initAppState(),
-//       builder: (context, snapshot) {
-//         switch (snapshot.connectionState) {
-//           /* 요청을 기다리는중 */
-//           case ConnectionState.waiting:
-//             return const SplashScreen();
-//           default:
-//             /* 에러시 */
-//             if (snapshot.hasError) {
-//               return Text('Error: ${snapshot.error}');
-//             } else {
-//               logger.d(AppController.to.isBuildIntroducePage.value);
-//               return AppController.to.isBuildIntroducePage.value == "N" ? MainScreens() : IntroductionScreen();
-//             }
-//         }
-//     });
-//   }
-// }

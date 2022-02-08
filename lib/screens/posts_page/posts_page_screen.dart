@@ -7,6 +7,7 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:wai/common/constants/wai_colors.dart';
 import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/controller/post_controller.dart';
+import 'package:wai/common/controller/user_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/common/widgets/wai_appbar.dart';
 import 'package:wai/models/post/api/post_request_dto.dart';
@@ -29,16 +30,16 @@ class PostsPageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         appBar: const WaiAppbar(
           title: Text("게시글"),
         ),
         floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
+          child: const Icon(Icons.add),
           backgroundColor: Colors.blueGrey,
           onPressed: () {
-            Get.to(() => PostWritePage());
+            Get.to(() => const PostWritePage());
           },
         ),
         body: Column(
@@ -63,6 +64,8 @@ class PostsPageScreen extends StatelessWidget {
   }
 
   TabBar _buildTabBar() {
+    int enneagramType = UserController.to.user.value.myEnneagramType!;
+
     return TabBar(
       indicatorColor: lightBlueGrey,
       tabs: <Widget>[
@@ -74,6 +77,10 @@ class PostsPageScreen extends StatelessWidget {
           height: 40,
           child: Center(child: Text('인기글', style: CustomTextStyles.buildTextStyle(fontSize: 15, color: lightBlueGrey)))
         ),
+        SizedBox(
+            height: 40,
+            child: Center(child: Text('$enneagramType유형', style: CustomTextStyles.buildTextStyle(fontSize: 15, color: lightBlueGrey)))
+        ),
       ],
     );
   }
@@ -83,7 +90,8 @@ class PostsPageScreen extends StatelessWidget {
       child: TabBarView(
         children: [
           _buildAllPosts(),
-          _buildPopularPosts()
+          _buildPopularPosts(),
+          _buildMyEnneagramTypePosts()
         ],
       ),
     );
@@ -102,6 +110,18 @@ class PostsPageScreen extends StatelessWidget {
     return PostItems(
       posts: PostController.to.popularPosts,
       postRequestDto: PostRequestDto(postsCount: PostController.to.postsCount, postSearchType: PostSearchType.popular),
+      getNewPostsFunction: readMoreNewPosts,
+      getOldPostsFunction: readMoreOldPosts,
+    );
+  }
+
+  Widget _buildMyEnneagramTypePosts() {
+    return PostItems(
+      posts: PostController.to.popularPosts,
+      postRequestDto: PostRequestDto(
+          postsCount: PostController.to.postsCount,
+          postSearchType: PostSearchType.enneagramType,
+          myEnneagramType: UserController.to.user.value.myEnneagramType),
       getNewPostsFunction: readMoreNewPosts,
       getOldPostsFunction: readMoreOldPosts,
     );

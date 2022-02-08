@@ -38,28 +38,13 @@ class Post {
   });
 
   factory Post.fromJson(Map<String, dynamic> json) {
-    User? user = json['user'] != null ? User.fromJson(json['user']) : null;
-
-    List<Reply> replys;
-    if (json['replys'] != null) {
-      replys = List<Reply>.from(json['replys'].map((model) {
-        return Reply.fromJson(model);
-      }));
-    } else {
-      replys = [];
-    }
-
-    List<int> likeys;
-    if (json['likeys'] != null) {
-      likeys = List<int>.from(json['likeys']);
-    } else {
-      likeys = [];
-    }
 
     return Post(
       postId: json['postId'],
-      user : user,
-      replys : replys,
+      user : User.fromJson((json['user'] ?? {})),
+      replys : List<Reply>.from((json['replys'] ?? []).map((model) {
+        return Reply.fromJson(model);})
+      ),
       title: json['title'],
       author: json['author'],
       content: json['content'],
@@ -68,9 +53,8 @@ class Post {
       enneagramType: json['enneagramType'],
       clickCount: json['clickCount'] ?? 0,
       likeyCount: json['likeyCount'],
-      likeys: likeys,
-      insertDate: json['insertDate'] != null ? DateTime.parse(json['insertDate']) : null,
-      nowServerTime: json['nowServerTime'] != null ? DateTime.parse(json['nowServerTime']) : null,
+      likeys: List<int>.from((json['likeys'] ?? [])),
+      insertDate: DateTime.parse((json['insertDate'] ?? DateTime.now())),
     );
   }
 

@@ -5,9 +5,16 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_navigation/src/snackbar/snackbar.dart';
 import 'package:wai/common/constants/wai_colors.dart';
+import 'package:wai/common/controller/post_controller.dart';
+import 'package:wai/common/controller/search_controller.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
 import 'package:wai/common/widgets/focus_out_container.dart';
+import 'package:wai/common/widgets/toast.dart';
 import 'package:wai/common/widgets/wai_appbar.dart';
+import 'package:wai/models/post/api/post_request_dto.dart';
+import 'package:wai/net/post/post_api.dart';
+import 'package:wai/net/search/search_api.dart';
+import 'package:wai/screens/posts_page/components/post_items.dart';
 import 'package:wai/screens/search_page/search_result_page.dart';
 
 class SearchPage extends StatefulWidget {
@@ -28,40 +35,72 @@ class _SearchPageState extends State<SearchPage> {
       child: FocusOutContainer(
         child: Scaffold(
           appBar: WaiAppbar(
-            //title: _buildForm(),
-            flexibleSpace: _buildForm(),
-            isBackLeading: true,
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.search_outlined, size: 24, color: WaiColors.grey),
-                onPressed: () {
-                  _formKey.currentState!.save();
-                  if (searchText.isEmpty) {
+              flexibleSpace: _buildForm(),
+              isBackLeading: true,
+              actions: [
+                IconButton(
+                  icon: const Icon(
+                      Icons.search_outlined, size: 24, color: WaiColors.grey),
+                  onPressed: () async {
+                    _formKey.currentState!.save();
+                    if (searchText.isEmpty) {
+                      showToast("검색할 키워드를 입력해주세요.");
+                    } else {
 
-                    Fluttertoast.showToast(
-                      msg: "검색할 키워드를 입력해주세요.",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.BOTTOM,
-                      timeInSecForIosWeb: 2,
-                      backgroundColor: WaiColors.grey.shade200,
-                      textColor: WaiColors.lightBlack,
-                    );
-                  } else {
-                    setState(() {
-                      isSearch = true;
-                    });
-                    // Get.to(() => SearchResultPage(searchText: searchText));
-
-                  }
-                },
-              )
-            ]
+                      SearchController.to.initSearchPost();
+                      SearchController.to.addRecentlySearchList(searchText);
+                      await searchPosts(searchText).then((value) {
+                        setState(() {
+                          isSearch = true;
+                        });
+                      });
+                    }
+                  },
+                )
+              ]
           ),
           body: _buildBody(),
         ),
       ),
     );
   }
+
+  Widget _buildForm() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 60),
+      child: Form(
+        key: _formKey,
+        child: TextFormField(
+            maxLength: 100,
+            maxLines: null,
+            expands: true,
+            autofocus: true,
+            onSaved: (value) {
+              setState(() {
+                searchText = value!;
+              });
+            },
+            cursorColor: Colors.grey,
+            style: WaiTextStyle(fontSize: 18, color: Colors.black54).basic(),
+            decoration: InputDecoration(
+                labelText: "검색할 내용을 입력해주세요.",
+                labelStyle: WaiTextStyle(fontSize: 16, color: Colors.grey)
+                    .basic(),
+                floatingLabelStyle: WaiTextStyle(
+                    fontSize: 16, color: Colors.grey).basic(),
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                contentPadding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                counterText: '',
+                border: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                focusedErrorBorder: InputBorder.none
+            )
+        ),
+      ),
+    );
+  }
+
 
   Widget _buildBody() => isSearch ? _buildTab() : Container();
 
@@ -72,18 +111,6 @@ class _SearchPageState extends State<SearchPage> {
         children: [
           _buildTabBarContainer(),
           _buildTabBarView(),
-        ],
-      ),
-    );
-  }
-
-  Expanded _buildTabBarView() {
-    return Expanded(
-      child: TabBarView(
-        children: [
-          Container(),
-          Container(),
-          Container(),
         ],
       ),
     );
@@ -120,37 +147,51 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  Widget _buildForm() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 60),
-      child: Form(
-        key: _formKey,
-        child: TextFormField(
-          maxLength: 100,
-          maxLines : null,
-          expands: true,
-          autofocus: true,
-          onSaved: (value) {
-            setState(() {
-              searchText = value!;
-            });
-          },
-          cursorColor: Colors.grey,
-          style: WaiTextStyle(fontSize: 18, color: Colors.black54).basic(),
-          decoration: InputDecoration(
-              labelText: "검색할 내용을 입력해주세요.",
-              labelStyle: WaiTextStyle(fontSize: 16, color: Colors.grey).basic(),
-              floatingLabelStyle: WaiTextStyle(fontSize: 16, color: Colors.grey).basic(),
-              floatingLabelBehavior: FloatingLabelBehavior.never,
-              contentPadding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-              counterText: '',
-              border: InputBorder.none,
-              enabledBorder: InputBorder.none ,
-              focusedBorder: InputBorder.none ,
-              focusedErrorBorder: InputBorder.none
-          )
-        ),
+  Expanded _buildTabBarView() {
+    return Expanded(
+      child: TabBarView(
+        children: [
+          _buildSearchPostsByContent(),
+          _buildSearchPostsByTitle(),
+          _buildSearchPostsByAuthor(),
+        ],
       ),
     );
   }
+
+  Widget _buildSearchPostsByContent() =>
+      PostItems(
+        posts: SearchController.to.searchPostsByContent,
+        postRequestDto: PostRequestDto(
+          postsCount: PostController.to.postsCount,
+          postSearchType: PostSearchType.content,
+          searchText: searchText
+        ),
+        getNewPostsFunction: readMoreNewPosts,
+        getOldPostsFunction: readMoreOldPosts,
+      );
+
+  Widget _buildSearchPostsByTitle() =>
+      PostItems(
+        posts: SearchController.to.searchPostsByTitle,
+        postRequestDto: PostRequestDto(
+          postsCount: PostController.to.postsCount,
+          postSearchType: PostSearchType.title,
+          searchText: searchText
+        ),
+        getNewPostsFunction: readMoreNewPosts,
+        getOldPostsFunction: readMoreOldPosts,
+      );
+
+  Widget _buildSearchPostsByAuthor() =>
+      PostItems(
+        posts: SearchController.to.searchPostsByAuthor,
+        postRequestDto: PostRequestDto(
+          postsCount: PostController.to.postsCount,
+          postSearchType: PostSearchType.author,
+          searchText: searchText
+        ),
+        getNewPostsFunction: readMoreNewPosts,
+        getOldPostsFunction: readMoreOldPosts,
+      );
 }

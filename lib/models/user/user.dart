@@ -57,25 +57,6 @@ class User extends ResponseDto{
 
   factory User.fromJson(Map<String, dynamic> json) {
 
-    List<Post> posts;
-    if (json['posts'] != null) {
-      posts = List<Post>.from(json['posts'].map((model) {
-        model.update('user', (value) => null);
-        return Post.fromJson(model);
-      }));
-    } else {
-      posts = [];
-    }
-
-    List<EnneagramTest> enneagramTests;
-    if (json['enneagramTests'] != null) {
-      enneagramTests = List<EnneagramTest>.from(json['enneagramTests'].map((model) {
-        return EnneagramTest.fromJson(model);
-      }));
-    } else {
-      enneagramTests = [];
-    }
-
     return User(
       userId: json['userId'],
       userKey: json['userKey'],
@@ -85,8 +66,13 @@ class User extends ResponseDto{
       birthDay: json['birthDay'],
       myEnneagramType: json['myEnneagramType'],
       // gender: EnumToString.fromString(Gender.values, json['gender'] as String),
-      posts : posts,
-      enneagramTests: enneagramTests,
+      posts: List<Post>.from((json['posts'] ?? []).map((model) {
+        model.update('user', (value) => null);
+        return Post.fromJson(model);
+      })),
+      enneagramTests: List<EnneagramTest>.from((json['enneagramTests'] ?? []).map((model) {
+        return EnneagramTest.fromJson(model);
+      })),
     );
   }
 

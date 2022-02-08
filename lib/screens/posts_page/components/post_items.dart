@@ -5,6 +5,7 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:uuid/uuid.dart';
 import 'package:wai/common/controller/post_controller.dart';
+import 'package:wai/common/theme/wai_textstyle.dart';
 import 'package:wai/models/post/api/post_request_dto.dart';
 import 'package:wai/models/post/post.dart';
 import 'package:wai/screens/posts_page/components/post_item.dart';
@@ -67,6 +68,13 @@ class _PostItemsState extends State<PostItems> {
 
   @override
   Widget build(BuildContext context) {
+
+    if (posts.isEmpty) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+        child: Center(child: Text("게시글이 존재하지 않습니다.", style: WaiTextStyle(fontSize: 18, color: Colors.black54).basic(),)),
+      );
+    }
 
     return NotificationListener<ScrollNotification>(
       onNotification: (ScrollNotification notification) {

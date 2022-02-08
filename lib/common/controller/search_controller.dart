@@ -18,5 +18,20 @@ class SearchController extends GetxController {
 
   final searchPostsByContent = <Post>[].obs;
   final searchPostsByTitle = <Post>[].obs;
-  final searchPostsByNickname = <Post>[].obs;
+  final searchPostsByAuthor = <Post>[].obs;
+  final recentlySearchList = <String>[].obs;
+
+  void initSearchPost() {
+    searchPostsByContent.value = [];
+    searchPostsByTitle.value = [];
+    searchPostsByAuthor.value = [];
+  }
+
+  void addRecentlySearchList(String searchText) {
+    recentlySearchList.insert(0, searchText);
+  }
+
+  void removerRecentlySearchList(String searchText) {
+    recentlySearchList.remove(searchText);
+  }
 }
