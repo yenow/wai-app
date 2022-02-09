@@ -76,6 +76,7 @@ dependencies:
   enum_to_string: ^2.0.1
   auto_size_text: ^3.0.0
   fluttertoast: ^8.0.8
+  flutter_markdown: ^0.6.9
 
 dev_dependencies:
   flutter_test:
@@ -106,6 +107,7 @@ flutter:
     - assets/images/enneagram/
     - assets/images/logo/
     - assets/images/background/
+    - assets/markdown/
 
   # assets:
   #   - images/a_dot_burr.jpeg

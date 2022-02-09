@@ -22,6 +22,7 @@ class PostController extends GetxController {
   /* observable variable */
   final posts = <Post>[].obs;
   final popularPosts = <Post>[].obs;
+  final myEnneagramPosts = <Post>[].obs;
 
   final post = Post().obs;
 
@@ -89,63 +90,6 @@ class PostController extends GetxController {
     logger.d(list.length);
     for (var element in list) {
       posts.add(Post.fromJson(element));
-    }
-  }
-
-  Future<void> readMoreNewPosts() async {
-    // init
-    PostRequestDto postRequestDto = PostRequestDto();
-    postRequestDto.postsCount = postsCount;
-
-    if (posts.isNotEmpty) {
-      postRequestDto.startPostId = posts.elementAt(0).postId;
-      postRequestDto.endPostId = posts.elementAt(posts.length - 1).postId;
-    } else {
-      postRequestDto.startPostId = 0;
-      postRequestDto.endPostId = 0;
-    }
-    logger.d(postRequestDto);
-
-    // api request
-    AppController.to.getServerTime();
-    var response = await postRequest("/api/readMoreNewPosts", json.encode(postRequestDto.toJson()));
-
-    // add posts
-    List list = json.decode(response);
-    logger.d(list.length);
-    for (var element in list) {
-      posts.insert(0, Post.fromJson(element));
-    }
-  }
-
-  Future<void> readMoreOldPosts() async {
-    // init
-    PostRequestDto postRequestDto = PostRequestDto();
-    postRequestDto.postsCount = postsCount;
-
-    if (posts.isNotEmpty) {
-      postRequestDto.startPostId = posts.elementAt(0).postId;
-      postRequestDto.endPostId = posts.elementAt(posts.length - 1).postId;
-    } else {
-      postRequestDto.startPostId = 0;
-      postRequestDto.endPostId = 0;
-    }
-    logger.d(postRequestDto);
-
-    // api request
-    AppController.to.getServerTime();
-    var response = await postRequest("/api/readMoreOldPosts", json.encode(postRequestDto.toJson()));
-
-    // add posts
-    List list = json.decode(response);
-    logger.d(list.length);
-
-    for (var element in list) {
-      posts.add(Post.fromJson(element));
-    }
-
-    if (list.length < postRequestDto.postsCount!) {
-      isNoMorePost.value = true;
     }
   }
 

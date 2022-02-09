@@ -32,6 +32,7 @@ class ReplyPageScreen extends StatefulWidget {
 
 class _ReplyPageScreenState extends State<ReplyPageScreen> {
   late Post post;
+  late List<Reply> replys;
 
   void rebuild() {
     setState(() {});
@@ -57,11 +58,13 @@ class _ReplyPageScreenState extends State<ReplyPageScreen> {
               } else {
                 post = snapshot.data!;
 
-                if (PostController.to.post.value.isDelete ?? false) {
+                if (post.isDelete ?? false) {
                   Get.back();
                 }
+
+                replys = post.replys!;
                 ReplyController.to.replys.value = PostController.to.post.value.replys!;
-                ReplyController.to.initReplys(widget.parentReplyId);
+                ReplyController.to.initWriteReplys(widget.parentReplyId);
                 return _buildScaffold(context);
               }
           }
@@ -76,13 +79,13 @@ class _ReplyPageScreenState extends State<ReplyPageScreen> {
       SafeArea(
         child: Scaffold(
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(50),   // MainController.to.appBarState.value.appbarSize
+            preferredSize: const Size.fromHeight(50),   // MainController.to.appBarState.value.appbarSize
             child: AppBar(
-              title: Text("댓글 " + ReplyController.to.replys.value.length.toString(), style: CustomTextStyles.buildTextStyle(fontSize: 20, color: Colors.white),),
+              title: Text("댓글 " + replys.length.toString(), style: CustomTextStyles.buildTextStyle(fontSize: 20, color: Colors.white),),
               // elevation: 2.0,
               backgroundColor: lightBlueGrey,   // Colors.white
               leading: GestureDetector(
-                child: Icon(Icons.arrow_back_ios_outlined, size: 20, color: Colors.white,),
+                child: const Icon(Icons.arrow_back_ios_outlined, size: 20, color: Colors.white,),
                 onTap: () {
                   ReplyController.to.removeReplyWritingInfomation();
                   Navigator.pop(context, PostController.to.readPost(widget.postId));
@@ -98,7 +101,7 @@ class _ReplyPageScreenState extends State<ReplyPageScreen> {
               children: [
                 Expanded(
                   child: ReplyItems(
-                    replys: ReplyController.to.replys.value,
+                    replys: replys,
                     isScroll: true,
                     reReplyFunction: () {},
                   ) // _buildReplyList(context: context)

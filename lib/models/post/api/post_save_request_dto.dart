@@ -1,59 +1,25 @@
 class PostSaveRequestDto {
-  String _userId = "";
-  String _userKey = "";
-  String _title = "";
-  String _content = "";
+  String userId = "";
+  String userKey = "";
+  String title = "";
+  String content = "";
+  String author = "";
 
   Map<String, dynamic> toJson () {
     return {
-      "userId" : _userId,
-      "userKey" : _userKey,
-      "title" : _title,
-      "content" : _content,
+      "userId" : userId,
+      "userKey" : userKey,
+      "title" : title,
+      "content" : content,
+      "author" : author,
     };
   }
 
   bool isValidTitle () {
-
-    if (_title == null || _title.trim() == "") {
-      return false;
-    } else {
-      return true;
-    }
+    return title.trim() == "" ? false : true;
   }
 
   bool isValidContent () {
-
-    if (_content == null || _content.trim() == "") {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-  /* getter and setter */
-
-  String get userId => _userId;
-
-  set userId(String value) {
-    _userId = value;
-  }
-
-  String get userKey => _userKey;
-
-  set userKey(String value) {
-    _userKey = value;
-  }
-
-  String get title => _title;
-
-  set title(String value) {
-    _title = value;
-  }
-
-  String get content => _content;
-
-  set content(String value) {
-    _content = value;
+    return content.trim() == "" ? false : true;
   }
 }

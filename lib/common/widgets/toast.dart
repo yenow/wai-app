@@ -9,7 +9,18 @@ void showToast(String text) {
     toastLength: Toast.LENGTH_SHORT,
     gravity: ToastGravity.BOTTOM,
     timeInSecForIosWeb: 2,
-    backgroundColor: WaiColors.grey.shade200,
-    textColor: Colors.black87,
+    backgroundColor: Colors.black54,
+    textColor: Colors.white,
+  );
+}
+
+void showToastToTop(String text) {
+  Fluttertoast.showToast(
+    msg: text,
+    toastLength: Toast.LENGTH_SHORT,
+    gravity: ToastGravity.TOP,
+    timeInSecForIosWeb: 2,
+    backgroundColor: Colors.black54,
+    textColor: Colors.white,
   );
 }

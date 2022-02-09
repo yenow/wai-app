@@ -10,6 +10,9 @@ import 'package:wai/common/constants/wai_colors.dart';
 import 'package:wai/common/controller/app_controller.dart';
 import 'package:wai/common/controller/enneagram_controller.dart';
 import 'package:wai/common/controller/enneagram_test_controller.dart';
+import 'package:wai/common/controller/main_controller.dart';
+import 'package:wai/common/controller/user_controller.dart';
+import 'package:wai/common/controller/user_profile_controller.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
 import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/common/widgets/wai_appbar.dart';
@@ -37,11 +40,14 @@ class WhoAmIScreen extends StatelessWidget {
       );
 
       /* api request */
-      var response = await postRequest("/api/saveSelectEnneagramTestResult", json.encode(enneagramTest.toJson()));
-      EnneagramTest responseEnneagramTest = EnneagramTest.fromJson(json.decode(response));
+      var response = await postRequest("/api/saveSelectedEnneagramTestResult", json.encode(enneagramTest.toJson()));
+      EnneagramTest myEnneagramTest = EnneagramTest.fromJson(json.decode(response));
 
       AppController.to.writeIsBuildIntroducePage("N");
-      Get.offAll(() => MainScreens(enneagramType: responseEnneagramTest.myEnneagramType));
+      UserController.to.addEnneagramTestResult(myEnneagramTest);
+      UserProfileController.to.setCurrentEnneagramTestResult(myEnneagramTest);
+      MainController.to.setTabIndex(0);
+      Get.offAll(() => MainScreens(myEnneagramTest: myEnneagramTest));
     }
   }
 

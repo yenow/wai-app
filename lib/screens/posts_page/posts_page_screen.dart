@@ -36,10 +36,16 @@ class PostsPageScreen extends StatelessWidget {
           title: Text("게시글"),
         ),
         floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.add),
+          child: const Icon(Icons.post_add_outlined),
           backgroundColor: Colors.blueGrey,
           onPressed: () {
-            Get.to(() => const PostWritePage());
+            Get.to(() => PostWritePage(
+              postRequestDto: PostRequestDto(
+                  postsCount: PostController.to.postsCount,
+                  postSearchType: PostSearchType.all
+              ),
+              getNewPostsFunction: readMoreNewPosts
+            ));
           },
         ),
         body: Column(
@@ -87,12 +93,14 @@ class PostsPageScreen extends StatelessWidget {
 
   Expanded _buildTabBarView() {
     return Expanded(
-      child: TabBarView(
-        children: [
-          _buildAllPosts(),
-          _buildPopularPosts(),
-          _buildMyEnneagramTypePosts()
-        ],
+      child: Obx(()=>
+        TabBarView(
+          children: [
+            _buildAllPosts(),
+            _buildPopularPosts(),
+            _buildMyEnneagramTypePosts()
+          ],
+        ),
       ),
     );
   }
@@ -100,30 +108,37 @@ class PostsPageScreen extends StatelessWidget {
   Widget _buildAllPosts() {
     return PostItems(
       posts: PostController.to.posts,
-      postRequestDto: PostRequestDto(postsCount: PostController.to.postsCount, postSearchType: PostSearchType.all),
       getNewPostsFunction: readMoreNewPosts,
       getOldPostsFunction: readMoreOldPosts,
+      postRequestDto: PostRequestDto(
+          postsCount: PostController.to.postsCount,
+          postSearchType: PostSearchType.all
+      ),
     );
   }
 
   Widget _buildPopularPosts() {
     return PostItems(
       posts: PostController.to.popularPosts,
-      postRequestDto: PostRequestDto(postsCount: PostController.to.postsCount, postSearchType: PostSearchType.popular),
       getNewPostsFunction: readMoreNewPosts,
       getOldPostsFunction: readMoreOldPosts,
+      postRequestDto: PostRequestDto(
+          postsCount: PostController.to.postsCount,
+          postSearchType: PostSearchType.popular
+      ),
     );
   }
 
   Widget _buildMyEnneagramTypePosts() {
     return PostItems(
-      posts: PostController.to.popularPosts,
+      posts: PostController.to.myEnneagramPosts,
+      getNewPostsFunction: readMoreNewPosts,
+      getOldPostsFunction: readMoreOldPosts,
       postRequestDto: PostRequestDto(
           postsCount: PostController.to.postsCount,
           postSearchType: PostSearchType.enneagramType,
-          myEnneagramType: UserController.to.user.value.myEnneagramType),
-      getNewPostsFunction: readMoreNewPosts,
-      getOldPostsFunction: readMoreOldPosts,
+          myEnneagramType: UserController.to.user.value.myEnneagramType
+      ),
     );
   }
 }

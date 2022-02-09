@@ -1,41 +1,44 @@
 import 'dart:convert';
 
 class Enneagram {
-  int? _enneagramType;
-  String? _animalName;
-  String? _imagePath;
-  String? _subName;
-  List<String>? _subNames;
-  String? _simpleExplain;
-  String? _simpleExplain2;
+  int enneagramType;
+  String animalName;
+  String imagePath;
+  String subName;
+  List<String>? subNames;
+  String simpleExplain;
+  String simpleExplain2;
+  String simpleExplain3;
 
-  Enneagram(this._enneagramType, this._animalName, this._imagePath, this._subName, this._simpleExplain, this._simpleExplain2);
-
-  int get enneagramType => _enneagramType!;
-  String get name => _animalName!;
-  String get imagePath => _imagePath!;
-  String get subName => _subName!;
-  String get simpleExplain => _simpleExplain!;
-  String get simpleExplain2 => _simpleExplain2!;
+  Enneagram({
+    required this.enneagramType,
+    required this.animalName,
+    required this.imagePath,
+    required this.subName,
+    required this.simpleExplain,
+    required this.simpleExplain2,
+    required this.simpleExplain3
+  });
 
   String getFullName() {
     // "1유형[개혁가]"
-    return '$_enneagramType유형[$subName]';
+    return '$enneagramType유형[$subName]';
   }
 
   factory Enneagram.fromJson(Map<String, dynamic> json) {
     return Enneagram(
-      json['enneagramType'],
-      json['animalName'],
-      json['imagePath'],
-      json['subName'],
-      json['simpleExplain'],
-      json['simpleExplain2']
+      enneagramType :json['enneagramType'],
+      animalName: json['animalName'],
+      imagePath: json['imagePath'],
+      subName: json['subName'],
+      simpleExplain: json['simpleExplain'],
+      simpleExplain2: json['simpleExplain2'],
+      simpleExplain3: json['simpleExplain3'] ?? "temp"
     );
   }
 
   @override
   String toString() {
-    return 'Enneagram{_enneagramType: $_enneagramType, _animalName: $_animalName, _imagePath: $_imagePath, _subName: $_subName, _subNames: $_subNames, _simpleExplain: $_simpleExplain, _simpleExplain2: $_simpleExplain2}';
+    return 'Enneagram{enneagramType: $enneagramType, animalName: $animalName, imagePath: $imagePath, subName: $subName, subNames: $subNames, simpleExplain: $simpleExplain, simpleExplain2: $simpleExplain2}';
   }
 }

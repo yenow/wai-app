@@ -6,34 +6,30 @@ import 'package:video_player/video_player.dart';
 import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/main.dart';
+import 'package:wai/models/enneagram_test/enneagram_test.dart';
+import 'package:wai/models/enneagram_test/enneagram_test.dart';
 import 'package:wai/screens/enneagram_page/enneagram_type_page_screen.dart';
 import 'package:wai/common/utils/enneagram_dialog.dart';
 import 'package:wai/common/widgets/custom_appbar.dart';
 
 class HomePageScreen extends StatelessWidget {
-  HomePageScreen({Key? key, this.enneagramType}) : super(key: key);
-  int? enneagramType;
+  const HomePageScreen({Key? key, this.myEnneagramTest}) : super(key: key);
+  final EnneagramTest? myEnneagramTest;
 
   @override
   Widget build(BuildContext context) {
 
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-      if (enneagramType != null && MainController.to.isShowEnneagramDialog.value == false
+      if (myEnneagramTest != null && MainController.to.isShowEnneagramDialog.value == false
           /*&& MainController.to.currentTabIndex.value == TabItem.homePageScreen.index*/) {
         MainController.to.setIsShowEnneagramDialog(true);
 
         EnneagramDialog.showEnneagramType(
-            context: context,
-            enneagramType: enneagramType!,
-            onPressed: () {
-              // MainController.to.goIntoPage();
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) =>
-              //         EnneagramTypePageScreen(enneagramType: enneagramType!,)
-              //     )
-              // );
-              Get.to(() => EnneagramTypePageScreen(enneagramType: enneagramType!));
-            }
+          context: context,
+          myEnneagramTest : myEnneagramTest!,
+          onPressed: () {
+            Get.to(() => EnneagramTypePageScreen(enneagramType: myEnneagramTest!.myEnneagramType!));
+          }
         );
       }
     });

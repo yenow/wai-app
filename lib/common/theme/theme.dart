@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wai/common/theme/custom_loginpage_textstyle.dart';
+import 'package:wai/common/theme/wai_textstyle.dart';
 
 import '../constants/constants.dart';
 
@@ -17,6 +18,7 @@ TextTheme textTheme() {
     bodyText1: GoogleFonts.jua(fontSize: bodyText1Size, color: Colors.black),
     bodyText2: GoogleFonts.jua(fontSize: bodyText2Size, color: Colors.grey),
     subtitle1: GoogleFonts.jua(fontSize: 15.0, color: Colors.black),
+    button: WaiTextStyle(fontSize: 16).snackBar(),
   );
 }
 

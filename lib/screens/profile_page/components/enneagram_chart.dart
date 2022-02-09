@@ -165,7 +165,7 @@ class EnneagramChartState extends State<EnneagramChart> {
                 WaiTextStyle(fontSize: 18, color: Colors.white).basic(),
                 children: <TextSpan>[
                   TextSpan(
-                    text: (rod.y - 1).toString(),
+                    text: (rod.y).toInt().toString(),
                     style:  WaiTextStyle(fontSize: 14, color: WaiColors.yellow).basic(),
                   ),
                 ],
@@ -189,8 +189,7 @@ class EnneagramChartState extends State<EnneagramChart> {
         topTitles: SideTitles(showTitles: false),
         bottomTitles: SideTitles(
           showTitles: true,
-          getTextStyles: (context, value) => const TextStyle(
-              color: Colors.black54, fontWeight: FontWeight.bold, fontSize: 12),
+          getTextStyles: (context, value) => WaiTextStyle(fontSize: 12,color: Colors.black54).basic(),
           margin: 4,
           getTitles: (double value) {
             switch (value.toInt()) {

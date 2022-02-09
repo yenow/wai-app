@@ -5,11 +5,17 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:wai/common/constants/wai_colors.dart';
 import 'package:wai/common/controller/app_controller.dart';
 import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/controller/post_controller.dart';
+import 'package:wai/common/controller/user_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
+import 'package:wai/common/theme/wai_textstyle.dart';
 import 'package:wai/common/widgets/focus_out_container.dart';
+import 'package:wai/common/widgets/wai_appbar.dart';
+import 'package:wai/common/widgets/wai_snackbar.dart';
+import 'package:wai/models/post/api/post_request_dto.dart';
 import 'package:wai/models/post/post.dart';
 import 'package:wai/screens/posts_page/post_page_screen.dart';
 import 'package:wai/common/utils/function.dart';
@@ -17,15 +23,21 @@ import 'package:wai/common/utils/logger.dart';
 import 'package:wai/common/widgets/wai_dialog.dart';
 
 class PostWritePage extends StatelessWidget {
-  const PostWritePage({Key? key}) : super(key: key);
+  const PostWritePage({Key? key, required this.postRequestDto, required this.getNewPostsFunction}) : super(key: key);
+  final PostRequestDto postRequestDto;
+  final Future<List<Post>> Function(List<Post>, PostRequestDto) getNewPostsFunction;
 
   @override
   Widget build(BuildContext context) {
-    loggerNoStack.d("build PostWritePage");
-
     return Obx(() =>
       Scaffold(
-        appBar: _buildAppbar(context),
+        appBar: WaiAppbar(
+          title: const Text("게시글 작성"),
+          leading: _buildAppbarLeading(context),    // 뒤로가기 아이콘
+          actions: [
+            _buildAppbarActions(context)    // 게시글 등록 아이콘
+          ],
+        ),
         // resizeToAvoidBottomInset : false,
         body: FocusOutContainer(
           child: Column(
@@ -41,33 +53,17 @@ class PostWritePage extends StatelessWidget {
     );
   }
 
-  PreferredSize _buildAppbar(BuildContext context) {
-    return PreferredSize(
-        preferredSize: Size.fromHeight(50),
-        child: AppBar(
-          title: Text("게시글 작성"),
-          elevation: 2.0,
-          backgroundColor: Colors.white,
-          leading: _buildAppbarLeading(context),    // 뒤로가기 아이콘
-          actions: [
-            _buildAppbarActions(context)    // 게시글 등록 아이콘
-          ],
-        ),
-      );
-  }
-
   GestureDetector _buildAppbarLeading(BuildContext context) {
     return GestureDetector(
-      child: Icon(FontAwesomeIcons.chevronLeft, size: 20, color: Colors.blueGrey,),
+      child: const Icon(FontAwesomeIcons.chevronLeft, size: 20, color: Colors.black54,),
       onTap: () {
-        Get.back();
-        // WaiDialog.showConfirmMessage(
-        //     context: context,
-        //     content: "게시글 작성중입니다. 뒤로 가시겠습니까?",
-        //     confirmOnPress: () {
-        //       Get.back();
-        //     }
-        // );
+        WaiDialog.showConfirmMessage(
+            context: context,
+            content: "게시글 작성중입니다. 뒤로 가시겠습니까?",
+            confirmOnPress: () {
+              Get.back();
+            }
+        );
       },
     );
   }
@@ -80,29 +76,25 @@ class PostWritePage extends StatelessWidget {
         onTap: () async {
           PostController.to.writingPost.value.userId = AppController.to.userId.value;
           PostController.to.writingPost.value.userKey = AppController.to.userKey.value;
+          PostController.to.writingPost.value.author = UserController.to.user.value.nickname ?? "익명";
 
-          // check Value
           if (checkValue(context: context)) {
 
             // api request
             Map<String, dynamic> jsonMap = PostController.to.writingPost.value.toJson();
-            var responseBody = await postRequest("/api/savePost", json.encode(jsonMap));
-            Post post = Post.fromJson(json.decode(responseBody));
+            await postRequest("/api/savePost", json.encode(jsonMap));
 
-            // message
-            // WaiDialog.showMessage(
-            //   context: context,
-            //   content: "게시글이 등록되었습니다",
-            // );
-
-            // todo, posts add
-            // PostController.to.posts.value.insert(0, element);
             PostController.to.removeWritingPost();
-            PostController.to.readMoreNewPosts();
+            List<Post> posts = await getNewPostsFunction(PostController.to.posts, postRequestDto);
+            for (Post post in posts) {
+              PostController.to.posts.insert(0, post);
+            }
+
             Get.back();
+            AppController.to.showSnackBar(WaiSnackBar.basic(text: "게시물이 등록되었습니다."));
           }
         },
-        child: Icon(FontAwesomeIcons.checkCircle, size: 25, color: Colors.blueGrey,),
+        child: const Icon(FontAwesomeIcons.checkCircle, size: 25, color: Colors.black54,),
       ),
     );
   }

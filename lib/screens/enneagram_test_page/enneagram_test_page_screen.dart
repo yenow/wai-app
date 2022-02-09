@@ -11,11 +11,14 @@ import 'package:wai/common/constants/wai_colors.dart';
 import 'package:wai/common/controller/app_controller.dart';
 import 'package:wai/common/controller/enneagram_test_controller.dart';
 import 'package:wai/common/controller/main_controller.dart';
+import 'package:wai/common/controller/user_controller.dart';
+import 'package:wai/common/controller/user_profile_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
 import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/common/widgets/horizontal_border_line.dart';
 import 'package:wai/common/widgets/wai_appbar.dart';
+import 'package:wai/common/widgets/wai_snackbar.dart';
 import 'package:wai/models/enneagram_test/enneagram_test.dart';
 import 'package:wai/models/enneagram_test/api/enneagram_test_request_dto.dart';
 import 'package:wai/common/utils/function.dart';
@@ -85,15 +88,13 @@ class EnneagramTestPageScreen extends StatelessWidget {
   }
 
   Container _buildNotification(int pageIndex) {
-
-
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
-          color: WaiColors.puppy,
+          color: WaiColors.lightBlueGrey,
       ),
       child: Column(
         children: [
@@ -125,7 +126,7 @@ class EnneagramTestPageScreen extends StatelessWidget {
             child: LinearProgressIndicator(
               value: EnneagramTestController.to.getProgressPercent(),
               backgroundColor: Colors.grey,
-              valueColor: const AlwaysStoppedAnimation<Color>(WaiColors.puppy),
+              valueColor: const AlwaysStoppedAnimation<Color>(WaiColors.lightBlueGrey),
             ),
           ),
         ),
@@ -188,18 +189,12 @@ class EnneagramTestPageScreen extends StatelessWidget {
   Widget _buildButtonArea(int pageIndex, {required BuildContext context}) {
     const int initPageIndex = 0;
     int lastPageIndex = EnneagramTestController.to.enneagramPageList.length - 1;
-    // Logger().d("_buildButtonArea() pageIndex : $pageIndex");
 
     if (pageIndex == initPageIndex) {
-
       return _buildOnlyNextButton(pageIndex, context: context);
-
     } else if (pageIndex == lastPageIndex) {
-
       return _buildPreviousAndCompleteButton(context: context);
-
     } else {
-
       return _buildPreviousAndNextButton(pageIndex, context: context);
     }
   }
@@ -268,12 +263,8 @@ class EnneagramTestPageScreen extends StatelessWidget {
                 buttonTitle: '완료',
                 onPressed: () async {
 
-                  /* 유효성검사 */
                   if (!EnneagramTestController.to.checkEnneagramQuestionList()) {
-                    WaiDialog.showMessage(
-                        context: context,
-                        content: "선택하지 않은 문항이 있습니다."
-                    );
+                    AppController.to.snackbarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "선택하지 않은 문항이 있습니다."));
                   } else {
                     EnneagramTestRequestDto dto = EnneagramTestRequestDto(
                       userId: AppController.to.userId.value,
@@ -291,11 +282,15 @@ class EnneagramTestPageScreen extends StatelessWidget {
 
                     /* api request */
                     var response = await postRequest("/api/saveHardEnneagramTestResult", json.encode(dto.toJson()));
-                    EnneagramTest enneagramTest = EnneagramTest.fromJson(json.decode(response));
+                    EnneagramTest myEnneagramTest = EnneagramTest.fromJson(json.decode(response));
 
                     AppController.to.writeIsBuildIntroducePage("N");
                     MainController.to.isShowEnneagramDialog.value = false;
-                    Get.offAll(MainScreens(enneagramType : enneagramTest.myEnneagramType));
+                    UserController.to.addEnneagramTestResult(myEnneagramTest);
+                    UserProfileController.to.setCurrentEnneagramTestResult(myEnneagramTest);
+                    MainController.to.setTabIndex(0);
+                    Get.offAll(MainScreens(myEnneagramTest: myEnneagramTest)
+                    );
                   }
                 }
             ),

@@ -20,36 +20,30 @@ class User extends ResponseDto{
   int? userId;
   String? userKey;
   String? password;
+  String? nickname;
   String? email;
   String? phoneNumber;
-  String? nickname;
   String? birthDay;
-  int? myEnneagramType;
   Gender? gender;
+  int? myEnneagramType;
 
-  List<Post>? posts;
-  List<Reply>? replys;
-  List<EnneagramTest>? enneagramTests;
+  List<Post>? posts = [];
+  List<Reply>? replys = [];
+  List<EnneagramTest>? enneagramTests = [];
 
   User({
     this.userId,
     this.userKey,
     this.password,
+    this.nickname,
     this.email,
     this.phoneNumber,
-    this.nickname,
     this.birthDay,
-    this.myEnneagramType,
     this.gender,
+    this.myEnneagramType,
     this.posts,
     this.enneagramTests,
   });
-
-  // void setDto(ResponseDto responseDto) {
-  //   isSuccess = responseDto.isSuccess;
-  //   errorCode = responseDto.errorCode;
-  //   errorMessage =  responseDto.errorMessage;
-  // }
 
   UserRequestDto toUserRequestDto() {
     return UserRequestDto(userId: userId!, userKey: userKey!);
@@ -61,11 +55,12 @@ class User extends ResponseDto{
       userId: json['userId'],
       userKey: json['userKey'],
       password: json['password'],
+      nickname: json['nickname'],
       email: json['email'],
       phoneNumber: json['phoneNumber'],
       birthDay: json['birthDay'],
+      // gender: EnumToString.fromString(Gender.values, (json['gender'] ?? "") as String),
       myEnneagramType: json['myEnneagramType'],
-      // gender: EnumToString.fromString(Gender.values, json['gender'] as String),
       posts: List<Post>.from((json['posts'] ?? []).map((model) {
         model.update('user', (value) => null);
         return Post.fromJson(model);

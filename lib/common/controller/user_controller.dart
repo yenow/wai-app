@@ -7,6 +7,7 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:logger/logger.dart';
 import 'package:wai/common/controller/app_controller.dart';
 import 'package:wai/common/controller/user_profile_controller.dart';
+import 'package:wai/models/enneagram_test/enneagram_test.dart';
 import 'package:wai/models/reply/api/reply_request_dto.dart';
 import 'package:wai/models/user/api/user_request_dto.dart';
 import 'package:wai/models/user/user.dart';
@@ -16,21 +17,10 @@ class UserController extends GetxController {
   static UserController get to => Get.put(UserController());
 
   final user = User().obs;
-  
-  Future<bool> initUserInfo() async {
 
-    if (AppController.to.userId.value.isNotEmpty) {
-      UserRequestDto userRequestDto = UserRequestDto(
-          userId: int.parse(AppController.to.userId.value),
-          userKey: AppController.to.userKey.value
-      );
-
-      var response = await postRequest("/api/getUserInfomation", json.encode(userRequestDto));
-      user.value = User.fromJson(json.decode(response));
-
-      UserProfileController.to.initUserProfile();
-    }
-
-    return true;
+  void addEnneagramTestResult(EnneagramTest enneagramTest) {
+    user.update((val) {
+      val!.enneagramTests!.insert(0, enneagramTest);
+    });
   }
 }

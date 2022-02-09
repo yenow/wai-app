@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
@@ -33,8 +34,13 @@ class AppController extends GetxController{
   final appState = AppState().obs;   // appbar 상태
 
   /* non-observable variable */
+  final GlobalKey<ScaffoldMessengerState> snackbarKey = GlobalKey<ScaffoldMessengerState>();
   final _accountNameController = TextEditingController(text: 'flutter_secure_storage_service');
   final storage = const FlutterSecureStorage();
+
+  void showSnackBar(SnackBar snackBar) {
+    snackbarKey.currentState?.showSnackBar(snackBar);
+  }
 
   IOSOptions _getIOSOptions() => IOSOptions(
     accountName: _getAccountName(),

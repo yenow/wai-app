@@ -1,7 +1,5 @@
 
-
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wai/common/constants/wai_colors.dart';
@@ -12,6 +10,12 @@ import 'package:wai/common/utils/logger.dart';
 import 'package:wai/common/widgets/toast.dart';
 import 'package:wai/models/post/api/post_request_dto.dart';
 import 'package:wai/models/post/post.dart';
+
+Future<Post?> readPost(int postId) async {
+  var response = await getRequest("/api/readPost/$postId");
+  Post post = Post.fromJson(json.decode(response));
+  return post;
+}
 
 Future<List<Post>> initPosts(List<Post> posts, PostRequestDto postRequestDto) async {
   // init
@@ -35,10 +39,8 @@ Future<List<Post>> readMoreNewPosts(List<Post> posts, PostRequestDto postRequest
   if (posts.isNotEmpty) {
     postRequestDto.startPostId = posts.elementAt(0).postId;
     postRequestDto.endPostId = posts.elementAt(posts.length - 1).postId;
-  } else {
-    postRequestDto.startPostId = 0;
-    postRequestDto.endPostId = 0;
   }
+
   logger.d(postRequestDto);
 
   // api request
@@ -51,7 +53,7 @@ Future<List<Post>> readMoreNewPosts(List<Post> posts, PostRequestDto postRequest
   logger.d(returnList.length);
 
   if (returnList.isEmpty) {
-    showToast("더 이상 게시글이 존재하지 않습니다.");
+    showToastToTop("더 이상 게시글이 존재하지 않습니다.");
   }
 
   return returnList;

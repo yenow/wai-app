@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:wai/common/constants/wai_colors.dart';
 import 'package:wai/common/controller/enneagram_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
+import 'package:wai/common/theme/wai_textstyle.dart';
 
 import 'blank.dart';
 import 'block_text.dart';
@@ -16,8 +18,8 @@ class WaiDialog {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title : Text("알림", style: CustomTextStyles.buildTextStyle(fontSize: 20),  textAlign: TextAlign.center,),
-            content: Text(content, style: CustomTextStyles.buildTextStyle(fontSize: 15),  textAlign: TextAlign.center,),
+            title : Text("알림", style: WaiTextStyle().headlineBlueGrey(),  textAlign: TextAlign.center,),
+            content: Text(content, style: WaiTextStyle().bodyText(),  textAlign: TextAlign.center,),
             actions: <Widget>[
               _buildConfirmButton(
                 onPressed: () {
@@ -41,8 +43,8 @@ class WaiDialog {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title : Text("알림", style: CustomTextStyles.buildTextStyle(fontSize: 20), textAlign: TextAlign.center,),
-            content: Text(content, style: CustomTextStyles.buildTextStyle(fontSize: 15)),
+            title : Text("알림", style: WaiTextStyle().headlineBlueGrey(), textAlign: TextAlign.center,),
+            content: Text(content, style: WaiTextStyle().bodyText()),
             actions: <Widget>[
               _buildConfirmButton(
                 onPressed: () {
@@ -66,7 +68,7 @@ class WaiDialog {
       child: Text("확인", style: CustomTextStyles.buildTextStyle(fontSize: 15, color: Colors.white),),
       onPressed: onPressed,
       style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(Colors.blueGrey)
+          backgroundColor: MaterialStateProperty.all(WaiColors.blueGrey)
       ),
     );
   }
@@ -76,7 +78,7 @@ class WaiDialog {
       child: Text("취소", style: CustomTextStyles.buildTextStyle(fontSize: 15, color: Colors.white),),
       onPressed: onPressed,
       style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(Colors.blueGrey)
+          backgroundColor: MaterialStateProperty.all(WaiColors.blueGrey)
       ),
     );
   }

@@ -16,10 +16,9 @@ import 'package:wai/common/utils/function.dart';
 
 class UserProfileController extends GetxController {
   static UserProfileController get to => Get.put(UserProfileController());
-
   final currentEnneagram = EnneagramTest().obs;
 
-  Future<void> initUserProfile() async {
+  Future<void> initCurrentEnneagram() async {
     List<EnneagramTest> list =  UserController.to.user.value.enneagramTests!;
 
     if (list.isEmpty) {
@@ -27,6 +26,10 @@ class UserProfileController extends GetxController {
     } else {
       currentEnneagram.value = list.elementAt(0);
     }
+  }
+
+  void setCurrentEnneagramTestResult(EnneagramTest enneagramTest) {
+    currentEnneagram.value = enneagramTest;
   }
 
   void updateCurrentEnneagram ({required String insertDate}) {
@@ -37,9 +40,6 @@ class UserProfileController extends GetxController {
 
       if (formatter.format(temp.insertDate!) == insertDate) {
         currentEnneagram.value = temp;
-        /*currentEnneagram.update((val) {
-          val =
-        });*/
       }
     }
 

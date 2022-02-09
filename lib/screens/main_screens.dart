@@ -8,6 +8,7 @@ import 'package:logger/logger.dart';
 import 'package:wai/common/controller/app_controller.dart';
 import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/controller/user_controller.dart';
+import 'package:wai/models/enneagram_test/enneagram_test.dart';
 import 'package:wai/screens/home_page/home_page_screen.dart';
 import 'package:wai/screens/posts_page/posts_page_screen.dart';
 import 'package:wai/screens/profile_page/profile_page_screen.dart';
@@ -19,9 +20,10 @@ import 'enneagram_page/enneagram_page_screen.dart';
 import 'enneagram_page/enneagram_type_page_screen.dart';
 
 class MainScreens extends StatelessWidget {
-  MainScreens({Key? key, this.enneagramType}) : super(key: key);
-  int? enneagramType;
+  MainScreens({Key? key, this.myEnneagramTest}) : super(key: key);
+  final EnneagramTest? myEnneagramTest;
   final PageController _pageController = PageController();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +39,7 @@ class MainScreens extends StatelessWidget {
     return Obx(() =>
         SafeArea(
           child: Scaffold(
+            key: _scaffoldKey,
             resizeToAvoidBottomInset : false,
             backgroundColor:  Colors.transparent,
             bottomNavigationBar: _buildBottomNavigationBar(),
@@ -46,11 +49,11 @@ class MainScreens extends StatelessWidget {
                 MainController.to.setTabIndex(nextTabIndex);
               },
               children: <Widget>[
-                HomePageScreen(enneagramType: enneagramType),
-                PostsPageScreen(),
-                SearchPageScreen(),
-                EnneagramPageScreen(),
-                ProfilePageScreen(enneagramType: enneagramType),
+                HomePageScreen(myEnneagramTest: myEnneagramTest),
+                const PostsPageScreen(),
+                const SearchPageScreen(),
+                const EnneagramPageScreen(),
+                ProfilePageScreen(),
               ],
             ),
           ),

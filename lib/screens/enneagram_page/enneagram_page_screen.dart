@@ -12,6 +12,7 @@ import 'package:wai/common/controller/enneagram_controller.dart';
 import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/theme/custom_postpage_textstyle.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
+import 'package:wai/common/widgets/wai_appbar.dart';
 import 'package:wai/models/enneagram/enneagram.dart';
 import 'package:wai/common/widgets/custom_appbar.dart';
 
@@ -27,13 +28,8 @@ class EnneagramPageScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(50),   // MainController.to.appBarState.value.appbarSize
-        child: AppBar(
-          title: Text("에니어그램"),
-          elevation: 2.0,
-          backgroundColor: Colors.white,
-        ),
+      appBar: const WaiAppbar(
+        title: Text("에니어그램"),
       ),
       body: _buildbody(size, context)
     );

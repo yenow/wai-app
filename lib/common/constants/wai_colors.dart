@@ -22,8 +22,9 @@ class WaiColors {
   static const lightPink = Color.fromRGBO(255, 239, 239, 1);
 
 
-  static const lightYellow = Color(0xFFFFF9E8);
   static const yellow = Color(0xFFDCC894);
+  static const lightYellow = Color(0xFFFFF1CD);
+  static const deepLightYellow = Color(0xFFFFF9E8);
 
 
   static const deepDarkPuppy = Color(0xFF323865);

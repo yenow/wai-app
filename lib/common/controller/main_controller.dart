@@ -25,7 +25,7 @@ class MainController extends GetxController{
   final currentTabIndex = 0.obs;   // 현재 페이지 인덱스
   final isShowEnneagramDialog = false.obs;
   final pageDeptCount = 0.obs;
-
+  /* non-observable variable */
 
   void setTabIndex(int nextTabIndex) {
     currentTabIndex.value = nextTabIndex;

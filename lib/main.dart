@@ -22,6 +22,7 @@ import 'common/controller/user_controller.dart';
 import 'common/controller/user_profile_controller.dart';
 import 'common/theme/theme.dart';
 import 'net/post/post_api.dart';
+import 'net/user/user_api.dart';
 
 double deviceWidth = 411.42857142857144;
 double deviceHeight = 683.4285714285714;
@@ -41,7 +42,8 @@ class WaiApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return GetMaterialApp(
-      title: 'wai_ui',
+      title: 'wai',
+      scaffoldMessengerKey: AppController.to.snackbarKey,
       debugShowCheckedModeBanner: false,
       home: const RootScreen(),
       theme: theme(),
@@ -96,8 +98,7 @@ class _RootScreenState extends State<RootScreen> {
     await EnneagramTestController.to.initEnneagramQuestionList();
     await EnneagramTestController.to.initSimpleEnneagramQuestionList();
 
-    await UserController.to.initUserInfo();
-    await UserProfileController.to.initUserProfile();
+    await initUserInfo();
 
     await initPosts(
       PostController.to.posts,

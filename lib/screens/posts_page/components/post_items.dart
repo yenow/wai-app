@@ -96,21 +96,22 @@ class _PostItemsState extends State<PostItems> {
                   Expanded(
                     child: ListView.separated(
                       key: _scaffoldKey,
+                      physics: const AlwaysScrollableScrollPhysics(),
                       separatorBuilder: (BuildContext context, int index) => const HorizontalBorderLine(height: 0.25,),
                       itemCount: posts.length,
                       itemBuilder: (BuildContext context, int index) {
 
-                        return PostItem(post: posts.elementAt(index));
+                        return PostItem(key: UniqueKey(), post: posts.elementAt(index));
                       },
                     ),
                   ),
-                  // Container(
-                  //   height: isMoreRequesting ? 50.0 : 0,
-                  //   color: Colors.white,
-                  //   child: const Center(
-                  //     child: CircularProgressIndicator(),
-                  //   ),
-                  // ),
+                  Container(
+                    height: isMoreRequesting ? 50.0 : 0,
+                    color: Colors.white,
+                    child: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
                 ],
               ),
             )

@@ -5,13 +5,17 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
+import 'package:wai/common/constants/wai_colors.dart';
 import 'package:wai/common/controller/app_controller.dart';
 import 'package:wai/common/controller/enneagram_controller.dart';
 import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/controller/user_controller.dart';
 import 'package:wai/common/controller/user_profile_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
+import 'package:wai/common/theme/wai_textstyle.dart';
+import 'package:wai/common/widgets/enneagram/enneagram_wing_type.dart';
 import 'package:wai/common/widgets/wai_appbar.dart';
+import 'package:wai/common/widgets/wai_snackbar.dart';
 import 'package:wai/models/enneagram_test/api/enneagram_test_request_dto.dart';
 import 'package:wai/models/enneagram_test/enneagram_test.dart';
 import 'package:wai/screens/enneagram_page/enneagram_type_page_screen.dart';
@@ -27,27 +31,12 @@ import '../../main.dart';
 import 'components/enneagram_chart.dart';
 
 class ProfilePageScreen extends StatelessWidget {
-  ProfilePageScreen({Key? key, this.enneagramType}) : super(key: key);
-  final int? enneagramType;
+  ProfilePageScreen({Key? key}) : super(key: key);
 
   final DateFormat formatter = DateFormat('yyyy-MM-dd');
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      if (enneagramType != null && MainController.to.isShowEnneagramDialog.value == false
-          /*&& MainController.to.currentTabIndex.value == TabItem.profilePageScreen.index*/) {
-        MainController.to.setIsShowEnneagramDialog(true);
-
-        EnneagramDialog.showEnneagramType(
-            context: context,
-            enneagramType: enneagramType!,
-            onPressed: () {
-              Get.to(() => EnneagramTypePageScreen(enneagramType: enneagramType!));
-            }
-        );
-      }
-    });
     return _buildScaffold(context);
   }
 
@@ -71,16 +60,10 @@ class ProfilePageScreen extends StatelessWidget {
           // _buildMyInfoMation(),
           _buildSetting(),
           ElevatedButton(
-              child: Text('show enneagramDialog'),
-              onPressed: () {
-                EnneagramDialog.showEnneagramType(
-                    context: context,
-                    enneagramType: 1,
-                    onPressed: () {
-                      Get.to(() => EnneagramTypePageScreen(enneagramType: enneagramType!));
-                    }
-                );
-              }
+            child: Text('show snackbar'),
+            onPressed: () {
+              AppController.to.showSnackBar(WaiSnackBar.basic(text: "게시물이 등록되었습니다."));
+            }
           ),
         ]
       )
@@ -173,8 +156,8 @@ class ProfilePageScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.today_outlined, size: 14, color: Colors.grey),
-          Blank(width: 5,),
+          const Icon(Icons.today_outlined, size: 14, color: Colors.grey),
+          const Blank(width: 5,),
           DropdownButtonHideUnderline(
             child: DropdownButton(
               value: formatter.format(UserProfileController.to.currentEnneagram.value.insertDate!),
@@ -213,7 +196,8 @@ class ProfilePageScreen extends StatelessWidget {
 
   Widget _buildMyEnneagramTypeImage(int myEnneagramType) {
     String subName = EnneagramController.to.enneagram![myEnneagramType]!.subName;
-    
+    int? wingType = UserProfileController.to.currentEnneagram.value.myWingType;
+
     return SizedBox(
       width: 110,
       child: ElevatedButton(
@@ -223,13 +207,16 @@ class ProfilePageScreen extends StatelessWidget {
             Image(
               image: AssetImage(EnneagramController.to.enneagram![myEnneagramType]!.imagePath), width: 60, height: 60,  fit: BoxFit.fill,
             ),
-            Blank(height: 5),
-            Text("$myEnneagramType유형",
-              style: CustomTextStyles.buildTextStyle(fontSize: 14),
-              textAlign: TextAlign.left,
+            const Blank(height: 5),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text( "$myEnneagramType유형", style: WaiTextStyle(fontSize: 15).basic()),
+                wingType != null ? EnneagramWingText(wingType: wingType, fontSize: 15,) : Container()
+              ],
             ),
             Text("[$subName]",
-              style: CustomTextStyles.buildTextStyle(fontSize: 14),
+              style: WaiTextStyle(fontSize: 14).basic(),
               textAlign: TextAlign.left,
             ),
           ],

@@ -26,7 +26,7 @@ class ReplyForm extends StatelessWidget {
           _buildReReplyInfo(),
           Container(
             height: ReplyController.to.replyContainerHeight.value,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 border: Border(
                     top: BorderSide(width: 0.5, color: Colors.grey)
                 )
@@ -47,24 +47,21 @@ class ReplyForm extends StatelessWidget {
                   decoration: InputDecoration(
                     labelText: "댓글을 입력해주세요.",
                     labelStyle: CustomTextStyles.buildTextStyle(fontSize: 18, color: Colors.grey),
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                    prefixIcon: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15),
                       child: Icon(FontAwesomeIcons.commentDots, size: 25, color: Colors.grey),
                     ),
                     suffixIcon: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 5),
                       child: IconButton(
-                        icon: Icon(FontAwesomeIcons.reply, size: 25, color: Colors.grey),
+                        icon: const Icon(FontAwesomeIcons.reply, size: 25, color: Colors.grey),
                         onPressed: () async {
-                          // todo 1. 값체크, 2. DB 요청  3. replys에 넣기  4. 텍스트값 지우기
                           if (ReplyController.to.checkReplyWrintingValue()) {
 
                             var response = await postRequest("/api/saveReply", json.encode(ReplyController.to.replyWrintingInfomation.value.toJson()));
                             Reply reply = Reply.fromJson(json.decode(response));
                             loggerNoStack.d("/api/saveReply result : $reply");
 
-                            // todo  함수로 변경해야할듯?
-                            // ReplyController.to.addReply(reply);
                             ReplyController.to.removeReplyContent();
 
                             if (parentRebuild != null) {
