@@ -6,9 +6,10 @@ class PostRequestDto {
   int? myEnneagramType;
   PostSearchType? postSearchType;
   String? searchText;
+  bool? canUpdateCount;
 
   PostRequestDto({
-    this.postId, this.postsCount, this.startPostId, this.endPostId, this.myEnneagramType, this.postSearchType, this.searchText
+    this.postId, this.postsCount, this.startPostId, this.endPostId, this.myEnneagramType, this.postSearchType, this.searchText, this.canUpdateCount
   });
 
   Map<String, dynamic> toJson() => {
@@ -19,6 +20,7 @@ class PostRequestDto {
     'myEnneagramType': myEnneagramType,
     'postSearchType' : postSearchType != null ? postSearchType!.name : null,
     'searchText': searchText,
+    'canUpdateCount': canUpdateCount,
   };
 
   @override

@@ -13,7 +13,7 @@ class WaiPopupMenuButton extends StatefulWidget {
 }
 
 class _WaiPopupMenuButtonState extends State<WaiPopupMenuButton> {
-  final List<String> _valueList = ['수정하기', '삭제하기', '신고하기'];
+  final List<String> _valueList = ['수정하기', '삭제하기'];
   late final List<void Function()?> _callList;
 
   @override
@@ -41,7 +41,7 @@ class _WaiPopupMenuButtonState extends State<WaiPopupMenuButton> {
               onTap: () {
                 for (String temp in _valueList) {
                   if (temp == choice) {
-                    logger.d(choice);
+                    logger.d(choice + "  " + _valueList.indexOf(temp).toString());
                     _callList[_valueList.indexOf(temp)]!();
                   }
                 }

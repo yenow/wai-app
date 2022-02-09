@@ -11,8 +11,11 @@ import 'package:wai/common/constants/wai_colors.dart';
 import 'package:wai/common/controller/enneagram_controller.dart';
 import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/controller/post_controller.dart';
+import 'package:wai/common/controller/user_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/models/post/post.dart';
+import 'package:wai/net/post/post_api.dart';
+import 'package:wai/screens/reply_page/components/reply_item.dart';
 import 'package:wai/screens/reply_page/components/reply_items.dart';
 import 'package:wai/screens/reply_page/reply_page_screen.dart';
 import 'package:wai/common/utils/date_util.dart';
@@ -34,6 +37,7 @@ class PostPageScreen extends StatefulWidget {
 
 class _PostPageScreenState extends State<PostPageScreen> {
   late Post post;
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   void rebuild() {
     setState(() {});
@@ -44,7 +48,7 @@ class _PostPageScreenState extends State<PostPageScreen> {
     loggerNoStack.d("build PostPageScreen");
 
     return FutureBuilder<Post?>(
-        future: PostController.to.readPost(widget.postId),
+        future: readPost(widget.postId),
         builder: (context, snapshot) {
 
           switch(snapshot.connectionState) {
@@ -58,11 +62,12 @@ class _PostPageScreenState extends State<PostPageScreen> {
               if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else {
-                // post = snapshot.data;
                 post = snapshot.data!;
                 if (snapshot.data!.isDelete ?? false) {
                   Get.back();
                 }
+
+                UserController.to.updatePostVisitHistory(post.postId!);
                 PostController.to.post.value = snapshot.data!;
                 return _buildScaffold(context);
               }
@@ -115,19 +120,19 @@ class _PostPageScreenState extends State<PostPageScreen> {
 
   PreferredSize _buildAppbar(BuildContext context) {
     return PreferredSize(
-              preferredSize: Size.fromHeight(50),   // MainController.to.appBarState.value.appbarSize
-              child: AppBar(
-                title: Text("게시글", style: CustomTextStyles.buildTextStyle(fontSize: 20, color: Colors.white),),
-                // elevation: 2.0,
-                backgroundColor: lightBlueGrey,   // Colors.white
-                leading: GestureDetector(
-                  child: const Icon(Icons.arrow_back_ios_outlined, size: 20, color: Colors.white,),
-                  onTap: () {
-                    Navigator.pop(context, PostController.to.post.value);
-                  },
-                ),
-              ),
-            );
+      preferredSize: Size.fromHeight(50),   // MainController.to.appBarState.value.appbarSize
+      child: AppBar(
+        title: Text("게시글", style: CustomTextStyles.buildTextStyle(fontSize: 20, color: Colors.white),),
+        // elevation: 2.0,
+        backgroundColor: lightBlueGrey,   // Colors.white
+        leading: GestureDetector(
+          child: const Icon(Icons.arrow_back_ios_outlined, size: 20, color: Colors.white,),
+          onTap: () {
+            Navigator.pop(context, PostController.to.post.value);
+          },
+        ),
+      ),
+    );
   }
 
   Padding _buildInformation() {
@@ -234,12 +239,30 @@ class _PostPageScreenState extends State<PostPageScreen> {
 
   Widget _buildReplyList({required BuildContext context}) {
 
-    return ReplyItems(
-        replys: PostController.to.post.value.replys!,
-        isScroll: false,
-        reReplyFunction: () {
-        }
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: ListView.separated(
+        key: _scaffoldKey,
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: post.replys!.length,
+        itemBuilder: (BuildContext context, int index) {
+          return ReplyItem(
+            reply: post.replys![index],
+            rebuild: rebuild,
+            isAction: false,
+            // ReplyController.to.updateReplyWritingInfomation(parentReplyId: replys[index].replyId.toString());
+          ); //_buildReply(replys[index]);
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const HorizontalBorderLine();
+        },
+      ),
     );
+    // return ReplyItems(
+    //   replys: PostController.to.post.value.replys!,
+    //   isScroll: false,
+    // );
   }
 
   Column _buildReply() {

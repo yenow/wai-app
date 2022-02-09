@@ -94,7 +94,7 @@ class ReplyForm extends StatelessWidget {
 
       return Container(
         height: 40,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           border: Border(
             top: BorderSide(width: 0.5, color: Colors.grey)
           )
@@ -107,7 +107,7 @@ class ReplyForm extends StatelessWidget {
               child: Text("$name에게 답글", style: CustomTextStyles.buildTextStyle(fontSize: 16, color: Colors.grey)),
             ),
             IconButton(
-              icon: Icon(Icons.close_outlined, size: 16, color: Colors.grey),
+              icon: const Icon(Icons.close_outlined, size: 16, color: Colors.grey),
               onPressed: () {
                 ReplyController.to.updateReplyWritingInfomation(parentReplyId: "");
               }

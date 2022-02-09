@@ -27,19 +27,10 @@ class PostController extends GetxController {
   final post = Post().obs;
 
   final writingPost = PostSaveRequestDto().obs;   //PostSaveRequestDto
-  final dragDistance = 0.0.obs;
-  final isMoreRequesting = false.obs;
-  final isNoMorePost = false.obs;
 
   /* non-observable variable */
   final int postsCount = 10;
   final formKey = GlobalKey<FormState>();
-
-  void addReply(Reply reply) {
-    post.update((val) {
-      val!.replys!.add(reply);
-    });
-  }
 
   bool getIsLikey() {
     bool flag = false;
@@ -75,35 +66,6 @@ class PostController extends GetxController {
     getRequest("/api/removeLikey/$postId/$userId");
   }
 
-  Future<void> initPosts() async {
-    // init
-    PostRequestDto postRequestDto = PostRequestDto();
-    postRequestDto.postsCount = postsCount;
-    logger.d(postRequestDto);
-
-    // api request
-    AppController.to.getServerTime();
-    var response = await postRequest("/api/readInitPosts", json.encode(postRequestDto.toJson()));
-
-    // add posts
-    List list = json.decode(response);
-    logger.d(list.length);
-    for (var element in list) {
-      posts.add(Post.fromJson(element));
-    }
-  }
-
-  Future<Post?> readPost(int postId) async {
-
-    // api request
-    var response = await getRequest("/api/readPost/$postId");
-
-    // add posts
-    post.value = Post.fromJson(json.decode(response));
-
-    return post.value;
-  }
-
   void setWritingPostTitle (String title) {
     writingPost.value.title = title;
   }
@@ -116,9 +78,4 @@ class PostController extends GetxController {
     writingPost.value.title = "";
     writingPost.value.content = "";
   }
-
-  void setIsMoreRequesting (bool bool) {
-    isMoreRequesting.value = bool;
-  }
-
 }

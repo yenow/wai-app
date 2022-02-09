@@ -1,4 +1,5 @@
 class ReplyRequestDto {
+  String? replyId;
   String? userId;
   String? postId;
   String? parentReplyId;
@@ -6,6 +7,7 @@ class ReplyRequestDto {
   String? replyContent;
 
   ReplyRequestDto({
+    this.replyId,
     this.userId,
     this.postId,
     this.parentReplyId,
@@ -15,6 +17,7 @@ class ReplyRequestDto {
 
   Map<String, dynamic> toJson() {
     return {
+      "replyId" : replyId,
       "userId" : userId,
       "postId" : postId,
       "parentReplyId" : parentReplyId,
@@ -25,6 +28,6 @@ class ReplyRequestDto {
 
   @override
   String toString() {
-    return 'ReplyRequestDto{userId: $userId, postId: $postId, parentReplyId: $parentReplyId, parentReplyNickname: $parentReplyNickname, replyContent: $replyContent}';
+    return 'ReplyRequestDto{replyId: $replyId, userId: $userId, postId: $postId, parentReplyId: $parentReplyId, parentReplyNickname: $parentReplyNickname, replyContent: $replyContent}';
   }
 }

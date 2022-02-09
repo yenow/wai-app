@@ -17,10 +17,31 @@ class UserController extends GetxController {
   static UserController get to => Get.put(UserController());
 
   final user = User().obs;
+  final postVisitHistory = <int, DateTime>{}.obs;
+
+  void updatePostVisitHistory(int postId) {
+    if (!postVisitHistory.containsKey(postId)) {
+      postVisitHistory[postId] =  DateTime.now();
+    } else {
+      postVisitHistory.update(postId, (value) => DateTime.now());
+    }
+  }
 
   void addEnneagramTestResult(EnneagramTest enneagramTest) {
     user.update((val) {
       val!.enneagramTests!.insert(0, enneagramTest);
     });
   }
+
+  bool? canUpdateCount(int postId) {
+    if (!postVisitHistory.containsKey(postId)) {
+      return true;
+    } else if (DateTime.now().difference(postVisitHistory[postId]!).inMinutes > 30) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  
 }

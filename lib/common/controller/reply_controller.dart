@@ -20,10 +20,10 @@ class ReplyController extends GetxController {
   final replyWrintingInfomation = ReplyRequestDto().obs;
   final replyContainerHeight = 80.0.obs;
 
-  void initWriteReplys(int? parentReplyId) {
+  void initWriteReplys({required int postId, int? parentReplyId}) {
     ReplyController.to.initReplyWritingInfomation(
         userId: AppController.to.userId.value,
-        postId: PostController.to.post.value.postId!.toString(),
+        postId: postId.toString(),
         parentReplyId: parentReplyId != null ? parentReplyId.toString() : ""
     );
   }

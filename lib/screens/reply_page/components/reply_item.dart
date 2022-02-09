@@ -6,6 +6,7 @@ import 'package:wai/common/controller/enneagram_controller.dart';
 import 'package:wai/common/controller/user_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/common/widgets/wai_popup_menu_button.dart';
+import 'package:wai/common/widgets/wai_snackbar.dart';
 import 'package:wai/models/reply/api/reply_request_dto.dart';
 import 'package:wai/models/reply/reply.dart';
 import 'package:wai/common/utils/date_util.dart';
@@ -14,16 +15,31 @@ import 'package:wai/common/widgets/block_text.dart';
 import 'package:wai/net/reply/reply_api.dart';
 
 class ReplyItem extends StatelessWidget {
-  const ReplyItem({Key? key, required this.reply, this.reReplyFunction}) : super(key: key);
+  const ReplyItem({Key? key, required this.reply, this.rebuild, required this.isAction}) : super(key: key);
   final Reply reply;
-  final VoidCallback? reReplyFunction;
+  final VoidCallback? rebuild;
+  final bool isAction;
 
   Future<void> deleteReplyItem() async {
     ReplyRequestDto replyRequestDto = ReplyRequestDto(
-      postId: reply.replyId!.toString(),
+      replyId: reply.replyId!.toString(),
     );
     await deleteReply(replyRequestDto);
-    reReplyFunction!();
+    rebuild!();
+    AppController.to.snackbarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "댓글이 삭제되었습니다."));
+  }
+
+  Future<void> reportReplyItem() async {
+    ReplyRequestDto replyRequestDto = ReplyRequestDto(
+      replyId: reply.replyId!.toString(),
+    );
+    await reportReply(replyRequestDto);
+    rebuild!();
+    AppController.to.snackbarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "댓글이 신고되었습니다."));
+  }
+
+  void updateReplyItem() async {
+    // Get.to()
   }
 
   @override
@@ -60,9 +76,9 @@ class ReplyItem extends StatelessWidget {
             BlockText(text: "$myEnneagramType유형"),
           ],
         ),
-        reply.user!.userId == UserController.to.user.value.userId ? WaiPopupMenuButton(
-          callList: [deleteReplyItem, () {}, () {}],
-        ) : Container()
+        reply.user!.userId == UserController.to.user.value.userId && isAction ?
+          WaiPopupMenuButton(callList: [updateReplyItem, deleteReplyItem],)
+          : Container()
         // Icon(
         //   Icons.more_vert_outlined,
         //   color: WaiColors.grey,
@@ -91,13 +107,15 @@ class ReplyItem extends StatelessWidget {
           const Blank(width: 20,),
           Text(dateTimeToString(AppController.to.nowServerTime.value ,reply.insertDate!), style: CustomTextStyles.buildTextStyle(fontSize: 12, color: Colors.grey)),
           const Blank(width: 10,),
-          TextButton(
+          isAction ? TextButton(
             child: Text("답글쓰기", style: CustomTextStyles.buildTextStyle(fontSize: 12, color: Colors.grey)),
-            onPressed: reReplyFunction,
+            onPressed: () {
+
+            },
             style: TextButton.styleFrom(
-              padding: EdgeInsets.fromLTRB(0, 3, 0, 0)
+              padding: const EdgeInsets.fromLTRB(0, 3, 0, 0)
             ),
-          )
+          ) : Container()
         ],
       ),
     );

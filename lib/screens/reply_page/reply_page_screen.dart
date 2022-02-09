@@ -8,8 +8,10 @@ import 'package:wai/common/controller/app_controller.dart';
 import 'package:wai/common/controller/post_controller.dart';
 import 'package:wai/common/controller/reply_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
+import 'package:wai/common/widgets/wai_appbar.dart';
 import 'package:wai/models/post/post.dart';
 import 'package:wai/models/reply/reply.dart';
+import 'package:wai/net/post/post_api.dart';
 import 'package:wai/sample/add_interactivity.dart';
 import 'package:wai/screens/posts_page/post_page_screen.dart';
 import 'package:wai/screens/reply_page/components/reply_form.dart';
@@ -18,6 +20,7 @@ import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/common/widgets/block_text.dart';
 import 'package:wai/common/widgets/horizontal_border_line.dart';
 
+import 'components/reply_item.dart';
 import 'components/reply_items.dart';
 
 
@@ -33,6 +36,7 @@ class ReplyPageScreen extends StatefulWidget {
 class _ReplyPageScreenState extends State<ReplyPageScreen> {
   late Post post;
   late List<Reply> replys;
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   void rebuild() {
     setState(() {});
@@ -41,7 +45,7 @@ class _ReplyPageScreenState extends State<ReplyPageScreen> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Post?>(
-        future: PostController.to.readPost(widget.postId),
+        future: readPost(widget.postId),
         builder: (context, snapshot) {
 
           switch(snapshot.connectionState) {
@@ -63,8 +67,11 @@ class _ReplyPageScreenState extends State<ReplyPageScreen> {
                 }
 
                 replys = post.replys!;
-                ReplyController.to.replys.value = PostController.to.post.value.replys!;
-                ReplyController.to.initWriteReplys(widget.parentReplyId);
+                // ReplyController.to.replys.value = PostController.to.post.value.replys!;
+                ReplyController.to.initWriteReplys(
+                  postId: post.postId!,
+                  parentReplyId: widget.parentReplyId
+                );
                 return _buildScaffold(context);
               }
           }
@@ -75,42 +82,53 @@ class _ReplyPageScreenState extends State<ReplyPageScreen> {
   Widget _buildScaffold(BuildContext context) {
     // int replyCount = ReplyController.to.replys.value.length;
 
-    return Obx(() =>
-      SafeArea(
-        child: Scaffold(
-          appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(50),   // MainController.to.appBarState.value.appbarSize
-            child: AppBar(
-              title: Text("댓글 " + replys.length.toString(), style: CustomTextStyles.buildTextStyle(fontSize: 20, color: Colors.white),),
-              // elevation: 2.0,
-              backgroundColor: lightBlueGrey,   // Colors.white
-              leading: GestureDetector(
-                child: const Icon(Icons.arrow_back_ios_outlined, size: 20, color: Colors.white,),
-                onTap: () {
-                  ReplyController.to.removeReplyWritingInfomation();
-                  Navigator.pop(context, PostController.to.readPost(widget.postId));
-                },
-              ),
-            ),
-          ),
-          body: RefreshIndicator(
-            onRefresh: () async {
-              rebuild();
+    return SafeArea(
+      child: Scaffold(
+        appBar: WaiAppbar(
+          title: Text("댓글 " + replys.length.toString(), style: CustomTextStyles.buildTextStyle(fontSize: 20, color: Colors.white),),
+          backgroundColor: lightBlueGrey,   // Colors.white
+          leading: GestureDetector(
+            child: const Icon(Icons.arrow_back_ios_outlined, size: 20, color: Colors.white,),
+            onTap: () {
+              ReplyController.to.removeReplyWritingInfomation();
+              Navigator.pop(context, readPost(widget.postId));
             },
-            child: Column(
-              children: [
-                Expanded(
-                  child: ReplyItems(
-                    replys: replys,
-                    isScroll: true,
-                    reReplyFunction: () {},
-                  ) // _buildReplyList(context: context)
-                ),
-                ReplyForm(parentRebuild : rebuild)
-              ],
-            ),
           ),
         ),
+        body: RefreshIndicator(
+          onRefresh: () async {
+            rebuild();
+          },
+          child: Column(
+            children: [
+              Expanded(
+                child: _buildReplyItems() // _buildReplyList(context: context)
+              ),
+              ReplyForm(parentRebuild : rebuild)
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildReplyItems() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: ListView.separated(
+        key: _scaffoldKey,
+        shrinkWrap: true,
+        itemCount: replys.length,
+        itemBuilder: (BuildContext context, int index) {
+          return ReplyItem(
+            reply: replys[index],
+            rebuild: rebuild,
+            isAction: true,
+          ); //_buildReply(replys[index]);
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const HorizontalBorderLine();
+        },
       ),
     );
   }

@@ -7,6 +7,7 @@ class Reply {
   User? user;
   Post? post;
   String? replyContent;
+  bool? isReported;
   DateTime? insertDate;
   DateTime? nowServerTime;
 
@@ -16,6 +17,7 @@ class Reply {
     this.user,
     this.post,
     this.replyContent,
+    this.isReported,
     this.insertDate,
     this.nowServerTime
   });
@@ -30,6 +32,7 @@ class Reply {
       user: user,
       post: post,
       replyContent: json['replyContent'],
+      isReported: json['isReported'],
       insertDate: DateTime.parse(json['insertDate']),
       nowServerTime: DateTime.parse(json['nowServerTime']),
     );
