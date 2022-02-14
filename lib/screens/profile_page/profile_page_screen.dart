@@ -18,6 +18,7 @@ import 'package:wai/common/widgets/wai_appbar.dart';
 import 'package:wai/common/widgets/wai_snackbar.dart';
 import 'package:wai/models/enneagram_test/api/enneagram_test_request_dto.dart';
 import 'package:wai/models/enneagram_test/enneagram_test.dart';
+import 'package:wai/net/user/user_api.dart';
 import 'package:wai/screens/enneagram_page/enneagram_type_page_screen.dart';
 import 'package:wai/screens/enneagram_test_page/enneagram_test_page_screen.dart';
 import 'package:wai/screens/introduce_page/introduction_screen.dart';
@@ -26,14 +27,14 @@ import 'package:wai/common/utils/logger.dart';
 import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/common/widgets/block_text.dart';
 import 'package:wai/common/widgets/horizontal_border_line.dart';
+import 'package:wai/screens/profile_page/my_action_page.dart';
 
 import '../../main.dart';
 import 'components/enneagram_chart.dart';
+import 'my_infomation_page.dart';
 
 class ProfilePageScreen extends StatelessWidget {
-  ProfilePageScreen({Key? key}) : super(key: key);
-
-  final DateFormat formatter = DateFormat('yyyy-MM-dd');
+  const ProfilePageScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +42,8 @@ class ProfilePageScreen extends StatelessWidget {
   }
 
   Widget _buildScaffold(BuildContext context) {
+    logger.i("ProfilePageScreen build");
+
     return Obx(() =>
       Scaffold(
         backgroundColor: Colors.white,
@@ -57,12 +60,20 @@ class ProfilePageScreen extends StatelessWidget {
         child: Column(
         children: <Widget>[
           _buildTopBackground(context: context),
-          // _buildMyInfoMation(),
+          // _buildMyInfomation(),
           _buildSetting(),
           ElevatedButton(
             child: Text('show snackbar'),
             onPressed: () {
               AppController.to.showSnackBar(WaiSnackBar.basic(text: "게시물이 등록되었습니다."));
+
+              EnneagramDialog.showEnneagramType(
+                  context: context,
+                  myEnneagramTest : EnneagramTest(myEnneagramType: 1),
+                  onPressed: () {
+                    Get.to(() => EnneagramTypePageScreen(enneagramType: EnneagramTest(myEnneagramType: 1).myEnneagramType!));
+                  }
+              );
             }
           ),
         ]
@@ -275,15 +286,54 @@ class ProfilePageScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildMyInfoMation() {
+  Widget _buildMyInfomation() {
     return Container(
       width: double.infinity,
-      height: 100,
-      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      color: Colors.grey.shade300,
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade200,
+        borderRadius: const BorderRadius.all(Radius.circular(10))
+      ),
       child: Column(
         children: [
-
+          Text("내 활동", style: WaiTextStyle(fontSize: 22).bodyText(),),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+            child: InkWell(
+              onTap: () {
+                Get.to(() => const MyActionPage());
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text("자세히보기", style: WaiTextStyle(fontSize: 14).bodyText(),),
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                    child: Icon(Icons.arrow_forward_ios_outlined, size: 14, color: Colors.black54),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const HorizontalBorderLine(),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: IntrinsicHeight (
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text("내 게시글", style: WaiTextStyle(fontSize: 16).bodyText(),),
+                  Text(UserController.to.user.value.posts!.length.toString(), style: WaiTextStyle(fontSize: 16).bodyText(),),
+                  const VerticalDivider(
+                    color: Colors.grey,
+                    thickness: 1,
+                  ),
+                  Text("내 댓글", style: WaiTextStyle(fontSize: 16).bodyText(),),
+                  Text(UserController.to.user.value.replys!.length.toString(), style: WaiTextStyle(fontSize: 16).bodyText(),),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -294,12 +344,22 @@ class ProfilePageScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: ListView(
         scrollDirection: Axis.vertical,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         children: [
-          _buildSettingItem(text: "내 정보"),
+          _buildSettingItem(
+            text: "나의 활동 (게시글, 댓글)",
+            onTap: () {
+              Get.to(() => const MyActionPage());
+            }
+          ),
           const HorizontalBorderLine(height: 1,),
-          _buildSettingItem(text: "앱 설정"),
+          _buildSettingItem(
+            text: "닉네임 변경",
+            onTap: () {
+              Get.to(() => const MyInformationPage());
+            }
+          ),
           const HorizontalBorderLine(height: 1,),
           _buildSettingItem(text: "앱 정보"),
           const HorizontalBorderLine(height: 1,),
@@ -320,24 +380,24 @@ class ProfilePageScreen extends StatelessWidget {
 
   SizedBox _buildSettingItem({required String text, void Function()? onTap}) {
     return SizedBox(
-          height: 50,
-          child: GestureDetector(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                  child: Text(text, style: CustomTextStyles.buildTextStyle(),),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-                  child: Icon(Icons.arrow_forward_ios_outlined, size: 15, color: Colors.blueGrey),
-                ),
-              ],
+      height: 50,
+      child: InkWell(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+              child: Text(text, style: WaiTextStyle().bodyText()),
             ),
-            onTap: onTap,
-          ),
-        );
+            const Padding(
+              padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+              child: Icon(Icons.arrow_forward_ios_outlined, size: 15, color: Colors.black54),
+            ),
+          ],
+        ),
+        onTap: onTap,
+      ),
+    );
   }
 
   InkWell _buildTextButton() {
@@ -358,17 +418,3 @@ class ProfilePageScreen extends StatelessWidget {
     );
   }
 }
-
-
-/*
-ElevatedButton(
-  child: Text('userKey delete'),
-  onPressed: ()  async {
-  await AppController.to.removeUserKey();
-
-  var string = await AppController.to.getUserKey();
-  Logger().d(string);
-
-  Get.off(IntroductionSrceen());
-  }
-)*/

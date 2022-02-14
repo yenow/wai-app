@@ -8,8 +8,8 @@ import 'package:wai/common/theme/custom_loginpage_textstyle.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
 import 'package:wai/common/widgets/wai_text.dart';
 
-class WaiTextField extends StatelessWidget {
-  const WaiTextField({
+class NerverBorderTextFormField extends StatelessWidget {
+  const NerverBorderTextFormField({
     Key? key,
     this.height,
     this.onChanged,
@@ -20,7 +20,7 @@ class WaiTextField extends StatelessWidget {
     this.errorText,
     this.maxLines,
     this.expands = false,
-    this.controller,
+    this.initText = "",
     this.validator,
     this.onSaved
   }) : super(key: key);
@@ -34,7 +34,7 @@ class WaiTextField extends StatelessWidget {
   final String? errorText;
   final int? maxLines;
   final bool expands;
-  final TextEditingController? controller;
+  final String initText;
   final String? Function(String?)? validator;
   final void Function(String?)? onSaved;
 
@@ -48,7 +48,7 @@ class WaiTextField extends StatelessWidget {
       expands: expands,
       validator: validator,
       onSaved: onSaved,
-      controller: controller,
+      controller: TextEditingController(text: initText),
       style: WaiTextStyle(fontSize: 16, color: Colors.black54).basic(),
       onChanged: onChanged,
       decoration: InputDecoration(
@@ -67,22 +67,10 @@ class WaiTextField extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(10))
         ),
         /* border */
-        border: const OutlineInputBorder(
-            borderSide: BorderSide(width: 1, color: WaiColors.grey),
-            borderRadius: BorderRadius.all(Radius.circular(10))
-        ),
-        enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(width: 1, color: WaiColors.grey),
-          borderRadius: BorderRadius.all(Radius.circular(10))
-        ),
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(width: 1, color: WaiColors.grey),
-          borderRadius: BorderRadius.all(Radius.circular(10))
-        ),
-        focusedErrorBorder: const OutlineInputBorder(
-            borderSide: BorderSide(width: 1, color: WaiColors.errorRed),
-            borderRadius: BorderRadius.all(Radius.circular(10))
-        ),
+        border: InputBorder.none,
+        enabledBorder: InputBorder.none,
+        focusedBorder: InputBorder.none,
+        focusedErrorBorder: InputBorder.none,
         counterText:'',
       ),
     );

@@ -42,6 +42,7 @@ class User extends ResponseDto{
     this.gender,
     this.myEnneagramType,
     this.posts,
+    this.replys,
     this.enneagramTests,
   });
 
@@ -62,8 +63,12 @@ class User extends ResponseDto{
       // gender: EnumToString.fromString(Gender.values, (json['gender'] ?? "") as String),
       myEnneagramType: json['myEnneagramType'],
       posts: List<Post>.from((json['posts'] ?? []).map((model) {
-        model.update('user', (value) => null);
+        model.containsKey('user') ? model.update('user', (value) => null) : null;
         return Post.fromJson(model);
+      })),
+      replys: List<Reply>.from((json['replys'] ?? []).map((model) {
+        model.containsKey('user') ? model.update('user', (value) => null) : null;
+        return Reply.fromJson(model);
       })),
       enneagramTests: List<EnneagramTest>.from((json['enneagramTests'] ?? []).map((model) {
         return EnneagramTest.fromJson(model);

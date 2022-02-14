@@ -10,7 +10,12 @@ import 'package:wai/common/utils/function.dart';
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/common/widgets/toast.dart';
 import 'package:wai/models/post/api/post_request_dto.dart';
+import 'package:wai/models/post/api/post_save_request_dto.dart';
 import 'package:wai/models/post/post.dart';
+
+Future<void> savePost(PostSaveRequestDto postSaveRequestDto) async {
+  await postRequest("/api/savePost", json.encode(postSaveRequestDto.toJson()));
+}
 
 Future<Post?> readPost(int postId) async {
   PostRequestDto postRequestDto = PostRequestDto(
@@ -90,4 +95,34 @@ Future<List<Post>> readMoreOldPosts(List<Post> posts, PostRequestDto postRequest
   addOldPostToList(returnList);
 
   return returnList;
+}
+
+Future<void> initAllPosts() async {
+  await initPosts(
+      PostController.to.posts,
+      PostRequestDto(
+          postsCount: PostController.to.postsCount,
+          postSearchType: PostSearchType.all));
+  await initPosts(
+      PostController.to.popularPosts,
+      PostRequestDto(
+          postsCount: PostController.to.postsPopularCount,
+          postSearchType: PostSearchType.popular));
+  await initPosts(
+      PostController.to.myEnneagramPosts,
+      PostRequestDto(
+          postsCount: PostController.to.postsCount,
+          postSearchType: PostSearchType.enneagramType,
+          myEnneagramType: UserController.to.user.value.myEnneagramType));
+}
+
+Future<Post> deletePost(int postId) async {
+  PostRequestDto postRequestDto = PostRequestDto(postId: postId);
+  var response = await postRequest("/api/deletePost", json.encode(postRequestDto));
+  return Post.fromJson(json.decode(response));
+}
+
+Future<Post> updatePost(PostSaveRequestDto postSaveRequestDto) async {
+  var response = await postRequest("/api/updatePost", json.encode(postSaveRequestDto));
+  return Post.fromJson(json.decode(response));
 }

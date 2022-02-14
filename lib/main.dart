@@ -21,6 +21,7 @@ import 'common/controller/post_controller.dart';
 import 'common/controller/user_controller.dart';
 import 'common/controller/user_profile_controller.dart';
 import 'common/theme/theme.dart';
+import 'common/utils/navigation_service.dart';
 import 'net/post/post_api.dart';
 import 'net/user/user_api.dart';
 
@@ -30,6 +31,7 @@ double standardDeviceWidth = 411.42857142857144;
 double standardDeviceHeight = 683.4285714285714;
 double widthRatio = 1.0;
 double heightRatio = 1.0;
+String kakaoKey = "1fec5c99452f624a6200b3a512a932f9";
 
 void main() {
   runApp(const WaiApp());
@@ -43,10 +45,11 @@ class WaiApp extends StatelessWidget {
 
     return GetMaterialApp(
       title: 'wai',
-      scaffoldMessengerKey: AppController.to.snackbarKey,
-      debugShowCheckedModeBanner: false,
-      home: const RootScreen(),
       theme: theme(),
+      home: const RootScreen(),
+      debugShowCheckedModeBanner: false,
+      scaffoldMessengerKey: AppController.to.snackbarKey,
+      navigatorKey: NavigationService.navigatorKey,
     );
   }
 }
@@ -98,22 +101,30 @@ class _RootScreenState extends State<RootScreen> {
     await EnneagramTestController.to.initEnneagramQuestionList();
     await EnneagramTestController.to.initSimpleEnneagramQuestionList();
 
-    await initUserInfo();
+    // await initUserInfo();
 
-    await initPosts(
-      PostController.to.posts,
-      PostRequestDto(
-        postsCount: PostController.to.postsCount,
-        postSearchType: PostSearchType.all
-      )
-    );
-    await initPosts(
-      PostController.to.popularPosts,
-      PostRequestDto(
-        postsCount: PostController.to.postsCount,
-        postSearchType: PostSearchType.popular
-      )
-    );
+    // await initPosts(
+    //     PostController.to.posts,
+    //     PostRequestDto(
+    //       postsCount: PostController.to.postsCount,
+    //       postSearchType: PostSearchType.all
+    //     )
+    // );
+    // await initPosts(
+    //     PostController.to.popularPosts,
+    //     PostRequestDto(
+    //       postsCount: PostController.to.postsCount,
+    //       postSearchType: PostSearchType.popular
+    //     )
+    // );
+    // await initPosts(
+    //     PostController.to.myEnneagramPosts,
+    //     PostRequestDto(
+    //         postsCount: PostController.to.postsCount,
+    //         postSearchType: PostSearchType.enneagramType,
+    //         myEnneagramType: UserController.to.user.value.myEnneagramType
+    //     )
+    // );
 
     await Future.delayed(const Duration(seconds: 1), () {});
 

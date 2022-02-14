@@ -17,10 +17,8 @@ Future<bool> initUserInfo() async {
         userKey: AppController.to.userKey.value
     );
 
-    var response = await postRequest("/api/getUserInfomation", json.encode(userRequestDto));
+    var response = await postRequest("/api/getUserInformation", json.encode(userRequestDto));
     UserController.to.user.value = User.fromJson(json.decode(response));
-
-    UserProfileController.to.initCurrentEnneagram();
   }
   return true;
 }

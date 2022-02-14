@@ -30,6 +30,7 @@ class PostController extends GetxController {
 
   /* non-observable variable */
   final int postsCount = 10;
+  final int postsPopularCount = 50;
   final formKey = GlobalKey<FormState>();
 
   bool getIsLikey() {
@@ -75,7 +76,13 @@ class PostController extends GetxController {
   }
 
   void removeWritingPost () {
+    writingPost.value.postId = "";
     writingPost.value.title = "";
     writingPost.value.content = "";
+    writingPost.value.author = "";
+    writingPost.value.authorEnneagramType = null;
+    writingPost.value.userKey = "";
+    writingPost.value.userId = "";
+
   }
 }

@@ -16,16 +16,45 @@ import 'package:wai/common/widgets/focus_out_container.dart';
 import 'package:wai/common/widgets/wai_appbar.dart';
 import 'package:wai/common/widgets/wai_snackbar.dart';
 import 'package:wai/models/post/api/post_request_dto.dart';
+import 'package:wai/models/post/api/post_save_request_dto.dart';
 import 'package:wai/models/post/post.dart';
+import 'package:wai/net/post/post_api.dart';
 import 'package:wai/screens/posts_page/post_page_screen.dart';
 import 'package:wai/common/utils/function.dart';
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/common/widgets/wai_dialog.dart';
 
 class PostWritePage extends StatelessWidget {
-  const PostWritePage({Key? key, required this.postRequestDto, required this.getNewPostsFunction}) : super(key: key);
-  final PostRequestDto postRequestDto;
-  final Future<List<Post>> Function(List<Post>, PostRequestDto) getNewPostsFunction;
+  const PostWritePage({Key? key, required this.rebuild}) : super(key: key);
+  final VoidCallback rebuild;
+
+  Future<void> writePost () async {
+      PostController.to.writingPost.value.userId = AppController.to.userId.value;
+      PostController.to.writingPost.value.userKey = AppController.to.userKey.value;
+      PostController.to.writingPost.value.author = UserController.to.user.value.nickname ?? "익명";
+
+      if (checkValue()) {
+
+      // api request
+      PostSaveRequestDto postSaveRequestDto = PostController.to.writingPost.value;
+      postSaveRequestDto.authorEnneagramType = UserController.to.user.value.myEnneagramType;
+      await savePost(postSaveRequestDto);
+
+      PostController.to.removeWritingPost();
+
+      List<Post> posts = await readMoreNewPosts(
+          PostController.to.posts, PostRequestDto(postsCount: PostController.to.postsCount, postSearchType: PostSearchType.all)
+      );
+
+      for (Post post in posts) {
+        PostController.to.posts.insert(0, post);
+      }
+
+      Get.back();
+      AppController.to.showSnackBar(WaiSnackBar.basic(text: "게시물이 등록되었습니다."));
+      rebuild();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,29 +98,36 @@ class PostWritePage extends StatelessWidget {
   }
 
   Widget _buildAppbarActions(BuildContext context) {
-    
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal:20),
-      child: GestureDetector(
+      child: InkWell(
         onTap: () async {
           PostController.to.writingPost.value.userId = AppController.to.userId.value;
           PostController.to.writingPost.value.userKey = AppController.to.userKey.value;
           PostController.to.writingPost.value.author = UserController.to.user.value.nickname ?? "익명";
 
-          if (checkValue(context: context)) {
+          if (checkValue()) {
 
             // api request
-            Map<String, dynamic> jsonMap = PostController.to.writingPost.value.toJson();
-            await postRequest("/api/savePost", json.encode(jsonMap));
+            PostSaveRequestDto postSaveRequestDto = PostController.to.writingPost.value;
+            postSaveRequestDto.authorEnneagramType = UserController.to.user.value.myEnneagramType;
+            await savePost(postSaveRequestDto);
 
             PostController.to.removeWritingPost();
-            List<Post> posts = await getNewPostsFunction(PostController.to.posts, postRequestDto);
+
+            List<Post> posts = await readMoreNewPosts(
+                PostController.to.posts,
+                PostRequestDto(
+                  postsCount: PostController.to.postsCount,
+                  postSearchType: PostSearchType.all
+              ));
             for (Post post in posts) {
               PostController.to.posts.insert(0, post);
             }
-
             Get.back();
             AppController.to.showSnackBar(WaiSnackBar.basic(text: "게시물이 등록되었습니다."));
+            rebuild();
           }
         },
         child: const Icon(FontAwesomeIcons.checkCircle, size: 25, color: Colors.black54,),
@@ -118,10 +154,10 @@ class PostWritePage extends StatelessWidget {
           floatingLabelBehavior: FloatingLabelBehavior.auto,
           fillColor: Colors.white,
           filled: true,
-          enabledBorder: UnderlineInputBorder (
+          enabledBorder: const UnderlineInputBorder (
             borderSide: BorderSide(width: 1, color: Colors.grey),
           ),
-          focusedBorder: UnderlineInputBorder(
+          focusedBorder: const UnderlineInputBorder(
             borderSide: BorderSide(width: 1, color: Colors.grey),
           ),
           counterText:'',
@@ -178,7 +214,7 @@ class PostWritePage extends StatelessWidget {
       child: Container(
         color: Colors.white10,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
           child: LayoutBuilder(builder: (context, constraint) {
             return Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -204,18 +240,12 @@ class PostWritePage extends StatelessWidget {
     );
   }
 
-  bool checkValue({required BuildContext context}) {
+  bool checkValue() {
     if (!PostController.to.writingPost.value.isValidTitle()) {
-      WaiDialog.showMessage(
-        context: context,
-        content: "제목을 입력해주세요",
-      );
+      AppController.to.snackbarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "제목을 입력해주세요."));
       return false;
     } else if (!PostController.to.writingPost.value.isValidContent()) {
-      WaiDialog.showMessage(
-        context: context,
-        content: "내용을 입력해주세요",
-      );
+      AppController.to.snackbarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "내용을 입력해주세요."));
       return false;
     }
 

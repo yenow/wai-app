@@ -17,7 +17,7 @@ class ReplyController extends GetxController {
   static ReplyController get to => Get.put(ReplyController());
 
   final replys = <Reply>[].obs;
-  final replyWrintingInfomation = ReplyRequestDto().obs;
+  final replyWritingInfomation = ReplyRequestDto().obs;
   final replyContainerHeight = 80.0.obs;
 
   void initWriteReplys({required int postId, int? parentReplyId}) {
@@ -41,61 +41,46 @@ class ReplyController extends GetxController {
     replys.add(reply);
   }
 
-  void initReplyWritingInfomation({required String userId, required String postId,  String? parentReplyId}) {
-    replyWrintingInfomation.update((val) {
+  void initReplyWritingInfomation({required String userId, required String postId,  String? parentReplyId, String? parentAuthor}) {
+    replyWritingInfomation.update((val) {
       val!.userId = userId;
       val.postId = postId;
       val.parentReplyId = parentReplyId;
-      val.parentReplyNickname = getReReplyNickname(parentReplyId);
+      val.parentAuthor = parentAuthor;
     });
   }
 
   void removeReplyWritingInfomation() {
-    replyWrintingInfomation.update((val) {
+    replyWritingInfomation.update((val) {
       val!.userId = "";
       val.postId = "";
       val.parentReplyId = "";
-      val.parentReplyNickname = "";
+      val.parentAuthor = "";
     });
   }
 
-  void updateReplyWritingInfomation({String? parentReplyId}) {
-    replyWrintingInfomation.value.parentReplyId = parentReplyId;
-    replyWrintingInfomation.update((val) {
+  void updateReplyWritingInfomation({String? parentReplyId, String? parentAuthor}) {
+    replyWritingInfomation.value.parentReplyId = parentReplyId;
+    replyWritingInfomation.update((val) {
       val!.parentReplyId = parentReplyId;
-      val.parentReplyNickname = getReReplyNickname(parentReplyId);
-      logger.d(getReReplyNickname(parentReplyId));
+      val.parentAuthor = parentAuthor;
     });
-  }
-
-  String getReReplyNickname(String? parentReplyId) {
-    List<Reply> replyList =  ReplyController.to.replys.value;
-    String returnValue = "";
-
-    for (Reply reply in replyList) {
-
-      if (reply.parentReplyId == parentReplyId) {
-        returnValue = reply.user!.nickname!;
-        break;
-      }
-    }
-    return returnValue;
   }
 
   void removeReplyContent() {
-    replyWrintingInfomation.update((val) {
+    replyWritingInfomation.update((val) {
       val!.replyContent = "";
     });
   }
 
   void writeReplyContent(String replyContent) {
-    replyWrintingInfomation.value.replyContent = replyContent;
+    replyWritingInfomation.value.replyContent = replyContent;
     // updateReplyContainerHeight();
   }
 
   bool checkReplyWrintingValue() {
 
-    if (replyWrintingInfomation.value.replyContent == "") {
+    if (replyWritingInfomation.value.replyContent!.trim() == "") {
       return false;
     }
 

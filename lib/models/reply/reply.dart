@@ -6,20 +6,28 @@ class Reply {
   int? parentReplyId;
   User? user;
   Post? post;
+  String? author;
+  String? parentAuthor;
+  int? authorEnneagramType;
   String? replyContent;
   bool? isReported;
+  bool? isDeleted;
   DateTime? insertDate;
-  DateTime? nowServerTime;
+  DateTime? updateDate;
 
   Reply({
     this.replyId,
     this.parentReplyId,
     this.user,
     this.post,
+    this.author,
+    this.parentAuthor,
+    this.authorEnneagramType,
     this.replyContent,
     this.isReported,
+    this.isDeleted,
     this.insertDate,
-    this.nowServerTime
+    this.updateDate,
   });
 
   factory Reply.fromJson(Map<String, dynamic> json) {
@@ -31,10 +39,14 @@ class Reply {
       parentReplyId: json['parentReplyId'],
       user: user,
       post: post,
+      author: json['author'],
+      parentAuthor: json['parentAuthor'] ?? "",
+      authorEnneagramType: json['authorEnneagramType'],
       replyContent: json['replyContent'],
       isReported: json['isReported'],
-      insertDate: DateTime.parse(json['insertDate']),
-      nowServerTime: DateTime.parse(json['nowServerTime']),
+      isDeleted: json['isDeleted'],
+      insertDate: DateTime.parse(json['insertDate'] ?? DateTime.now().toString()),
+      updateDate: DateTime.parse(json['updateDate'] ?? DateTime.now().toString()),
     );
   }
 

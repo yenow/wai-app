@@ -23,11 +23,29 @@ import 'package:wai/common/widgets/horizontal_border_line.dart';
 import 'components/post_item.dart';
 import 'components/post_items.dart';
 
-class PostsPageScreen extends StatelessWidget {
+class PostsPageScreen extends StatefulWidget {
   const PostsPageScreen({Key? key}) : super(key: key);
 
   @override
+  _PostsPageScreenState createState() => _PostsPageScreenState();
+}
+
+class _PostsPageScreenState extends State<PostsPageScreen>
+  with AutomaticKeepAliveClientMixin<PostsPageScreen>{
+
+  @override
+  bool get wantKeepAlive => true;
+
+  void rebuild() {
+    setState(() {
+
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
+    logger.i("PostsPageScreen build");
 
     return DefaultTabController(
       length: 3,
@@ -39,13 +57,7 @@ class PostsPageScreen extends StatelessWidget {
           child: const Icon(Icons.post_add_outlined),
           backgroundColor: Colors.blueGrey,
           onPressed: () {
-            Get.to(() => PostWritePage(
-              postRequestDto: PostRequestDto(
-                  postsCount: PostController.to.postsCount,
-                  postSearchType: PostSearchType.all
-              ),
-              getNewPostsFunction: readMoreNewPosts
-            ));
+            Get.to(() => PostWritePage(rebuild : rebuild,));
           },
         ),
         body: Column(
@@ -141,5 +153,6 @@ class PostsPageScreen extends StatelessWidget {
       ),
     );
   }
+
 }
 

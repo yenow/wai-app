@@ -25,8 +25,7 @@ class EnneagramDialog {
           return AlertDialog(
             title : Text("나의 에니어그램은", style: CustomTextStyles.buildTextStyle(fontSize: 22), textAlign: TextAlign.center,),
             content: SizedBox(
-              width: double.infinity,
-              height: 400,
+              height: 350,
               child: Column(
                 children: [
                   _buildMyEnneagramTypeImage(
@@ -76,10 +75,6 @@ class EnneagramDialog {
               ),
             ],
           ),
-          // Text("[$subName]",
-          //   style: WaiTextStyle(fontSize: 18).basic(),
-          //   textAlign: TextAlign.left,
-          // ),
         ],
       ),
       onPressed: () {},

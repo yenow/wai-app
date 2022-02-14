@@ -6,15 +6,21 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:wai/common/controller/post_controller.dart';
 import 'package:wai/common/controller/reply_controller.dart';
+import 'package:wai/common/controller/user_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
+import 'package:wai/models/reply/api/reply_request_dto.dart';
 import 'package:wai/models/reply/reply.dart';
+import 'package:wai/net/reply/reply_api.dart';
 import 'package:wai/sample/add_interactivity.dart';
 import 'package:wai/common/utils/function.dart';
 import 'package:wai/common/utils/logger.dart';
 
 class ReplyForm extends StatelessWidget {
-  ReplyForm({Key? key, this.parentRebuild}) : super(key: key);
+  ReplyForm({Key? key, this.parentRebuild, this.rebuild, this.parentReplyId, required this.replyRequestDto}) : super(key: key);
   final VoidCallback? parentRebuild;
+  final VoidCallback? rebuild;
+  final String? parentReplyId;
+  final ReplyRequestDto replyRequestDto;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -39,7 +45,7 @@ class ReplyForm extends StatelessWidget {
                   maxLines: 100,
                   style: CustomTextStyles.buildTextStyle(fontSize: 18, color: Colors.grey),
                   controller: TextEditingController(
-                      text: ReplyController.to.replyWrintingInfomation.value.replyContent
+                      text: replyRequestDto.replyContent
                   ),
                   onChanged: (String value) {
                     ReplyController.to.writeReplyContent(value);
@@ -58,16 +64,17 @@ class ReplyForm extends StatelessWidget {
                         onPressed: () async {
                           if (ReplyController.to.checkReplyWrintingValue()) {
 
-                            var response = await postRequest("/api/saveReply", json.encode(ReplyController.to.replyWrintingInfomation.value.toJson()));
-                            Reply reply = Reply.fromJson(json.decode(response));
-                            loggerNoStack.d("/api/saveReply result : $reply");
+                            ReplyRequestDto replyRequestDto = ReplyController.to.replyWritingInfomation.value;
+                            replyRequestDto.author = UserController.to.user.value.nickname;
+                            replyRequestDto.authorEnneagramType = UserController.to.user.value.myEnneagramType;
+
+                            await saveReply(replyRequestDto);
 
                             ReplyController.to.removeReplyContent();
 
                             if (parentRebuild != null) {
                               parentRebuild!();
                             }
-
                           } else {
                             // 값을 입력 안했을 경우
                           }
@@ -85,12 +92,10 @@ class ReplyForm extends StatelessWidget {
   }
 
   Container _buildReReplyInfo() {
-    String parentReplyId = ReplyController.to.replyWrintingInfomation.value.parentReplyId!;
-
     if (parentReplyId=="") {
       return Container();
     } else {
-      String name = ReplyController.to.replyWrintingInfomation.value.parentReplyNickname!;
+      String name = replyRequestDto.parentAuthor!;
 
       return Container(
         height: 40,
@@ -109,7 +114,10 @@ class ReplyForm extends StatelessWidget {
             IconButton(
               icon: const Icon(Icons.close_outlined, size: 16, color: Colors.grey),
               onPressed: () {
-                ReplyController.to.updateReplyWritingInfomation(parentReplyId: "");
+                ReplyController.to.updateReplyWritingInfomation(parentReplyId: "", parentAuthor: "");
+                if (rebuild != null) {
+                  rebuild!();
+                }
               }
             )
           ],

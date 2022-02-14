@@ -1,28 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wai/common/constants/wai_colors.dart';
+import 'package:wai/common/controller/app_controller.dart';
 import 'package:wai/common/controller/user_controller.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
-import 'package:wai/common/utils/logger.dart';
 import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/common/widgets/wai_appbar.dart';
+import 'package:wai/common/widgets/wai_snackbar.dart';
 import 'package:wai/common/widgets/wai_text.dart';
 import 'package:wai/common/widgets/wai_text_field.dart';
 import 'package:wai/models/user/api/user_request_dto.dart';
 import 'package:wai/net/login/login_api.dart';
-import 'package:wai/screens/introduce_page/who_am_i_screen.dart';
 
-class NicknameInputPage extends StatefulWidget {
-  const NicknameInputPage({Key? key}) : super(key: key);
+class MyInformationPage extends StatefulWidget {
+  const MyInformationPage({Key? key}) : super(key: key);
 
   @override
-  _NicknameInputPageState createState() => _NicknameInputPageState();
+  _MyInformationPageState createState() => _MyInformationPageState();
 }
 
-class _NicknameInputPageState extends State<NicknameInputPage> {
+class _MyInformationPageState extends State<MyInformationPage> {
   final _formKey = GlobalKey<FormState>();
   String nickname = "";
   String errorMessage = "";
@@ -42,7 +40,9 @@ class _NicknameInputPageState extends State<NicknameInputPage> {
       bool flag = await saveNickname(userRequestDto);
 
       if (flag) {
-        Get.off(()=> WhoAmIScreen(), transition: Transition.rightToLeft);
+        AppController.to.snackbarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "닉네임이 변경되었습니다."));
+        errorMessage = "";
+
       } else {
 
         setState(() {
@@ -67,6 +67,7 @@ class _NicknameInputPageState extends State<NicknameInputPage> {
         child: Scaffold(
           appBar: const WaiAppbar(
             title: Text("입력"),
+            isBackLeading: true,
           ),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -75,7 +76,7 @@ class _NicknameInputPageState extends State<NicknameInputPage> {
                 const Blank(height: 10,),
                 SizedBox(
                     height: 50,
-                    child: Center(child: WaiText(text: "사용하실 닉네임을 입력해주세요.", style: WaiTextStyle(fontSize: 18).basic(),))
+                    child: Center(child: WaiText(text: "변경하실 닉네임을 입력해주세요.", style: WaiTextStyle(fontSize: 18).basic(),))
                 ),
                 Form(
                   key: _formKey,
@@ -83,12 +84,6 @@ class _NicknameInputPageState extends State<NicknameInputPage> {
                     // prefixIcon: Icon(Icons.badge_outlined,),
                     labelText: "닉네임",
                     maxLength: 20,
-                    controller: TextEditingController(text: nickname),
-                    onChanged: (value) {
-                      setState(() {
-                        nickname = value;
-                      });
-                    },
                     onSaved: (value) {
                       setState(() {
                         nickname = value!;
@@ -113,9 +108,9 @@ class _NicknameInputPageState extends State<NicknameInputPage> {
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
-                    child: Text("다음", style: WaiTextStyle(color: Colors.white).basic(),),
+                    child: Text("확인", style: WaiTextStyle(color: Colors.white).basic(),),
                     style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(darkBlueGrey),
+                        backgroundColor: MaterialStateProperty.all(WaiColors.darkBlueGrey),
                         shape: MaterialStateProperty.all(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ))

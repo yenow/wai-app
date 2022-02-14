@@ -19,6 +19,7 @@ import 'package:wai/common/utils/logger.dart';
 import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/common/widgets/block_text.dart';
 import 'package:wai/common/widgets/horizontal_border_line.dart';
+import 'package:wai/screens/reply_page/reply_page.dart';
 
 import 'components/reply_item.dart';
 import 'components/reply_items.dart';
@@ -34,11 +35,18 @@ class ReplyPageScreen extends StatefulWidget {
 }
 
 class _ReplyPageScreenState extends State<ReplyPageScreen> {
+  Future<Post?>? futurePost;
   late Post post;
   late List<Reply> replys;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  void rebuild() {
+  @override
+  void initState() {
+    futurePost = readPost(widget.postId);
+    super.initState();
+  }
+
+  void replyPageScreenRebuild() {
     setState(() {});
   }
 
@@ -72,7 +80,11 @@ class _ReplyPageScreenState extends State<ReplyPageScreen> {
                   postId: post.postId!,
                   parentReplyId: widget.parentReplyId
                 );
-                return _buildScaffold(context);
+                return ReplyPage(
+                  postId: widget.postId,
+                  replys: replys,
+                  replyPageScreenRebuild: replyPageScreenRebuild,
+                );
               }
           }
         }
@@ -83,29 +95,35 @@ class _ReplyPageScreenState extends State<ReplyPageScreen> {
     // int replyCount = ReplyController.to.replys.value.length;
 
     return SafeArea(
-      child: Scaffold(
-        appBar: WaiAppbar(
-          title: Text("댓글 " + replys.length.toString(), style: CustomTextStyles.buildTextStyle(fontSize: 20, color: Colors.white),),
-          backgroundColor: lightBlueGrey,   // Colors.white
-          leading: GestureDetector(
-            child: const Icon(Icons.arrow_back_ios_outlined, size: 20, color: Colors.white,),
-            onTap: () {
-              ReplyController.to.removeReplyWritingInfomation();
-              Navigator.pop(context, readPost(widget.postId));
-            },
+      child: Obx(() =>
+        Scaffold(
+          appBar: WaiAppbar(
+            title: Text("댓글 " + replys.length.toString(), style: CustomTextStyles.buildTextStyle(fontSize: 20, color: Colors.white),),
+            backgroundColor: lightBlueGrey,   // Colors.white
+            leading: GestureDetector(
+              child: const Icon(Icons.arrow_back_ios_outlined, size: 20, color: Colors.white,),
+              onTap: () {
+                ReplyController.to.removeReplyWritingInfomation();
+                Navigator.pop(context, readPost(widget.postId));
+              },
+            ),
           ),
-        ),
-        body: RefreshIndicator(
-          onRefresh: () async {
-            rebuild();
-          },
-          child: Column(
-            children: [
-              Expanded(
-                child: _buildReplyItems() // _buildReplyList(context: context)
-              ),
-              ReplyForm(parentRebuild : rebuild)
-            ],
+          body: RefreshIndicator(
+            onRefresh: () async {
+              replyPageScreenRebuild();
+            },
+            child: Column(
+              children: [
+                Expanded(
+                  child: _buildReplyItems() // _buildReplyList(context: context)
+                ),
+                ReplyForm(
+                  parentRebuild: replyPageScreenRebuild,
+                  parentReplyId: ReplyController.to.replyWritingInfomation.value.parentReplyId!,
+                  replyRequestDto: ReplyController.to.replyWritingInfomation.value,
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -122,7 +140,7 @@ class _ReplyPageScreenState extends State<ReplyPageScreen> {
         itemBuilder: (BuildContext context, int index) {
           return ReplyItem(
             reply: replys[index],
-            rebuild: rebuild,
+            refresh: replyPageScreenRebuild,
             isAction: true,
           ); //_buildReply(replys[index]);
         },

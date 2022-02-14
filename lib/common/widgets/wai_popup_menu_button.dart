@@ -5,20 +5,22 @@ import 'package:wai/common/theme/wai_textstyle.dart';
 import 'package:wai/common/utils/logger.dart';
 
 class WaiPopupMenuButton extends StatefulWidget {
-  const WaiPopupMenuButton({Key? key, required this.callList}) : super(key: key);
-  final List<void Function()?> callList;
+  const WaiPopupMenuButton({Key? key, required this.valueList, required this.callBackList}) : super(key: key);
+  final List<String> valueList;
+  final List<void Function()?> callBackList;
 
   @override
   _WaiPopupMenuButtonState createState() => _WaiPopupMenuButtonState();
 }
 
 class _WaiPopupMenuButtonState extends State<WaiPopupMenuButton> {
-  final List<String> _valueList = ['수정하기', '삭제하기'];
-  late final List<void Function()?> _callList;
+  late final List<String> _valueList;
+  late final List<void Function()?> _callBackList;
 
   @override
   void initState() {
-    _callList = widget.callList;
+    _valueList = widget.valueList;
+    _callBackList = widget.callBackList;
     super.initState();
   }
 
@@ -32,6 +34,12 @@ class _WaiPopupMenuButtonState extends State<WaiPopupMenuButton> {
         iconSize: 20,
         icon: const Icon(Icons.more_vert_outlined, color: WaiColors.grey,),
         onSelected: (String value) {
+          for (String temp in _valueList) {
+            if (temp == value) {
+              logger.d(value + "  " + _valueList.indexOf(temp).toString());
+              _callBackList[_valueList.indexOf(temp)]!();
+            }
+          }
         },
         itemBuilder: (BuildContext context) {
           return _valueList.map((String choice) {
@@ -39,12 +47,6 @@ class _WaiPopupMenuButtonState extends State<WaiPopupMenuButton> {
               value: choice,
               child: Text(choice, style: WaiTextStyle(fontSize: 14).bodyText(),),
               onTap: () {
-                for (String temp in _valueList) {
-                  if (temp == choice) {
-                    logger.d(choice + "  " + _valueList.indexOf(temp).toString());
-                    _callList[_valueList.indexOf(temp)]!();
-                  }
-                }
               },
             );
           }).toList();

@@ -8,6 +8,7 @@ class Post {
   List<Reply>? replys;
   String? title;
   String? author;
+  int? authorEnneagramType;
   String? content;
   String? simpleContent;
   bool? isDelete;
@@ -17,7 +18,7 @@ class Post {
   int? likeyCount;
   List<int>? likeys;
   DateTime? insertDate;
-  DateTime? nowServerTime;
+  DateTime? updateDate;
 
   Post({
     this.postId,
@@ -25,6 +26,7 @@ class Post {
     this.replys,
     this.title,
     this.author,
+    this.authorEnneagramType,
     this.content,
     this.simpleContent,
     this.isDelete,
@@ -34,7 +36,7 @@ class Post {
     this.likeyCount,
     this.likeys,
     this.insertDate,
-    this.nowServerTime
+    this.updateDate,
   });
 
   factory Post.fromJson(Map<String, dynamic> json) {
@@ -47,6 +49,7 @@ class Post {
       ),
       title: json['title'],
       author: json['author'],
+      authorEnneagramType: json['authorEnneagramType'],
       content: json['content'],
       simpleContent: json['simpleContent'],
       isDelete: json['isDelete'],
@@ -54,7 +57,8 @@ class Post {
       clickCount: json['clickCount'] ?? 0,
       likeyCount: json['likeyCount'],
       likeys: List<int>.from((json['likeys'] ?? [])),
-      insertDate: DateTime.parse((json['insertDate'] ?? DateTime.now())),
+      insertDate: DateTime.parse((json['insertDate'] ?? DateTime.now().toString())),
+      updateDate: DateTime.parse((json['updateDate'] ?? DateTime.now().toString())),
     );
   }
 

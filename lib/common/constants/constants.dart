@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 const String apiUrl = "http://10.0.2.2:8080";
+// production URL : http://13.209.74.2000:8080
 
 /* colors */
 const Color babyBlueShade100 = Color.fromRGBO(137, 207, 240, 1);

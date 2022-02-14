@@ -2,37 +2,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:video_player/video_player.dart';
 import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
+import 'package:wai/common/utils/logger.dart';
 import 'package:wai/main.dart';
 import 'package:wai/models/enneagram_test/enneagram_test.dart';
 import 'package:wai/models/enneagram_test/enneagram_test.dart';
+import 'package:wai/net/post/post_api.dart';
 import 'package:wai/screens/enneagram_page/enneagram_type_page_screen.dart';
 import 'package:wai/common/utils/enneagram_dialog.dart';
 import 'package:wai/common/widgets/custom_appbar.dart';
 
 class HomePageScreen extends StatelessWidget {
-  const HomePageScreen({Key? key, this.myEnneagramTest}) : super(key: key);
-  final EnneagramTest? myEnneagramTest;
+  const HomePageScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      if (myEnneagramTest != null && MainController.to.isShowEnneagramDialog.value == false
-          /*&& MainController.to.currentTabIndex.value == TabItem.homePageScreen.index*/) {
-        MainController.to.setIsShowEnneagramDialog(true);
-
-        EnneagramDialog.showEnneagramType(
-          context: context,
-          myEnneagramTest : myEnneagramTest!,
-          onPressed: () {
-            Get.to(() => EnneagramTypePageScreen(enneagramType: myEnneagramTest!.myEnneagramType!));
-          }
-        );
-      }
-    });
 
     return Container(
       decoration: const BoxDecoration(

@@ -16,7 +16,7 @@ class SplashScreen extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image(
+          const Image(
             image: AssetImage("assets/images/enneagram/pawprint.png"),
             width: 100 ,
             height: 100,

@@ -286,6 +286,7 @@ class EnneagramTestPageScreen extends StatelessWidget {
 
                     AppController.to.writeIsBuildIntroducePage("N");
                     MainController.to.isShowEnneagramDialog.value = false;
+                    UserController.to.user.value.myEnneagramType = myEnneagramTest.myEnneagramType;
                     UserController.to.addEnneagramTestResult(myEnneagramTest);
                     UserProfileController.to.setCurrentEnneagramTestResult(myEnneagramTest);
                     MainController.to.setTabIndex(0);

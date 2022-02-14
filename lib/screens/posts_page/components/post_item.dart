@@ -48,22 +48,30 @@ class _PostItemState extends State<PostItem> {
         });
         // ScaffoldMessenger.of(context)..removeCurrentSnackBar()..showSnackBar(SnackBar(content: Text('$result')));
       },
-      child: Container(
-        padding: const EdgeInsets.all(5),
-        child: Row(
-          children: [
-            Expanded(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _buildTitle(context),
-                  _buildInformation(context),
-                ],
-              ),
+      child: _buildBody(context),
+    );
+  }
+
+  Container _buildBody(BuildContext context) {
+    if (post.isDelete!) {
+      return Container();
+    }
+
+    return Container(
+      padding: const EdgeInsets.all(5),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _buildTitle(context),
+                _buildInformation(context),
+              ],
             ),
-            _buildReplyArea()
-          ],
-        ),
+          ),
+          _buildReplyArea()
+        ],
       ),
     );
   }
@@ -107,7 +115,7 @@ class _PostItemState extends State<PostItem> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Image(image: AssetImage(EnneagramController.to.enneagram![post.user!.myEnneagramType!]!.imagePath), width: 17, height: 17,  fit: BoxFit.fill,),
+        Image(image: AssetImage(EnneagramController.to.enneagram![post.authorEnneagramType ?? 1]!.imagePath), width: 17, height: 17,  fit: BoxFit.fill,),
         const Blank(width: 5,),
         Text(author, style: CustomTextStyles.buildTextStyle(fontSize: 15, color: Colors.black45)),
       ],
@@ -116,7 +124,7 @@ class _PostItemState extends State<PostItem> {
 
   Text _buildDateTime() {
 
-    return Text(dateTimeToString(AppController.to.nowServerTime.value ,post.insertDate!), style: CustomTextStyles.buildTextStyle(fontSize: 14, color: Colors.black45));
+    return Text(dateTimeToString(AppController.to.nowServerTime.value ,post.updateDate!), style: CustomTextStyles.buildTextStyle(fontSize: 14, color: Colors.black45));
   }
 
   Row _buildCount() {
@@ -159,10 +167,6 @@ class _PostItemState extends State<PostItem> {
             ],
           ),
           onPressed: () async {
-            // Get.to(() => ReplyPageScreen(postId: post.postId!),
-            //     transition: Transition.downToUp
-            // );
-
             Post returnPost = await Navigator.push(context,
               MaterialPageRoute(builder: (context) => ReplyPageScreen(postId: post.postId!)),
             );

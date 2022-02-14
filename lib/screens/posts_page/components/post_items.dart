@@ -46,7 +46,7 @@ class _PostItemsState extends State<PostItems> {
     super.initState();
   }
 
-  void rebuildMethod() {
+  void rebuild() {
     setState(() {});
   }
 
@@ -69,12 +69,12 @@ class _PostItemsState extends State<PostItems> {
   @override
   Widget build(BuildContext context) {
 
-    if (posts.isEmpty) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-        child: Center(child: Text("게시글이 존재하지 않습니다.", style: WaiTextStyle(fontSize: 18, color: Colors.black54).basic(),)),
-      );
-    }
+    // if (posts.isEmpty) {
+    //   return Padding(
+    //     padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+    //     child: Center(child: Text("게시글이 존재하지 않습니다.", style: WaiTextStyle(fontSize: 18, color: Colors.black54).basic(),)),
+    //   );
+    // }
 
     return NotificationListener<ScrollNotification>(
       onNotification: (ScrollNotification notification) {
@@ -100,8 +100,7 @@ class _PostItemsState extends State<PostItems> {
                       separatorBuilder: (BuildContext context, int index) => const HorizontalBorderLine(height: 0.25,),
                       itemCount: posts.length,
                       itemBuilder: (BuildContext context, int index) {
-
-                        return PostItem(key: UniqueKey(), post: posts.elementAt(index));
+                          return PostItem(key: UniqueKey(), post: posts.elementAt(index));
                       },
                     ),
                   ),

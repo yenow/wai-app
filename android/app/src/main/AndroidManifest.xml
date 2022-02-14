@@ -4,7 +4,6 @@
    <application
         android:label="wai"
         android:icon="@mipmap/ic_launcher">
-       M
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

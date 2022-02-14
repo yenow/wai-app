@@ -9,6 +9,7 @@ import 'package:logger/logger.dart';
 import 'package:wai/common/controller/app_controller.dart';
 import 'package:wai/common/controller/user_controller.dart';
 import 'package:wai/models/enneagram_test/enneagram_test.dart';
+import 'package:wai/models/post/post.dart';
 import 'package:wai/models/reply/api/reply_request_dto.dart';
 import 'package:wai/models/user/api/user_request_dto.dart';
 import 'package:wai/models/user/user.dart';
@@ -17,6 +18,8 @@ import 'package:wai/common/utils/function.dart';
 class UserProfileController extends GetxController {
   static UserProfileController get to => Get.put(UserProfileController());
   final currentEnneagram = EnneagramTest().obs;
+  final myPosts = <Post>[].obs;
+  final myReplyPosts = <Post>[].obs;
 
   Future<void> initCurrentEnneagram() async {
     List<EnneagramTest> list =  UserController.to.user.value.enneagramTests!;

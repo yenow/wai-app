@@ -1,5 +1,6 @@
 class PostRequestDto {
   int? postId;
+  int? userId;
   int? postsCount;
   int? startPostId;
   int? endPostId;
@@ -9,11 +10,12 @@ class PostRequestDto {
   bool? canUpdateCount;
 
   PostRequestDto({
-    this.postId, this.postsCount, this.startPostId, this.endPostId, this.myEnneagramType, this.postSearchType, this.searchText, this.canUpdateCount
+    this.postId, this.userId, this.postsCount, this.startPostId, this.endPostId, this.myEnneagramType, this.postSearchType, this.searchText, this.canUpdateCount
   });
 
   Map<String, dynamic> toJson() => {
     'postId': postId,
+    'userId': userId,
     'postsCount': postsCount,
     'startPostId': startPostId,
     'endPostId': endPostId,
@@ -25,12 +27,12 @@ class PostRequestDto {
 
   @override
   String toString() {
-    return 'PostRequestDto{postId: $postId, postsCount: $postsCount, startPostId: $startPostId, endPostId: $endPostId, myEnneagramType: $myEnneagramType, postSearchType: $postSearchType, searchText: $searchText}';
+    return 'PostRequestDto{postId: $postId, userId: $userId, postsCount: $postsCount, startPostId: $startPostId, endPostId: $endPostId, myEnneagramType: $myEnneagramType, postSearchType: $postSearchType, searchText: $searchText, canUpdateCount: $canUpdateCount}';
   }
 }
 
 enum PostSearchType {
-  all, content, title, author, popular, enneagramType
+  all, content, title, author, popular, enneagramType, myPosts, myReplyPosts
 }
 
 extension ParseToString on PostSearchType {
