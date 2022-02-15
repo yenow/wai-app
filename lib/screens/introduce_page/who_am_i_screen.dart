@@ -17,6 +17,7 @@ import 'package:wai/common/theme/wai_textstyle.dart';
 import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/common/widgets/wai_appbar.dart';
 import 'package:wai/common/widgets/wai_button.dart';
+import 'package:wai/common/widgets/wai_snackbar.dart';
 import 'package:wai/main.dart';
 import 'package:wai/models/enneagram_test/enneagram_test.dart';
 import 'package:wai/models/enneagram_test/api/enneagram_test_request_dto.dart';
@@ -48,6 +49,8 @@ class WhoAmIScreen extends StatelessWidget {
       UserProfileController.to.setCurrentEnneagramTestResult(myEnneagramTest);
       MainController.to.setTabIndex(0);
       Get.offAll(() => MainScreens(myEnneagramTest: myEnneagramTest));
+    } else {
+      AppController.to.snackbarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "9개의 유형중 하나를 선택해주세요"));
     }
   }
 
@@ -103,7 +106,6 @@ class WhoAmIScreen extends StatelessWidget {
           padding: const EdgeInsets.all(5),
           children: List.generate(9, (index) {
             int enneagramType = index + 1;
-
             return _buildEnneagramType(enneagramType);
           }),
         ),
@@ -115,7 +117,7 @@ class WhoAmIScreen extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),
-        color: enneagramType == EnneagramTestController.to.selectedEnneagramType.value ? WaiColors.lightYellow : Colors.white,
+        color: enneagramType == EnneagramTestController.to.selectedEnneagramType.value ? WaiColors.deepLightGrey : Colors.white,
         boxShadow: const [
           BoxShadow(
             color: Colors.grey,
@@ -132,7 +134,7 @@ class WhoAmIScreen extends StatelessWidget {
             const SizedBox(height: 5,),
             Text(
               '$enneagramType유형',
-              style: GoogleFonts.jua(fontSize: 13, fontWeight: FontWeight.w400, color: Colors.blueGrey ),
+              style: GoogleFonts.jua(fontSize: 13, fontWeight: FontWeight.w400, color: Colors.black54 ),
             ),
           ],
         ),
@@ -192,8 +194,8 @@ class WhoAmIScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 3),
           child: WaiButton(
             title: EnneagramTestController.to.nextButtonText.value,
-            backgroundColor: WaiColors.lightYellow,
-            textColor: WaiColors.blueGrey,
+            backgroundColor: WaiColors.deepDarkGrey,
+            textColor: WaiColors.white,
             onPressed: _selectEnneagramType
           )
       ),

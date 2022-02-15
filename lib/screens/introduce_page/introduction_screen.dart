@@ -10,9 +10,11 @@ import 'package:logger/logger.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
 import 'package:uuid/uuid.dart';
 import 'package:wai/common/constants/constants.dart';
+import 'package:wai/common/constants/wai_colors.dart';
 import 'package:wai/common/controller/app_controller.dart';
 import 'package:wai/common/controller/user_controller.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
+import 'package:wai/common/utils/logger.dart';
 import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/main.dart';
 import 'package:wai/models/introduction_message.dart';
@@ -28,35 +30,48 @@ class IntroductionScreen extends StatelessWidget {
   IntroductionScreen({Key? key}) : super(key: key);
   
   final _items = [
-    IntroductionMessage(titleText: "환영합니다!", subText : "에니어그램은 사람을 9가지 성격으로 분류하는 성격유형 이론입니다.", imageUrl: ""),
-    IntroductionMessage(titleText: "1", subText : "1", imageUrl: ""),
-    IntroductionMessage(titleText: "2", subText : "2", imageUrl: ""),
-    IntroductionMessage(titleText: "3", subText : "3", imageUrl: ""),
+    IntroductionMessage(
+        titleText: "환영합니다!",
+        subText : "에니어그램은 사람을 9가지 성격으로 분류하는 성격유형 이론입니다.",
+        imageUrl: "assets/images/background/welcome-back.png"),
+    IntroductionMessage(
+        titleText: "나는 어떤 사람?",
+        subText : "에니어그램 테스트를 통해 내가 어떤 유형의 사람인지 알아보아요.",
+        imageUrl: "assets/images/background/test.png"),
+    IntroductionMessage(
+        titleText: "나와 비슷한 사람이 있을까?",
+        subText : "게시글에서 나와 비슷한 사람끼리 이야기를 나눠보아요",
+        imageUrl: "assets/images/background/social-network.png"),
   ];
 
   final _pageController = PageController();
   final _currentPageNotifier = ValueNotifier<int>(0);
 
   void _onPressStartButton() async {
-    User user = User();
 
-    /* create userKey */
-    String userKey = const Uuid().v1();
-    /* store security */
-    AppController.to.writeUserKey(userKey);
+    logger.d(AppController.to.userId.value);
+    logger.d(AppController.to.userKey.value);
+    if (AppController.to.userId.value == "" && AppController.to.userKey.value == "") {
+      User user = User();
 
-    /* save DB */
-    var responseBody = await postRequest("/api/saveUserKey",userKey);
-    int userId = json.decode(responseBody);
+      /* create userKey */
+      String userKey = const Uuid().v1();
+      /* store security */
+      AppController.to.writeUserKey(userKey);
 
-    /* save userId */
-    user.userId = userId;
-    await AppController.to.writeUserId(userId.toString());
+      /* save DB */
+      var responseBody = await postRequest("/api/saveUserKey",userKey);
+      int userId = json.decode(responseBody);
 
-    UserController.to.user.value.userId = userId;
-    UserController.to.user.value.userKey = userKey;
+      /* save userId */
+      user.userId = userId;
+      await AppController.to.writeUserId(userId.toString());
 
-    Get.off(const NicknameInputPage());
+      UserController.to.user.value.userId = userId;
+      UserController.to.user.value.userKey = userKey;
+    }
+
+    Get.off(() => const NicknameInputPage());
   }
 
   @override
@@ -92,26 +107,26 @@ class IntroductionScreen extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: 50,
-          child: Center(child: Text(_items.elementAt(index).titleText, style: WaiTextStyle(fontSize: 25).basic(),))
+          height: 60,
+          child: Center(child: Text(_items.elementAt(index).titleText, style: WaiTextStyle(fontSize: 30, color: Colors.black54).basic(),))
         ),
         SizedBox(
-          height: 70,
+          height: 100,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: AutoSizeText(
-              _items[index].subText,
-              maxLines: 4,
-              style: WaiTextStyle(fontSize: 18).basic(),
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: Center(
+              child: AutoSizeText(
+                _items[index].subText,
+                maxLines: 4,
+                style: WaiTextStyle(fontSize: 20, color: Colors.black54).basic(),
+              ),
             )
           ),
         ),
-        const Expanded(
-          child: Center(
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
-              child: Image(image: AssetImage('assets/images/phone_image.png'),  height: double.infinity,  fit: BoxFit.fill,),
-            )
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(80, 0, 80, 80),
+            child: Image(image: AssetImage(_items[index].imageUrl),  height: double.infinity,  fit: BoxFit.contain,),
           ),
         )
       ],

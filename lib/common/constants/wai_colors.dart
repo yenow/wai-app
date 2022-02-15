@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 class WaiColors {
   static const black = Color.fromRGBO(29, 29, 29, 1.0);
   static const lightBlack = Color.fromRGBO(45, 45, 45, 1.0);
+  static const deepDarkGrey = Colors.grey;
   static const darkGrey = Colors.grey;
   static const grey = Colors.grey;
   static const lightGrey = Color.fromRGBO(211, 222, 220, 1);
+  static const deepLightGrey = Color.fromRGBO(227, 227, 227, 1.0);
   static const white =  Color(0xFFFFFFFF);
 
 
@@ -17,6 +19,7 @@ class WaiColors {
   // static const lightBlueGrey = Color.fromRGBO(146, 169, 189,1);
   static const lightBlueGrey = Color(0xFF859AA4);
   static const deepLightBlueGrey = Color(0xFFBCC8CE);
+  static const moreDeepLightBlueGrey = Color(0xFFBFBFC4);
 
   static const skyColor = Color.fromRGBO(228, 251, 255,1);
   static const lightPink = Color.fromRGBO(255, 239, 239, 1);
@@ -37,7 +40,7 @@ class WaiColors {
   static const darkOrange = Color(0xFFDCA394);
   static const orange = Color(0xFFDCA394);
   static const lightOrange = Color(0xFFDCA394);
-  static const deepLightOrange = Color(0xFFDCA394);
+  static const deepLightOrange = Color(0xFFFFDFDE);
 
   static const red = Color(0xFFDCA394);
   static const red2 = Color(0xFFE7A492);

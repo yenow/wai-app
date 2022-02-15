@@ -6,7 +6,6 @@ import 'package:logger/logger.dart';
 import 'package:wai/common/controller/post_controller.dart';
 import 'package:wai/common/controller/user_controller.dart';
 import 'package:wai/common/controller/user_profile_controller.dart';
-import 'package:wai/sample/add_interactivity.dart';
 import 'package:wai/common/utils/app_state.dart';
 import 'package:wai/common/utils/logger.dart';
 

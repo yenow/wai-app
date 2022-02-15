@@ -12,7 +12,6 @@ import 'package:wai/common/widgets/wai_appbar.dart';
 import 'package:wai/models/post/post.dart';
 import 'package:wai/models/reply/reply.dart';
 import 'package:wai/net/post/post_api.dart';
-import 'package:wai/sample/add_interactivity.dart';
 import 'package:wai/screens/posts_page/post_page_screen.dart';
 import 'package:wai/screens/reply_page/components/reply_form.dart';
 import 'package:wai/common/utils/logger.dart';

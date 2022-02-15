@@ -71,9 +71,9 @@ class EnneagramTypePageScreen extends StatelessWidget {
           _buildTabButton(text: '기본', buttonIndex: 0),
           _buildTabButton(text: '날개', buttonIndex: 1, iconData: Icons.air_outlined),
           _buildTabButton(text: '장단점', buttonIndex: 2, iconData: Icons.thumb_up_off_alt_outlined),
-          _buildTabButton(text: '관계', buttonIndex: 3, iconData: FontAwesomeIcons.handshake),
-          _buildTabButton(text: '극복과제', buttonIndex: 4, iconData: Icons.fact_check_outlined),
-          _buildTabButton(text: '기타', buttonIndex: 5, iconData: Icons.more_horiz_outlined),
+          // _buildTabButton(text: '관계', buttonIndex: 3, iconData: FontAwesomeIcons.handshake),
+          // _buildTabButton(text: '극복과제', buttonIndex: 4, iconData: Icons.fact_check_outlined),
+          _buildTabButton(text: '기타', buttonIndex: 3, iconData: Icons.more_horiz_outlined),
         ],
       ),
     );
@@ -125,8 +125,8 @@ class EnneagramTypePageScreen extends StatelessWidget {
           _buildTabPage1(context),
           _buildExplainWings(context),
           _buildMeritAndDemerit(context),
-          _buildRelationShip(context),
-          _buildHardWork(context),
+          // _buildRelationShip(context),
+          // _buildHardWork(context),
           _buildEtc(context),
         ],
       ),
@@ -169,34 +169,28 @@ class EnneagramTypePageScreen extends StatelessWidget {
           )
         ),
         const SizedBox(height: 10,),
-        RichText(
-          text: TextSpan(
-            text: "1번 유형들은 크든 작든 자신이 미칠수 있는 영향력을 사용하여 세상을 개선시키고자 하는 사명감을 갖고 있기 때문에"
-                " 개혁가라는 이름을 붙였습니다. 이들은 역경을 극복하려고 노력합니다. 이들은 큰 희생을 치르고라도 높은 이상을 "
-                "실현시키기 위해 노력합니다.", style: WaiTextStyle().bodyText2(),
-          ),
-        ),
+        WaiMarkdown(url: "assets/markdown/basic/type$enneagramType.md")
       ],
     );
   }
 
   Widget _buildExplainWings(BuildContext context) {
-    return const WaiMarkdown(url: "");
+    return WaiMarkdown(url: "assets/markdown/wings/type$enneagramType.md");
   }
 
   Widget _buildMeritAndDemerit(BuildContext context) {
-    return const WaiMarkdown(url: "");
+    return WaiMarkdown(url: "assets/markdown/meritAndDemerit/type$enneagramType.md");
   }
 
-  Widget _buildRelationShip(BuildContext context) {
-    return const WaiMarkdown(url: "");
-  }
-
-  Widget _buildHardWork(BuildContext context) {
-    return const WaiMarkdown(url: "");
-  }
+  // Widget _buildRelationShip(BuildContext context) {
+  //   return const WaiMarkdown(url: "");
+  // }
+  //
+  // Widget _buildHardWork(BuildContext context) {
+  //   return const WaiMarkdown(url: "");
+  // }
 
   Widget _buildEtc(BuildContext context) {
-    return const WaiMarkdown(url: "");
+    return WaiMarkdown(url: "assets/markdown/etc/type$enneagramType.md");
   }
 }

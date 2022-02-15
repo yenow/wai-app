@@ -32,9 +32,7 @@ class _NicknameInputPageState extends State<NicknameInputPage> {
       errorMessage = "";
     });
 
-    // validation 이 성공하면 true 가 리턴
     if (_formKey.currentState!.validate()) {
-      // validation 이 성공하면 폼 저장하기
       _formKey.currentState!.save();
 
       UserRequestDto userRequestDto = UserController.to.user.value.toUserRequestDto();
@@ -42,7 +40,7 @@ class _NicknameInputPageState extends State<NicknameInputPage> {
       bool flag = await saveNickname(userRequestDto);
 
       if (flag) {
-        Get.off(()=> WhoAmIScreen(), transition: Transition.rightToLeft);
+        Get.off(()=> const WhoAmIScreen(), transition: Transition.rightToLeft);
       } else {
 
         setState(() {
@@ -83,12 +81,6 @@ class _NicknameInputPageState extends State<NicknameInputPage> {
                     // prefixIcon: Icon(Icons.badge_outlined,),
                     labelText: "닉네임",
                     maxLength: 20,
-                    controller: TextEditingController(text: nickname),
-                    onChanged: (value) {
-                      setState(() {
-                        nickname = value;
-                      });
-                    },
                     onSaved: (value) {
                       setState(() {
                         nickname = value!;

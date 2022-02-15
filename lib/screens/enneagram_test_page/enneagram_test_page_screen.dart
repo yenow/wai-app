@@ -102,13 +102,13 @@ class EnneagramTestPageScreen extends StatelessWidget {
             notificationList[pageIndex % 9],
             style: WaiTextStyle(color: WaiColors.white).basic(),
           ),
-          ElevatedButton(
-              child: Text('임시버튼'),
-              onPressed: () {
-                EnneagramTestController.to.randomInputScore();
-                _controller.jumpToPage(EnneagramTestController.to.enneagramPageList.length - 1);
-              }
-          )
+          // ElevatedButton(
+          //     child: Text('임시버튼'),
+          //     onPressed: () {
+          //       EnneagramTestController.to.randomInputScore();
+          //       _controller.jumpToPage(EnneagramTestController.to.enneagramPageList.length - 1);
+          //     }
+          // )
         ],
       ),
     );

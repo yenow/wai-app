@@ -19,6 +19,7 @@ import 'package:wai/common/controller/user_profile_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
 import 'package:wai/common/widgets/wai_appbar.dart';
+import 'package:wai/common/widgets/wai_snackbar.dart';
 import 'package:wai/models/enneagram_test/enneagram_test.dart';
 import 'package:wai/models/enneagram_test/api/enneagram_test_request_dto.dart';
 import 'package:wai/models/enneagram_test/enneagram_question.dart';
@@ -34,7 +35,7 @@ class SimpleEnneagramTestPageScreen extends StatelessWidget {
 
   final _pageController = PageController();
   final _currentPageNotifier = ValueNotifier<int>(0);
-  static const _kDuration = const Duration(milliseconds: 300);
+  static const _kDuration = Duration(milliseconds: 300);
   static const _kCurve = Curves.ease;
 
   @override
@@ -73,7 +74,7 @@ class SimpleEnneagramTestPageScreen extends StatelessWidget {
               child: Column(
                 children: [
                   _buildNotification(),
-                  _buildSimleQuestionList(pageIndex),
+                  _buildSimpleQuestionList(pageIndex),
                 ],
               ),
             ),
@@ -84,10 +85,10 @@ class SimpleEnneagramTestPageScreen extends StatelessWidget {
     );
   }
 
-  ListView _buildSimleQuestionList(int pageIndex) {
+  ListView _buildSimpleQuestionList(int pageIndex) {
     return ListView.builder(
         shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         itemCount: EnneagramTestController.to.getSimpleQuestionsByPageIndex(pageIndex).length,
         // separatorBuilder: (BuildContext context, int questionIndex) => Blank(height: 10),
         itemBuilder: (BuildContext context, int questionIndex) {
@@ -102,14 +103,14 @@ class SimpleEnneagramTestPageScreen extends StatelessWidget {
   Container _buildNotification() {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
         color: WaiColors.puppy,
       ),
-      height: 50,
       child: Center(
           child: Text(
-            "세가지 질문중 나에게 가장 가까운 질문 하나를 선택해주세요.",
+            "세가지 질문중 나에게 최대한 가까운 질문 하나를 선택해주세요. 완벽하게 맞지 않아도 괜찮습니다.",
             style: WaiTextStyle(color: WaiColors.white).basic()
           )
       ),
@@ -122,13 +123,6 @@ class SimpleEnneagramTestPageScreen extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),
         color: Colors.white,
-        // boxShadow: const [
-        //   BoxShadow(
-        //     color: Colors.grey,
-        //     offset: Offset(0.0, 1.0), //(x,y)
-        //     blurRadius: 2.0,
-        //   ),
-        // ],
       ),
       child: ElevatedButton(
         onPressed: () {
@@ -136,7 +130,7 @@ class SimpleEnneagramTestPageScreen extends StatelessWidget {
         },
         child: Text(
             list[questionIndex].getFullSimpleQuestion(),
-            style: WaiTextStyle(color: Colors.black54).basic()
+            style: WaiTextStyle(fontSize: 16, color: Colors.black54).basic()
         ),
         style: ButtonStyle(
           elevation: MaterialStateProperty.all(0.0),
@@ -226,16 +220,9 @@ class SimpleEnneagramTestPageScreen extends StatelessWidget {
                 UserProfileController.to.setCurrentEnneagramTestResult(myEnneagramTest);
                 MainController.to.setTabIndex(0);
                 Get.offAll(() => MainScreens(myEnneagramTest: myEnneagramTest));
-
-                // show Dialog enneagramType
               } else {
-
-                WaiDialog.showMessage(
-                  context: context,
-                  content: "문항을 선택해주세요.",
-                );
+                AppController.to.snackbarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "문항을 선택해주세요."));
               }
-
               // 2.
             }
         ),

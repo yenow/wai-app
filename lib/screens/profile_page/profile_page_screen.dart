@@ -62,20 +62,6 @@ class ProfilePageScreen extends StatelessWidget {
           _buildTopBackground(context: context),
           // _buildMyInfomation(),
           _buildSetting(),
-          ElevatedButton(
-            child: Text('show snackbar'),
-            onPressed: () {
-              AppController.to.showSnackBar(WaiSnackBar.basic(text: "게시물이 등록되었습니다."));
-
-              EnneagramDialog.showEnneagramType(
-                  context: context,
-                  myEnneagramTest : EnneagramTest(myEnneagramType: 1),
-                  onPressed: () {
-                    Get.to(() => EnneagramTypePageScreen(enneagramType: EnneagramTest(myEnneagramType: 1).myEnneagramType!));
-                  }
-              );
-            }
-          ),
         ]
       )
     );
@@ -361,18 +347,33 @@ class ProfilePageScreen extends StatelessWidget {
             }
           ),
           const HorizontalBorderLine(height: 1,),
-          _buildSettingItem(text: "앱 정보"),
-          const HorizontalBorderLine(height: 1,),
-          _buildSettingItem(text: "공지사항"),
-          const HorizontalBorderLine(height: 1,),
-          ElevatedButton(
-              child: Text('userKey delete'),
-              onPressed: ()  async {
-                await AppController.to.removeUserKey();
-                //var string = await AppController.to.getUserKey();
-                Get.off(IntroductionScreen());
-              }
-          ),
+          // const HorizontalBorderLine(height: 1,),
+          // ElevatedButton(
+          //   child: Text('show snackbar'),
+          //   onPressed: () {
+          //     AppController.to.showSnackBar(WaiSnackBar.basic(text: "게시물이 등록되었습니다."));
+          //
+          //     EnneagramDialog.showEnneagramType(
+          //         context: context,
+          //         myEnneagramTest : EnneagramTest(myEnneagramType: 1),
+          //         onPressed: () {
+          //           Get.to(() => EnneagramTypePageScreen(enneagramType: EnneagramTest(myEnneagramType: 1).myEnneagramType!));
+          //         }
+          //     );
+          //   }
+          // ),
+          // _buildSettingItem(text: "앱 정보"),
+          // const HorizontalBorderLine(height: 1,),
+          // _buildSettingItem(text: "공지사항"),
+          // const HorizontalBorderLine(height: 1,),
+          // ElevatedButton(
+          //     child: Text('userKey delete'),
+          //     onPressed: ()  async {
+          //       await AppController.to.removeUserKey();
+          //       //var string = await AppController.to.getUserKey();
+          //       Get.off(IntroductionScreen());
+          //     }
+          // ),
         ],
       ),
     );
@@ -396,24 +397,6 @@ class ProfilePageScreen extends StatelessWidget {
           ],
         ),
         onTap: onTap,
-      ),
-    );
-  }
-
-  InkWell _buildTextButton() {
-    return InkWell(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(EnneagramController.to.enneagram![1]!.getFullName() + "더 알아보기",
-              style: CustomTextStyles.buildTextStyle(fontSize: 16),
-              // textAlign: TextAlign.right,
-            ),
-            Icon(Icons.arrow_forward_ios_outlined, size: 16, color: Colors.blueGrey),
-          ],
-        ),
       ),
     );
   }

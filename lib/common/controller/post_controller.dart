@@ -10,7 +10,6 @@ import 'package:wai/models/post/api/post_request_dto.dart';
 import 'package:wai/models/post/api/post_save_request_dto.dart';
 import 'package:wai/models/post/post.dart';
 import 'package:wai/models/reply/reply.dart';
-import 'package:wai/sample/add_interactivity.dart';
 import 'package:wai/common/utils/function.dart';
 import 'package:wai/common/utils/logger.dart';
 

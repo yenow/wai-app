@@ -12,6 +12,8 @@ import 'package:wai/common/controller/enneagram_controller.dart';
 import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/theme/custom_postpage_textstyle.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
+import 'package:wai/common/theme/wai_textstyle.dart';
+import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/common/widgets/wai_appbar.dart';
 import 'package:wai/models/enneagram/enneagram.dart';
 import 'package:wai/common/widgets/custom_appbar.dart';
@@ -49,8 +51,10 @@ class EnneagramPageScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   child: Column(
                     children: [
+                      const Blank(height: 5,),
                       Text("에니어그램이란?",
-                          style: CustomTextStyles.buildTextStyle(fontSize: 25, color: Colors.white)),
+                          style: CustomTextStyles.buildTextStyle(fontSize: 22, color: Colors.white)),
+                      const Blank(height: 5,),
                       Text("애니어그램은 9가지 유형으로 이루어진 성격 테스트입니다. 어떤 유형들이 있는지 알아보아요.",
                           style: CustomTextStyles.buildTextStyle(fontSize: 18, color: Colors.white )),
                     ],
@@ -70,24 +74,10 @@ class EnneagramPageScreen extends StatelessWidget {
           height: 180,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("assets/images/background/mesh.png"), // pink-1311251_1920.jpg
-              colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.7), BlendMode.dstATop),
+              image: const AssetImage("assets/images/background/mesh.png"), // pink-1311251_1920.jpg
+              colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.6), BlendMode.dstATop),
               fit: BoxFit.fill,
             ),
-            /*gradient: LinearGradient(
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter,
-              stops: [
-                0.1,
-                0.5,
-                0.9,
-              ],
-              colors: [
-                babyBlueShade100,
-                babyBlueShade60,
-                babyBlueShade30,
-              ]
-            ),*/
           ),
         );
   }
@@ -97,11 +87,11 @@ class EnneagramPageScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20.0),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Colors.grey,
             offset: Offset(0.0, 1.0), //(x,y)
-            blurRadius: 2.0,
+            blurRadius: 3.0,
           ),
         ],
       ),
@@ -110,26 +100,19 @@ class EnneagramPageScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image(image: AssetImage(EnneagramController.to.enneagram![enneagramType]!.imagePath), width: 50 * widthRatio, height: 50 * heightRatio,  fit: BoxFit.fill,),
-            SizedBox(height: 5,),
+            const SizedBox(height: 3,),
             Text(
               '$enneagramType유형',
-              style: GoogleFonts.jua(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.grey ),
+              style: WaiTextStyle(fontSize: 16, fontWeight: FontWeight.w500).bodyText(),
             ),
-            SizedBox(height: 3),
+            // const SizedBox(height: 3),
             Text(
               EnneagramController.to.enneagram![enneagramType]!.subName,
-              style: GoogleFonts.jua(fontSize: 11, fontWeight: FontWeight.w400, color: Colors.grey),
+              style: WaiTextStyle(fontSize: 13).bodyText(),
             ),
           ],
         ),
         onPressed: () {
-          // MainController.to.goIntoPage();
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (context) =>
-          //     EnneagramTypePageScreen(enneagramType: enneagramType,)
-          //   )
-          // );
           Get.to(() => EnneagramTypePageScreen(enneagramType: enneagramType));
         },
       ),
@@ -142,14 +125,13 @@ class EnneagramPageScreen extends StatelessWidget {
       child: GridView.count(
         shrinkWrap: true,
         crossAxisCount: 3,
-        childAspectRatio: 0.85,
-        crossAxisSpacing: 20,
-        mainAxisSpacing: 20,
-        physics: NeverScrollableScrollPhysics(),
-        padding: EdgeInsets.all(5),
+        childAspectRatio: 0.9,
+        crossAxisSpacing: 15,
+        mainAxisSpacing: 15,
+        physics: const NeverScrollableScrollPhysics(),
+        padding: const EdgeInsets.all(5),
         children: List.generate(9, (index) {
           int enneagramType = index + 1;
-
           return _buildEnneagramType(context, enneagramType);
         }),
       ),

@@ -34,9 +34,9 @@ class CustomRadioButton extends StatelessWidget {
           CustomTextStyles.buildTextStyle(fontSize: 12, color: mainColor) :
           CustomTextStyles.buildTextStyle(fontSize: 12, color: mainColor)
         ),
-        SizedBox(height: 2,),
+        const SizedBox(height: 2,),
         ElevatedButton(
-          child: SizedBox(width: 10, height: 10,),
+          child: const SizedBox(width: 10, height: 10,),
           onPressed: onPressed,
           style: ButtonStyle(
             minimumSize: MaterialStateProperty.all(Size(buttonSize, buttonSize)),
@@ -51,7 +51,7 @@ class CustomRadioButton extends StatelessWidget {
             shape: MaterialStateProperty.all(CircleBorder(
               side: BorderSide(
                 color: mainColor,
-                width: 0.5,
+                width: 1,
               ),
 
             ))

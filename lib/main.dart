@@ -31,7 +31,6 @@ double standardDeviceWidth = 411.42857142857144;
 double standardDeviceHeight = 683.4285714285714;
 double widthRatio = 1.0;
 double heightRatio = 1.0;
-String kakaoKey = "1fec5c99452f624a6200b3a512a932f9";
 
 void main() {
   runApp(const WaiApp());
@@ -77,15 +76,13 @@ class _RootScreenState extends State<RootScreen> {
       future: _future,
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
-        /* 요청을 기다리는중 */
           case ConnectionState.waiting:
             return const SplashScreen();
           default:
-          /* 에러시 */
             if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
             } else {
-              return AppController.to.isBuildIntroducePage.value == "N" ? MainScreens() : IntroductionScreen();
+              return AppController.to.isBuildIntroducePage.value == "N" ? const MainScreens() : IntroductionScreen();
             }
         }
       }
@@ -101,30 +98,7 @@ class _RootScreenState extends State<RootScreen> {
     await EnneagramTestController.to.initEnneagramQuestionList();
     await EnneagramTestController.to.initSimpleEnneagramQuestionList();
 
-    // await initUserInfo();
-
-    // await initPosts(
-    //     PostController.to.posts,
-    //     PostRequestDto(
-    //       postsCount: PostController.to.postsCount,
-    //       postSearchType: PostSearchType.all
-    //     )
-    // );
-    // await initPosts(
-    //     PostController.to.popularPosts,
-    //     PostRequestDto(
-    //       postsCount: PostController.to.postsCount,
-    //       postSearchType: PostSearchType.popular
-    //     )
-    // );
-    // await initPosts(
-    //     PostController.to.myEnneagramPosts,
-    //     PostRequestDto(
-    //         postsCount: PostController.to.postsCount,
-    //         postSearchType: PostSearchType.enneagramType,
-    //         myEnneagramType: UserController.to.user.value.myEnneagramType
-    //     )
-    // );
+    await initUserInfo();
 
     await Future.delayed(const Duration(seconds: 1), () {});
 

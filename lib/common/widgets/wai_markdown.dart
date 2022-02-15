@@ -17,7 +17,7 @@ class _WaiMarkdownState extends State<WaiMarkdown> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: rootBundle.loadString("assets/markdown/practice.md"),
+      future: rootBundle.loadString(widget.url), //  assets/markdown/practice.md
       builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
         if (snapshot.hasData) {
           return Markdown(
@@ -28,7 +28,8 @@ class _WaiMarkdownState extends State<WaiMarkdown> {
             styleSheet: MarkdownStyleSheet(
               h1: WaiTextStyle().headline1(),
               h2: WaiTextStyle().headline2(),
-              p: WaiTextStyle().bodyText(),
+              h3: WaiTextStyle().headline2(),
+              p: WaiTextStyle(fontSize: 16).bodyText(),
               blockquoteDecoration: BoxDecoration(
                 color: Colors.grey.shade200,
                 shape: BoxShape.rectangle,

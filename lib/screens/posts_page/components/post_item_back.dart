@@ -11,7 +11,6 @@ import 'package:wai/common/theme/custom_postpage_textstyle.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/models/post/post.dart';
 import 'package:wai/common/theme/theme.dart';
-import 'package:wai/sample/understand_constraint.dart';
 import 'package:wai/screens/posts_page/post_page_screen.dart';
 
 const double verticalPaddingValue = 8.0;
@@ -146,18 +145,18 @@ class PostItemBack extends StatelessWidget {
     );
   }
 
-  Visibility _buildImage(BuildContext context) {
-    return const Visibility(
-        visible: true,
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(leftValue,topValue,rightValue,bottomValue),
-          child: Image(image: AssetImage('assets/images/pic1.jpg'),
-            width: double.infinity,
-            height: 150,
-            fit: BoxFit.cover,)
-        ),
-      );
-  }
+  // Visibility _buildImage(BuildContext context) {
+  //   return const Visibility(
+  //       visible: true,
+  //       child: Padding(
+  //         padding: EdgeInsets.fromLTRB(leftValue,topValue,rightValue,bottomValue),
+  //         child: Image(image: AssetImage('assets/images/logo.jpg'),
+  //           width: double.infinity,
+  //           height: 150,
+  //           fit: BoxFit.cover,)
+  //       ),
+  //     );
+  // }
 
   Padding _buildTail(BuildContext context) {
     return Padding(

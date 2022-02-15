@@ -69,13 +69,6 @@ class _PostItemsState extends State<PostItems> {
   @override
   Widget build(BuildContext context) {
 
-    // if (posts.isEmpty) {
-    //   return Padding(
-    //     padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-    //     child: Center(child: Text("게시글이 존재하지 않습니다.", style: WaiTextStyle(fontSize: 18, color: Colors.black54).basic(),)),
-    //   );
-    // }
-
     return NotificationListener<ScrollNotification>(
       onNotification: (ScrollNotification notification) {
         scrollNotification(notification);
@@ -93,6 +86,14 @@ class _PostItemsState extends State<PostItems> {
               thickness: 2.0,
               child: Column(
                 children: [
+                  Container(
+                      height: posts.isEmpty ? 80.0 : 0,
+                      color: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical : 20, horizontal: 20),
+                        child: Center(child: Text("게시글이 존재하지 않습니다.", style: WaiTextStyle(fontSize: 18, color: Colors.black54).basic(),)),
+                      )
+                  ),
                   Expanded(
                     child: ListView.separated(
                       key: _scaffoldKey,
