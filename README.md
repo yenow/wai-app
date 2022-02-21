@@ -13,8 +13,8 @@ WHO AM I의 약자로 이름을 지었습니다. 에니어그램 커뮤니티로
 
 ### 에니어그램 테스트 페이지
 
-<img src="https://raw.githubusercontent.com/yenow/imageServer/main/img/Screenshot_20220221-211359.jpg" alt="Screenshot_20220221-211359" style="width:25%; height:25%; float: left;" /><img src="https://raw.githubusercontent.com/yenow/imageServer/main/img/Screenshot_20220221-211409.jpg" alt="Screenshot_20220221-211409" style="width:25%; height:25%; float: left;" />
+<img src="https://raw.githubusercontent.com/yenow/imageServer/main/img/Screenshot_20220221-211359.jpg" alt="Screenshot_20220221-211359" style="width:25%; height:25%; float: left;" />&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/yenow/imageServer/main/img/Screenshot_20220221-211409.jpg" alt="Screenshot_20220221-211409" style="width:25%; height:25%; float: left;" />
 
-### 홈 화면
+### 메인 화면
 
-<img src="https://raw.githubusercontent.com/yenow/imageServer/main/img/Screenshot_20220221-211431.jpg" alt="Screenshot_20220221-211431" style="width:25%; height:25%; float: left;" /><img src="https://raw.githubusercontent.com/yenow/imageServer/main/img/Screenshot_20220221-211439.jpg" alt="Screenshot_20220221-211439" style="width:25%; height:25%; float: left;" />
+<img src="https://raw.githubusercontent.com/yenow/imageServer/main/img/Screenshot_20220221-211431.jpg" alt="Screenshot_20220221-211431" style="width:25%; height:25%; float: left;" />&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/yenow/imageServer/main/img/Screenshot_20220221-211439.jpg" alt="Screenshot_20220221-211439" style="width:25%; height:25%; float: left;" />&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/yenow/imageServer/main/img/Screenshot_20220221-211455.jpg" alt="Screenshot_20220221-211455" style="width:25%; height:25%; float: left;" />&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/yenow/imageServer/main/img/Screenshot_20220221-211505.jpg" alt="Screenshot_20220221-211505" style="width:25%; height:25%; float: left;" />&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/yenow/imageServer/main/img/Screenshot_20220221-211512.jpg" alt="Screenshot_20220221-211512" style="width:25%; height:25%; float: left; />
