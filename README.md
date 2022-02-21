@@ -9,7 +9,7 @@ WHO AM I의 약자로 이름을 지었습니다. 에니어그램 커뮤니티로
 
 ### 시작 페이지 
 
-<img src="https://raw.githubusercontent.com/yenow/imageServer/main/img/Screenshot_20220221-211031.jpg" alt="Screenshot_20220221-211031" style="width:25%; height:25%; float: left;" /><img src="https://raw.githubusercontent.com/yenow/imageServer/main/img/Screenshot_20220221-211347.jpg" alt="Screenshot_20220221-211347" style="width:25%; height:25%; float: left" />
+<img src="https://raw.githubusercontent.com/yenow/imageServer/main/img/Screenshot_20220221-211031.jpg" alt="Screenshot_20220221-211031" style="width:25%; height:25%; float: left;" />&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/yenow/imageServer/main/img/Screenshot_20220221-211347.jpg" alt="Screenshot_20220221-211347" style="width:25%; height:25%; float: left" />
 
 ### 에니어그램 테스트 페이지
 
