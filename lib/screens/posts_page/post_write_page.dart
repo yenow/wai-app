@@ -6,7 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:wai/common/constants/wai_colors.dart';
-import 'package:wai/common/controller/app_controller.dart';
+import 'package:wai/controller/app_controller.dart';
 import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/controller/post_controller.dart';
 import 'package:wai/common/controller/user_controller.dart';
@@ -25,39 +25,13 @@ import 'package:wai/common/utils/logger.dart';
 import 'package:wai/common/widgets/wai_dialog.dart';
 
 class PostWritePage extends StatelessWidget {
-  const PostWritePage({Key? key, required this.rebuild}) : super(key: key);
-  final VoidCallback rebuild;
-
-  Future<void> writePost () async {
-      PostController.to.writingPost.value.userId = AppController.to.userId.value;
-      PostController.to.writingPost.value.userKey = AppController.to.userKey.value;
-      PostController.to.writingPost.value.author = UserController.to.user.value.nickname ?? "익명";
-
-      if (checkValue()) {
-
-      // api request
-      PostSaveRequestDto postSaveRequestDto = PostController.to.writingPost.value;
-      postSaveRequestDto.authorEnneagramType = UserController.to.user.value.myEnneagramType;
-      await savePost(postSaveRequestDto);
-
-      PostController.to.removeWritingPost();
-
-      List<Post> posts = await readMoreNewPosts(
-          PostController.to.posts, PostRequestDto(postsCount: PostController.to.postsCount, postSearchType: PostSearchType.all)
-      );
-
-      for (Post post in posts) {
-        PostController.to.posts.insert(0, post);
-      }
-
-      Get.back();
-      AppController.to.showSnackBar(WaiSnackBar.basic(text: "게시물이 등록되었습니다."));
-      rebuild();
-    }
-  }
+  const PostWritePage({Key? key, this.postId}) : super(key: key);
+  final int? postId;
 
   @override
   Widget build(BuildContext context) {
+    logger.d(PostController.to.writingPost.value.postId!);
+
     return Obx(() =>
       Scaffold(
         appBar: WaiAppbar(
@@ -103,31 +77,28 @@ class PostWritePage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal:20),
       child: InkWell(
         onTap: () async {
-          PostController.to.writingPost.value.userId = AppController.to.userId.value;
-          PostController.to.writingPost.value.userKey = AppController.to.userKey.value;
+          PostController.to.writingPost.value.userId = UserController.to.user.value.userId!.toString();
+          PostController.to.writingPost.value.userKey = AppController.to.loginInfo.value.userKey;
           PostController.to.writingPost.value.author = UserController.to.user.value.nickname ?? "익명";
 
           if (checkValue()) {
 
-            // api request
+            /* api request */
             PostSaveRequestDto postSaveRequestDto = PostController.to.writingPost.value;
             postSaveRequestDto.authorEnneagramType = UserController.to.user.value.myEnneagramType;
-            await savePost(postSaveRequestDto);
+            Post post = await savePost(postSaveRequestDto);
 
+            /* after request */
             PostController.to.removeWritingPost();
 
-            List<Post> posts = await readMoreNewPosts(
-                PostController.to.posts,
-                PostRequestDto(
-                  postsCount: PostController.to.postsCount,
-                  postSearchType: PostSearchType.all
-              ));
-            for (Post post in posts) {
-              PostController.to.posts.insert(0, post);
+            // Get.back();
+
+            Navigator.pop(context, post);
+            if (postId == null) {
+              AppController.to.showSnackBar(WaiSnackBar.basic(text: "게시물이 등록되었습니다."));
+            } else {
+              AppController.to.showSnackBar(WaiSnackBar.basic(text: "게시물이 수정되었습니다."));
             }
-            Get.back();
-            AppController.to.showSnackBar(WaiSnackBar.basic(text: "게시물이 등록되었습니다."));
-            rebuild();
           }
         },
         child: const Icon(FontAwesomeIcons.checkCircle, size: 25, color: Colors.black54,),
@@ -242,10 +213,10 @@ class PostWritePage extends StatelessWidget {
 
   bool checkValue() {
     if (!PostController.to.writingPost.value.isValidTitle()) {
-      AppController.to.snackbarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "제목을 입력해주세요."));
+      AppController.to.snackBarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "제목을 입력해주세요."));
       return false;
     } else if (!PostController.to.writingPost.value.isValidContent()) {
-      AppController.to.snackbarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "내용을 입력해주세요."));
+      AppController.to.snackBarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "내용을 입력해주세요."));
       return false;
     }
 

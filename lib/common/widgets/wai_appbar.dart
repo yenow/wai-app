@@ -38,7 +38,6 @@ class WaiAppbar extends StatelessWidget with PreferredSizeWidget {
         backgroundColor: backgroundColor,
         leading: _buildLeading(),
         actions: actions,
-
       ),
     );
   }
@@ -51,8 +50,8 @@ class WaiAppbar extends StatelessWidget with PreferredSizeWidget {
     return leading;
   }
 
-  GestureDetector _buildBackNavigatorIcon() {
-    return GestureDetector(
+  InkWell _buildBackNavigatorIcon() {
+    return InkWell(
       child: const Icon(Icons.arrow_back_ios_outlined, size: 20, color: Colors.grey,),
       onTap: () {
         Get.back();

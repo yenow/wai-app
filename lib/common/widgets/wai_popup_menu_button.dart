@@ -36,7 +36,6 @@ class _WaiPopupMenuButtonState extends State<WaiPopupMenuButton> {
         onSelected: (String value) {
           for (String temp in _valueList) {
             if (temp == value) {
-              logger.d(value + "  " + _valueList.indexOf(temp).toString());
               _callBackList[_valueList.indexOf(temp)]!();
             }
           }

@@ -45,7 +45,7 @@ class CustomAppbar extends StatelessWidget {
     return leading ?? IconButton(
       icon: const Icon(
         FontAwesomeIcons.alignJustify,
-        color: appBarTitleTextColor,
+        color: WaiColors.blueGrey,
         size: 24.0,
         semanticLabel: 'Text to announce in accessibility modes',
       ),

@@ -7,10 +7,9 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wai/common/constants/constants.dart';
 import 'package:wai/common/constants/wai_colors.dart';
-import 'package:wai/common/controller/app_controller.dart';
+import 'package:wai/controller/app_controller.dart';
 import 'package:wai/common/controller/enneagram_controller.dart';
 import 'package:wai/common/controller/main_controller.dart';
-import 'package:wai/common/theme/custom_postpage_textstyle.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
 import 'package:wai/common/widgets/blank.dart';
@@ -99,7 +98,7 @@ class EnneagramPageScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image(image: AssetImage(EnneagramController.to.enneagram![enneagramType]!.imagePath), width: 50 * widthRatio, height: 50 * heightRatio,  fit: BoxFit.fill,),
+            Image(image: AssetImage(EnneagramController.to.enneagram![enneagramType]!.imagePath), width: 50 * widthRatio, height: 50 * heightRatio,  fit: BoxFit.contain,),
             const SizedBox(height: 3,),
             Text(
               '$enneagramType유형',
@@ -125,7 +124,7 @@ class EnneagramPageScreen extends StatelessWidget {
       child: GridView.count(
         shrinkWrap: true,
         crossAxisCount: 3,
-        childAspectRatio: 0.9,
+        childAspectRatio: 0.85,
         crossAxisSpacing: 15,
         mainAxisSpacing: 15,
         physics: const NeverScrollableScrollPhysics(),

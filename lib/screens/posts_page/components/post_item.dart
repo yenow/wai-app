@@ -1,11 +1,12 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:intl/intl.dart';
-import 'package:wai/common/controller/app_controller.dart';
+import 'package:wai/controller/app_controller.dart';
 import 'package:wai/common/controller/enneagram_controller.dart';
 import 'package:wai/common/controller/post_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
@@ -37,23 +38,23 @@ class _PostItemState extends State<PostItem> {
   @override
   Widget build(BuildContext context) {
 
-    return GestureDetector(
+    return InkWell(
       onTap: () async {
-        Post returnPost = await Navigator.push(context,
-          MaterialPageRoute(builder: (context) => PostPageScreen(postId: post.postId!)),
-        );
-
-        setState(() {
-          post = returnPost;
+        SchedulerBinding.instance!.addPostFrameCallback((_) async {
+          Post returnPost = await Navigator.push(context,
+            MaterialPageRoute(builder: (context) => PostPageScreen(postId: post.postId!)),
+          );
+          setState(() {
+            post = returnPost;
+          });
         });
-        // ScaffoldMessenger.of(context)..removeCurrentSnackBar()..showSnackBar(SnackBar(content: Text('$result')));
       },
       child: _buildBody(context),
     );
   }
 
   Container _buildBody(BuildContext context) {
-    if (post.isDelete!) {
+    if (post.isDeleted!) {
       return Container();
     }
 

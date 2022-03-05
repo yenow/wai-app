@@ -31,54 +31,6 @@ class EnneagramTestController extends GetxController {
   /* non-observable variable */
   final questionCount = 15;
 
-  /*
-  * Description : 정밀테스트 질문리스트 초기화
-  */
-  Future<void> initEnneagramQuestionList() async {
-
-    /* api request */
-    var response = await getRequest("/api/getHardEnneagramQuestion");
-
-    List<EnneagramQuestion> list = List<EnneagramQuestion>.from(
-        json.decode(response).map((model) {
-          return EnneagramQuestion.fromJson(model);
-        })
-    );
-
-    // initEnneagramQuestion();
-    // setEnneagramQuestionList(enneagramQuestionList);
-    enneagramQuestionList.value = list;
-    setEnneagramPageList();
-
-  }
-
-  /*
-  * Description : 간단테스트 질문리스트 초기화
-  */
-  Future<void> initSimpleEnneagramQuestionList() async {
-
-    /* api request */
-    var response = await getRequest("/api/getSimpleEnneagramQuestion");
-
-    List<EnneagramQuestion> list = List<EnneagramQuestion>.from(
-        json.decode(response).map((model) {
-          return EnneagramQuestion.fromJson(model);
-        })
-    );
-    simpleEnneagramQuestionList.value = list;
-
-
-  }
-
-  // void initEnneagramQuestion() {
-  //   enneagramQuestionList.value = [];
-  //   enneagramPageList.value = [];
-  // }
-
-  // void setEnneagramQuestionList (List<EnneagramQuestion> list) {
-  //   enneagramQuestionList.value = list;
-  // }
-
   void setEnneagramPageList() {
 
     int enneagramQuestionLength = enneagramQuestionList.length;

@@ -89,4 +89,13 @@ class WaiTextStyle {
       fontWeight: fontWeight ?? FontWeight.w500,
     );
   }
+
+  TextStyle code() {
+    return GoogleFonts.jua(
+      fontSize: fontSize ?? 16,
+      color: color ?? WaiColors.lightBlueGrey,
+      fontWeight: fontWeight ?? FontWeight.w500,
+      // backgroundColor: WaiColors.lightBlueGrey
+    );
+  }
 }

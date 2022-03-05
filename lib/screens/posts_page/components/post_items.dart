@@ -6,6 +6,7 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:uuid/uuid.dart';
 import 'package:wai/common/controller/post_controller.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
+import 'package:wai/common/widgets/wai_circular_progress_indicator.dart';
 import 'package:wai/models/post/api/post_request_dto.dart';
 import 'package:wai/models/post/post.dart';
 import 'package:wai/screens/posts_page/components/post_item.dart';
@@ -109,7 +110,7 @@ class _PostItemsState extends State<PostItems> {
                     height: isMoreRequesting ? 50.0 : 0,
                     color: Colors.white,
                     child: const Center(
-                      child: CircularProgressIndicator(),
+                      child: WaiCircularProgressIndicator(),
                     ),
                   ),
                 ],

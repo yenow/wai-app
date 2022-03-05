@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:wai/common/constants/wai_colors.dart';
-import 'package:wai/common/controller/app_controller.dart';
+import 'package:wai/controller/app_controller.dart';
 import 'package:wai/common/controller/post_controller.dart';
 import 'package:wai/common/controller/user_controller.dart';
 import 'package:wai/common/controller/user_profile_controller.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
 import 'package:wai/common/widgets/horizontal_border_line.dart';
 import 'package:wai/common/widgets/wai_appbar.dart';
+import 'package:wai/common/widgets/wai_circular_progress_indicator.dart';
 import 'package:wai/models/post/api/post_request_dto.dart';
 import 'package:wai/net/post/post_api.dart';
 import 'package:wai/screens/posts_page/components/post_item.dart';
@@ -42,7 +43,6 @@ class _MyActionPageState extends State<MyActionPage> {
           userId: UserController.to.user.value.userId
         )
     );
-
     await initPosts(
         UserProfileController.to.myReplyPosts,
         PostRequestDto(
@@ -51,7 +51,6 @@ class _MyActionPageState extends State<MyActionPage> {
             userId: UserController.to.user.value.userId
         )
     );
-
     return true;
   }
 
@@ -61,15 +60,9 @@ class _MyActionPageState extends State<MyActionPage> {
         future: _isInit,
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
-          /* 요청을 기다리는중 */
             case ConnectionState.waiting:
-              return const Scaffold(
-                  body: Center(
-                      child: CircularProgressIndicator()
-                  )
-              );
+              return const WaiCircularProgressIndicator();
             default:
-            /* 에러시 */
               if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else {
@@ -160,11 +153,11 @@ class _MyActionPageState extends State<MyActionPage> {
       key: _scaffoldKey,
       physics: const AlwaysScrollableScrollPhysics(),
       separatorBuilder: (BuildContext context, int index) => const HorizontalBorderLine(height: 0.25,),
-      itemCount: UserController.to.user.value.posts!.length,
+      itemCount: UserController.to.user.value.posts.length,
       itemBuilder: (BuildContext context, int index) {
         return PostItem(
           key: UniqueKey(),
-          post: UserController.to.user.value.posts!.elementAt(index));
+          post: UserController.to.user.value.posts.elementAt(index));
       },
     );
   }
@@ -174,11 +167,11 @@ class _MyActionPageState extends State<MyActionPage> {
       key: _scaffoldKey2,
       physics: const AlwaysScrollableScrollPhysics(),
       separatorBuilder: (BuildContext context, int index) => const HorizontalBorderLine(height: 0.25,),
-      itemCount: UserController.to.user.value.replys!.length,
+      itemCount: UserController.to.user.value.replys.length,
       itemBuilder: (BuildContext context, int index) {
         return PostItem(
             key: UniqueKey(),
-            post: UserController.to.user.value.replys!.elementAt(index).post!);
+            post: UserController.to.user.value.replys.elementAt(index).post!);
         // return ReplyItem(
         //   key: UniqueKey(),
         //   reply: UserController.to.user.value.replys!.elementAt(index),

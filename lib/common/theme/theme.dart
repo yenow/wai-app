@@ -2,21 +2,20 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:wai/common/theme/custom_loginpage_textstyle.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
 
 import '../constants/constants.dart';
 
 TextTheme textTheme() {
   return TextTheme(
-    headline1: GoogleFonts.jua(fontSize: headline1Size, color: Colors.black, fontWeight: FontWeight.w500),
-    headline2: GoogleFonts.jua(fontSize: headline2Size, color: Colors.black, fontWeight: FontWeight.w500),
-    headline3: GoogleFonts.jua(fontSize: headline1Size, color: Colors.black),
-    headline4: GoogleFonts.jua(fontSize: headline1Size, color: Colors.black),
-    headline5: GoogleFonts.jua(fontSize: headline1Size, color: Colors.black),
-    headline6: GoogleFonts.jua(fontSize: headline1Size, color: Colors.black),
-    bodyText1: GoogleFonts.jua(fontSize: bodyText1Size, color: Colors.black),
-    bodyText2: GoogleFonts.jua(fontSize: bodyText2Size, color: Colors.grey),
+    headline1: GoogleFonts.jua(fontSize: 32, color: Colors.black, fontWeight: FontWeight.w500),
+    headline2: GoogleFonts.jua(fontSize: 24, color: Colors.black, fontWeight: FontWeight.w500),
+    headline3: GoogleFonts.jua(fontSize: 18, color: Colors.black),
+    headline4: GoogleFonts.jua(fontSize: 18, color: Colors.black),
+    headline5: GoogleFonts.jua(fontSize: 18, color: Colors.black),
+    headline6: GoogleFonts.jua(fontSize: 18, color: Colors.black),
+    bodyText1: GoogleFonts.jua(fontSize: 16, color: Colors.black),
+    bodyText2: GoogleFonts.jua(fontSize: 14, color: Colors.grey),
     subtitle1: GoogleFonts.jua(fontSize: 15.0, color: Colors.black),
     button: WaiTextStyle(fontSize: 16).snackBar(),
   );

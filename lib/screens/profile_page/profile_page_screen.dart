@@ -6,7 +6,7 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:wai/common/constants/wai_colors.dart';
-import 'package:wai/common/controller/app_controller.dart';
+import 'package:wai/controller/app_controller.dart';
 import 'package:wai/common/controller/enneagram_controller.dart';
 import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/controller/user_controller.dart';
@@ -21,7 +21,6 @@ import 'package:wai/models/enneagram_test/enneagram_test.dart';
 import 'package:wai/net/user/user_api.dart';
 import 'package:wai/screens/enneagram_page/enneagram_type_page_screen.dart';
 import 'package:wai/screens/enneagram_test_page/enneagram_test_page_screen.dart';
-import 'package:wai/screens/introduce_page/introduction_screen.dart';
 import 'package:wai/common/utils/enneagram_dialog.dart';
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/common/widgets/blank.dart';
@@ -143,7 +142,7 @@ class ProfilePageScreen extends StatelessWidget {
     }
 
     List<String> items = [];
-    for (EnneagramTest temp in UserController.to.user.value.enneagramTests!) {
+    for (EnneagramTest temp in UserController.to.user.value.enneagramTests) {
       items.add(formatter.format(temp.insertDate!));
     }
 
@@ -309,13 +308,13 @@ class ProfilePageScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text("내 게시글", style: WaiTextStyle(fontSize: 16).bodyText(),),
-                  Text(UserController.to.user.value.posts!.length.toString(), style: WaiTextStyle(fontSize: 16).bodyText(),),
+                  Text(UserController.to.user.value.posts.length.toString(), style: WaiTextStyle(fontSize: 16).bodyText(),),
                   const VerticalDivider(
                     color: Colors.grey,
                     thickness: 1,
                   ),
                   Text("내 댓글", style: WaiTextStyle(fontSize: 16).bodyText(),),
-                  Text(UserController.to.user.value.replys!.length.toString(), style: WaiTextStyle(fontSize: 16).bodyText(),),
+                  Text(UserController.to.user.value.replys.length.toString(), style: WaiTextStyle(fontSize: 16).bodyText(),),
                 ],
               ),
             ),

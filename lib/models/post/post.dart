@@ -10,7 +10,7 @@ class Post {
   int? authorEnneagramType;
   String? content;
   String? simpleContent;
-  bool? isDelete;
+  bool? isDeleted;
   String? nickname;
   int? enneagramType;
   int? clickCount;
@@ -28,7 +28,7 @@ class Post {
     this.authorEnneagramType,
     this.content,
     this.simpleContent,
-    this.isDelete,
+    this.isDeleted,
     this.nickname,
     this.enneagramType,
     this.clickCount,
@@ -51,7 +51,7 @@ class Post {
       authorEnneagramType: json['authorEnneagramType'],
       content: json['content'],
       simpleContent: json['simpleContent'],
-      isDelete: json['isDelete'],
+      isDeleted: json['isDeleted'],
       enneagramType: json['enneagramType'],
       clickCount: json['clickCount'] ?? 0,
       likeyCount: json['likeyCount'],
@@ -63,13 +63,13 @@ class Post {
 
   @override
   String toString() {
-    return 'Post{postId: $postId, user: $user, replys: $replys, title: $title, author: $author, content: $content, simpleContent: $simpleContent, isDelete: $isDelete, nickname: $nickname, enneagramType: $enneagramType, clickCount: $clickCount, insertDate: $insertDate}';
+    return 'Post{postId: $postId, user: $user, replys: $replys, title: $title, author: $author, content: $content, simpleContent: $simpleContent, isDeleted: $isDeleted, nickname: $nickname, enneagramType: $enneagramType, clickCount: $clickCount, insertDate: $insertDate}';
   }
 }
 
 List<Post> dummyPosts = [
-  Post(postId: 1, title: '제목입니다.', content: '내용입니다.', simpleContent: '내용입니다.', isDelete: false, nickname : '띠용', enneagramType : 1),
-  Post(postId: 2, title: '제목입니다.', content: '내용2입니다.',simpleContent: '내용2입니다.', isDelete: false, nickname : '띠용1', enneagramType : 2 ),
-  Post(postId: 3, title: '제목입니다.', content: '내용3입니다.',simpleContent: '내용3입니다.', isDelete: false, nickname : '띠용2', enneagramType : 3 ),
+  Post(postId: 1, title: '제목입니다.', content: '내용입니다.', simpleContent: '내용입니다.', isDeleted: false, nickname : '띠용', enneagramType : 1),
+  Post(postId: 2, title: '제목입니다.', content: '내용2입니다.',simpleContent: '내용2입니다.', isDeleted: false, nickname : '띠용1', enneagramType : 2 ),
+  Post(postId: 3, title: '제목입니다.', content: '내용3입니다.',simpleContent: '내용3입니다.', isDeleted: false, nickname : '띠용2', enneagramType : 3 ),
 ];
 

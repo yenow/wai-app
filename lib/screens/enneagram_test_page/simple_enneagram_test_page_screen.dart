@@ -10,7 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
 import 'package:wai/common/constants/constants.dart';
 import 'package:wai/common/constants/wai_colors.dart';
-import 'package:wai/common/controller/app_controller.dart';
+import 'package:wai/controller/app_controller.dart';
 import 'package:wai/common/controller/enneagram_controller.dart';
 import 'package:wai/common/controller/enneagram_test_controller.dart';
 import 'package:wai/common/controller/main_controller.dart';
@@ -207,21 +207,19 @@ class SimpleEnneagramTestPageScreen extends StatelessWidget {
 
                 /* api request*/
                 EnneagramTestRequestDto dto = EnneagramTestRequestDto(
-                  userId: AppController.to.userId.value,
+                  userId: UserController.to.user.value.userId!.toString(),
                   testType: TestType.simple,
                   uniqueString: EnneagramTestController.to.makeUniqueString(),
                 );
 
-                var response = await postRequest("/api/saveSimpleEnneagramTestResult", json.encode(dto.toJson()));
+                var response = await postRequest("/api/enneagramTest/saveSimpleEnneagramTestResult", json.encode(dto.toJson()));
                 EnneagramTest myEnneagramTest = EnneagramTest.fromJson(json.decode(response));
 
-                AppController.to.writeIsBuildIntroducePage("N");
-                UserController.to.addEnneagramTestResult(myEnneagramTest);
-                UserProfileController.to.setCurrentEnneagramTestResult(myEnneagramTest);
+                // AppController.to.writeIsBuildIntroducePage("N");
                 MainController.to.setTabIndex(0);
                 Get.offAll(() => MainScreens(myEnneagramTest: myEnneagramTest));
               } else {
-                AppController.to.snackbarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "문항을 선택해주세요."));
+                AppController.to.snackBarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "문항을 선택해주세요."));
               }
               // 2.
             }

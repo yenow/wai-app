@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:wai/common/constants/wai_colors.dart';
-import 'package:wai/common/controller/app_controller.dart';
+import 'package:wai/controller/app_controller.dart';
 import 'package:wai/common/controller/enneagram_controller.dart';
 import 'package:wai/common/controller/reply_controller.dart';
 import 'package:wai/common/controller/user_controller.dart';
@@ -33,7 +33,7 @@ class ReplyItem extends StatelessWidget {
     );
     await deleteReply(replyRequestDto);
     refresh!();
-    AppController.to.snackbarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "댓글이 삭제되었습니다."));
+    AppController.to.snackBarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "댓글이 삭제되었습니다."));
   }
 
   Future<void> reportReplyItem() async {
@@ -42,7 +42,7 @@ class ReplyItem extends StatelessWidget {
     );
     await reportReply(replyRequestDto);
     refresh!();
-    AppController.to.snackbarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "댓글이 신고되었습니다."));
+    AppController.to.snackBarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "댓글이 신고되었습니다."));
   }
 
   void _updateReplyItem() async {

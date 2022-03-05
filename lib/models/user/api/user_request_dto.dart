@@ -1,9 +1,9 @@
 class UserRequestDto {
-  int userId;
+  int? userId;
   String userKey;
   String? nickname;
 
-  UserRequestDto({required this.userId, required this.userKey, this.nickname});
+  UserRequestDto({this.userId, required this.userKey, this.nickname});
 
   Map<String, dynamic> toJson() {
     return {

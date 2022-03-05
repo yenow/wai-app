@@ -12,37 +12,13 @@ import 'package:wai/common/utils/function.dart';
 
 class EnneagramController extends GetxController{
   static EnneagramController get to => Get.put(EnneagramController());
-  // final enneagram = Enneagram().obs;
   /* observable variable */
   final enneagramTypePageIndex = 0.obs;
-  // final enneagram = {}.obs;
-  // final enneagramExplain = {}.obs;
   /* non-observable variable */
   Map<int, Enneagram>? enneagram = {};
   Map<int, EnneagramExplain>? enneagramExplain = {};
 
-  Future<void> initEnneagramInfomation() async {
-    
-    var response = await getRequest("/api/getEnneagramInfomation");
-    List list = json.decode(response as String);
-    list.forEach((element) {
-      Enneagram temp = Enneagram.fromJson(element);
-      enneagram![temp.enneagramType] = temp;
-    });
-  }
-
-  Future<void> initEnneagramExplainInfomation() async {
-
-    var response = await getRequest("/api/getEnneagramExplainInfomation");
-    List list = json.decode(response as String);
-    list.forEach((element) {
-      EnneagramExplain temp = EnneagramExplain.fromJson(element);
-      enneagramExplain![temp.enneagramType] = temp;
-    });
-  }
-
   void tabChange(int buttonIndex) {
     enneagramTypePageIndex.value = buttonIndex;
   }
-
 }

@@ -1,29 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:logger/logger.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wai/common/controller/app_controller.dart';
-import 'package:wai/common/utils/logger.dart';
-import 'package:wai/models/post/api/post_request_dto.dart';
-import 'package:wai/screens/introduce_page/introduction_screen.dart';
+import 'package:wai/controller/app_controller.dart';
+import 'package:wai/route/route.dart';
+import 'package:wai/ui/introduce_screen/introduction_screen.dart';
+import 'package:wai/screens/introduce_page/who_am_i_screen.dart';
 import 'package:wai/screens/main_screens.dart';
-import 'package:wai/screens/posts_page/post_page_screen.dart';
 import 'package:wai/screens/splash_screen.dart';
-import 'common/controller/enneagram_controller.dart';
-import 'common/controller/enneagram_test_controller.dart';
-import 'common/controller/post_controller.dart';
+import 'package:wai/ui/sign_up_screen/sign_up_screen.dart';
+import 'package:wai/ui/wai_splash_screen.dart';
+import 'binding/introduction_binding.dart';
+import 'binding/sign_up_binding.dart';
+
 import 'common/controller/user_controller.dart';
-import 'common/controller/user_profile_controller.dart';
 import 'common/theme/theme.dart';
 import 'common/utils/navigation_service.dart';
-import 'net/post/post_api.dart';
-import 'net/user/user_api.dart';
+
 
 double deviceWidth = 411.42857142857144;
 double deviceHeight = 683.4285714285714;
@@ -32,8 +27,13 @@ double standardDeviceHeight = 683.4285714285714;
 double widthRatio = 1.0;
 double heightRatio = 1.0;
 
-void main() {
+void main() async {
+  initController();
   runApp(const WaiApp());
+}
+
+void initController() {
+  Get.put<AppController>(AppController(), permanent: true);
 }
 
 class WaiApp extends StatelessWidget {
@@ -45,28 +45,48 @@ class WaiApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'wai',
       theme: theme(),
-      home: const RootScreen(),
+      initialRoute: "/",
+      getPages: [
+        GetPage(name: "/", page:() => const WaiSplashScreen(),),
+        GetPage(name: Routes.introduction, page:()=> const IntroductionScreen(), binding: IntroductionBinding()),
+        GetPage(name: Routes.signUp, page:()=> const SignUpScreen(), binding: SignUpBinding()),
+      ],
+      // getPages: AppPages.routes,
+      // initialRoute: Routes.splash,
+      // initialBinding: InitBinding(),
+      // home: const HomeScreen(),  //  WaiSplashScreen  HomeScreen
       debugShowCheckedModeBanner: false,
-      scaffoldMessengerKey: AppController.to.snackbarKey,
+      scaffoldMessengerKey: AppController.to.snackBarKey,
       navigatorKey: NavigationService.navigatorKey,
     );
   }
 }
 
-class RootScreen extends StatefulWidget {
-  const RootScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  _RootScreenState createState() => _RootScreenState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _RootScreenState extends State<RootScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   late Future<void> _future;
 
   @override
   void initState() {
     _future = initAppState();
     super.initState();
+  }
+
+  Future<bool> initAppState() async {
+    await AppController.to.getLoginInfo();
+    await AppController.to.getIsWatchIntroducePage();
+    // await initEnneagramInformation();
+    // await initEnneagramQuestionList();
+    // await initSimpleEnneagramQuestionList();
+    // await initUserInfo();
+    await Future.delayed(const Duration(seconds: 1), () {});
+    return true;
   }
 
   @override
@@ -81,27 +101,25 @@ class _RootScreenState extends State<RootScreen> {
           default:
             if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
+
             } else {
-              return AppController.to.isBuildIntroducePage.value == "N" ? const MainScreens() : IntroductionScreen();
+
+              if (AppController.to.isWatchIntroducePage.value != "Y") {
+                 return const IntroductionScreen();
+              } else {
+
+                if (UserController.to.user.value.nickname == null) {
+                  return const SignUpScreen();
+                } else if (UserController.to.user.value.enneagramTests.isEmpty) {
+                  return const WhoAmIScreen();
+                } else {
+                  return const MainScreens();
+                }
+              }
             }
         }
       }
     );
   }
 
-  Future<bool> initAppState() async {
-    await AppController.to.initUserKey();
-    await AppController.to.initUserId();
-    await AppController.to.initIsBuildIntroducePage();
-
-    await EnneagramController.to.initEnneagramInfomation();
-    await EnneagramTestController.to.initEnneagramQuestionList();
-    await EnneagramTestController.to.initSimpleEnneagramQuestionList();
-
-    await initUserInfo();
-
-    await Future.delayed(const Duration(seconds: 1), () {});
-
-    return true;
-  }
 }

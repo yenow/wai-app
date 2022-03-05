@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wai/common/constants/wai_colors.dart';
-import 'package:wai/common/controller/app_controller.dart';
+import 'package:wai/controller/app_controller.dart';
 import 'package:wai/common/controller/user_controller.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
 import 'package:wai/common/widgets/blank.dart';
@@ -40,7 +40,7 @@ class _MyInformationPageState extends State<MyInformationPage> {
       bool flag = await saveNickname(userRequestDto);
 
       if (flag) {
-        AppController.to.snackbarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "닉네임이 변경되었습니다."));
+        AppController.to.snackBarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "닉네임이 변경되었습니다."));
         errorMessage = "";
 
       } else {

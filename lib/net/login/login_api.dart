@@ -6,7 +6,6 @@ import 'package:wai/common/utils/function.dart';
 import 'package:wai/models/api/login_response_dto.dart';
 import 'package:http/http.dart' as http;
 import 'package:wai/models/api/response_dto.dart';
-import 'package:wai/models/simply_login_info.dart';
 import 'package:wai/models/user/api/user_request_dto.dart';
 import 'package:wai/models/user/user.dart';
 
@@ -42,12 +41,14 @@ Future<bool> saveNickname(UserRequestDto userRequestDto) async {
 
   ResponseDto responseDto = ResponseDto.fromJson(json.decode(response));
   User user = User.fromJson(json.decode(response));
-  user.setDto(responseDto);
 
-  if (user.errorCode == 1) {
-    return false;
-  } else {
-    UserController.to.user.value.nickname = user.nickname;
-    return true;
-  }
+  // user.setDto(responseDto);
+  //
+  // if (user.errorCode == 1) {
+  //   return false;
+  // } else {
+  //   UserController.to.user.value.nickname = user.nickname;
+  //   return true;
+  // }
+  return false;
 }

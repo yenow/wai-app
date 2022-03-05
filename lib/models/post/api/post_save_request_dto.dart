@@ -8,12 +8,12 @@ class PostSaveRequestDto {
   int? authorEnneagramType;
 
   PostSaveRequestDto({
-    this.postId,
-    this.userId,
-    this.userKey,
+    this.postId = "",
+    this.userId = "",
+    this.userKey = "",
     this.title = "",
     this.content = "",
-    this.author,
+    this.author = "",
     this.authorEnneagramType
   });
 

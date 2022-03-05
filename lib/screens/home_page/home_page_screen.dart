@@ -14,6 +14,8 @@ import 'package:wai/screens/enneagram_page/enneagram_type_page_screen.dart';
 import 'package:wai/common/utils/enneagram_dialog.dart';
 import 'package:wai/common/widgets/custom_appbar.dart';
 
+import 'components/fade_in_out_wise_saying.dart';
+
 class HomePageScreen extends StatelessWidget {
   const HomePageScreen({Key? key}) : super(key: key);
 
@@ -27,16 +29,14 @@ class HomePageScreen extends StatelessWidget {
           fit: BoxFit.fill,
         ),
       ),
-      child: Scaffold(
+      child: const Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: const WaiAppbar(
+        appBar: WaiAppbar(
           title: Text("wai"),
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),
-        body: SingleChildScrollView(
-          child: _buildContent(),
-        ),
+        body: FadeInOutWiseSaying(),
       ),
     );
   }
@@ -57,8 +57,8 @@ class HomePageScreen extends StatelessWidget {
                     "습관의 사슬은 너무 가벼워서 깨지기 전까지는 느껴지지 않는다",
                     style: CustomTextStyles.buildTextStyle(fontSize: 18, color: Colors.blueGrey.shade400),),
                   Text(
-                    "- 워런 버핏 -",
-                    style: CustomTextStyles.buildTextStyle(fontSize: 18, color: Colors.blueGrey.shade400), textAlign: TextAlign.right),
+                    "워런 버핏",
+                    style: CustomTextStyles.buildTextStyle(fontSize: 16, color: Colors.blueGrey.shade400), textAlign: TextAlign.right),
                 ],
               ),
               decoration: BoxDecoration(

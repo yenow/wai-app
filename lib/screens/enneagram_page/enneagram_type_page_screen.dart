@@ -5,13 +5,14 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:wai/common/constants/wai_colors.dart';
-import 'package:wai/common/controller/app_controller.dart';
+import 'package:wai/controller/app_controller.dart';
 import 'package:wai/common/controller/enneagram_controller.dart';
 import 'package:wai/common/controller/enneagram_test_controller.dart';
 import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
 import 'package:wai/common/utils/logger.dart';
+import 'package:wai/common/widgets/wai_appbar.dart';
 import 'package:wai/common/widgets/wai_markdown.dart';
 import 'package:wai/models/enneagram/enneagram.dart';
 import 'package:wai/common/widgets/blank.dart';
@@ -24,11 +25,22 @@ class EnneagramTypePageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    EnneagramController.to.enneagramTypePageIndex.value = 0;
 
     return Obx(() =>
         SafeArea(
           child: Scaffold(
-            appBar: _buildAppbar(),
+            appBar: WaiAppbar(
+              title: Text(EnneagramController.to.enneagram![enneagramType]!.getFullName(), style: CustomTextStyles.buildTextStyle(fontSize: 20, color: Colors.white),),
+              elevation: 0,
+              backgroundColor: WaiColors.lightBlueGrey,
+              leading: InkWell(
+                child: const Icon(Icons.arrow_back_ios_outlined, size: 20, color: Colors.white),
+                onTap: () {
+                  Get.back();
+                },
+              ),
+            ),
             body: Column(
               children: [
                 _buildTabButtonArea(),
@@ -45,23 +57,6 @@ class EnneagramTypePageScreen extends StatelessWidget {
     );
   }
 
-  PreferredSize _buildAppbar() {
-    return PreferredSize(
-      preferredSize: const Size.fromHeight(50),   // MainController.to.appBarState.value.appbarSize
-      child: AppBar(
-        title: Text(EnneagramController.to.enneagram![enneagramType]!.getFullName(), style: CustomTextStyles.buildTextStyle(fontSize: 20, color: Colors.white),),
-        /*elevation: 2.0,*/
-        backgroundColor: lightBlueGrey,
-        leading: GestureDetector(
-          child: const Icon(Icons.arrow_back_ios_outlined, size: 20, color: Colors.white),
-          onTap: () {
-            Get.back();
-          },
-        ),
-      ),
-    );
-  }
-
   Padding _buildTabButtonArea() {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
@@ -73,7 +68,7 @@ class EnneagramTypePageScreen extends StatelessWidget {
           _buildTabButton(text: '장단점', buttonIndex: 2, iconData: Icons.thumb_up_off_alt_outlined),
           // _buildTabButton(text: '관계', buttonIndex: 3, iconData: FontAwesomeIcons.handshake),
           // _buildTabButton(text: '극복과제', buttonIndex: 4, iconData: Icons.fact_check_outlined),
-          _buildTabButton(text: '기타', buttonIndex: 3, iconData: Icons.more_horiz_outlined),
+          _buildTabButton(text: '설명', buttonIndex: 3, iconData: Icons.more_horiz_outlined),
         ],
       ),
     );
@@ -122,7 +117,7 @@ class EnneagramTypePageScreen extends StatelessWidget {
       child: IndexedStack(
         index: EnneagramController.to.enneagramTypePageIndex.value,
         children: [
-          _buildTabPage1(context),
+          _buildBasic(context),
           _buildExplainWings(context),
           _buildMeritAndDemerit(context),
           // _buildRelationShip(context),
@@ -133,7 +128,7 @@ class EnneagramTypePageScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTabPage1(BuildContext context) {
+  Widget _buildBasic(BuildContext context) {
     return Column(
       children: [
         Container(
@@ -175,7 +170,38 @@ class EnneagramTypePageScreen extends StatelessWidget {
   }
 
   Widget _buildExplainWings(BuildContext context) {
-    return WaiMarkdown(url: "assets/markdown/wings/type$enneagramType.md");
+    return Column(
+      children: [
+        Container(
+            padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 5),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5.0),
+              color: Colors.grey.shade100,
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.grey,
+                  offset: Offset(0.0, 1.0), //(x,y)
+                  blurRadius: 2.0,
+                ),
+              ],
+              /*image: DecorationImage(
+              image: new AssetImage("assets/images/enneagram/enneagram_icon.png"),
+              fit: BoxFit.cover,
+              //colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.7), BlendMode.dstATop),
+            )*/
+            ),
+            child: Column(
+              children: [
+                Text("날개유형이란?", style: CustomTextStyles.headline1()),
+                Text("자신의 유형 양 옆쪽에 있는 성격 유형을 말합니다. 날개는 자신의 성격유형을 좀 더 자세하고 정확하게 이해하는데"
+                    " 도움이 될 뿐 아니라 기본적인 성향인 자신유형의 부족을 보완 해줄 수 있는 성향을 가지고 있습니다.", style: CustomTextStyles.bodytext1(),)
+                //_buildSubTitle(),
+              ],
+            )
+        ),
+        WaiMarkdown(url: "assets/markdown/wings/type$enneagramType.md"),
+      ],
+    );
   }
 
   Widget _buildMeritAndDemerit(BuildContext context) {

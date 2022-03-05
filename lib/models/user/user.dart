@@ -27,9 +27,9 @@ class User extends ResponseDto{
   Gender? gender;
   int? myEnneagramType;
 
-  List<Post>? posts = [];
-  List<Reply>? replys = [];
-  List<EnneagramTest>? enneagramTests = [];
+  List<Post> posts;
+  List<Reply> replys;
+  List<EnneagramTest> enneagramTests;
 
   User({
     this.userId,
@@ -41,13 +41,13 @@ class User extends ResponseDto{
     this.birthDay,
     this.gender,
     this.myEnneagramType,
-    this.posts,
-    this.replys,
-    this.enneagramTests,
+    this.posts = const [],
+    this.replys = const [],
+    this.enneagramTests = const [],
   });
 
   UserRequestDto toUserRequestDto() {
-    return UserRequestDto(userId: userId!, userKey: userKey!);
+    return UserRequestDto(userKey: userKey!);
   }
 
   factory User.fromJson(Map<String, dynamic> json) {

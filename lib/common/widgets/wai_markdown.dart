@@ -29,7 +29,9 @@ class _WaiMarkdownState extends State<WaiMarkdown> {
               h1: WaiTextStyle().headline1(),
               h2: WaiTextStyle().headline2(),
               h3: WaiTextStyle().headline2(),
+              h4: WaiTextStyle(fontSize: 18).headline2(),
               p: WaiTextStyle(fontSize: 16).bodyText(),
+              code: WaiTextStyle(fontSize: 16).code(),
               blockquoteDecoration: BoxDecoration(
                 color: Colors.grey.shade200,
                 shape: BoxShape.rectangle,
@@ -61,6 +63,8 @@ class WaiMarkdown2 extends StatelessWidget {
       styleSheet: MarkdownStyleSheet(
         h1: WaiTextStyle().headline1(),
         h2: WaiTextStyle().headline2(),
+        h3: WaiTextStyle(fontSize: 18).headline2(),
+        h4: WaiTextStyle(fontSize: 18).headline2(),
         blockquoteDecoration: const BoxDecoration(
             color: Colors.grey
         ),

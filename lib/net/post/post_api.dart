@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wai/common/constants/wai_colors.dart';
-import 'package:wai/common/controller/app_controller.dart';
+import 'package:wai/controller/app_controller.dart';
 import 'package:wai/common/controller/post_controller.dart';
 import 'package:wai/common/controller/user_controller.dart';
 import 'package:wai/common/utils/function.dart';
@@ -13,8 +13,10 @@ import 'package:wai/models/post/api/post_request_dto.dart';
 import 'package:wai/models/post/api/post_save_request_dto.dart';
 import 'package:wai/models/post/post.dart';
 
-Future<void> savePost(PostSaveRequestDto postSaveRequestDto) async {
-  await postRequest("/api/savePost", json.encode(postSaveRequestDto.toJson()));
+Future<Post> savePost(PostSaveRequestDto postSaveRequestDto) async {
+  var response = await postRequest("/api/savePost", json.encode(postSaveRequestDto.toJson()));
+  Post post = Post.fromJson(json.decode(response));
+  return post;
 }
 
 Future<Post?> readPost(int postId) async {

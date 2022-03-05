@@ -7,7 +7,7 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wai/common/constants/wai_colors.dart';
-import 'package:wai/common/controller/app_controller.dart';
+import 'package:wai/controller/app_controller.dart';
 import 'package:wai/common/controller/enneagram_controller.dart';
 import 'package:wai/common/controller/enneagram_test_controller.dart';
 import 'package:wai/common/controller/main_controller.dart';
@@ -35,22 +35,20 @@ class WhoAmIScreen extends StatelessWidget {
 
     if (selectedEnneagramType != 0) {
       EnneagramTestRequestDto enneagramTest = EnneagramTestRequestDto(
-        userId: AppController.to.userId.value,
+        userId: UserController.to.user.value.userId!.toString(),
         testType: TestType.select,
         myEnneagramType: EnneagramTestController.to.selectedEnneagramType.value,
       );
 
       /* api request */
-      var response = await postRequest("/api/saveSelectedEnneagramTestResult", json.encode(enneagramTest.toJson()));
+      var response = await postRequest("/api/enneagramTest/saveSelectedEnneagramTestResult", json.encode(enneagramTest.toJson()));
       EnneagramTest myEnneagramTest = EnneagramTest.fromJson(json.decode(response));
 
-      AppController.to.writeIsBuildIntroducePage("N");
-      UserController.to.addEnneagramTestResult(myEnneagramTest);
-      UserProfileController.to.setCurrentEnneagramTestResult(myEnneagramTest);
+      // AppController.to.writeIsBuildIntroducePage("N");  // 소개페이지 빌드 x
       MainController.to.setTabIndex(0);
       Get.offAll(() => MainScreens(myEnneagramTest: myEnneagramTest));
     } else {
-      AppController.to.snackbarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "9개의 유형중 하나를 선택해주세요"));
+      AppController.to.snackBarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "9개의 유형중 하나를 선택해주세요"));
     }
   }
 

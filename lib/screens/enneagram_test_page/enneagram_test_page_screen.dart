@@ -8,7 +8,7 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
 import 'package:wai/common/constants/wai_colors.dart';
-import 'package:wai/common/controller/app_controller.dart';
+import 'package:wai/controller/app_controller.dart';
 import 'package:wai/common/controller/enneagram_test_controller.dart';
 import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/controller/user_controller.dart';
@@ -67,7 +67,7 @@ class EnneagramTestPageScreen extends StatelessWidget {
     return Column(
       children: [
         Flexible(
-          flex: 11,
+          flex: 15,
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -202,8 +202,10 @@ class EnneagramTestPageScreen extends StatelessWidget {
   SizedBox _buildPreviousAndNextButton(int pageIndex,{required BuildContext context}) {
     return SizedBox(
       width: double.infinity,
+      height: double.infinity,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Flexible(
             flex: 1,
@@ -240,8 +242,10 @@ class EnneagramTestPageScreen extends StatelessWidget {
   SizedBox _buildPreviousAndCompleteButton({required BuildContext context}) {
     return SizedBox(
       width: double.infinity,
+      height: double.infinity,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Flexible(
             flex: 1,
@@ -264,10 +268,10 @@ class EnneagramTestPageScreen extends StatelessWidget {
                 onPressed: () async {
 
                   if (!EnneagramTestController.to.checkEnneagramQuestionList()) {
-                    AppController.to.snackbarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "선택하지 않은 문항이 있습니다."));
+                    AppController.to.snackBarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "선택하지 않은 문항이 있습니다."));
                   } else {
                     EnneagramTestRequestDto dto = EnneagramTestRequestDto(
-                      userId: AppController.to.userId.value,
+                      userId: UserController.to.user.value.userId!.toString(),
                       testType: TestType.hard,
                       type1Score: EnneagramTestController.to.getScoreByEneagramType(1),
                       type2Score: EnneagramTestController.to.getScoreByEneagramType(2),
@@ -281,14 +285,11 @@ class EnneagramTestPageScreen extends StatelessWidget {
                     );
 
                     /* api request */
-                    var response = await postRequest("/api/saveHardEnneagramTestResult", json.encode(dto.toJson()));
+                    var response = await postRequest("/api/enneagramTest/saveHardEnneagramTestResult", json.encode(dto.toJson()));
                     EnneagramTest myEnneagramTest = EnneagramTest.fromJson(json.decode(response));
 
-                    AppController.to.writeIsBuildIntroducePage("N");
+                    // AppController.to.writeIsBuildIntroducePage("N");
                     MainController.to.isShowEnneagramDialog.value = false;
-                    UserController.to.user.value.myEnneagramType = myEnneagramTest.myEnneagramType;
-                    UserController.to.addEnneagramTestResult(myEnneagramTest);
-                    UserProfileController.to.setCurrentEnneagramTestResult(myEnneagramTest);
                     MainController.to.setTabIndex(0);
                     Get.offAll(MainScreens(myEnneagramTest: myEnneagramTest)
                     );
@@ -304,6 +305,7 @@ class EnneagramTestPageScreen extends StatelessWidget {
   SizedBox _buildOnlyNextButton(int pageIndex, {required BuildContext context}) {
     return SizedBox(
       width: double.infinity,
+      height: double.infinity,
       child: _buildTestButton(
         buttonTitle: '다음',
         onPressed: () {
@@ -324,7 +326,7 @@ class EnneagramTestPageScreen extends StatelessWidget {
     return ElevatedButton(
       child: Text(buttonTitle, style: CustomTextStyles.buildTextStyle(color: Colors.white)),
       style: ButtonStyle(
-        fixedSize: MaterialStateProperty.all(const Size.fromHeight(50)),
+        // fixedSize: MaterialStateProperty.all(const Size.fromHeight(double.infinity)),
         shape: MaterialStateProperty.all(const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(0))
         )),

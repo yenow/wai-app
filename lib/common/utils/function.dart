@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:logger/logger.dart';
 import 'package:wai/common/constants/constants.dart';
 import 'package:http/http.dart' as http;
-import 'package:wai/common/controller/app_controller.dart';
+import 'package:wai/controller/app_controller.dart';
 
 import 'logger.dart';
 
@@ -40,7 +40,7 @@ Future<dynamic> getRequest (String url) async {
   if (response.statusCode == 200) {
     return utf8.decode(response.bodyBytes);
   } else {
-    throw Exception('Failed to postRequest');
+    throw Exception('Failed to getRequest');
   }
 }
 

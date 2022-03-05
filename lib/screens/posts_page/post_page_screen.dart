@@ -8,13 +8,14 @@ import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:wai/common/constants/constants.dart';
 import 'package:wai/common/constants/wai_colors.dart';
-import 'package:wai/common/controller/app_controller.dart';
+import 'package:wai/controller/app_controller.dart';
 import 'package:wai/common/controller/enneagram_controller.dart';
 import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/controller/post_controller.dart';
 import 'package:wai/common/controller/user_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/common/widgets/wai_appbar.dart';
+import 'package:wai/common/widgets/wai_circular_progress_indicator.dart';
 import 'package:wai/common/widgets/wai_popup_menu_button.dart';
 import 'package:wai/common/widgets/wai_snackbar.dart';
 import 'package:wai/models/post/api/post_request_dto.dart';
@@ -25,7 +26,6 @@ import 'package:wai/screens/posts_page/post_write_page.dart';
 import 'package:wai/screens/reply_page/components/reply_item.dart';
 import 'package:wai/screens/reply_page/components/reply_items.dart';
 import 'package:wai/screens/reply_page/reply_page_screen.dart';
-import 'package:wai/common/utils/date_util.dart';
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/common/widgets/block_text.dart';
@@ -52,20 +52,27 @@ class _PostPageScreenState extends State<PostPageScreen> {
 
   Future<void> _deletePost() async {
     Post returnPost = await deletePost(post.postId!);
-    Navigator.pop(context, returnPost);
     AppController.to.showSnackBar(WaiSnackBar.basic(text: "게시물이 삭제되었습니다."));
+
+    Navigator.pop(context, returnPost);
   }
 
   Future<void> _updatePost() async {
     PostController.to.writingPost.value.postId = post.postId!.toString();
     PostController.to.writingPost.value.title = post.title!;
     PostController.to.writingPost.value.content = post.content!;
-    Get.to(() => PostWritePage(rebuild: rebuild));
+
+    Post returnPost = await Navigator.push(context,
+      MaterialPageRoute(builder: (context) => PostWritePage(postId: post.postId!)),
+    );
+
+    setState(() {
+      post = returnPost;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    loggerNoStack.d("build PostPageScreen");
 
     return FutureBuilder<Post?>(
         future: readPost(widget.postId),
@@ -73,18 +80,15 @@ class _PostPageScreenState extends State<PostPageScreen> {
 
           switch(snapshot.connectionState) {
             case ConnectionState.waiting :
-              return const Scaffold(
-                  body: Center(
-                      child: CircularProgressIndicator()
-                  )
-              );
+              return const WaiCircularProgressIndicator();
             default :
               if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else {
                 post = snapshot.data!;
-                if (snapshot.data!.isDelete ?? false) {
-                  Get.back();
+                if (snapshot.data!.isDeleted ?? false) {
+                  AppController.to.snackBarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "이미 삭제된 게시글입니다."));
+                  Navigator.pop(context, PostController.to.post.value);
                 }
 
                 UserController.to.updatePostVisitHistory(post.postId!);

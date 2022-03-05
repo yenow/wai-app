@@ -10,7 +10,7 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:logger/logger.dart';
-import 'package:wai/common/controller/app_controller.dart';
+import 'package:wai/controller/app_controller.dart';
 import 'package:wai/common/controller/main_controller.dart';
 import 'package:wai/common/controller/post_controller.dart';
 import 'package:wai/common/controller/user_controller.dart';
@@ -55,7 +55,6 @@ class _MainScreensState extends State<MainScreens> {
   Future<bool> initMainState() async {
     await initUserInfo();
     UserProfileController.to.initCurrentEnneagram();
-
     await initAllPosts();
 
     return true;
@@ -63,7 +62,6 @@ class _MainScreensState extends State<MainScreens> {
 
   @override
   Widget build(BuildContext context) {
-    logger.i("MainScreens build");
     deviceWidth = MediaQuery.of(context).size.width;
     deviceHeight = MediaQuery.of(context).size.height;
     widthRatio = (deviceWidth / standardDeviceWidth);
@@ -163,7 +161,7 @@ class _MainScreensState extends State<MainScreens> {
       ],
       onTap: (nextTabIndex) {
         MainController.to.setTabIndex(nextTabIndex);
-        _pageController.animateToPage(nextTabIndex, duration: Duration(milliseconds: 500), curve: Curves.easeOut);
+        _pageController.animateToPage(nextTabIndex, duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
       },
     );
   }

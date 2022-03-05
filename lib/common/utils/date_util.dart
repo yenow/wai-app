@@ -1,8 +1,4 @@
-
 import 'package:intl/intl.dart';
-import 'package:ntp/ntp.dart';
-
-import 'logger.dart';
 
 String dateTimeToString (DateTime now, DateTime insertDate) {
   String returnValue = "";

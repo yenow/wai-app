@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
@@ -13,7 +14,6 @@ import 'package:wai/common/widgets/wai_appbar.dart';
 import 'package:wai/models/post/api/post_request_dto.dart';
 import 'package:wai/models/post/post.dart';
 import 'package:wai/net/post/post_api.dart';
-import 'package:wai/screens/posts_page/components/post_item_back.dart';
 import 'package:wai/screens/posts_page/post_page_screen.dart';
 import 'package:wai/screens/posts_page/post_write_page.dart';
 import 'package:wai/common/utils/logger.dart';
@@ -37,15 +37,12 @@ class _PostsPageScreenState extends State<PostsPageScreen>
   bool get wantKeepAlive => true;
 
   void rebuild() {
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    logger.i("PostsPageScreen build");
 
     return DefaultTabController(
       length: 3,
@@ -56,8 +53,22 @@ class _PostsPageScreenState extends State<PostsPageScreen>
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.post_add_outlined),
           backgroundColor: Colors.blueGrey,
-          onPressed: () {
-            Get.to(() => PostWritePage(rebuild : rebuild,));
+          onPressed: () async {
+
+            WidgetsBinding.instance!.addPostFrameCallback((_) async {
+              await Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const PostWritePage()),
+              );
+
+              List<Post> posts = await readMoreNewPosts(
+                  PostController.to.posts, PostRequestDto(postsCount: PostController.to.postsCount, postSearchType: PostSearchType.all)
+              );
+              for (Post post in posts) {
+                PostController.to.posts.insert(0, post);
+              }
+              rebuild();
+            });
+            // Get.to(() => const PostWritePage());
           },
         ),
         body: Column(

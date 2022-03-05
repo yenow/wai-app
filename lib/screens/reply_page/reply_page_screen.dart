@@ -4,11 +4,12 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:wai/common/constants/wai_colors.dart';
-import 'package:wai/common/controller/app_controller.dart';
+import 'package:wai/controller/app_controller.dart';
 import 'package:wai/common/controller/post_controller.dart';
 import 'package:wai/common/controller/reply_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/common/widgets/wai_appbar.dart';
+import 'package:wai/common/widgets/wai_circular_progress_indicator.dart';
 import 'package:wai/models/post/post.dart';
 import 'package:wai/models/reply/reply.dart';
 import 'package:wai/net/post/post_api.dart';
@@ -57,11 +58,7 @@ class _ReplyPageScreenState extends State<ReplyPageScreen> {
 
           switch(snapshot.connectionState) {
             case ConnectionState.waiting :
-              return const Scaffold(
-                  body: Center(
-                      child: CircularProgressIndicator()
-                  )
-              );
+              return const WaiCircularProgressIndicator();
             default :
               if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
@@ -69,7 +66,7 @@ class _ReplyPageScreenState extends State<ReplyPageScreen> {
               } else {
                 post = snapshot.data!;
 
-                if (post.isDelete ?? false) {
+                if (post.isDeleted ?? false) {
                   Get.back();
                 }
 

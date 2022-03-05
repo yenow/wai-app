@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:wai/common/controller/app_controller.dart';
+import 'package:wai/controller/app_controller.dart';
 import 'package:wai/common/widgets/never_border_text_form_field.dart';
 import 'package:wai/common/widgets/wai_appbar.dart';
 import 'package:wai/common/widgets/wai_snackbar.dart';
@@ -40,7 +40,7 @@ class _ReplyModifyPageState extends State<ReplyModifyPage> {
       requestDto.replyContent = replyContent;
 
       await saveReply(requestDto);
-      AppController.to.snackbarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "댓글이 수정되었습니다."));
+      AppController.to.snackBarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "댓글이 수정되었습니다."));
       Get.back();
     }
   }
@@ -69,7 +69,7 @@ class _ReplyModifyPageState extends State<ReplyModifyPage> {
             },
             validator: (value) {
               if (value!.trim() == "") {
-                AppController.to.snackbarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "댓글을 입력해주세요."));
+                AppController.to.snackBarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "댓글을 입력해주세요."));
               }
             },
           ),
