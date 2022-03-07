@@ -34,4 +34,9 @@ class LoginInfo {
       token: json["token"] ?? "",
     );
   }
+
+  @override
+  String toString() {
+    return 'LoginInfo{userId: $userId, userKey: $userKey, email: $email, password: $password, token: $token}';
+  }
 }

@@ -106,7 +106,7 @@ class _FadeInOutWiseSayingState extends State<FadeInOutWiseSaying> {
                                 WiseSaying tempWiseSaying = await getWiseSaying(WiseSayingRequestDto(lastId: lastId));
 
                                 if (tempWiseSaying.wiseSaying == null) {
-                                  AppController.to.snackBarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "더 이상 글이 없습니다."));
+                                  AppController.to.snackBarKey.currentState!.showSnackBar(WaiSnackBar.bottom(text: "더 이상 글이 없습니다."));
                                 } else {
                                   wiseSaying = tempWiseSaying;
                                   HomeController.to.wiseSayings.add(tempWiseSaying);

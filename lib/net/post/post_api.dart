@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wai/common/constants/wai_colors.dart';
 import 'package:wai/controller/app_controller.dart';
 import 'package:wai/common/controller/post_controller.dart';
-import 'package:wai/common/controller/user_controller.dart';
+import 'package:wai/controller/user_controller.dart';
 import 'package:wai/common/utils/function.dart';
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/common/widgets/toast.dart';

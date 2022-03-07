@@ -5,7 +5,7 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:wai/common/controller/post_controller.dart';
-import 'package:wai/common/controller/user_controller.dart';
+import 'package:wai/controller/user_controller.dart';
 import 'package:wai/models/reply/api/reply_request_dto.dart';
 import 'package:wai/models/reply/reply.dart';
 import 'package:wai/common/utils/function.dart';

@@ -7,9 +7,9 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:wai/common/constants/wai_colors.dart';
 import 'package:wai/controller/app_controller.dart';
-import 'package:wai/common/controller/main_controller.dart';
+import 'package:wai/controller/main_controller.dart';
 import 'package:wai/common/controller/post_controller.dart';
-import 'package:wai/common/controller/user_controller.dart';
+import 'package:wai/controller/user_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
 import 'package:wai/common/widgets/focus_out_container.dart';
@@ -95,9 +95,9 @@ class PostWritePage extends StatelessWidget {
 
             Navigator.pop(context, post);
             if (postId == null) {
-              AppController.to.showSnackBar(WaiSnackBar.basic(text: "게시물이 등록되었습니다."));
+              AppController.to.showSnackBar(WaiSnackBar.bottom(text: "게시물이 등록되었습니다."));
             } else {
-              AppController.to.showSnackBar(WaiSnackBar.basic(text: "게시물이 수정되었습니다."));
+              AppController.to.showSnackBar(WaiSnackBar.bottom(text: "게시물이 수정되었습니다."));
             }
           }
         },
@@ -213,10 +213,10 @@ class PostWritePage extends StatelessWidget {
 
   bool checkValue() {
     if (!PostController.to.writingPost.value.isValidTitle()) {
-      AppController.to.snackBarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "제목을 입력해주세요."));
+      AppController.to.snackBarKey.currentState!.showSnackBar(WaiSnackBar.bottom(text: "제목을 입력해주세요."));
       return false;
     } else if (!PostController.to.writingPost.value.isValidContent()) {
-      AppController.to.snackBarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "내용을 입력해주세요."));
+      AppController.to.snackBarKey.currentState!.showSnackBar(WaiSnackBar.bottom(text: "내용을 입력해주세요."));
       return false;
     }
 

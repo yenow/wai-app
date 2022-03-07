@@ -4,9 +4,9 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:wai/common/constants/wai_colors.dart';
 import 'package:wai/controller/app_controller.dart';
-import 'package:wai/common/controller/enneagram_controller.dart';
+import 'package:wai/controller/enneagram_controller.dart';
 import 'package:wai/common/controller/reply_controller.dart';
-import 'package:wai/common/controller/user_controller.dart';
+import 'package:wai/controller/user_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/common/utils/navigation_service.dart';
@@ -33,7 +33,7 @@ class ReplyItem extends StatelessWidget {
     );
     await deleteReply(replyRequestDto);
     refresh!();
-    AppController.to.snackBarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "댓글이 삭제되었습니다."));
+    AppController.to.snackBarKey.currentState!.showSnackBar(WaiSnackBar.bottom(text: "댓글이 삭제되었습니다."));
   }
 
   Future<void> reportReplyItem() async {
@@ -42,7 +42,7 @@ class ReplyItem extends StatelessWidget {
     );
     await reportReply(replyRequestDto);
     refresh!();
-    AppController.to.snackBarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "댓글이 신고되었습니다."));
+    AppController.to.snackBarKey.currentState!.showSnackBar(WaiSnackBar.bottom(text: "댓글이 신고되었습니다."));
   }
 
   void _updateReplyItem() async {

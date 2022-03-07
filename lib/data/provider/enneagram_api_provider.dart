@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:wai/common/utils/api.dart';
 import 'package:http/http.dart' as http;
 import 'package:wai/common/utils/logger.dart';
-import 'package:wai/models/enneagram/enneagram.dart';
+import 'package:wai/controller/enneagram_test_controller.dart';
+import 'package:wai/data/model/enneagram.dart';
+import 'package:wai/data/model/enneagram_question.dart';
 
 class EnneagramApiProvider {
 
@@ -12,14 +14,13 @@ class EnneagramApiProvider {
 
      if (response.statusCode == 200) {
        List list = json.decode(utf8.decode(response.bodyBytes));
-       List<Enneagram> enneagrams = [];
+       Map<int, Enneagram>? enneagramMap = {};
 
        for (var element in list) {
          Enneagram temp = Enneagram.fromJson(element);
-         enneagrams.add(temp);
+         enneagramMap[temp.enneagramType] = temp;
        }
-       return enneagrams;
-
+       return enneagramMap;
      } else {
        loggerNoStack.e("error : api request error");
      }

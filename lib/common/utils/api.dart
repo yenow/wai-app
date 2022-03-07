@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:wai/common/constants/constants.dart';
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/controller/app_controller.dart';
-import 'package:wai/data/model/error.dart';
+import 'package:wai/data/model/wai_error.dart';
 import 'package:wai/models/sign/sign_dto.dart';
 
 enum HttpMethod {
@@ -23,7 +23,7 @@ Future<http.Response> apiRequest(String url, String jsonString, HttpMethod httpM
 
 Future<http.Response> postApiRequest(String url, String jsonString) async {
   loggerNoStack.d(apiUrl + url);
-  loggerNoStack.d(jsonString);
+  loggerNoStack.d("request json string : " + jsonString);
 
   final http.Response response = await http.post(
       Uri.parse(apiUrl + url),
@@ -36,11 +36,13 @@ Future<http.Response> postApiRequest(String url, String jsonString) async {
   );
 
   String bodyUtf8 = utf8.decode(response.bodyBytes);
+  loggerNoStack.d("response json string : " + bodyUtf8);
   WaiError error = WaiError.fromJson(json.decode(bodyUtf8));
+  
 
   // TOKEN EXPIRED ERROR
   if (error.errorCode == "err-001") {
-    await getToken();
+    await signIn();
     return await postApiRequest(url, jsonString);
   }
 
@@ -55,7 +57,6 @@ Future<http.Response> getApiRequest (String url) async {
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json; charset=UTF-8",
-        "authorization": "Bearer " + AppController.to.loginInfo.value.token
       }
   );
 
@@ -63,14 +64,14 @@ Future<http.Response> getApiRequest (String url) async {
 }
 
 
-Future<void> getToken() async {
+Future<void> signIn() async {
+  loggerNoStack.d("signIn : getToken");
 
   final http.Response response = await http.post(
       Uri.parse(apiUrl + "/api/sign/signIn"),
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json; charset=UTF-8",
-        "authorization": "Bearer " + AppController.to.loginInfo.value.token
       },
       body: AppController.to.loginInfo.value.toJson()
   );
@@ -79,3 +80,4 @@ Future<void> getToken() async {
   SignDto signDto = SignDto.fromJson(json.decode(bodyUtf8));
   AppController.to.loginInfo.value.token = signDto.token;
 }
+

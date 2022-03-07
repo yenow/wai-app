@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
-import 'package:wai/screens/main_screens.dart';
+import 'package:wai/ui/main_screen/main_screens.dart';
 import 'package:wai/common/widgets/blank.dart';
 
 class SplashScreen extends StatelessWidget {

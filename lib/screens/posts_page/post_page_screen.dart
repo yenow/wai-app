@@ -9,10 +9,10 @@ import 'package:logger/logger.dart';
 import 'package:wai/common/constants/constants.dart';
 import 'package:wai/common/constants/wai_colors.dart';
 import 'package:wai/controller/app_controller.dart';
-import 'package:wai/common/controller/enneagram_controller.dart';
-import 'package:wai/common/controller/main_controller.dart';
+import 'package:wai/controller/enneagram_controller.dart';
+import 'package:wai/controller/main_controller.dart';
 import 'package:wai/common/controller/post_controller.dart';
-import 'package:wai/common/controller/user_controller.dart';
+import 'package:wai/controller/user_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/common/widgets/wai_appbar.dart';
 import 'package:wai/common/widgets/wai_circular_progress_indicator.dart';
@@ -52,7 +52,7 @@ class _PostPageScreenState extends State<PostPageScreen> {
 
   Future<void> _deletePost() async {
     Post returnPost = await deletePost(post.postId!);
-    AppController.to.showSnackBar(WaiSnackBar.basic(text: "게시물이 삭제되었습니다."));
+    AppController.to.showSnackBar(WaiSnackBar.bottom(text: "게시물이 삭제되었습니다."));
 
     Navigator.pop(context, returnPost);
   }
@@ -87,7 +87,7 @@ class _PostPageScreenState extends State<PostPageScreen> {
               } else {
                 post = snapshot.data!;
                 if (snapshot.data!.isDeleted ?? false) {
-                  AppController.to.snackBarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "이미 삭제된 게시글입니다."));
+                  AppController.to.snackBarKey.currentState!.showSnackBar(WaiSnackBar.bottom(text: "이미 삭제된 게시글입니다."));
                   Navigator.pop(context, PostController.to.post.value);
                 }
 

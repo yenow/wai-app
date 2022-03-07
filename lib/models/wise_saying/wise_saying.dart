@@ -1,5 +1,5 @@
 import 'package:enum_to_string/enum_to_string.dart';
-import 'package:wai/models/user/user.dart';
+import 'package:wai/data/model/user.dart';
 
 enum WiseSayingCategory {
   love, life, study, success, friend, bye, time, effort, challenge, hope, happy

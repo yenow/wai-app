@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wai/common/constants/wai_colors.dart';
 import 'package:wai/controller/app_controller.dart';
-import 'package:wai/common/controller/user_controller.dart';
+import 'package:wai/controller/user_controller.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
 import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/common/widgets/wai_appbar.dart';
 import 'package:wai/common/widgets/wai_snackbar.dart';
 import 'package:wai/common/widgets/wai_text.dart';
 import 'package:wai/common/widgets/wai_text_field.dart';
-import 'package:wai/models/user/api/user_request_dto.dart';
+import 'package:wai/data/dto/user_request_dto.dart';
 import 'package:wai/net/login/login_api.dart';
 
 class MyInformationPage extends StatefulWidget {
@@ -40,7 +40,7 @@ class _MyInformationPageState extends State<MyInformationPage> {
       bool flag = await saveNickname(userRequestDto);
 
       if (flag) {
-        AppController.to.snackBarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "닉네임이 변경되었습니다."));
+        AppController.to.snackBarKey.currentState!.showSnackBar(WaiSnackBar.bottom(text: "닉네임이 변경되었습니다."));
         errorMessage = "";
 
       } else {

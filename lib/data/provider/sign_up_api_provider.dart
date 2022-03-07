@@ -4,9 +4,9 @@ import 'package:wai/common/utils/api.dart';
 import 'package:http/http.dart' as http;
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/data/model/sign.dart';
-import 'package:wai/data/model/sign_request_dto.dart';
-import 'package:wai/data/model/error.dart';
-import 'package:wai/models/enneagram/enneagram.dart';
+import 'package:wai/data/dto/sign_request_dto.dart';
+import 'package:wai/data/model/wai_error.dart';
+import 'package:wai/data/model/enneagram.dart';
 
 class SignUpApiProvider {
 

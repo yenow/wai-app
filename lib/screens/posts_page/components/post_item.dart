@@ -7,7 +7,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:intl/intl.dart';
 import 'package:wai/controller/app_controller.dart';
-import 'package:wai/common/controller/enneagram_controller.dart';
+import 'package:wai/controller/enneagram_controller.dart';
 import 'package:wai/common/controller/post_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/models/post/post.dart';

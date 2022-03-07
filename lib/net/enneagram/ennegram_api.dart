@@ -1,12 +1,10 @@
 
-
-
 import 'dart:convert';
 
-import 'package:wai/common/controller/enneagram_controller.dart';
+import 'package:wai/controller/enneagram_controller.dart';
 import 'package:wai/common/utils/function.dart';
-import 'package:wai/models/enneagram/enneagram.dart';
-import 'package:wai/models/enneagram/enneagram_explain.dart';
+import 'package:wai/data/model/enneagram.dart';
+import 'package:wai/data/model/enneagram_explain.dart';
 
 Future<void> initEnneagramInformation() async {
 

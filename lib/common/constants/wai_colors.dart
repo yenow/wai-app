@@ -8,7 +8,7 @@ class WaiColors {
   static const darkGrey = Colors.grey;
   static const grey = Colors.grey;
   static const lightGrey = Color.fromRGBO(211, 222, 220, 1);
-  static const deepLightGrey = Color.fromRGBO(227, 227, 227, 1.0);
+  static const deepLightGrey = Color.fromRGBO(233, 233, 233, 1.0);
   static const white =  Color(0xFFFFFFFF);
 
 

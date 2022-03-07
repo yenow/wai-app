@@ -6,7 +6,7 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:logger/logger.dart';
-import 'package:wai/common/controller/user_controller.dart';
+import 'package:wai/controller/user_controller.dart';
 import 'package:wai/models/post/api/post_request_dto.dart';
 import 'package:wai/models/post/api/post_save_request_dto.dart';
 import 'package:wai/models/post/post.dart';

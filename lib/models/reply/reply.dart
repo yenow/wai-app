@@ -1,5 +1,5 @@
 import 'package:wai/models/post/post.dart';
-import 'package:wai/models/user/user.dart';
+import 'package:wai/data/model/user.dart';
 
 class Reply {
   int? replyId;

@@ -7,26 +7,26 @@ import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:wai/common/constants/wai_colors.dart';
 import 'package:wai/controller/app_controller.dart';
-import 'package:wai/common/controller/enneagram_controller.dart';
-import 'package:wai/common/controller/main_controller.dart';
-import 'package:wai/common/controller/user_controller.dart';
+import 'package:wai/controller/enneagram_controller.dart';
+import 'package:wai/controller/main_controller.dart';
+import 'package:wai/controller/user_controller.dart';
 import 'package:wai/common/controller/user_profile_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
 import 'package:wai/common/widgets/enneagram/enneagram_wing_type.dart';
 import 'package:wai/common/widgets/wai_appbar.dart';
 import 'package:wai/common/widgets/wai_snackbar.dart';
-import 'package:wai/models/enneagram_test/api/enneagram_test_request_dto.dart';
-import 'package:wai/models/enneagram_test/enneagram_test.dart';
+import 'package:wai/data/dto/enneagram_test_request_dto.dart';
+import 'package:wai/data/model/enneagram_test.dart';
 import 'package:wai/net/user/user_api.dart';
 import 'package:wai/screens/enneagram_page/enneagram_type_page_screen.dart';
-import 'package:wai/screens/enneagram_test_page/enneagram_test_page_screen.dart';
 import 'package:wai/common/utils/enneagram_dialog.dart';
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/common/widgets/block_text.dart';
 import 'package:wai/common/widgets/horizontal_border_line.dart';
 import 'package:wai/screens/profile_page/my_action_page.dart';
+import 'package:wai/ui/hard_enneagram_test_screen/hard_enneagram_test_screen.dart';
 
 import '../../main.dart';
 import 'components/enneagram_chart.dart';
@@ -107,7 +107,7 @@ class ProfilePageScreen extends StatelessWidget {
           _buildNavigationButton(
               text: "정밀테스트 하기",
               onPressed: () {
-                Get.to(() => EnneagramTestPageScreen());
+                Get.to(() => HardEnneagramTestScreen());
               }),
           const Blank(height: 5),
         ],

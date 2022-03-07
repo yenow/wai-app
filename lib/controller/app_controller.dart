@@ -10,21 +10,21 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:logger/logger.dart';
 import 'package:uuid/uuid.dart';
-import 'package:wai/common/controller/enneagram_test_controller.dart';
+import 'package:wai/controller/enneagram_test_controller.dart';
 import 'package:wai/common/controller/post_controller.dart';
-import 'package:wai/common/controller/user_controller.dart';
+import 'package:wai/controller/user_controller.dart';
 import 'package:wai/common/controller/user_profile_controller.dart';
 import 'package:wai/data/model/sign.dart';
 import 'package:wai/models/api/response_dto.dart';
 import 'package:wai/data/model/login_info.dart';
 import 'package:wai/models/post/post.dart';
 import 'package:wai/models/sign/sign_dto.dart';
-import 'package:wai/models/user/user.dart';
+import 'package:wai/data/model/user.dart';
 import 'package:wai/common/utils/app_state.dart';
 import 'package:wai/common/utils/function.dart';
 import 'package:wai/common/utils/logger.dart';
 
-import '../common/controller/enneagram_controller.dart';
+import 'enneagram_controller.dart';
 
 class AppController extends GetxController{
   static AppController get to => Get.find();
@@ -36,19 +36,11 @@ class AppController extends GetxController{
 
   final nowServerTime = DateTime(0).obs;
   final appState = AppState().obs;   // appbar 상태
-  final introducePageIndex = 0.obs;
 
   /* non-observable variable */
   final GlobalKey<ScaffoldMessengerState> snackBarKey = GlobalKey<ScaffoldMessengerState>();
   final _accountNameController = TextEditingController(text: 'flutter_secure_storage_service');
   final storage = const FlutterSecureStorage();
-
-  // @override
-  // void onInit() async {
-  //   super.onInit();
-  //   await getLoginInfo();
-  //   await getIsWatchIntroducePage();
-  // }
 
   void setLoginInfo(Sign sign) {
     loginInfo.update((val) {
@@ -90,6 +82,7 @@ class AppController extends GetxController{
         aOptions: _getAndroidOptions()
     );
 
+    logger.d(loginInfoJson);
     LoginInfo tempLoginInfo = LoginInfo.fromJson(json.decode(loginInfoJson ?? "{}"));
 
     loginInfo.value = tempLoginInfo;
@@ -106,8 +99,8 @@ class AppController extends GetxController{
   }
 
   Future<void> writeLoginInfo (LoginInfo loginInfo) async {
-    String loginJson = json.encode(loginInfo.toJson());
-    await storage.write(key: "loginInfo", value: loginJson);
+    loginInfo.token = "";
+    await storage.write(key: "loginInfo", value: loginInfo.toJson());
   }
 
   Future<void> writeIsWatchIntroducePage (String isWatchIntroducePage) async {

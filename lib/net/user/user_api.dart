@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:wai/controller/app_controller.dart';
-import 'package:wai/common/controller/user_controller.dart';
+import 'package:wai/controller/user_controller.dart';
 import 'package:wai/common/controller/user_profile_controller.dart';
 import 'package:wai/common/utils/function.dart';
-import 'package:wai/models/user/api/user_request_dto.dart';
-import 'package:wai/models/user/user.dart';
+import 'package:wai/data/dto/user_request_dto.dart';
+import 'package:wai/data/model/user.dart';
 
 Future<void> initUserInfo() async {
 

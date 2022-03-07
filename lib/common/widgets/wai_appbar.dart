@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:wai/common/controller/main_controller.dart';
+import 'package:wai/controller/main_controller.dart';
 
 class WaiAppbar extends StatelessWidget with PreferredSizeWidget {
   const WaiAppbar({Key? key,

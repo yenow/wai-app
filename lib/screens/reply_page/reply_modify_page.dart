@@ -40,7 +40,7 @@ class _ReplyModifyPageState extends State<ReplyModifyPage> {
       requestDto.replyContent = replyContent;
 
       await saveReply(requestDto);
-      AppController.to.snackBarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "댓글이 수정되었습니다."));
+      AppController.to.snackBarKey.currentState!.showSnackBar(WaiSnackBar.bottom(text: "댓글이 수정되었습니다."));
       Get.back();
     }
   }
@@ -69,7 +69,7 @@ class _ReplyModifyPageState extends State<ReplyModifyPage> {
             },
             validator: (value) {
               if (value!.trim() == "") {
-                AppController.to.snackBarKey.currentState!.showSnackBar(WaiSnackBar.basic(text: "댓글을 입력해주세요."));
+                AppController.to.snackBarKey.currentState!.showSnackBar(WaiSnackBar.bottom(text: "댓글을 입력해주세요."));
               }
             },
           ),

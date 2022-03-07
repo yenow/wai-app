@@ -5,6 +5,7 @@ class Sign {
   String userKey;
   String? email;
   String password;
+  String nickname;
   String token;
 
   Sign({
@@ -12,6 +13,7 @@ class Sign {
     this.userKey = "",
     this.email = "",
     this.password = "",
+    this.nickname = "",
     this.token = "",
   });
 
@@ -21,6 +23,7 @@ class Sign {
       "userKey": userKey,
       "email": email,
       "password": password,
+      "nickname": nickname,
       "token": token,
     });
   }
@@ -31,12 +34,13 @@ class Sign {
       userKey: json["userKey"] ?? "",
       email: json["email"],
       password: json["password"] ?? "",
+      nickname: json["nickname"] ?? "",
       token: json["token"] ?? "",
     );
   }
 
   @override
   String toString() {
-    return 'Sign{userId: $userId, userKey: $userKey, email: $email, password: $password, token: $token}';
+    return 'Sign{userId: $userId, userKey: $userKey, email: $email, password: $password, nickname: $nickname, token: $token}';
   }
 }

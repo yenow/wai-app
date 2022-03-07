@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
@@ -8,13 +7,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:wai/common/constants/constants.dart';
 import 'package:wai/common/constants/wai_colors.dart';
 import 'package:wai/controller/app_controller.dart';
-import 'package:wai/common/controller/enneagram_controller.dart';
-import 'package:wai/common/controller/main_controller.dart';
+import 'package:wai/controller/enneagram_controller.dart';
+import 'package:wai/controller/main_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
 import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/common/widgets/wai_appbar.dart';
-import 'package:wai/models/enneagram/enneagram.dart';
+import 'package:wai/data/model/enneagram.dart';
 import 'package:wai/common/widgets/custom_appbar.dart';
 
 import '../../main.dart';

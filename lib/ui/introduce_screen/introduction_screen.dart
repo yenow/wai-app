@@ -14,24 +14,24 @@ import 'package:uuid/uuid.dart';
 import 'package:wai/common/constants/constants.dart';
 import 'package:wai/common/constants/wai_colors.dart';
 import 'package:wai/controller/app_controller.dart';
-import 'package:wai/common/controller/user_controller.dart';
+import 'package:wai/controller/user_controller.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/controller/introduction_controller.dart';
 import 'package:wai/main.dart';
 import 'package:wai/models/introduction_message.dart';
-import 'package:wai/models/user/api/user_request_dto.dart';
-import 'package:wai/models/user/user.dart';
-import 'package:wai/screens/introduce_page/who_am_i_screen.dart';
+import 'package:wai/data/dto/user_request_dto.dart';
+import 'package:wai/data/model/user.dart';
+import 'package:wai/ui/introduce_screen/component/introduction_button.dart';
+import 'package:wai/ui/introduce_screen/component/introduction_circle_indicator.dart';
+import 'package:wai/ui/introduce_screen/component/introduction_page_view.dart';
+import 'package:wai/ui/who_am_i_screen/who_am_i_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:wai/common/utils/function.dart';
 import 'package:wai/common/widgets/wai_dialog.dart';
-import 'package:wai/ui/introduce_screen/widget/introduction_button.dart';
-import 'package:wai/ui/introduce_screen/widget/introduction_circle_indicator.dart';
-import 'package:wai/ui/introduce_screen/widget/introduction_page_view.dart';
 
-import '../../screens/introduce_page/nickname_input_page.dart';
+
 
 class IntroductionScreen extends StatelessWidget {
   const IntroductionScreen({Key? key}) : super(key: key);
