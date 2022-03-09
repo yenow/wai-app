@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
 
-import '../constants/constants.dart';
+import '../../constants/constants.dart';
 
 TextTheme textTheme() {
   return TextTheme(

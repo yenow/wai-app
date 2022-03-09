@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:wai/common/constants/wai_colors.dart';
-import 'package:wai/controller/app_controller.dart';
-import 'package:wai/common/controller/post_controller.dart';
-import 'package:wai/controller/user_controller.dart';
-import 'package:wai/common/controller/user_profile_controller.dart';
+import 'package:wai/constants/wai_colors.dart';
+import 'package:wai/controller/permenent/app_controller.dart';
+import 'package:wai/controller/permenent/post_controller.dart';
+import 'package:wai/controller/permenent/user_controller.dart';
+import 'package:wai/controller/user_profile_controller.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
 import 'package:wai/common/widgets/horizontal_border_line.dart';
 import 'package:wai/common/widgets/wai_appbar.dart';

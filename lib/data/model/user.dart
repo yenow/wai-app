@@ -26,9 +26,9 @@ class User {
     this.nickname,
     this.email,
     this.myEnneagramType,
-    this.posts = const [],
-    this.replys = const [],
-    this.enneagramTests = const [],
+    required this.posts,
+    required this.replys,
+    required this.enneagramTests,
   });
 
   void setUserBySign(Sign sign) {
@@ -42,10 +42,11 @@ class User {
   }
 
   void updateEnneagramTest(EnneagramTest response) {
-    List<EnneagramTest> tempList = enneagramTests.sublist(0);
-    tempList.insert(0, response);
-    enneagramTests = tempList;
-    myEnneagramType = response.myEnneagramType;
+      enneagramTests.insert(0, response);
+    // List<EnneagramTest> tempList = enneagramTests.sublist(0);
+    // tempList.insert(0, response);
+    // enneagramTests = tempList;
+    // myEnneagramType = response.myEnneagramType;
   }
 
   factory User.fromJson(Map<String, dynamic> json) {

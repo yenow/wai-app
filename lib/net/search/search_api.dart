@@ -1,7 +1,7 @@
 
 
-import 'package:wai/common/controller/post_controller.dart';
-import 'package:wai/common/controller/search_controller.dart';
+import 'package:wai/controller/permenent/post_controller.dart';
+import 'package:wai/controller/search_controller.dart';
 import 'package:wai/models/post/api/post_request_dto.dart';
 import 'package:wai/net/post/post_api.dart';
 

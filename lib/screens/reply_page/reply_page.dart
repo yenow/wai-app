@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:wai/common/constants/wai_colors.dart';
-import 'package:wai/common/controller/reply_controller.dart';
+import 'package:wai/constants/wai_colors.dart';
+import 'package:wai/controller/permenent/reply_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/common/widgets/horizontal_border_line.dart';

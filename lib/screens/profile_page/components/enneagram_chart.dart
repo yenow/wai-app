@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:wai/common/constants/wai_colors.dart';
+import 'package:wai/constants/wai_colors.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
 import 'package:wai/data/model/enneagram_test.dart';
 

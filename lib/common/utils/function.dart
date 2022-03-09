@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:logger/logger.dart';
-import 'package:wai/common/constants/constants.dart';
+import 'package:wai/constants/constants.dart';
 import 'package:http/http.dart' as http;
-import 'package:wai/controller/app_controller.dart';
+import 'package:wai/controller/permenent/app_controller.dart';
 
 import 'logger.dart';
 

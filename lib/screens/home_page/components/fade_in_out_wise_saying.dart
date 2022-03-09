@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:wai/common/constants/wai_colors.dart';
-import 'package:wai/controller/app_controller.dart';
+import 'package:wai/constants/wai_colors.dart';
+import 'package:wai/controller/permenent/app_controller.dart';
 import 'package:wai/common/controller/home_controller.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
 import 'package:wai/common/utils/logger.dart';

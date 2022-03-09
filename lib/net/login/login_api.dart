@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:logger/logger.dart';
-import 'package:wai/controller/user_controller.dart';
+import 'package:wai/controller/permenent/user_controller.dart';
 import 'package:wai/common/utils/function.dart';
 import 'package:wai/models/api/login_response_dto.dart';
 import 'package:http/http.dart' as http;

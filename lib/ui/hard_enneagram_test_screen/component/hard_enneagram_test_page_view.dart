@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wai/controller/enneagram_test_controller.dart';
+import 'package:wai/controller/permenent/enneagram_test_controller.dart';
 import 'package:wai/controller/hard_enneagram_test_controller.dart';
 import 'package:wai/ui/hard_enneagram_test_screen/component/hard_enneagram_test_page.dart';
 

@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:wai/common/utils/logger.dart';
-import 'package:wai/controller/app_controller.dart';
+import 'package:wai/controller/permenent/app_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/common/widgets/blank.dart';
-import 'package:wai/controller/user_controller.dart';
+import 'package:wai/controller/permenent/user_controller.dart';
 import 'package:wai/init.dart';
 import 'package:wai/main.dart';
 import 'package:wai/route.dart';
@@ -26,16 +26,18 @@ class WaiSplashScreen extends StatelessWidget {
     Future.delayed(const Duration(milliseconds: 1500), () async {
 
       await Init().initData();
+      logger.d(AppController.to.isWatchIntroducePage.value);
 
       if(AppController.to.isWatchIntroducePage.value != "Y") {
         AppController.to.writeIsWatchIntroducePage("Y");
         Get.offAllNamed(WaiRoutes.introduction);
       } else if (UserController.to.user.value.userKey == null) {
-        Get.offAllNamed(WaiRoutes.signUp);
+        Get.offAllNamed(WaiRoutes.serviceAgree);
+        // Get.offAllNamed(WaiRoutes.signUp);
       } else if (UserController.to.user.value.myEnneagramType == null) {
         Get.offAllNamed(WaiRoutes.whoAmI);
       } else {
-        Get.offAllNamed(WaiRoutes.main);
+        Get.offAllNamed(WaiRoutes.main, parameters: {"showEnneagramDialog": "Y"});
       }
 
     });

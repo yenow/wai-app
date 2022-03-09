@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:wai/common/constants/wai_colors.dart';
-import 'package:wai/common/constants/constants.dart';
+import 'package:wai/constants/wai_colors.dart';
+import 'package:wai/constants/constants.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
 import 'package:wai/common/widgets/wai_text.dart';
 

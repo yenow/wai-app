@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:wai/controller/app_controller.dart';
+import 'package:wai/controller/permenent/app_controller.dart';
 import 'package:wai/controller/introduction_controller.dart';
 import 'package:wai/controller/sign_up_controller.dart';
 import 'package:wai/controller/who_am_i_controller.dart';

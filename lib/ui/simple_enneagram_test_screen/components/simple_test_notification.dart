@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:wai/common/constants/wai_colors.dart';
+import 'package:wai/constants/wai_colors.dart';
 
 import '../../../common/theme/wai_textstyle.dart';
 

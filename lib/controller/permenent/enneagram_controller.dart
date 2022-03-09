@@ -11,7 +11,7 @@ import 'package:wai/data/model/enneagram_explain.dart';
 import 'package:wai/common/utils/function.dart';
 import 'package:wai/data/provider/enneagram_api_provider.dart';
 
-import '../common/utils/logger.dart';
+import '../../common/utils/logger.dart';
 
 class EnneagramController extends GetxController{
   static EnneagramController get to => Get.find();

@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:wai/common/constants/wai_colors.dart';
+import 'package:wai/constants/wai_colors.dart';
 
 void showToast(String text) {
   Fluttertoast.showToast(

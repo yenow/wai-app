@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wai/common/constants/wai_colors.dart';
+import 'package:wai/constants/wai_colors.dart';
 import 'package:wai/controller/hard_enneagram_test_controller.dart';
 
 import '../../../constants/wai_textstyle.dart';

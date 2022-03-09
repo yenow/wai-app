@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wai/common/constants/wai_colors.dart';
+import 'package:wai/constants/wai_colors.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
 
 class WaiButton extends StatelessWidget {

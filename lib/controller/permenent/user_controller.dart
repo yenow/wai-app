@@ -5,8 +5,8 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:logger/logger.dart';
-import 'package:wai/controller/app_controller.dart';
-import 'package:wai/common/controller/user_profile_controller.dart';
+import 'package:wai/controller/permenent/app_controller.dart';
+import 'package:wai/controller/user_profile_controller.dart';
 import 'package:wai/data/model/enneagram_test.dart';
 import 'package:wai/data/model/sign.dart';
 import 'package:wai/data/provider/user_api_provider.dart';
@@ -18,7 +18,7 @@ import 'package:wai/common/utils/function.dart';
 class UserController extends GetxController {
   static UserController get to => Get.find();
 
-  final user = User().obs;
+  final user = User(enneagramTests: [], posts: [], replys: []).obs;
   final postVisitHistory = <int, DateTime>{}.obs;
 
   Future<void> initUser(UserRequestDto userRequestDto) async {

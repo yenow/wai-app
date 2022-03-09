@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:wai/common/widgets/wai_button.dart';
-import 'package:wai/controller/enneagram_test_controller.dart';
+import 'package:wai/controller/permenent/enneagram_test_controller.dart';
 
 import '../../../constants/wai_colors.dart';
 

@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:wai/common/constants/wai_colors.dart';
+import 'package:get/get.dart';
+import 'package:wai/common/utils/logger.dart';
+import 'package:wai/constants/wai_colors.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
+import 'package:wai/controller/permenent/app_controller.dart';
 import 'package:wai/main.dart';
 
 class WaiSnackBar  {
@@ -18,9 +21,26 @@ class WaiSnackBar  {
     );
   }
 
-  static SnackBar top({required String text}) {
+  static SnackBar top({required String text, VoidCallback? onPressed}) {
     return SnackBar(
-      content: Text(text, style: WaiTextStyle().snackBar(),),
+      content: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(text, style: WaiTextStyle().snackBar(),),
+            InkWell(
+              onTap: () {
+                AppController.to.snackBarKey.currentState!.hideCurrentSnackBar();
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Text('확인', style: WaiTextStyle().snackBar(),),
+              )
+            ),
+          ],
+        ),
+      ),
       backgroundColor: WaiColors.lightBlueGrey,
       duration: const Duration(milliseconds: 2000),
       behavior: SnackBarBehavior.floating,

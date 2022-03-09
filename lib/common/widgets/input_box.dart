@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:wai/common/constants/constants.dart';
+import 'package:wai/constants/constants.dart';
 
 class InputBox extends StatelessWidget {
   const InputBox({Key? key}) : super(key: key);

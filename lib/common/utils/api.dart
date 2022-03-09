@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:http/http.dart' as http;
-import 'package:wai/common/constants/constants.dart';
+import 'package:wai/constants/constants.dart';
 import 'package:wai/common/utils/logger.dart';
-import 'package:wai/controller/app_controller.dart';
+import 'package:wai/controller/permenent/app_controller.dart';
 import 'package:wai/data/model/wai_error.dart';
 import 'package:wai/models/sign/sign_dto.dart';
 

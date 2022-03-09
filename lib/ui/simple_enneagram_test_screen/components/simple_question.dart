@@ -4,7 +4,7 @@ import 'package:wai/controller/simple_enneagram_test_controller.dart';
 import 'package:wai/data/model/enneagram_question.dart';
 
 import '../../../common/theme/wai_textstyle.dart';
-import '../../../controller/enneagram_test_controller.dart';
+import '../../../controller/permenent/enneagram_test_controller.dart';
 
 class SimpleQuestion extends StatelessWidget {
   const SimpleQuestion({Key? key, required this.pageIndex, required this.index, required this.simpleQuestionList,

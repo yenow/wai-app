@@ -10,11 +10,11 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:logger/logger.dart';
-import 'package:wai/controller/app_controller.dart';
+import 'package:wai/controller/permenent/app_controller.dart';
 import 'package:wai/controller/main_controller.dart';
-import 'package:wai/common/controller/post_controller.dart';
-import 'package:wai/controller/user_controller.dart';
-import 'package:wai/common/controller/user_profile_controller.dart';
+import 'package:wai/controller/permenent/post_controller.dart';
+import 'package:wai/controller/permenent/user_controller.dart';
+import 'package:wai/controller/user_profile_controller.dart';
 import 'package:wai/common/utils/enneagram_dialog.dart';
 import 'package:wai/data/model/enneagram_test.dart';
 import 'package:wai/models/post/api/post_request_dto.dart';
@@ -38,20 +38,20 @@ class MainScreens extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // WidgetsBinding.instance!.addPostFrameCallback((_) {
-    //   if (myEnneagramTest != null && MainController.to.isShowEnneagramDialog.value == false) {
-    //     MainController.to.setIsShowEnneagramDialog(true);
-    //
-    //     EnneagramDialog.showEnneagramType(
-    //         context: context,
-    //         myEnneagramTest : myEnneagramTest!,
-    //         onPressed: () {
-    //           Get.to(() => EnneagramTypePageScreen(enneagramType: myEnneagramTest!.myEnneagramType!));
-    //         }
-    //     );
-    //     // initAllPosts();
-    //   }
-    // });
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      if (Get.parameters['showEnneagramDialog'] == "Y"/* && MainController.to.isShowEnneagramDialog.value == false*/) {
+        // MainController.to.setIsShowEnneagramDialog(true);
+        EnneagramTest myTest = UserController.to.user.value.enneagramTests.elementAt(0);
+
+        EnneagramDialog.showEnneagramType(
+            context: context,
+            myEnneagramTest : myTest,
+            onPressed: () {
+              Get.to(() => EnneagramTypePageScreen(enneagramType: myTest.myEnneagramType!));
+            }
+        );
+      }
+    });
 
     return _buildBody(context);
 

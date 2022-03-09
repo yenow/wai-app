@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:wai/common/widgets/wai_snackbar.dart';
-import 'package:wai/controller/app_controller.dart';
+import 'package:wai/controller/permenent/app_controller.dart';
 import 'package:wai/data/model/enneagram_test.dart';
 import 'package:wai/data/repository/simple_enneagram_test_repository.dart';
 import 'package:wai/models/introduction_message.dart';
@@ -10,8 +10,8 @@ import 'package:wai/ui/sign_up_screen/sign_up_screen.dart';
 
 import '../common/utils/logger.dart';
 import '../data/dto/enneagram_test_request_dto.dart';
-import 'enneagram_test_controller.dart';
-import 'user_controller.dart';
+import 'permenent/enneagram_test_controller.dart';
+import 'permenent/user_controller.dart';
 
 class SimpleEnneagramTestController extends GetxController {
   static SimpleEnneagramTestController get to => Get.find();
@@ -66,7 +66,7 @@ class SimpleEnneagramTestController extends GetxController {
 
     if (result is EnneagramTest) {
       UserController.to.updateUserToEnneagram(result);
-      Get.offAllNamed(WaiRoutes.main);
+      Get.offAllNamed(WaiRoutes.main, parameters: {"showEnneagramDialog": "Y"});
     } else {
       loggerNoStack.e("saveSimpleEnneagramTest error");
     }

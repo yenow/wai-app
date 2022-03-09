@@ -1,7 +1,7 @@
 
 import 'dart:convert';
 
-import 'package:wai/controller/enneagram_controller.dart';
+import 'package:wai/controller/permenent/enneagram_controller.dart';
 import 'package:wai/common/utils/function.dart';
 import 'package:wai/data/model/enneagram.dart';
 import 'package:wai/data/model/enneagram_explain.dart';

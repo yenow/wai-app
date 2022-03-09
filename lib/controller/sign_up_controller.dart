@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
-import 'package:wai/controller/app_controller.dart';
-import 'package:wai/controller/user_controller.dart';
+import 'package:wai/controller/permenent/app_controller.dart';
+import 'package:wai/controller/permenent/user_controller.dart';
 import 'package:wai/data/model/wai_error.dart';
 import 'package:wai/data/model/sign.dart';
 import 'package:wai/data/dto/sign_request_dto.dart';

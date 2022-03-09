@@ -4,8 +4,8 @@ import 'package:wai/common/utils/api.dart';
 import 'package:wai/common/utils/api_util.dart';
 import 'package:wai/common/utils/function.dart';
 import 'package:wai/common/utils/logger.dart';
-import 'package:wai/controller/app_controller.dart';
-import 'package:wai/controller/user_controller.dart';
+import 'package:wai/controller/permenent/app_controller.dart';
+import 'package:wai/controller/permenent/user_controller.dart';
 import 'package:wai/data/dto/user_request_dto.dart';
 import 'package:wai/data/model/user.dart';
 import 'package:http/http.dart' as http;
@@ -14,7 +14,7 @@ import 'package:wai/data/model/wai_error.dart';
 class UserApiProvider {
 
   getUserInformation(UserRequestDto userRequestDto) async {
-    if (userRequestDto.userKey.isEmpty) return User();
+    if (userRequestDto.userKey.isEmpty) return User(enneagramTests: [], posts: [], replys: []);
 
     http.Response response = await postApiRequest("/api/user/getUserInformation", userRequestDto.toJson());
 

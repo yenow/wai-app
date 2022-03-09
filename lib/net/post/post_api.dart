@@ -2,10 +2,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:wai/common/constants/wai_colors.dart';
-import 'package:wai/controller/app_controller.dart';
-import 'package:wai/common/controller/post_controller.dart';
-import 'package:wai/controller/user_controller.dart';
+import 'package:wai/constants/wai_colors.dart';
+import 'package:wai/controller/permenent/app_controller.dart';
+import 'package:wai/controller/permenent/post_controller.dart';
+import 'package:wai/controller/permenent/user_controller.dart';
 import 'package:wai/common/utils/function.dart';
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/common/widgets/toast.dart';

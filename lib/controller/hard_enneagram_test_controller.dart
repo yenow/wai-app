@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/common/widgets/wai_dialog.dart';
 import 'package:wai/common/widgets/wai_snackbar.dart';
-import 'package:wai/controller/app_controller.dart';
-import 'package:wai/controller/enneagram_test_controller.dart';
+import 'package:wai/controller/permenent/app_controller.dart';
+import 'package:wai/controller/permenent/enneagram_test_controller.dart';
 import 'package:wai/data/dto/enneagram_test_request_dto.dart';
 import 'package:wai/data/model/enneagram_test.dart';
 import 'package:wai/data/repository/hard_enneagram_test_repository.dart';
@@ -12,7 +12,7 @@ import 'package:wai/models/introduction_message.dart';
 import 'package:wai/route.dart';
 import 'package:wai/ui/sign_up_screen/sign_up_screen.dart';
 
-import 'user_controller.dart';
+import 'permenent/user_controller.dart';
 
 class HardEnneagramTestController extends GetxController {
   static HardEnneagramTestController get to => Get.find();
@@ -81,9 +81,8 @@ class HardEnneagramTestController extends GetxController {
       var result = await hardEnneagramTestRepository.saveHardEnneagramTest(enneagramTestRequestDto);
 
       if (result is EnneagramTest) {
-        logger.d(UserController.to.user);
         UserController.to.updateUserToEnneagram(result);
-        Get.offAllNamed(WaiRoutes.main);
+        Get.offAllNamed(WaiRoutes.main, parameters: {"showEnneagramDialog": "Y"});
       } else {
         loggerNoStack.e("saveSimpleEnneagramTest error");
       }

@@ -5,8 +5,11 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
 
 class WaiMarkdown extends StatefulWidget {
-  const WaiMarkdown({Key? key, required this.url}) : super(key: key);
+  const WaiMarkdown({Key? key, required this.url, this.scrollPhysics, this.scrollController, this.shrinkWrap}) : super(key: key);
   final String url;
+  final bool? shrinkWrap;
+  final ScrollPhysics? scrollPhysics;
+  final ScrollController? scrollController;
 
   @override
   _WaiMarkdownState createState() => _WaiMarkdownState();
@@ -21,8 +24,9 @@ class _WaiMarkdownState extends State<WaiMarkdown> {
       builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
         if (snapshot.hasData) {
           return Markdown(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: widget.shrinkWrap ?? true,
+            controller: widget.scrollController,
+            physics: widget.scrollPhysics ?? const NeverScrollableScrollPhysics(),
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             data: snapshot.data!,
             styleSheet: MarkdownStyleSheet(

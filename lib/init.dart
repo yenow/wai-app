@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
-import 'package:wai/common/controller/user_profile_controller.dart';
+import 'package:wai/controller/user_profile_controller.dart';
 import 'package:wai/common/utils/api.dart';
 import 'package:wai/common/utils/logger.dart';
-import 'package:wai/controller/app_controller.dart';
-import 'package:wai/controller/enneagram_controller.dart';
-import 'package:wai/controller/enneagram_test_controller.dart';
-import 'package:wai/controller/user_controller.dart';
+import 'package:wai/controller/permenent/app_controller.dart';
+import 'package:wai/controller/permenent/enneagram_controller.dart';
+import 'package:wai/controller/permenent/enneagram_test_controller.dart';
+import 'package:wai/controller/permenent/user_controller.dart';
 import 'package:wai/data/dto/user_request_dto.dart';
 
 class Init {

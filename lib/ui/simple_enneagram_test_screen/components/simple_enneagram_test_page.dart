@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:wai/common/constants/wai_colors.dart';
+import 'package:wai/constants/wai_colors.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
 import 'package:wai/ui/simple_enneagram_test_screen/components/simple_enneagram_test_button.dart';
 import 'package:wai/ui/simple_enneagram_test_screen/components/simple_question_list.dart';
