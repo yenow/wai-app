@@ -21,7 +21,7 @@ class TestNotification extends StatelessWidget {
         children: [
           Text(
             HardEnneagramTestController.to.notificationList[HardEnneagramTestController.to.currentPageIndex.value % HardEnneagramTestController.to.notificationList.length],
-            style: WaiTextStyle(color: WaiColors.white).basic(),
+            style: waiTextStyle(color: WaiColors.white),
           ),
           // ElevatedButton(
           //     child: Text('임시버튼'),

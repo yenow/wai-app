@@ -2,22 +2,38 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class WaiColors {
-  static const black = Color.fromRGBO(29, 29, 29, 1.0);
-  static const lightBlack = Color.fromRGBO(45, 45, 45, 1.0);
-  static const deepDarkGrey = Colors.grey;
-  static const darkGrey = Colors.grey;
-  static const grey = Colors.grey;
-  static const lightGrey = Color.fromRGBO(211, 222, 220, 1);
-  static const deepLightGrey = Color.fromRGBO(233, 233, 233, 1.0);
-  static const white =  Color(0xFFFFFFFF);
+  static const black = Color(0xFF000000);
+  static const black90 = Color(0xE6000000);
+  static const black80 = Color(0xCC000000);
+  static const black70 = Color(0xB3000000);
+  static const black60 = Color(0x99000000);
+  static const black50 = Color(0x80000000);
+  static const black40 = Color(0x66000000);
 
+  static const white =  Color(0xFFFFFFFF);
+  static const white90 =  Color(0xE6FFFFFF);
+  static const white80 =  Color(0xCCFFFFFF);
+  static const white70 =  Colors.white70;
+  static const white60 =  Colors.white60;
+  static const white54 =  Colors.white54;
+  static const white38 =  Colors.white38;
+  static const white30 =  Colors.white30;
+  static const white24 =  Colors.white24;
+  static const white10 =  Colors.white10;
+
+
+  static const deepDarkMainColor = Color(0xFF294C5D);
+  static const darkMainColor = Color(0xFF416475);
+  static const mainColor = Color(0xFF607D8B);
+  static const lightMainColor = Color(0xFF859AA4);
+  static const deepLightMainColor = Color(0xFFBCC8CE);
+  static const moreDeepLightMainColor = Color(0xFFBFBFC4);
 
   static const deepDarkBlueGrey = Color(0xFF294C5D);
   static const darkBlueGrey = Color(0xFF416475);
   static const blueGrey = Color(0xFF607D8B);
-  // static const lightBlueGrey2 = Color.fromRGBO(124, 153, 172,1);
-  // static const lightBlueGrey = Color.fromRGBO(146, 169, 189,1);
   static const lightBlueGrey = Color(0xFF859AA4);
+  static const profileBackground = Color(0xFFA2BBC7);
   static const deepLightBlueGrey = Color(0xFFBCC8CE);
   static const moreDeepLightBlueGrey = Color(0xFFBFBFC4);
 
@@ -42,20 +58,28 @@ class WaiColors {
   static const lightOrange = Color(0xFFDCA394);
   static const deepLightOrange = Color(0xFFFFDFDE);
 
-  static const red = Color(0xFFDCA394);
-  static const red2 = Color(0xFFE7A492);
-  static const darkRed2 = Color(0xFFCE7D68);
-
-  // static const test2 = Color(0xFFFFF9E8);
-  // static const test3 = Color(0xFFB8A162);
-  // static const test = Color.fromRGBO(2, 85, 113, 1.0);
   static const errorRed = Color.fromRGBO(253, 126, 126, 1.0);
-}
 
-class CustomColors {
-  static Color themeColor = Color.fromRGBO(228, 251, 255,1);
-  static Color blueGrey = Colors.blueGrey;
-  static Color blueGrey2 = Color.fromRGBO(124, 153, 172,1);
+  static const red = Color(0xFFC95353);
+  static const lightRed = Color(0xFFD46A6A);
+  static const deepLightRed = Color(0xFFFC8080);
+
+
+  static const blue = Color(0xFF2C8DC1);
+  static const lightBlue = Color(0xFF81AED0);
+  static const deepLightBlue = Color(0xFFBEC7CE);
+
+
+  static const green = Color(0xFF7CC958);
+
+
+
+  static const lightBlack = Color.fromRGBO(45, 45, 45, 1.0);
+  static const deepDarkGrey = Colors.grey;
+  static const darkGrey = Colors.grey;
+  static const grey = Colors.grey;
+  static const lightGrey = Color.fromRGBO(211, 222, 220, 1);
+  static const deepLightGrey = Color.fromRGBO(233, 233, 233, 1.0);
 }
 
 

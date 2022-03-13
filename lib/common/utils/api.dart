@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:http/http.dart' as http;
+import 'package:wai/common/utils/api_util.dart';
 import 'package:wai/constants/constants.dart';
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/controller/permenent/app_controller.dart';
@@ -36,14 +37,19 @@ Future<http.Response> postApiRequest(String url, String jsonString) async {
   );
 
   String bodyUtf8 = utf8.decode(response.bodyBytes);
+  // var result = utf8Decoding(response);
   loggerNoStack.d("response json string : " + bodyUtf8);
-  WaiError error = WaiError.fromJson(json.decode(bodyUtf8));
-  
 
-  // TOKEN EXPIRED ERROR
-  if (error.errorCode == "err-001") {
-    await signIn();
-    return await postApiRequest(url, jsonString);
+  if (response.statusCode == 200) {
+
+  } else if (response.statusCode == 401 || response.statusCode == 403) {
+    WaiError error = WaiError.fromJson(json.decode(bodyUtf8));
+
+    // TOKEN EXPIRED ERROR
+    if (error.errorCode == "err-001") {
+      await signIn();
+      return await postApiRequest(url, jsonString);
+    }
   }
 
   return response;

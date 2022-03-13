@@ -1,0 +1,97 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:wai/common/widgets/block_text.dart';
+import 'package:wai/constants/wai_colors.dart';
+import 'package:wai/controller/permenent/enneagram_controller.dart';
+import 'package:wai/data/model/enneagram_test.dart';
+
+import '../../../common/widgets/blank.dart';
+
+class MyEnneagramContainer extends StatelessWidget {
+  const MyEnneagramContainer({
+    Key? key,
+    required this.myEnneagramTest,
+    this.textColor = WaiColors.white,
+    this.fontSize = 15
+  }) : super(key: key);
+
+  final EnneagramTest myEnneagramTest;
+  final Color? textColor;
+  final double fontSize;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        int myEnneagramType = myEnneagramTest.myEnneagramType!;
+
+        if (constraints.maxWidth > constraints.maxHeight) {
+          double imageSize = constraints.maxHeight / 2;
+          return Row(
+            children: [
+              _buildImageAndType(imageSize),
+              Expanded(
+                child: _buildTypeExplain(myEnneagramType)
+              )
+            ],
+          );
+
+        } else {
+          double imageSize = constraints.maxWidth / 2;
+          return Column(
+            children: [
+              Image(
+                image: AssetImage(EnneagramController.to.enneagram![myEnneagramTest.myEnneagramType]!.imagePath), width: imageSize, height: imageSize,  fit: BoxFit.fill,
+              ),
+            ],
+          );
+        }
+
+      }
+    );
+  }
+
+  Padding _buildTypeExplain(int myEnneagramType) {
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Align(
+              alignment: Alignment.centerLeft,
+              child: BlockText(text: EnneagramController.to.enneagram![myEnneagramType]!.simpleExplain,)
+          ),
+          const Blank(height: 5),
+          AutoSizeText(
+            EnneagramController.to.enneagram![myEnneagramType]!.simpleExplain2,
+            maxLines: 2,
+            style: TextStyle(fontSize: fontSize, color: textColor),
+          ),
+          // AutoSizeText()
+        ],
+      ),
+    );
+  }
+
+  Widget _buildImageAndType(double imageSize) {
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image(
+            image: AssetImage(EnneagramController.to.enneagram![myEnneagramTest.myEnneagramType]!.imagePath), width: imageSize, height: imageSize,  fit: BoxFit.fill,
+          ),
+          const Blank(height: 5),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text( "${myEnneagramTest.myEnneagramType}유형", style: TextStyle(fontSize: fontSize, color: textColor))
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}

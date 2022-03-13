@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:wai/common/utils/wai_dialog.dart';
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/common/widgets/wai_snackbar.dart';
 import 'package:wai/controller/permenent/app_controller.dart';
@@ -32,7 +33,8 @@ class ServiceAgreeController extends GetxController {
 
   void goToNextPage() {
     if(!checkValue()) {
-      AppController.to.snackBarKey.currentState!.showSnackBar(WaiSnackBar.top(text: "약관에 동의해야합니다."));
+      WaiDialog.notify('알림', "약관에 동의해야합니다.");
+      // AppController.to.snackBarKey.currentState!.showSnackBar(WaiSnackBar.top(text: "약관에 동의해야합니다."));
       return;
     }
     Get.offAllNamed(WaiRoutes.signUp);

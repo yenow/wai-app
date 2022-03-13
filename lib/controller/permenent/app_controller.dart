@@ -10,6 +10,7 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:logger/logger.dart';
 import 'package:uuid/uuid.dart';
+import 'package:wai/common/utils/api.dart';
 import 'package:wai/controller/permenent/enneagram_test_controller.dart';
 import 'package:wai/controller/permenent/post_controller.dart';
 import 'package:wai/controller/permenent/user_controller.dart';
@@ -42,6 +43,11 @@ class AppController extends GetxController{
   final _accountNameController = TextEditingController(text: 'flutter_secure_storage_service');
   final storage = const FlutterSecureStorage();
 
+  Future<void> initData() async {
+    await initLoginInfo();
+    await initIsWatchIntroducePage();
+  }
+
   void setLoginInfo(Sign sign) {
     loginInfo.update((val) {
       val!.userId = sign.userId.toString();
@@ -51,7 +57,6 @@ class AppController extends GetxController{
       val.token = sign.token;
     });
   }
-
 
   void showSnackBar(SnackBar snackBar) {
     snackBarKey.currentState?.showSnackBar(snackBar);
@@ -75,7 +80,7 @@ class AppController extends GetxController{
     nowServerTime.value = dto.nowServerTime!;
   }
 
-  Future<void> getLoginInfo() async {
+  Future<void> initLoginInfo() async {
     String? loginInfoJson = await storage.read(
         key: "loginInfo",
         iOptions: _getIOSOptions(),
@@ -85,17 +90,17 @@ class AppController extends GetxController{
     logger.d(loginInfoJson);
     LoginInfo tempLoginInfo = LoginInfo.fromJson(json.decode(loginInfoJson ?? "{}"));
 
-    loginInfo.value = tempLoginInfo;
+    loginInfo(tempLoginInfo);
   }
 
-  Future<void> getIsWatchIntroducePage() async {
+  Future<void> initIsWatchIntroducePage() async {
     String? tempIsWatchIntroducePage = await storage.read(
         key: "isWatchIntroducePage",
         iOptions: _getIOSOptions(),
         aOptions: _getAndroidOptions()
     );
 
-    isWatchIntroducePage.value = tempIsWatchIntroducePage ?? "";
+    isWatchIntroducePage(tempIsWatchIntroducePage ?? "");
   }
 
   Future<void> writeLoginInfo (LoginInfo loginInfo) async {

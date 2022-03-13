@@ -148,35 +148,35 @@ class _MyActionPageState extends State<MyActionPage> {
     );
   }
 
-  ListView _buildMyPosts() {
-    return ListView.separated(
-      key: _scaffoldKey,
-      physics: const AlwaysScrollableScrollPhysics(),
-      separatorBuilder: (BuildContext context, int index) => const HorizontalBorderLine(height: 0.25,),
-      itemCount: UserController.to.user.value.posts.length,
-      itemBuilder: (BuildContext context, int index) {
-        return PostItem(
-          key: UniqueKey(),
-          post: UserController.to.user.value.posts.elementAt(index));
-      },
-    );
-  }
-
-  ListView _buildMyReplys() {
-    return ListView.separated(
-      key: _scaffoldKey2,
-      physics: const AlwaysScrollableScrollPhysics(),
-      separatorBuilder: (BuildContext context, int index) => const HorizontalBorderLine(height: 0.25,),
-      itemCount: UserController.to.user.value.replys.length,
-      itemBuilder: (BuildContext context, int index) {
-        return PostItem(
-            key: UniqueKey(),
-            post: UserController.to.user.value.replys.elementAt(index).post!);
-        // return ReplyItem(
-        //   key: UniqueKey(),
-        //   reply: UserController.to.user.value.replys!.elementAt(index),
-        //   isAction: false,);
-      },
-    );
-  }
+  // ListView _buildMyPosts() {
+  //   return ListView.separated(
+  //     key: _scaffoldKey,
+  //     physics: const AlwaysScrollableScrollPhysics(),
+  //     separatorBuilder: (BuildContext context, int index) => const HorizontalBorderLine(height: 0.25,),
+  //     itemCount: UserController.to.user.value.posts.length,
+  //     itemBuilder: (BuildContext context, int index) {
+  //       return PostItem(
+  //         key: UniqueKey(),
+  //         post: UserController.to.user.value.posts.elementAt(index));
+  //     },
+  //   );
+  // }
+  //
+  // ListView _buildMyReplys() {
+  //   return ListView.separated(
+  //     key: _scaffoldKey2,
+  //     physics: const AlwaysScrollableScrollPhysics(),
+  //     separatorBuilder: (BuildContext context, int index) => const HorizontalBorderLine(height: 0.25,),
+  //     itemCount: UserController.to.user.value.replys.length,
+  //     itemBuilder: (BuildContext context, int index) {
+  //       return PostItem(
+  //           key: UniqueKey(),
+  //           post: UserController.to.user.value.replys.elementAt(index).post!);
+  //       // return ReplyItem(
+  //       //   key: UniqueKey(),
+  //       //   reply: UserController.to.user.value.replys!.elementAt(index),
+  //       //   isAction: false,);
+  //     },
+  //   );
+  // }
 }

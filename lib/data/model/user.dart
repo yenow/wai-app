@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:wai/data/model/sign.dart';
 import 'package:wai/models/api/response_dto.dart';
@@ -9,26 +11,19 @@ import 'package:wai/data/dto/user_request_dto.dart';
 
 class User {
   int? userId;
-  String? userKey;
+  String userKey;
   String? password;
   String? nickname;
   String? email;
   int? myEnneagramType;
 
-  List<Post> posts;
-  List<Reply> replys;
-  List<EnneagramTest> enneagramTests;
-
   User({
     this.userId,
-    this.userKey,
+    this.userKey = "",
     this.password,
     this.nickname,
     this.email,
     this.myEnneagramType,
-    required this.posts,
-    required this.replys,
-    required this.enneagramTests,
   });
 
   void setUserBySign(Sign sign) {
@@ -38,15 +33,17 @@ class User {
   }
 
   UserRequestDto toUserRequestDto() {
-    return UserRequestDto(userKey: userKey!);
+    return UserRequestDto(userKey: userKey);
   }
 
-  void updateEnneagramTest(EnneagramTest response) {
-      enneagramTests.insert(0, response);
-    // List<EnneagramTest> tempList = enneagramTests.sublist(0);
-    // tempList.insert(0, response);
-    // enneagramTests = tempList;
-    // myEnneagramType = response.myEnneagramType;
+  String toJson() {
+    return json.encode({
+      "userId" : userId,
+      "userKey" : userKey,
+      "nickname" : nickname,
+      "email" : email,
+      "myEnneagramType" : myEnneagramType,
+    });
   }
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -58,22 +55,11 @@ class User {
       nickname: json['nickname'],
       email: json['email'],
       myEnneagramType: json['myEnneagramType'],
-      posts: List<Post>.from((json['posts'] ?? []).map((model) {
-        model.containsKey('user') ? model.update('user', (value) => null) : null;
-        return Post.fromJson(model);
-      })),
-      replys: List<Reply>.from((json['replys'] ?? []).map((model) {
-        model.containsKey('user') ? model.update('user', (value) => null) : null;
-        return Reply.fromJson(model);
-      })),
-      enneagramTests: List<EnneagramTest>.from((json['enneagramTests'] ?? []).map((model) {
-        return EnneagramTest.fromJson(model);
-      })),
     );
   }
 
   @override
   String toString() {
-    return 'User{userId: $userId, userKey: $userKey, password: $password, nickname: $nickname, email: $email, myEnneagramType: $myEnneagramType, posts: $posts, replys: $replys, enneagramTests: $enneagramTests}';
+    return 'User{userId: $userId, userKey: $userKey, password: $password, nickname: $nickname, email: $email, myEnneagramType: $myEnneagramType}';
   }
 }

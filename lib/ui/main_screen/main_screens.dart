@@ -9,7 +9,10 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
+import 'package:wai/common/widgets/wai_appbar.dart';
+import 'package:wai/constants/wai_colors.dart';
 import 'package:wai/controller/permenent/app_controller.dart';
 import 'package:wai/controller/main_controller.dart';
 import 'package:wai/controller/permenent/post_controller.dart';
@@ -26,22 +29,24 @@ import 'package:wai/screens/profile_page/profile_page_screen.dart';
 import 'package:wai/screens/search_page/search_page_screen.dart';
 import 'package:wai/screens/splash_screen.dart';
 import 'package:wai/common/utils/logger.dart';
+import 'package:wai/ui/main_screen/components/main_body.dart';
+import 'package:wai/ui/main_screen/components/main_bottom_navigation.dart';
+import 'package:wai/ui/main_screen/components/main_bottom_sheet.dart';
+import 'package:wai/ui/main_screen/components/wai_drawer.dart';
+import 'package:wai/ui/main_screen/home_screen/home_screen.dart';
 import '../../main.dart';
 import '../../screens/enneagram_page/enneagram_page_screen.dart';
 import '../../screens/enneagram_page/enneagram_type_page_screen.dart';
 
 class MainScreens extends StatelessWidget {
-  MainScreens({Key? key}) : super(key: key);
-  final PageController _pageController = PageController(keepPage: false);
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  const MainScreens({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       if (Get.parameters['showEnneagramDialog'] == "Y"/* && MainController.to.isShowEnneagramDialog.value == false*/) {
-        // MainController.to.setIsShowEnneagramDialog(true);
-        EnneagramTest myTest = UserController.to.user.value.enneagramTests.elementAt(0);
+        EnneagramTest myTest = UserController.to.userEnneagramTests.elementAt(0);
 
         EnneagramDialog.showEnneagramType(
             context: context,
@@ -53,89 +58,58 @@ class MainScreens extends StatelessWidget {
       }
     });
 
-    return _buildBody(context);
-
-    // return FutureBuilder<void>(
-    //     future: _isInit,
-    //     builder: (context, snapshot) {
-    //       switch (snapshot.connectionState) {
-    //       /* 요청을 기다리는중 */
-    //         case ConnectionState.waiting:
-    //           return const SplashScreen();
-    //         default:
-    //         /* 에러시 */
-    //           if (snapshot.hasError) {
-    //             return Text('Error: ${snapshot.error}');
-    //           } else {
-    //             return _buildBody(context);
-    //           }
-    //       }
-    //     }
-    // );
-  }
-
-
-  Obx _buildBody(BuildContext context) {
     return Obx(() =>
-        SafeArea(
-          child: Scaffold(
-            key: _scaffoldKey,
-            resizeToAvoidBottomInset : false,
-            backgroundColor:  Colors.transparent,
-            bottomNavigationBar: _buildBottomNavigationBar(),
-            body: PageView(
-              controller: _pageController,
-              onPageChanged: (nextTabIndex) {
-                MainController.to.setTabIndex(nextTabIndex);
-              },
-              children: const <Widget>[
-                HomePageScreen(),
-                PostsPageScreen(),
-                SearchPageScreen(),
-                EnneagramPageScreen(),
-                ProfilePageScreen(),
-              ],
-            ),
+      SafeArea(
+        child: Scaffold(
+          key: MainController.to.scaffoldKey,
+
+          body: MainBody(currentTabIndex: MainController.to.currentTabIndex.value),
+
+          // backgroundColor: Colors.white,
+          resizeToAvoidBottomInset : false,
+          bottomNavigationBar: const MainBottomNavigation(),     // _buildBottomAppBar    _buildBottomNavigationBar
+
+          drawer: WaiDrawer(),
+
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          floatingActionButton: FloatingActionButton(
+            child: Icon(Icons.add, color: WaiColors.white),
+            onPressed: () {
+              Get.bottomSheet(MainBottomSheet());
+            },
           ),
         ),
+      ),
     );
   }
 
-  BottomNavigationBar? _buildBottomNavigationBar() {
-
-    return BottomNavigationBar(
-      currentIndex: MainController.to.currentTabIndex.value,
-      backgroundColor: AppController.to.appState.value.bottomNavigationBackgroundColor,
-      unselectedItemColor: Colors.grey,
-      selectedItemColor: Colors.blueGrey,
-      type: BottomNavigationBarType.fixed,
-      /* navigationBar item */
-      items: const [
-        BottomNavigationBarItem(
-          label: '홈',
-          icon: Icon(Icons.home_outlined,),  // CupertinoIcons.home
-        ),
-        BottomNavigationBarItem(
-          label: '게시글',
-          icon: Icon(Icons.article_outlined),
-        ),
-        BottomNavigationBarItem(
-          label: '검색',
-          icon: Icon(Icons.search_outlined),
-        ),
-        BottomNavigationBarItem(
-          label: '에니어그램',
-          icon: Icon(CupertinoIcons.book),    //  CupertinoIcons.book
-        ),
-        BottomNavigationBarItem(
-            label: '프로필',
-            icon: Icon(Icons.account_circle_outlined)
-        )
-      ],
-      onTap: (nextTabIndex) {
-        MainController.to.setTabIndex(nextTabIndex);
-        _pageController.animateToPage(nextTabIndex, duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
-      },
-    );
-  }
+  // Widget buildBody() {
+  //   switch(MainController.to.currentTabIndex.value) {
+  //     case 0 :
+  //       return HomeScreen();
+  //     case 2 :
+  //       return Screen3();
+  //     default :
+  //       return Container();
+  //   }
+  //
+  //   return PageView(
+  //           controller: _pageController,
+  //           onPageChanged: (nextTabIndex) {
+  //             MainController.to.setTabIndex(nextTabIndex);
+  //           },
+  //           children: <Widget>[
+  //             HomeScreen(),
+  //             Screen2(),
+  //             Screen3(),
+  //             Screen4(),
+  //             Screen5(),
+  //             // HomePageScreen(),
+  //             // PostsPageScreen(),
+  //             // SearchPageScreen(),
+  //             // EnneagramPageScreen(),
+  //             // ProfilePageScreen(),
+  //           ],
+  //         );
+  // }
 }

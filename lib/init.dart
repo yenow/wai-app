@@ -23,19 +23,13 @@ class Init {
   }
 
   Future<void> initData() async {
-    await AppController.to.getLoginInfo();
-    await AppController.to.getIsWatchIntroducePage();
+    await AppController.to.initData();
     await signIn();
 
     await EnneagramController.to.initEnneagram();
-
-    await EnneagramTestController.to.initEnneagramQuestionList();
-    await EnneagramTestController.to.initSimpleEnneagramQuestionList();
-
+    await EnneagramTestController.to.initData();
 
     String userKey = AppController.to.loginInfo.value.userKey;
-    await UserController.to.initUser(UserRequestDto(userKey: userKey));
-    UserProfileController.to.initCurrentEnneagram();    // 수정 필요
-    // await initAllPosts();
+    await UserController.to.initData(UserRequestDto(userKey: userKey));
   }
 }

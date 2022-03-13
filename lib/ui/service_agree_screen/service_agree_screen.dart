@@ -88,47 +88,4 @@ class ServiceAgreeScreen extends StatelessWidget {
       ),
     );
   }
-
-  Row buildRow() {
-    return Row(
-                children: [
-                  Checkbox(
-                    shape: const CircleBorder(),
-                    checkColor: Colors.white,
-                    fillColor: MaterialStateProperty.all(WaiColors.blueGrey),
-                    value: ServiceAgreeController.to.isServiceAgree.value,
-                    onChanged: (bool? value) {
-                      logger.d(value);
-                      ServiceAgreeController.to.changeIsServiceAgree(value!);
-                    },
-                  )
-                ],
-              );
-  }
-
-  Padding buildPadding() {
-    return Padding(
-      padding: const EdgeInsets.all(20),
-      child: Container(
-        padding: const EdgeInsets.all(20),
-        child: Scrollbar(
-          isAlwaysShown: true,
-          controller: ServiceAgreeController.to.firstController,
-          child: const WaiMarkdown(
-            url: "assets/markdown/privateInformation.md",
-          ),
-        ),
-        decoration: BoxDecoration(
-          borderRadius:  BorderRadius.circular(20.0),
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.grey,
-              offset: Offset(0.0, 1.0), //(x,y)
-              blurRadius: 2.0,
-            ),
-          ],
-        )
-      ),
-    );
-  }
 }

@@ -31,13 +31,13 @@ class WaiSplashScreen extends StatelessWidget {
       if(AppController.to.isWatchIntroducePage.value != "Y") {
         AppController.to.writeIsWatchIntroducePage("Y");
         Get.offAllNamed(WaiRoutes.introduction);
-      } else if (UserController.to.user.value.userKey == null) {
+      } else if (UserController.to.user.value.userKey.isEmpty) {
         Get.offAllNamed(WaiRoutes.serviceAgree);
         // Get.offAllNamed(WaiRoutes.signUp);
       } else if (UserController.to.user.value.myEnneagramType == null) {
         Get.offAllNamed(WaiRoutes.whoAmI);
       } else {
-        Get.offAllNamed(WaiRoutes.main, parameters: {"showEnneagramDialog": "Y"});
+        Get.offAllNamed(WaiRoutes.main);
       }
 
     });

@@ -29,7 +29,7 @@ class WaiAppbar extends StatelessWidget with PreferredSizeWidget {
   PreferredSize build(BuildContext context) {
 
     return PreferredSize(
-      preferredSize: Size.fromHeight(height),
+      preferredSize: Size.fromHeight(height / Get.mediaQuery.devicePixelRatio),
       child: AppBar(
         toolbarHeight: height,
         flexibleSpace: flexibleSpace,

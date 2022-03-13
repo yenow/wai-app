@@ -50,6 +50,7 @@ dependencies:
   page_view_indicators: ^2.0.0
   auto_size_text: ^3.0.0
   fl_chart: ^0.41.0
+  intro_views_flutter: '^3.2.0'
 
 dev_dependencies:
   flutter_test:
@@ -82,6 +83,7 @@ flutter:
     - assets/images/enneagram/
     - assets/images/logo/
     - assets/images/background/
+    - assets/images/icon/
     - assets/markdown/
     - assets/markdown/basic/
     - assets/markdown/meritAndDemerit/

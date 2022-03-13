@@ -21,12 +21,11 @@ class BlockText extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.all(0),
-        child: Text(
+        child: AutoSizeText(
           text,
           style: WaiTextStyle(color: Colors.black45).basic(),
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          textAlign: TextAlign.left,
+
+          maxLines: 1,
         )
       ),
     );

@@ -21,7 +21,7 @@ import 'binding/introduction_binding.dart';
 import 'binding/sign_up_binding.dart';
 
 import 'controller/permenent/user_controller.dart';
-import 'common/theme/theme.dart';
+import 'theme.dart';
 import 'common/utils/logger.dart';
 import 'common/utils/navigation_service.dart';
 import 'data/provider/enneagram_api_provider.dart';

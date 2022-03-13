@@ -7,6 +7,7 @@ import 'package:wai/common/utils/logger.dart';
 import 'package:wai/controller/permenent/app_controller.dart';
 import 'package:wai/controller/permenent/user_controller.dart';
 import 'package:wai/data/dto/user_request_dto.dart';
+import 'package:wai/data/model/enneagram_test.dart';
 import 'package:wai/data/model/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:wai/data/model/wai_error.dart';
@@ -14,7 +15,7 @@ import 'package:wai/data/model/wai_error.dart';
 class UserApiProvider {
 
   getUserInformation(UserRequestDto userRequestDto) async {
-    if (userRequestDto.userKey.isEmpty) return User(enneagramTests: [], posts: [], replys: []);
+    if (userRequestDto.userKey.isEmpty) return User();
 
     http.Response response = await postApiRequest("/api/user/getUserInformation", userRequestDto.toJson());
 
@@ -28,6 +29,26 @@ class UserApiProvider {
       WaiError waiError = WaiError.fromJson(jsonMap);
       loggerNoStack.e("error : bad request : ${waiError.message}");
 
+    } else {
+      loggerNoStack.e("error : api request error");
+    }
+  }
+
+  getUserEnneagramTests(User user) async {
+    if (user.userKey.isEmpty) {
+      return;
+    }
+
+    http.Response response = await postApiRequest("/api/user/getUserEnneagramTests", user.toJson());
+
+    var result = utf8Decoding(response);
+    if (response.statusCode == 200) {
+      List<EnneagramTest> enneagramTests = List<EnneagramTest>.from(
+          result.map((model) {
+            return EnneagramTest.fromJson(model);
+          })
+      );
+      return enneagramTests;
     } else {
       loggerNoStack.e("error : api request error");
     }

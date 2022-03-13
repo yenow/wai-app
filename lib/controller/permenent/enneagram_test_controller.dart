@@ -23,13 +23,14 @@ class EnneagramTestController extends GetxController {
   final enneagramPageList = [].obs;
   final simpleEnneagramQuestionList = [].obs;
 
-  // final selectSimpleTestMap = {
-  //   1 : "",
-  //   2 : ""
-  // }.obs;
 
   /* non-observable variable */
   final questionCount = 15;
+
+  Future<void> initData() async {
+    await initEnneagramQuestionList();
+    await initSimpleEnneagramQuestionList();
+  }
 
   Future<void> initEnneagramQuestionList() async {
     enneagramQuestionList.value = await EnneagramTestApiProvider().getEnneagramQuestionList();

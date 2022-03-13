@@ -13,15 +13,15 @@ class IntroductionController extends GetxController {
     IntroductionMessage(
         titleText: "환영합니다!",
         subText : "에니어그램은 사람을 9가지 성격으로 분류하는 성격유형 이론입니다.",
-        imageUrl: "assets/images/background/welcome-back.png"),
+        imageUrl: "assets/images/icon/welcome-back.png"),
     IntroductionMessage(
         titleText: "나는 어떤 사람?",
         subText : "에니어그램 테스트를 통해 내가 어떤 유형의 사람인지 알아보아요.",
-        imageUrl: "assets/images/background/test.png"),
+        imageUrl: "assets/images/icon/test.png"),
     IntroductionMessage(
         titleText: "나와 비슷한 사람이 있을까?",
         subText : "게시글에서 나와 비슷한 사람끼리 이야기를 나눠보아요",
-        imageUrl: "assets/images/background/social-network.png"),
+        imageUrl: "assets/images/icon/social-network.png"),
   ];
   final pageController = PageController();
   final currentPageNotifier = ValueNotifier<int>(0);

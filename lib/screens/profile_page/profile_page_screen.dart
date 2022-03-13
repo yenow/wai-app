@@ -128,54 +128,54 @@ class ProfilePageScreen extends StatelessWidget {
               alignment: Alignment.topCenter,
               child: Text("나의 에니어그램", style: CustomTextStyles.buildTextStyle(fontSize: 22))
           ),
-          _buildEnneagramTestDate(),
+          // _buildEnneagramTestDate(),
         ],
       )
     );
   }
 
-  Widget _buildEnneagramTestDate() {
-    final DateFormat formatter = DateFormat('yyyy-MM-dd hh:mm');
-
-    if (UserProfileController.to.currentEnneagram.value.insertDate == null) {
-      return const Blank();
-    }
-
-    List<String> items = [];
-    for (EnneagramTest temp in UserController.to.user.value.enneagramTests) {
-      items.add(formatter.format(temp.insertDate!));
-    }
-
-    return SizedBox(
-      width: double.infinity,
-      height: 14,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(Icons.today_outlined, size: 14, color: Colors.grey),
-          const Blank(width: 5,),
-          DropdownButtonHideUnderline(
-            child: DropdownButton(
-              value: formatter.format(UserProfileController.to.currentEnneagram.value.insertDate!),
-              style: CustomTextStyles.buildTextStyle(fontSize: 12, color : Colors.grey),
-              items: items.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-              onChanged: (String? insertDate) {
-                UserProfileController.to.updateCurrentEnneagram(insertDate: insertDate!);
-              },
-              onTap: () {
-
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget _buildEnneagramTestDate() {
+  //   final DateFormat formatter = DateFormat('yyyy-MM-dd hh:mm');
+  //
+  //   if (UserProfileController.to.currentEnneagram.value.insertDate == null) {
+  //     return const Blank();
+  //   }
+  //
+  //   List<String> items = [];
+  //   for (EnneagramTest temp in UserController.to.user.value.enneagramTests) {
+  //     items.add(formatter.format(temp.insertDate!));
+  //   }
+  //
+  //   return SizedBox(
+  //     width: double.infinity,
+  //     height: 14,
+  //     child: Row(
+  //       mainAxisAlignment: MainAxisAlignment.center,
+  //       children: [
+  //         const Icon(Icons.today_outlined, size: 14, color: Colors.grey),
+  //         const Blank(width: 5,),
+  //         DropdownButtonHideUnderline(
+  //           child: DropdownButton(
+  //             value: formatter.format(UserProfileController.to.currentEnneagram.value.insertDate!),
+  //             style: CustomTextStyles.buildTextStyle(fontSize: 12, color : Colors.grey),
+  //             items: items.map<DropdownMenuItem<String>>((String value) {
+  //               return DropdownMenuItem<String>(
+  //                 value: value,
+  //                 child: Text(value),
+  //               );
+  //             }).toList(),
+  //             onChanged: (String? insertDate) {
+  //               UserProfileController.to.updateCurrentEnneagram(insertDate: insertDate!);
+  //             },
+  //             onTap: () {
+  //
+  //             },
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Row _buildMyEnneagramContent(int myEnneagramType) {
 
@@ -271,58 +271,58 @@ class ProfilePageScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildMyInfomation() {
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      decoration: BoxDecoration(
-        color: Colors.grey.shade200,
-        borderRadius: const BorderRadius.all(Radius.circular(10))
-      ),
-      child: Column(
-        children: [
-          Text("내 활동", style: WaiTextStyle(fontSize: 22).bodyText(),),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-            child: InkWell(
-              onTap: () {
-                Get.to(() => const MyActionPage());
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text("자세히보기", style: WaiTextStyle(fontSize: 14).bodyText(),),
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
-                    child: Icon(Icons.arrow_forward_ios_outlined, size: 14, color: Colors.black54),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          const HorizontalBorderLine(),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: IntrinsicHeight (
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text("내 게시글", style: WaiTextStyle(fontSize: 16).bodyText(),),
-                  Text(UserController.to.user.value.posts.length.toString(), style: WaiTextStyle(fontSize: 16).bodyText(),),
-                  const VerticalDivider(
-                    color: Colors.grey,
-                    thickness: 1,
-                  ),
-                  Text("내 댓글", style: WaiTextStyle(fontSize: 16).bodyText(),),
-                  Text(UserController.to.user.value.replys.length.toString(), style: WaiTextStyle(fontSize: 16).bodyText(),),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget _buildMyInfomation() {
+  //   return Container(
+  //     width: double.infinity,
+  //     margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+  //     decoration: BoxDecoration(
+  //       color: Colors.grey.shade200,
+  //       borderRadius: const BorderRadius.all(Radius.circular(10))
+  //     ),
+  //     child: Column(
+  //       children: [
+  //         Text("내 활동", style: WaiTextStyle(fontSize: 22).bodyText(),),
+  //         Padding(
+  //           padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+  //           child: InkWell(
+  //             onTap: () {
+  //               Get.to(() => const MyActionPage());
+  //             },
+  //             child: Row(
+  //               mainAxisAlignment: MainAxisAlignment.end,
+  //               children: [
+  //                 Text("자세히보기", style: WaiTextStyle(fontSize: 14).bodyText(),),
+  //                 const Padding(
+  //                   padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+  //                   child: Icon(Icons.arrow_forward_ios_outlined, size: 14, color: Colors.black54),
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //         const HorizontalBorderLine(),
+  //         Padding(
+  //           padding: const EdgeInsets.all(10.0),
+  //           child: IntrinsicHeight (
+  //             child: Row(
+  //               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //               children: [
+  //                 Text("내 게시글", style: WaiTextStyle(fontSize: 16).bodyText(),),
+  //                 Text(UserController.to.user.value.posts.length.toString(), style: WaiTextStyle(fontSize: 16).bodyText(),),
+  //                 const VerticalDivider(
+  //                   color: Colors.grey,
+  //                   thickness: 1,
+  //                 ),
+  //                 Text("내 댓글", style: WaiTextStyle(fontSize: 16).bodyText(),),
+  //                 Text(UserController.to.user.value.replys.length.toString(), style: WaiTextStyle(fontSize: 16).bodyText(),),
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget _buildSetting() {
     return Padding(

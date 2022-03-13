@@ -17,23 +17,48 @@ import 'package:wai/common/utils/function.dart';
 
 class UserController extends GetxController {
   static UserController get to => Get.find();
+  final UserApiProvider userApiProvider = UserApiProvider();
 
-  final user = User(enneagramTests: [], posts: [], replys: []).obs;
+  final user = User().obs;
+  final userEnneagramTests = <EnneagramTest>[].obs;
+  final currentEnneagramTest = EnneagramTest().obs;
   final postVisitHistory = <int, DateTime>{}.obs;
 
+  Future<void> initData(UserRequestDto userRequestDto) async {
+    await initUser(UserRequestDto(userKey: userRequestDto.userKey));
+    await initUserEnneagramTests();
+    initCurrentEnneagramTest();
+  }
+
   Future<void> initUser(UserRequestDto userRequestDto) async {
-    var result = await UserApiProvider().getUserInformation(userRequestDto);
+    var result = await userApiProvider.getUserInformation(userRequestDto);
     if (result is User) {
       user(result);
     }
   }
 
+  Future<void> initUserEnneagramTests() async {
+    var result = await userApiProvider.getUserEnneagramTests(user.value);
+
+    if (result is List<EnneagramTest>) {
+      userEnneagramTests(result);
+    }
+  }
+
+  void initCurrentEnneagramTest() {
+    if (userEnneagramTests.isNotEmpty) {
+      currentEnneagramTest.value = userEnneagramTests.elementAt(0);
+    }
+  }
+
+
   void updateUser(Sign sign) {
     user.value.setUserBySign(sign);
   }
 
-  void updateUserToEnneagram(EnneagramTest response) {
-    user.value.updateEnneagramTest(response);
+  void updateUserEnneagram(EnneagramTest response) {
+    userEnneagramTests.insert(0, response);
+    currentEnneagramTest(response);
   }
 
   void updatePostVisitHistory(int postId) {
@@ -44,11 +69,11 @@ class UserController extends GetxController {
     }
   }
 
-  void addEnneagramTestResult(EnneagramTest enneagramTest) {
-    user.update((val) {
-      val!.enneagramTests.insert(0, enneagramTest);
-    });
-  }
+  // void addEnneagramTestResult(EnneagramTest enneagramTest) {
+  //   user.update((val) {
+  //     val!.enneagramTests.insert(0, enneagramTest);
+  //   });
+  // }
 
   bool? canUpdateCount(int postId) {
     if (!postVisitHistory.containsKey(postId)) {

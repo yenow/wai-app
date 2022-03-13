@@ -21,15 +21,15 @@ class UserProfileController extends GetxController {
   final myPosts = <Post>[].obs;
   final myReplyPosts = <Post>[].obs;
 
-  Future<void> initCurrentEnneagram() async {
-    List<EnneagramTest> list =  UserController.to.user.value.enneagramTests;
-
-    if (list.isEmpty) {
-      currentEnneagram.value.myEnneagramType = 0;
-    } else {
-      currentEnneagram.value = list.elementAt(0);
-    }
-  }
+  // Future<void> initCurrentEnneagram() async {
+  //   List<EnneagramTest> list =  UserController.to.user.value.enneagramTests;
+  //
+  //   if (list.isEmpty) {
+  //     currentEnneagram.value.myEnneagramType = 0;
+  //   } else {
+  //     currentEnneagram.value = list.elementAt(0);
+  //   }
+  // }
 
   void setCurrentEnneagramTestResult(EnneagramTest enneagramTest) {
     currentEnneagram.value = enneagramTest;
@@ -38,13 +38,12 @@ class UserProfileController extends GetxController {
   void updateCurrentEnneagram ({required String insertDate}) {
     final DateFormat formatter = DateFormat('yyyy-MM-dd hh:mm');
 
-    List<EnneagramTest> list =  UserController.to.user.value.enneagramTests;
-    for (EnneagramTest temp in list) {
-
-      if (formatter.format(temp.insertDate!) == insertDate) {
-        currentEnneagram.value = temp;
-      }
-    }
-
+    // List<EnneagramTest> list =  UserController.to.user.value.enneagramTests;
+    // for (EnneagramTest temp in list) {
+    //
+    //   if (formatter.format(temp.insertDate!) == insertDate) {
+    //     currentEnneagram.value = temp;
+    //   }
+    // }
   }
 }

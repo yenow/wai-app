@@ -65,7 +65,7 @@ class SimpleEnneagramTestController extends GetxController {
     var result = await simpleEnneagramTestRepository.saveSimpleEnneagramTest(enneagramTestRequestDto);
 
     if (result is EnneagramTest) {
-      UserController.to.updateUserToEnneagram(result);
+      UserController.to.updateUserEnneagram(result); // todo
       Get.offAllNamed(WaiRoutes.main, parameters: {"showEnneagramDialog": "Y"});
     } else {
       loggerNoStack.e("saveSimpleEnneagramTest error");
