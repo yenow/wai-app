@@ -26,6 +26,7 @@ class MyEnneagramContainer extends StatelessWidget {
       builder: (context, constraints) {
         int myEnneagramType = myEnneagramTest.myEnneagramType!;
 
+        /* 가로가 더 길 경우 */
         if (constraints.maxWidth > constraints.maxHeight) {
           double imageSize = constraints.maxHeight / 2;
           return Row(
@@ -37,13 +38,13 @@ class MyEnneagramContainer extends StatelessWidget {
             ],
           );
 
+        /* 세로가 더 길 경우 */
         } else {
           double imageSize = constraints.maxWidth / 2;
           return Column(
             children: [
-              Image(
-                image: AssetImage(EnneagramController.to.enneagram![myEnneagramTest.myEnneagramType]!.imagePath), width: imageSize, height: imageSize,  fit: BoxFit.fill,
-              ),
+              _buildImageAndType(imageSize),
+              _buildTypeExplain(myEnneagramType)
             ],
           );
         }
@@ -59,7 +60,7 @@ class MyEnneagramContainer extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Align(
-              alignment: Alignment.centerLeft,
+              alignment: Alignment.center,
               child: BlockText(text: EnneagramController.to.enneagram![myEnneagramType]!.simpleExplain,)
           ),
           const Blank(height: 5),

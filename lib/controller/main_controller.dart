@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:logger/logger.dart';
+import 'package:wai/controller/my_page_controller.dart';
 import 'package:wai/controller/permenent/post_controller.dart';
 import 'package:wai/controller/permenent/user_controller.dart';
 import 'package:wai/controller/user_profile_controller.dart';
@@ -24,6 +25,12 @@ class MainController extends GetxController{
   /* non-observable variable */
   final PageController pageController = PageController(keepPage: false);
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void onInit() {
+    Get.put(MyPageController());
+    super.onInit();
+  }
 
   void setTabIndex(int nextTabIndex) {
     if (MainTap.values[nextTabIndex] != MainTap.add) {

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:wai/constants/wai_colors.dart';
 import 'package:wai/controller/permenent/enneagram_controller.dart';
 import 'package:wai/controller/permenent/user_controller.dart';
+import 'package:wai/route.dart';
 import 'package:wai/ui/main_screen/components/my_enneagram_container.dart';
 
 class WaiDrawer extends StatelessWidget {
@@ -51,11 +52,13 @@ class WaiDrawer extends StatelessWidget {
                           fit: BoxFit.fill,
                         ),
                       ),
-                      Text('$i유형', style: const TextStyle(color: WaiColors.lightMainColor),),
+                      Text(EnneagramController.to.enneagram![i]!.getFullName(), style: const TextStyle(color: WaiColors.lightMainColor),),
                     ],
                   ),
                   onTap: () {
-
+                    Get.back();
+                    Map map = {"enneagramType" : i};
+                    Get.toNamed(WaiRoutes.enneagramType, arguments: map);
                   },
                 ),
             ],

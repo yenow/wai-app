@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:wai/binding/enneagram_type_binding.dart';
 import 'package:wai/binding/hard_enneagram_test_binding.dart';
 import 'package:wai/binding/introduction_binding.dart';
 import 'package:wai/binding/main_binding.dart';
@@ -7,6 +8,7 @@ import 'package:wai/binding/sign_up_binding.dart';
 import 'package:wai/binding/simple_enneagram_test_binding.dart';
 import 'package:wai/binding/who_am_i_binding.dart';
 import 'package:wai/main.dart';
+import 'package:wai/ui/enneagram_screen/enneagram_type_screen.dart';
 import 'package:wai/ui/hard_enneagram_test_screen/hard_enneagram_test_screen.dart';
 import 'package:wai/ui/main_screen/main_screens.dart';
 import 'package:wai/ui/service_agree_screen/service_agree_screen.dart';
@@ -26,6 +28,7 @@ abstract class WaiRoutes{
   static const simpleTest = "/simpleTest";
   static const hardTest = "/hardTest";
   static const main = "/main";
+  static const enneagramType = "/enneagramType";
 }
 class AppPages {
 
@@ -37,6 +40,7 @@ class AppPages {
     GetPage(name: WaiRoutes.whoAmI, page:()=> const WhoAmIScreen(), binding: WhoAmIBinding()),
     GetPage(name: WaiRoutes.simpleTest, page:()=> SimpleEnneagramTestScreen(), binding: SimpleEnneagramTestBinding()),
     GetPage(name: WaiRoutes.hardTest, page:()=> const HardEnneagramTestScreen(), binding: HardEnneagramTestBinding()),
-    GetPage(name: WaiRoutes.main, page:()=> MainScreens(), binding: MainBinding()),
+    GetPage(name: WaiRoutes.main, page:()=> const MainScreens(), binding: MainBinding()),
+    GetPage(name: WaiRoutes.enneagramType, page:()=> const EnneagramTypeScreen(), binding: EnneagramTypeBinding()),
   ];
 }

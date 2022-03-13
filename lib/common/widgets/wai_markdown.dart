@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:get/get.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
+import 'package:wai/constants/wai_colors.dart';
 
 class WaiMarkdown extends StatefulWidget {
   const WaiMarkdown({Key? key, required this.url, this.scrollPhysics, this.scrollController, this.shrinkWrap}) : super(key: key);
@@ -30,12 +32,19 @@ class _WaiMarkdownState extends State<WaiMarkdown> {
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             data: snapshot.data!,
             styleSheet: MarkdownStyleSheet(
-              h1: WaiTextStyle().headline1(),
-              h2: WaiTextStyle().headline2(),
-              h3: WaiTextStyle().headline2(),
-              h4: WaiTextStyle(fontSize: 18).headline2(),
-              p: WaiTextStyle(fontSize: 16).bodyText(),
-              code: WaiTextStyle(fontSize: 16).code(),
+              h1: const TextStyle(fontSize: 40, color: WaiColors.black50),
+              h2: const TextStyle(fontSize: 30, color: WaiColors.black50),
+              h2Padding: const EdgeInsets.symmetric(vertical: 10),
+              h3: const TextStyle(fontSize: 25, color: WaiColors.black50),
+              h4: const TextStyle(fontSize: 20, color: WaiColors.black50),
+              h5: const TextStyle(fontSize: 18, color: WaiColors.black50),
+              p: const TextStyle(fontSize: 16, color: WaiColors.black50),
+              code:const TextStyle(fontSize: 16, color: WaiColors.black50),
+              horizontalRuleDecoration: BoxDecoration(
+                  border: Border.fromBorderSide(
+                      BorderSide(width: 0.5, color: WaiColors.grey)
+                  )
+              ),
               blockquoteDecoration: BoxDecoration(
                 color: Colors.grey.shade200,
                 shape: BoxShape.rectangle,
