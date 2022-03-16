@@ -22,6 +22,21 @@ Future<http.Response> apiRequest(String url, String jsonString, HttpMethod httpM
   return postApiRequest(url,jsonString);
 }
 
+Future<http.Response> getApiRequest (String url) async {
+  loggerNoStack.d(apiUrl + url);
+
+  final http.Response response = await http.get(
+      Uri.parse(apiUrl + url),
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json; charset=UTF-8",
+      }
+  );
+
+  return response;
+}
+
+
 Future<http.Response> postApiRequest(String url, String jsonString) async {
   loggerNoStack.d(apiUrl + url);
   loggerNoStack.d("request json string : " + jsonString);
@@ -55,23 +70,76 @@ Future<http.Response> postApiRequest(String url, String jsonString) async {
   return response;
 }
 
-Future<http.Response> getApiRequest (String url) async {
-  loggerNoStack.d(apiUrl + url);
 
-  final http.Response response = await http.get(
+Future<http.Response> putApiRequest(String url, String jsonString) async {
+  loggerNoStack.d(apiUrl + url);
+  loggerNoStack.d("request json string : " + jsonString);
+
+  final http.Response response = await http.put(
       Uri.parse(apiUrl + url),
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json; charset=UTF-8",
-      }
+        "authorization": "Bearer " + AppController.to.loginInfo.value.token
+      },
+      body: jsonString
   );
+
+  String bodyUtf8 = utf8.decode(response.bodyBytes);
+  // var result = utf8Decoding(response);
+  loggerNoStack.d("response json string : " + bodyUtf8);
+
+  if (response.statusCode == 200) {
+
+  } else if (response.statusCode == 401 || response.statusCode == 403) {
+    WaiError error = WaiError.fromJson(json.decode(bodyUtf8));
+
+    // TOKEN EXPIRED ERROR
+    if (error.errorCode == "err-001") {
+      await signIn();
+      return await postApiRequest(url, jsonString);
+    }
+  }
+
+  return response;
+}
+
+Future<http.Response> deleteApiRequest(String url, String jsonString) async {
+  loggerNoStack.d(apiUrl + url);
+  loggerNoStack.d("request json string : " + jsonString);
+
+  final http.Response response = await http.delete(
+      Uri.parse(apiUrl + url),
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json; charset=UTF-8",
+        "authorization": "Bearer " + AppController.to.loginInfo.value.token
+      },
+      body: jsonString
+  );
+
+  String bodyUtf8 = utf8.decode(response.bodyBytes);
+  // var result = utf8Decoding(response);
+  loggerNoStack.d("response json string : " + bodyUtf8);
+
+  if (response.statusCode == 200) {
+
+  } else if (response.statusCode == 401 || response.statusCode == 403) {
+    WaiError error = WaiError.fromJson(json.decode(bodyUtf8));
+
+    // TOKEN EXPIRED ERROR
+    if (error.errorCode == "err-001") {
+      await signIn();
+      return await postApiRequest(url, jsonString);
+    }
+  }
 
   return response;
 }
 
 
 Future<void> signIn() async {
-  loggerNoStack.d("signIn : getToken");
+  loggerNoStack.d("signIn(get token)");
 
   final http.Response response = await http.post(
       Uri.parse(apiUrl + "/api/sign/signIn"),

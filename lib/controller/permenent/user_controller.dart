@@ -37,6 +37,7 @@ class UserController extends GetxController {
     }
   }
 
+
   Future<void> initUserEnneagramTests() async {
     var result = await userApiProvider.getUserEnneagramTests(user.value);
 
@@ -50,7 +51,6 @@ class UserController extends GetxController {
       currentEnneagramTest.value = userEnneagramTests.elementAt(0);
     }
   }
-
 
   void updateUser(Sign sign) {
     user.value.setUserBySign(sign);

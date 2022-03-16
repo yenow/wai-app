@@ -29,7 +29,6 @@ import 'package:wai/ui/introduce_screen/component/introduction_page_view.dart';
 import 'package:wai/ui/who_am_i_screen/who_am_i_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:wai/common/utils/function.dart';
-import 'package:wai/common/widgets/wai_dialog.dart';
 
 
 

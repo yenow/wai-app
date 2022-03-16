@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:wai/common/utils/logger.dart';
-import 'package:wai/common/widgets/wai_dialog.dart';
 import 'package:wai/common/widgets/wai_snackbar.dart';
 import 'package:wai/controller/permenent/app_controller.dart';
 import 'package:wai/controller/permenent/enneagram_test_controller.dart';

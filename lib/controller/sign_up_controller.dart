@@ -47,6 +47,7 @@ class SignUpController extends GetxController {
         UserController.to.updateUser(result);
         AppController.to.writeLoginInfo(AppController.to.loginInfo.value);
         Get.offAllNamed(WaiRoutes.whoAmI);
+
       } else if (result is WaiError) {
         WaiError error = result;
         if (error.errorCode == 'err-101') {

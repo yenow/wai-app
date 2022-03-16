@@ -18,6 +18,7 @@ class WaiDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
+            padding: const EdgeInsets.all(5.0),
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
               color: WaiColors.deepLightMainColor

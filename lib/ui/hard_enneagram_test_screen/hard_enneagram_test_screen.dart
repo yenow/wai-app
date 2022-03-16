@@ -23,7 +23,6 @@ import 'package:wai/common/widgets/wai_snackbar.dart';
 import 'package:wai/data/model/enneagram_test.dart';
 import 'package:wai/data/dto/enneagram_test_request_dto.dart';
 import 'package:wai/common/utils/function.dart';
-import 'package:wai/common/widgets/wai_dialog.dart';
 import 'package:wai/route.dart';
 import 'package:wai/ui/hard_enneagram_test_screen/component/hard_enneagram_test_page_view.dart';
 

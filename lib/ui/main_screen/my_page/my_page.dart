@@ -18,19 +18,9 @@ class MyPage extends StatelessWidget {
       length: 3,
       child: Scaffold(
         appBar: WaiAppbar(
-          title: Text('프로필', style: GoogleFonts.jua(color: WaiColors.white)),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: IconButton(
-                icon: Icon(
-                  Icons.edit_rounded,
-                ),
-                onPressed: () {
-                  logger.d('edit profile');
-                },
-              ),
-            )
+          title: Text('마이페이지', style: GoogleFonts.jua(color: WaiColors.white)),
+          actions: const [
+            MyPageActionButton()
           ],
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -46,6 +36,25 @@ class MyPage extends StatelessWidget {
             ),
           ],
         )
+      ),
+    );
+  }
+}
+
+class MyPageActionButton extends StatelessWidget {
+  const MyPageActionButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: IconButton(
+        icon: const Icon(
+          Icons.edit_rounded,
+        ),
+        onPressed: () {
+          logger.d('edit profile');
+        },
       ),
     );
   }

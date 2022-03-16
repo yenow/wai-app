@@ -22,7 +22,6 @@ import 'package:wai/net/post/post_api.dart';
 import 'package:wai/screens/posts_page/post_page_screen.dart';
 import 'package:wai/common/utils/function.dart';
 import 'package:wai/common/utils/logger.dart';
-import 'package:wai/common/widgets/wai_dialog.dart';
 
 class PostWritePage extends StatelessWidget {
   const PostWritePage({Key? key, this.postId}) : super(key: key);
@@ -60,13 +59,13 @@ class PostWritePage extends StatelessWidget {
     return GestureDetector(
       child: const Icon(FontAwesomeIcons.chevronLeft, size: 20, color: Colors.black54,),
       onTap: () {
-        WaiDialog.showConfirmMessage(
-            context: context,
-            content: "게시글 작성중입니다. 뒤로 가시겠습니까?",
-            confirmOnPress: () {
-              Get.back();
-            }
-        );
+        // WaiDialog.showConfirmMessage(
+        //     context: context,
+        //     content: "게시글 작성중입니다. 뒤로 가시겠습니까?",
+        //     confirmOnPress: () {
+        //       Get.back();
+        //     }
+        // );
       },
     );
   }

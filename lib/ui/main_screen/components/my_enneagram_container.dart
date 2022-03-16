@@ -13,7 +13,7 @@ class MyEnneagramContainer extends StatelessWidget {
     Key? key,
     required this.myEnneagramTest,
     this.textColor = WaiColors.white,
-    this.fontSize = 15
+    this.fontSize = 13
   }) : super(key: key);
 
   final EnneagramTest myEnneagramTest;
@@ -28,7 +28,7 @@ class MyEnneagramContainer extends StatelessWidget {
 
         /* 가로가 더 길 경우 */
         if (constraints.maxWidth > constraints.maxHeight) {
-          double imageSize = constraints.maxHeight / 2;
+          double imageSize = constraints.maxHeight / 2.5;
           return Row(
             children: [
               _buildImageAndType(imageSize),
@@ -40,7 +40,7 @@ class MyEnneagramContainer extends StatelessWidget {
 
         /* 세로가 더 길 경우 */
         } else {
-          double imageSize = constraints.maxWidth / 2;
+          double imageSize = constraints.maxWidth / 2.5;
           return Column(
             children: [
               _buildImageAndType(imageSize),
@@ -91,8 +91,23 @@ class MyEnneagramContainer extends StatelessWidget {
               Text( "${myEnneagramTest.myEnneagramType}유형", style: TextStyle(fontSize: fontSize, color: textColor))
             ],
           ),
+          _buildWingType(),
         ],
       ),
     );
+  }
+
+  Widget _buildWingType() {
+    if (myEnneagramTest.myWingType != null && myEnneagramTest.myWingType != 0) {
+
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text( "[날개: ${myEnneagramTest.myWingType}유형]", style: TextStyle(fontSize: fontSize, color: textColor))
+        ],
+      );
+    }
+
+    return Container();
   }
 }

@@ -10,6 +10,7 @@ class WaiAppbar extends StatelessWidget with PreferredSizeWidget {
     this.title,
     this.elevation = 2.0,
     this.backgroundColor = Colors.white,
+    this.borderColor = Colors.transparent,
     this.leading,
     this.isBackLeading = false,
     this.actions,
@@ -20,6 +21,7 @@ class WaiAppbar extends StatelessWidget with PreferredSizeWidget {
   final Widget? title;
   final double? elevation;
   final Color? backgroundColor;
+  final Color? borderColor;
   final Widget? leading;
   final bool isBackLeading;
   final List<Widget>? actions;
@@ -30,14 +32,21 @@ class WaiAppbar extends StatelessWidget with PreferredSizeWidget {
 
     return PreferredSize(
       preferredSize: Size.fromHeight(height / Get.mediaQuery.devicePixelRatio),
-      child: AppBar(
-        toolbarHeight: height,
-        flexibleSpace: flexibleSpace,
-        title : title,
-        elevation: elevation,
-        backgroundColor: backgroundColor,
-        leading: _buildLeading(),
-        actions: actions,
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(width: 0.5, color: borderColor!)
+          )
+        ),
+        child: AppBar(
+          toolbarHeight: height,
+          flexibleSpace: flexibleSpace,
+          title : title,
+          elevation: elevation,
+          backgroundColor: backgroundColor,
+          leading: _buildLeading(),
+          actions: actions,
+        ),
       ),
     );
   }

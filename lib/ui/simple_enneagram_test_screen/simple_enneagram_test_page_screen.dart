@@ -26,7 +26,6 @@ import 'package:wai/data/model/enneagram_question.dart';
 import 'package:wai/ui/main_screen/main_screens.dart';
 import 'package:wai/common/utils/function.dart';
 import 'package:wai/common/widgets/blank.dart';
-import 'package:wai/common/widgets/wai_dialog.dart';
 import 'package:wai/ui/simple_enneagram_test_screen/components/simple_enneagram_test_page_view.dart';
 
 import '../../screens/enneagram_test_page/component/custom_radio_group_buton.dart';

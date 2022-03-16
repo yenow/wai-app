@@ -227,26 +227,26 @@ class WaiDialog {
       String message, {
         double radius = 12,
         bool showBorder = false,
-        Color titleColorText = WaiColors.white,
-        Color messageColorText = WaiColors.white,
-        Color backgroundColor = WaiColors.lightBlueGrey,
-        Color borderColor = WaiColors.lightBlueGrey,
+        Color titleColorText = WaiColors.black60,
+        Color messageColorText = WaiColors.black60,
+        Color backgroundColor = WaiColors.white60,
+        Color borderColor = WaiColors.white60,
       }) {
     Get.snackbar(
       title,
       message,
-      titleText: Text(title, style: waiTextStyle(color: titleColorText)),
+      titleText: Text(title, style: TextStyle(fontSize: 18, color: titleColorText)),
       messageText: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(message, style: waiTextStyle(fontSize: 13, color: messageColorText),),
+          Text(message, style: TextStyle(fontSize: 15, color: messageColorText),),
           InkWell(
               onTap: () {
                 closeSnackBarOrNotify();
               },
               child: Padding(
                 padding: const EdgeInsets.all(5.0),
-                child: Text('확인', style: waiTextStyle(fontSize: 13, color: messageColorText),),
+                child: Text('확인', style: TextStyle(fontSize: 15, color: messageColorText),),
               )
           ),
         ],
@@ -274,18 +274,18 @@ class WaiDialog {
     Get.snackbar(
       title,
       message,
-      titleText: Text(title, style: waiTextStyle(color: WaiColors.white)),
+      titleText: Text(title, style: TextStyle(color: WaiColors.white)),
       messageText: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(message, style: waiTextStyle(fontSize: 13, color: WaiColors.white),),
+          Text(message, style: TextStyle(fontSize: 13, color: WaiColors.white),),
           InkWell(
               onTap: () {
                 closeSnackBarOrNotify();
               },
               child: Padding(
                 padding: const EdgeInsets.all(5.0),
-                child: Text('확인', style: waiTextStyle(fontSize: 13, color: WaiColors.white),),
+                child: Text('확인', style: TextStyle(fontSize: 13, color: WaiColors.white),),
               )
           ),
         ],
