@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:wai/controller/simple_enneagram_test_controller.dart';
-import 'package:wai/data/model/enneagram_question.dart';
+import 'package:wai/data/model/enneagram/enneagram_question.dart';
 
 import '../../../common/theme/wai_textstyle.dart';
 import '../../../controller/permenent/enneagram_test_controller.dart';

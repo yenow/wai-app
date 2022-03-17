@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:wai/controller/permenent/app_controller.dart';
-import 'package:wai/models/introduction_message.dart';
+import 'package:wai/data/model/introduction_message.dart';
 import 'package:wai/route.dart';
 import 'package:wai/ui/sign_up_screen/sign_up_screen.dart';
 

@@ -8,11 +8,11 @@ import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:wai/controller/permenent/app_controller.dart';
 import 'package:wai/controller/permenent/user_controller.dart';
-import 'package:wai/data/model/enneagram_test.dart';
-import 'package:wai/models/post/post.dart';
-import 'package:wai/models/reply/api/reply_request_dto.dart';
-import 'package:wai/data/dto/user_request_dto.dart';
-import 'package:wai/data/model/user.dart';
+import 'package:wai/data/model/enneagram_test/enneagram_test.dart';
+import 'package:wai/data/model/post/post.dart';
+import 'package:wai/data/model/reply/reply_request_dto.dart';
+import 'package:wai/data/model/user/user_request_dto.dart';
+import 'package:wai/data/model/user/user.dart';
 import 'package:wai/common/utils/function.dart';
 
 class UserProfileController extends GetxController {

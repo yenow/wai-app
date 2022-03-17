@@ -25,7 +25,7 @@ class EnneagramImageAndType extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image(
-            image: AssetImage(EnneagramController.to.enneagram![enneagramType]!.imagePath), width: imageSize, height: imageSize,  fit: BoxFit.fill,
+            image: AssetImage(EnneagramController.to.enneagram[enneagramType]!.imagePath), width: imageSize, height: imageSize,  fit: BoxFit.fill,
           ),
           const Blank(height: 5),
           Row(

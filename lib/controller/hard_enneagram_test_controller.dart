@@ -4,10 +4,10 @@ import 'package:wai/common/utils/logger.dart';
 import 'package:wai/common/widgets/wai_snackbar.dart';
 import 'package:wai/controller/permenent/app_controller.dart';
 import 'package:wai/controller/permenent/enneagram_test_controller.dart';
-import 'package:wai/data/dto/enneagram_test_request_dto.dart';
-import 'package:wai/data/model/enneagram_test.dart';
+import 'package:wai/data/model/enneagram_test/enneagram_test_request_dto.dart';
+import 'package:wai/data/model/enneagram_test/enneagram_test.dart';
 import 'package:wai/data/repository/hard_enneagram_test_repository.dart';
-import 'package:wai/models/introduction_message.dart';
+import 'package:wai/data/model/introduction_message.dart';
 import 'package:wai/route.dart';
 import 'package:wai/ui/sign_up_screen/sign_up_screen.dart';
 

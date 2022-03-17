@@ -23,7 +23,7 @@ class EnneagramTypeScreen extends StatelessWidget {
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: WaiAppbar(
-          title: Text(EnneagramController.to.enneagram![enneagramType]!.getFullName(), style: const TextStyle(color: WaiColors.white),),
+          title: Text(EnneagramController.to.enneagram[enneagramType]!.getFullName(), style: const TextStyle(color: WaiColors.white),),
           elevation: 0,
           backgroundColor: WaiColors.lightMainColor,
           leading: InkWell(

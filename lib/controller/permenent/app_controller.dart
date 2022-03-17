@@ -15,12 +15,10 @@ import 'package:wai/controller/permenent/enneagram_test_controller.dart';
 import 'package:wai/controller/permenent/post_controller.dart';
 import 'package:wai/controller/permenent/user_controller.dart';
 import 'package:wai/controller/user_profile_controller.dart';
-import 'package:wai/data/model/sign.dart';
-import 'package:wai/models/api/response_dto.dart';
-import 'package:wai/data/model/login_info.dart';
-import 'package:wai/models/post/post.dart';
-import 'package:wai/models/sign/sign_dto.dart';
-import 'package:wai/data/model/user.dart';
+import 'package:wai/data/model/sign/sign.dart';
+import 'package:wai/data/model/response_dto.dart';
+import 'package:wai/data/model/login/login_info.dart';
+import 'package:wai/data/model/user/user.dart';
 import 'package:wai/common/utils/app_state.dart';
 import 'package:wai/common/utils/function.dart';
 import 'package:wai/common/utils/logger.dart';
@@ -50,7 +48,7 @@ class AppController extends GetxController{
 
   void setLoginInfo(Sign sign) {
     loginInfo.update((val) {
-      val!.userId = sign.userId.toString();
+      val!.userId = sign.userId!.toString();
       val.email = sign.email;
       val.userKey = sign.userKey;
       val.password = sign.password;
@@ -61,6 +59,13 @@ class AppController extends GetxController{
   void showSnackBar(SnackBar snackBar) {
     snackBarKey.currentState?.showSnackBar(snackBar);
   }
+
+  String getJwtToken() {
+    return 'Bearer ${loginInfo.value.token}';
+  }
+
+
+
 
   IOSOptions _getIOSOptions() => IOSOptions(
     accountName: _getAccountName(),
@@ -105,7 +110,7 @@ class AppController extends GetxController{
 
   Future<void> writeLoginInfo (LoginInfo loginInfo) async {
     loginInfo.token = "";
-    await storage.write(key: "loginInfo", value: loginInfo.toJson());
+    await storage.write(key: "loginInfo", value: json.encode(loginInfo.toJson()));
   }
 
   Future<void> writeIsWatchIntroducePage (String isWatchIntroducePage) async {

@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,12 +15,12 @@ import 'package:wai/route.dart';
 import 'package:wai/ui/introduce_screen/introduction_screen.dart';
 import 'package:wai/ui/who_am_i_screen/who_am_i_screen.dart';
 import 'package:wai/ui/main_screen/main_screens.dart';
-import 'package:wai/screens/splash_screen.dart';
 import 'package:wai/ui/sign_up_screen/sign_up_screen.dart';
 import 'package:wai/ui/wai_splash_screen/wai_splash_screen.dart';
 import 'binding/introduction_binding.dart';
 import 'binding/sign_up_binding.dart';
 
+import 'common/interceptor/token_interceptor.dart';
 import 'controller/permenent/user_controller.dart';
 import 'theme.dart';
 import 'common/utils/logger.dart';
@@ -34,8 +35,22 @@ double standardDeviceHeight = 683.4285714285714;
 double widthRatio = 1.0;
 double heightRatio = 1.0;
 
-void main() async {
-  await Init().initialize();
+var dio = Dio(
+  BaseOptions(
+    baseUrl: 'http://192.168.0.2:8080/api',
+    connectTimeout: 5000,
+    receiveTimeout: 3000,
+    headers: {
+      "Accept": "application/json",
+      "Content-Type" : "application/json; charset=UTF-8",
+    },
+  )
+)..interceptors.add(LogInterceptor(responseBody: true, requestBody: true))
+..interceptors.add(TokenInterceptor());
+
+void main() {
+  // await Init().initialize();
+  Init().initController();
   runApp(const WaiApp());
 }
 
@@ -55,7 +70,7 @@ class WaiApp extends StatelessWidget {
       // initialBinding: InitBinding(),
       // home: const HomeScreen(),  //  WaiSplashScreen  HomeScreen
       debugShowCheckedModeBanner: false,
-      scaffoldMessengerKey: AppController.to.snackBarKey,
+      // scaffoldMessengerKey: AppController.to.snackBarKey,
       navigatorKey: NavigationService.navigatorKey,
     );
   }

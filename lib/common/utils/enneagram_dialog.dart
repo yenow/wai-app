@@ -7,8 +7,7 @@ import 'package:wai/controller/main_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
 import 'package:wai/common/widgets/enneagram/enneagram_wing_type.dart';
-import 'package:wai/data/model/enneagram_test.dart';
-import 'package:wai/screens/enneagram_page/enneagram_type_page_screen.dart';
+import 'package:wai/data/model/enneagram_test/enneagram_test.dart';
 import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/common/widgets/block_text.dart';
 
@@ -35,7 +34,7 @@ class EnneagramDialog {
                   _buildMyEnneagramExplain(enneagramType: myEnneagramTest.myEnneagramType),
                   const Blank(height: 10,),
                   _buildNavigationButton(
-                      text: EnneagramController.to.enneagram![myEnneagramTest.myEnneagramType]!.getFullName() + " 더 알아보기",
+                      text: EnneagramController.to.enneagram[myEnneagramTest.myEnneagramType]!.getFullName() + " 더 알아보기",
                       onPressed: () {
                         Navigator.pop(context);
                         onPressed!();
@@ -50,21 +49,21 @@ class EnneagramDialog {
   }
 
   static Widget _buildMyEnneagramTypeImage({required int? enneagramType, int? wingType}) {
-    String subName = EnneagramController.to.enneagram![enneagramType]!.subName;
+    String subName = EnneagramController.to.enneagram[enneagramType]!.subName;
 
     return ElevatedButton(
       child:  Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image(
-            image: AssetImage(EnneagramController.to.enneagram![enneagramType]!.imagePath), width: 130, height: 130,  fit: BoxFit.fill,
+            image: AssetImage(EnneagramController.to.enneagram[enneagramType]!.imagePath), width: 130, height: 130,  fit: BoxFit.fill,
           ),
           const Blank(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text( "$enneagramType유형", style: WaiTextStyle(fontSize: 18).basic()),
-              // Text(EnneagramController.to.enneagram![enneagramType]!.getFullName(),
+              // Text(EnneagramController.to.enneagram[enneagramType]!.getFullName(),
               //   style: WaiTextStyle(fontSize: 18).basic(),
               //   textAlign: TextAlign.left,
               // ),
@@ -92,10 +91,10 @@ class EnneagramDialog {
       children: [
         Align(
             alignment: Alignment.center,
-            child: BlockText(text: EnneagramController.to.enneagram![enneagramType]!.simpleExplain, fontSize: 14,)
+            child: BlockText(text: EnneagramController.to.enneagram[enneagramType]!.simpleExplain, fontSize: 14,)
         ),
         const Blank(height: 10,),
-        Text(EnneagramController.to.enneagram![enneagramType]!.simpleExplain2,
+        Text(EnneagramController.to.enneagram[enneagramType]!.simpleExplain2,
           style: CustomTextStyles.buildTextStyle(fontSize: 16, color: Colors.black54),
           textAlign: TextAlign.left,
         ),

@@ -2,7 +2,7 @@
 import 'package:uuid/uuid.dart';
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/controller/sign_up_controller.dart';
-import 'package:wai/data/dto/sign_request_dto.dart';
+import 'package:wai/data/model/sign/sign_request_dto.dart';
 import 'package:wai/data/provider/sign_up_api_provider.dart';
 import 'package:wai/data/repository/sign_up_repository.dart';
 import 'package:wai/init.dart';

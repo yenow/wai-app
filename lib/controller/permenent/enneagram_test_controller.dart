@@ -8,10 +8,12 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:logger/logger.dart';
 import 'package:wai/common/utils/logger.dart';
-import 'package:wai/data/model/enneagram.dart';
-import 'package:wai/data/model/enneagram_question.dart';
+import 'package:wai/data/client/enneagram_test_client.dart';
+import 'package:wai/data/model/enneagram/enneagram.dart';
+import 'package:wai/data/model/enneagram/enneagram_question.dart';
 import 'package:wai/common/utils/function.dart';
 import 'package:wai/data/provider/enneagram_test_api_provider.dart';
+import 'package:wai/main.dart';
 
 import 'enneagram_controller.dart';
 
@@ -27,17 +29,22 @@ class EnneagramTestController extends GetxController {
   /* non-observable variable */
   final questionCount = 15;
 
-  Future<void> initData() async {
-    await initEnneagramQuestionList();
-    await initSimpleEnneagramQuestionList();
+  void initData() {
+    initEnneagramQuestionList();
+    initSimpleEnneagramQuestionList();
   }
 
-  Future<void> initEnneagramQuestionList() async {
-    enneagramQuestionList.value = await EnneagramTestApiProvider().getEnneagramQuestionList();
-    setEnneagramPageList();
+  void initEnneagramQuestionList()  {
+    EnneagramTestClient(dio).getHardEnneagramQuestion().then((value) {
+      enneagramQuestionList(value);
+      setEnneagramPageList();
+    });
   }
-  Future<void> initSimpleEnneagramQuestionList() async {
-    simpleEnneagramQuestionList.value = await EnneagramTestApiProvider().getSimpleEnneagramQuestionList();
+
+  void initSimpleEnneagramQuestionList()  {
+    EnneagramTestClient(dio).getSimpleEnneagramQuestion().then((value) {
+      simpleEnneagramQuestionList(value);
+    });
   }
 
   void setEnneagramPageList() {

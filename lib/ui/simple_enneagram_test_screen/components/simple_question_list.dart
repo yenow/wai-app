@@ -3,7 +3,7 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/controller/permenent/enneagram_test_controller.dart';
 import 'package:wai/controller/simple_enneagram_test_controller.dart';
-import 'package:wai/data/model/enneagram_question.dart';
+import 'package:wai/data/model/enneagram/enneagram_question.dart';
 import 'package:wai/ui/simple_enneagram_test_screen/components/simple_question.dart';
 
 class SimpleQuestionList extends StatelessWidget {

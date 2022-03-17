@@ -15,7 +15,6 @@ import 'package:wai/ui/main_screen/main_screens.dart';
 import 'package:wai/ui/post_write_screen/post_write_screen.dart';
 import 'package:wai/ui/service_agree_screen/service_agree_screen.dart';
 import 'package:wai/ui/simple_enneagram_test_screen/simple_enneagram_test_page_screen.dart';
-import 'package:wai/screens/splash_screen.dart';
 import 'package:wai/ui/introduce_screen/introduction_screen.dart';
 import 'package:wai/ui/sign_up_screen/sign_up_screen.dart';
 import 'package:wai/ui/wai_splash_screen/wai_splash_screen.dart';

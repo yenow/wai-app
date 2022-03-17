@@ -3,7 +3,7 @@ import 'package:wai/constants/wai_colors.dart';
 import 'package:wai/controller/permenent/enneagram_controller.dart';
 import 'package:wai/controller/permenent/enneagram_test_controller.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
-import 'package:wai/data/model/enneagram.dart';
+import 'package:wai/data/model/enneagram/enneagram.dart';
 
 import '../../../main.dart';
 
@@ -20,7 +20,7 @@ class EnneagramTypeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<int, Enneagram> enneagram = EnneagramController.to.enneagram!;
+    Map<int, Enneagram> enneagram = EnneagramController.to.enneagram;
 
     return Container(
       decoration: BoxDecoration(

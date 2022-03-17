@@ -47,13 +47,13 @@ class WaiDrawer extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Image(
-                          image: AssetImage(EnneagramController.to.enneagram![i]!.imagePath),
+                          image: AssetImage(EnneagramController.to.enneagram[i]!.imagePath),
                           width: 20,
                           height: 20,
                           fit: BoxFit.fill,
                         ),
                       ),
-                      Text(EnneagramController.to.enneagram![i]!.getFullName(), style: const TextStyle(color: WaiColors.lightMainColor),),
+                      Text(EnneagramController.to.enneagram[i]!.getFullName(), style: const TextStyle(color: WaiColors.lightMainColor),),
                     ],
                   ),
                   onTap: () {

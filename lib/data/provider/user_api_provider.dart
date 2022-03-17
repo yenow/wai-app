@@ -6,9 +6,9 @@ import 'package:wai/common/utils/function.dart';
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/controller/permenent/app_controller.dart';
 import 'package:wai/controller/permenent/user_controller.dart';
-import 'package:wai/data/dto/user_request_dto.dart';
-import 'package:wai/data/model/enneagram_test.dart';
-import 'package:wai/data/model/user.dart';
+import 'package:wai/data/model/user/user_request_dto.dart';
+import 'package:wai/data/model/enneagram_test/enneagram_test.dart';
+import 'package:wai/data/model/user/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:wai/data/model/wai_error.dart';
 

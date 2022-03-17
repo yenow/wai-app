@@ -19,15 +19,8 @@ import 'package:wai/controller/permenent/post_controller.dart';
 import 'package:wai/controller/permenent/user_controller.dart';
 import 'package:wai/controller/user_profile_controller.dart';
 import 'package:wai/common/utils/enneagram_dialog.dart';
-import 'package:wai/data/model/enneagram_test.dart';
-import 'package:wai/models/post/api/post_request_dto.dart';
-import 'package:wai/net/post/post_api.dart';
-import 'package:wai/net/user/user_api.dart';
-import 'package:wai/screens/home_page/home_page_screen.dart';
-import 'package:wai/screens/posts_page/posts_page_screen.dart';
-import 'package:wai/screens/profile_page/profile_page_screen.dart';
-import 'package:wai/screens/search_page/search_page_screen.dart';
-import 'package:wai/screens/splash_screen.dart';
+import 'package:wai/data/model/enneagram_test/enneagram_test.dart';
+import 'package:wai/ui/search_screen/search_page_screen.dart';
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/ui/main_screen/components/main_body.dart';
 import 'package:wai/ui/main_screen/components/main_bottom_navigation.dart';
@@ -35,8 +28,6 @@ import 'package:wai/ui/main_screen/components/main_bottom_sheet.dart';
 import 'package:wai/ui/main_screen/components/wai_drawer.dart';
 import 'package:wai/ui/main_screen/home_screen/home_screen.dart';
 import '../../main.dart';
-import '../../screens/enneagram_page/enneagram_page_screen.dart';
-import '../../screens/enneagram_page/enneagram_type_page_screen.dart';
 
 class MainScreens extends StatelessWidget {
   const MainScreens({Key? key}) : super(key: key);
@@ -48,13 +39,13 @@ class MainScreens extends StatelessWidget {
       if (Get.parameters['showEnneagramDialog'] == "Y"/* && MainController.to.isShowEnneagramDialog.value == false*/) {
         EnneagramTest myTest = UserController.to.userEnneagramTests.elementAt(0);
 
-        EnneagramDialog.showEnneagramType(
-            context: context,
-            myEnneagramTest : myTest,
-            onPressed: () {
-              Get.to(() => EnneagramTypePageScreen(enneagramType: myTest.myEnneagramType!));
-            }
-        );
+        // EnneagramDialog.showEnneagramType(
+        //     context: context,
+        //     myEnneagramTest : myTest,
+        //     onPressed: () {
+        //       Get.to(() => EnneagramTypePageScreen(enneagramType: myTest.myEnneagramType!));
+        //     }
+        // );
       }
     });
 

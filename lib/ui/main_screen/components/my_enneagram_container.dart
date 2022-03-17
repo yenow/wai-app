@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:wai/common/widgets/block_text.dart';
 import 'package:wai/constants/wai_colors.dart';
 import 'package:wai/controller/permenent/enneagram_controller.dart';
-import 'package:wai/data/model/enneagram_test.dart';
+import 'package:wai/data/model/enneagram_test/enneagram_test.dart';
 
 import '../../../common/widgets/blank.dart';
 
@@ -61,11 +61,11 @@ class MyEnneagramContainer extends StatelessWidget {
         children: [
           Align(
               alignment: Alignment.center,
-              child: BlockText(text: EnneagramController.to.enneagram![myEnneagramType]!.simpleExplain,)
+              child: BlockText(text: EnneagramController.to.enneagram[myEnneagramType]!.simpleExplain,)
           ),
           const Blank(height: 5),
           AutoSizeText(
-            EnneagramController.to.enneagram![myEnneagramType]!.simpleExplain2,
+            EnneagramController.to.enneagram[myEnneagramType]!.simpleExplain2,
             maxLines: 2,
             style: TextStyle(fontSize: fontSize, color: textColor),
           ),
@@ -82,7 +82,7 @@ class MyEnneagramContainer extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image(
-            image: AssetImage(EnneagramController.to.enneagram![myEnneagramTest.myEnneagramType]!.imagePath), width: imageSize, height: imageSize,  fit: BoxFit.fill,
+            image: AssetImage(EnneagramController.to.enneagram[myEnneagramTest.myEnneagramType]!.imagePath), width: imageSize, height: imageSize,  fit: BoxFit.fill,
           ),
           const Blank(height: 5),
           Row(

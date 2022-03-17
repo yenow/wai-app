@@ -6,7 +6,7 @@ import 'package:wai/controller/permenent/app_controller.dart';
 import 'package:wai/controller/permenent/enneagram_controller.dart';
 import 'package:wai/controller/permenent/enneagram_test_controller.dart';
 import 'package:wai/controller/permenent/user_controller.dart';
-import 'package:wai/data/dto/user_request_dto.dart';
+import 'package:wai/data/model/user/user_request_dto.dart';
 
 class Init {
 
@@ -26,8 +26,8 @@ class Init {
     await AppController.to.initData();
     await signIn();
 
-    await EnneagramController.to.initEnneagram();
-    await EnneagramTestController.to.initData();
+    EnneagramController.to.initEnneagram();
+    EnneagramTestController.to.initData();
 
     String userKey = AppController.to.loginInfo.value.userKey;
     await UserController.to.initData(UserRequestDto(userKey: userKey));

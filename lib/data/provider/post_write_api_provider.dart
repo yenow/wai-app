@@ -1,7 +1,7 @@
 import 'package:wai/common/utils/api.dart';
 import 'package:wai/common/utils/api_util.dart';
 import 'package:http/http.dart' as http;
-import 'package:wai/models/post/api/post_save_request_dto.dart';
+import 'package:wai/data/model/post/post_save_request_dto.dart';
 
 class PostWriteApiProvider {
 

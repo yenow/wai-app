@@ -5,7 +5,7 @@ import 'package:wai/controller/permenent/app_controller.dart';
 import 'package:wai/controller/permenent/enneagram_controller.dart';
 import 'package:wai/controller/permenent/enneagram_test_controller.dart';
 import 'package:wai/controller/permenent/user_controller.dart';
-import 'package:wai/data/dto/enneagram_test_request_dto.dart';
+import 'package:wai/data/model/enneagram_test/enneagram_test_request_dto.dart';
 import 'package:wai/data/repository/who_am_i_repository.dart';
 
 class WhoAmIController extends GetxController {
@@ -18,7 +18,7 @@ class WhoAmIController extends GetxController {
 
   void changeCurrentIndex(int newIndex) {
     currentIndex(newIndex);
-    buttonText(EnneagramController.to.enneagram![currentIndex]!.getFullName() + '으로 시작하기');
+    buttonText(EnneagramController.to.enneagram[currentIndex]!.getFullName() + '으로 시작하기');
   }
 
   void selectEnneagramType() async {

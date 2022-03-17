@@ -20,14 +20,13 @@ import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/common/widgets/horizontal_border_line.dart';
 import 'package:wai/common/widgets/wai_appbar.dart';
 import 'package:wai/common/widgets/wai_snackbar.dart';
-import 'package:wai/data/model/enneagram_test.dart';
-import 'package:wai/data/dto/enneagram_test_request_dto.dart';
+import 'package:wai/data/model/enneagram_test/enneagram_test.dart';
+import 'package:wai/data/model/enneagram_test/enneagram_test_request_dto.dart';
 import 'package:wai/common/utils/function.dart';
 import 'package:wai/route.dart';
 import 'package:wai/ui/hard_enneagram_test_screen/component/hard_enneagram_test_page_view.dart';
 
 import '../main_screen/main_screens.dart';
-import '../../screens/enneagram_test_page/component/custom_radio_group_buton.dart';
 
 class HardEnneagramTestScreen extends StatelessWidget {
   const HardEnneagramTestScreen({Key? key}) : super(key: key);

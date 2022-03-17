@@ -26,7 +26,6 @@ class WaiSplashScreen extends StatelessWidget {
     Future.delayed(const Duration(milliseconds: 1500), () async {
 
       await Init().initData();
-      logger.d(AppController.to.isWatchIntroducePage.value);
 
       if(AppController.to.isWatchIntroducePage.value != "Y") {
         AppController.to.writeIsWatchIntroducePage("Y");

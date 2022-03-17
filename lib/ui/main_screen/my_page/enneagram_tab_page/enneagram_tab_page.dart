@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wai/common/widgets/horizontal_border_line.dart';
 import 'package:wai/constants/wai_colors.dart';
 import 'package:wai/controller/permenent/user_controller.dart';
-import 'package:wai/data/model/enneagram_test.dart';
+import 'package:wai/data/model/enneagram_test/enneagram_test.dart';
 import 'package:wai/ui/main_screen/components/my_enneagram_container.dart';
 import 'package:wai/ui/main_screen/my_page/enneagram_tab_page/components/enneagram_char_container.dart';
 import 'package:wai/ui/main_screen/my_page/enneagram_tab_page/components/test_list_view.dart';
