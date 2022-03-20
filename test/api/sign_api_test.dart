@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:wai/common/utils/logger.dart';
-import 'package:wai/controller/permenent/app_controller.dart';
+import 'package:wai/controller/permernent/app_controller.dart';
 import 'package:wai/data/model/login/login_info.dart';
 
 main() async {

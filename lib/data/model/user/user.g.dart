@@ -13,6 +13,7 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       nickname: json['nickname'] as String?,
       email: json['email'] as String?,
       myEnneagramType: json['myEnneagramType'] as int?,
+      profileImageFileId: json['profileImageFileId'] as int?,
     );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
@@ -22,4 +23,5 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'nickname': instance.nickname,
       'email': instance.email,
       'myEnneagramType': instance.myEnneagramType,
+      'profileImageFileId': instance.profileImageFileId,
     };

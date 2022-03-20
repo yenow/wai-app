@@ -13,6 +13,7 @@ class User {
   String? nickname;
   String? email;
   int? myEnneagramType;
+  int? profileImageFileId;
 
   User({
     this.userId,
@@ -21,6 +22,7 @@ class User {
     this.nickname,
     this.email,
     this.myEnneagramType,
+    this.profileImageFileId,
   });
 
   void setUserBySign(Sign sign) {
@@ -34,28 +36,6 @@ class User {
 
   @override
   String toString() {
-    return 'User{userId: $userId, userKey: $userKey, password: $password, nickname: $nickname, email: $email, myEnneagramType: $myEnneagramType}';
+    return 'User{userId: $userId, userKey: $userKey, password: $password, nickname: $nickname, email: $email, myEnneagramType: $myEnneagramType, profileImageFileId: $profileImageFileId}';
   }
 }
-
-  /*String toJson() {
-    return json.encode({
-      "userId" : userId,
-      "userKey" : userKey,
-      "nickname" : nickname,
-      "email" : email,
-      "myEnneagramType" : myEnneagramType,
-    });
-  }
-
-  factory User.fromJson(Map<String, dynamic> json) {
-
-    return User(
-      userId: json['userId'],
-      userKey: json['userKey'],
-      password: json['password'],
-      nickname: json['nickname'],
-      email: json['email'],
-      myEnneagramType: json['myEnneagramType'],
-    );
-  }*/

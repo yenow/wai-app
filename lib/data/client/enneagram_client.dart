@@ -4,7 +4,7 @@ import 'package:wai/data/model/enneagram/enneagram.dart';
 import 'package:wai/data/model/user/user.dart';
 import 'package:wai/data/model/user/user_request_dto.dart';
 
-import '../../controller/permenent/app_controller.dart';
+import '../../controller/permernent/app_controller.dart';
 
 part 'enneagram_client.g.dart';
 

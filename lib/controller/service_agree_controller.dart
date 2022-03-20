@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:wai/common/utils/wai_dialog.dart';
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/common/widgets/wai_snackbar.dart';
-import 'package:wai/controller/permenent/app_controller.dart';
+import 'package:wai/controller/permernent/app_controller.dart';
 import 'package:wai/route.dart';
 
 class ServiceAgreeController extends GetxController {

@@ -1,7 +1,7 @@
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/bindings_interface.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
-import 'package:wai/controller/permenent/app_controller.dart';
+import 'package:wai/controller/permernent/app_controller.dart';
 
 class InitBinding implements Bindings {
 

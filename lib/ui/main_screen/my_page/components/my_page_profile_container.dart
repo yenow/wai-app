@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:wai/common/widgets/blank.dart';
+import 'package:wai/common/widgets/image_container.dart';
+import 'package:wai/constants/constants.dart';
 import 'package:wai/constants/wai_colors.dart';
+import 'package:wai/controller/permernent/user_controller.dart';
 import 'package:wai/ui/main_screen/my_page/components/my_page_tab_bar.dart';
 
 class MyPageProfileContainer extends StatelessWidget {
@@ -27,18 +31,16 @@ class MyPageProfileContainer extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: [
           const Blank(height: 50,),
-          Column(
-            children: [
-              Center(
-                child: Icon(
-                  Icons.account_circle,
-                  size: 70,
-                  color: WaiColors.white,
+          Obx(() =>
+            Column(
+              children: [
+                Center(
+                  child: MyPageImage(profileImageFileId: UserController.to.user.value.profileImageFileId),
                 ),
-              ),
-              Blank(height: 5,),
-              Text('닉네임', style: TextStyle(color: WaiColors.white),)
-            ],
+                const Blank(height: 5,),
+                Text(UserController.to.user.value.nickname!, style: const TextStyle(color: WaiColors.white))
+              ],
+            )
           ),
           Container(
             padding: const EdgeInsets.symmetric(vertical: 10),
@@ -57,3 +59,31 @@ class MyPageProfileContainer extends StatelessWidget {
     );
   }
 }
+
+class MyPageImage extends StatelessWidget {
+  const MyPageImage({Key? key, this.profileImageFileId}) : super(key: key);
+  final int? profileImageFileId;
+
+  @override
+  Widget build(BuildContext context) {
+    if (profileImageFileId == null) {
+      return const Icon(
+        Icons.account_circle,
+        size: 80,
+        color: WaiColors.white,
+      );
+
+    } else {
+      return ImageContainer(
+          borderRadius: 40,
+          width: 80,
+          height: 80,
+          imageUrl: '$baseUrl/api/fileUpLoad/image/$profileImageFileId',
+      );
+    }
+    return Container();
+  }
+}
+
+
+// /fileUpLoad/image/

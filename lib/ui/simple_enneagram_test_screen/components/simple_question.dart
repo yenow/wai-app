@@ -4,7 +4,7 @@ import 'package:wai/controller/simple_enneagram_test_controller.dart';
 import 'package:wai/data/model/enneagram/enneagram_question.dart';
 
 import '../../../common/theme/wai_textstyle.dart';
-import '../../../controller/permenent/enneagram_test_controller.dart';
+import '../../../controller/permernent/enneagram_test_controller.dart';
 
 class SimpleQuestion extends StatelessWidget {
   const SimpleQuestion({Key? key, required this.pageIndex, required this.index, required this.simpleQuestionList,
@@ -25,8 +25,6 @@ class SimpleQuestion extends StatelessWidget {
       ),
       child: ElevatedButton(
         onPressed: () {
-          // changeCurrentListIndex(index);
-          // SimpleEnneagramTestController.to.changeList(index);
           SimpleEnneagramTestController.to.changeCurrentUniqueString(uniqueString);
           SimpleEnneagramTestController.to.setSimpleTestSelectMap(pageIndex: pageIndex, uniqueString: uniqueString);
         },
@@ -45,6 +43,7 @@ class SimpleQuestion extends StatelessWidget {
         style: ButtonStyle(
           elevation: MaterialStateProperty.all(0.0),
           shadowColor: MaterialStateProperty.all(Colors.transparent),
+          minimumSize: MaterialStateProperty.all(const Size.fromHeight(50)),
           padding: MaterialStateProperty.all(const EdgeInsets.all(15)),
           shape: MaterialStateProperty.all(const RoundedRectangleBorder(
               side: BorderSide(width: 1, color: Colors.grey),

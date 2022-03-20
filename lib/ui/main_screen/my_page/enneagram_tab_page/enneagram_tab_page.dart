@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wai/common/widgets/horizontal_border_line.dart';
 import 'package:wai/constants/wai_colors.dart';
-import 'package:wai/controller/permenent/user_controller.dart';
+import 'package:wai/controller/permernent/user_controller.dart';
 import 'package:wai/data/model/enneagram_test/enneagram_test.dart';
 import 'package:wai/ui/main_screen/components/my_enneagram_container.dart';
 import 'package:wai/ui/main_screen/my_page/enneagram_tab_page/components/enneagram_char_container.dart';
@@ -17,9 +17,9 @@ class EnneagramTabPage extends StatelessWidget {
     return ListView(
       padding: EdgeInsets.zero,
       children: [
-        Center(child: Text('나의 에니어그램', style: TextStyle(fontSize: 20, color: WaiColors.black80),)),
+        const Center(child: Text('나의 에니어그램', style: TextStyle(fontSize: 20, color: WaiColors.black60),)),
         TestListView(),
-        HorizontalBorderLine(),
+        const HorizontalBorderLine(),
         // Padding(
         //   padding: const EdgeInsets.only(top: 20, left: 30, right: 30),
         //   child: MyEnneagramContainer(

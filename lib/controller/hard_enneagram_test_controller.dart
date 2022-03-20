@@ -2,22 +2,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/common/widgets/wai_snackbar.dart';
-import 'package:wai/controller/permenent/app_controller.dart';
-import 'package:wai/controller/permenent/enneagram_test_controller.dart';
+import 'package:wai/controller/permernent/app_controller.dart';
+import 'package:wai/controller/permernent/enneagram_test_controller.dart';
+import 'package:wai/data/client/enneagram_test_client.dart';
 import 'package:wai/data/model/enneagram_test/enneagram_test_request_dto.dart';
 import 'package:wai/data/model/enneagram_test/enneagram_test.dart';
-import 'package:wai/data/repository/hard_enneagram_test_repository.dart';
 import 'package:wai/data/model/introduction_message.dart';
+import 'package:wai/main.dart';
 import 'package:wai/route.dart';
 import 'package:wai/ui/sign_up_screen/sign_up_screen.dart';
 
-import 'permenent/user_controller.dart';
+import 'permernent/user_controller.dart';
 
 class HardEnneagramTestController extends GetxController {
   static HardEnneagramTestController get to => Get.find();
-  HardEnneagramTestRepository hardEnneagramTestRepository;
-
-  HardEnneagramTestController({required this.hardEnneagramTestRepository});
+  // HardEnneagramTestRepository hardEnneagramTestRepository;
+  // HardEnneagramTestController({required this.hardEnneagramTestRepository});
 
   final currentPageIndex = 0.obs;
   final buttonTitle = "다음".obs;
@@ -77,14 +77,14 @@ class HardEnneagramTestController extends GetxController {
         type8Score: EnneagramTestController.to.getScoreByEneagramType(8),
         type9Score: EnneagramTestController.to.getScoreByEneagramType(9),
       );
-      var result = await hardEnneagramTestRepository.saveHardEnneagramTest(enneagramTestRequestDto);
 
-      if (result is EnneagramTest) {
-        UserController.to.updateUserEnneagram(result); // todo
+      EnneagramTestClient(mainDio).doHardEnneagramTest(
+          enneagramTestRequestDto: enneagramTestRequestDto,
+          token: AppController.to.getJwtToken()
+      ).then((value) {
+        UserController.to.addUserEnneagramTest(value);
         Get.offAllNamed(WaiRoutes.main, parameters: {"showEnneagramDialog": "Y"});
-      } else {
-        loggerNoStack.e("saveSimpleEnneagramTest error");
-      }
+      });
     }
   }
 

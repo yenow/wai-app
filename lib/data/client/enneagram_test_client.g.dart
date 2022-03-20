@@ -55,6 +55,64 @@ class _EnneagramTestClient implements EnneagramTestClient {
     return value;
   }
 
+  @override
+  Future<EnneagramTest> doSelectedEnneagramTestResult(
+      {required enneagramTestRequestDto, required token}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'authorization': token};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(enneagramTestRequestDto.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<EnneagramTest>(Options(
+                method: 'POST', headers: _headers, extra: _extra)
+            .compose(
+                _dio.options, '/enneagramTest/doSelectedEnneagramTestResult',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = EnneagramTest.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<EnneagramTest> doSimpleEnneagramTest(
+      {required enneagramTestRequestDto, required token}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'authorization': token};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(enneagramTestRequestDto.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<EnneagramTest>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/enneagramTest/doSimpleEnneagramTest',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = EnneagramTest.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<EnneagramTest> doHardEnneagramTest(
+      {required enneagramTestRequestDto, required token}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'authorization': token};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(enneagramTestRequestDto.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<EnneagramTest>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/enneagramTest/doHardEnneagramTest',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = EnneagramTest.fromJson(_result.data!);
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

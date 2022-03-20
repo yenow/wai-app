@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:wai/controller/permenent/app_controller.dart';
+import 'package:wai/controller/permernent/app_controller.dart';
 import 'package:wai/data/model/introduction_message.dart';
 import 'package:wai/route.dart';
 import 'package:wai/ui/sign_up_screen/sign_up_screen.dart';
@@ -50,7 +50,7 @@ class IntroductionController extends GetxController {
   }
 
   void clickStartButton() {
-    // todo 임시로 주석 AppController.to.writeIsWatchIntroducePage("Y");
+    AppController.to.writeIsWatchIntroducePage("Y");
     Get.offAllNamed(WaiRoutes.signUp);
   }
 }

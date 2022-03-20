@@ -2,13 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
-import 'package:wai/controller/permenent/app_controller.dart';
-import 'package:wai/controller/permenent/user_controller.dart';
+import 'package:wai/controller/permernent/app_controller.dart';
+import 'package:wai/controller/permernent/user_controller.dart';
 import 'package:wai/data/model/wai_error.dart';
 import 'package:wai/data/model/sign/sign.dart';
 import 'package:wai/data/model/sign/sign_request_dto.dart';
 import 'package:wai/data/client/sign_client.dart';
-import 'package:wai/data/repository/sign_up_repository.dart';
 import 'package:wai/route.dart';
 import 'package:wai/ui/who_am_i_screen/who_am_i_screen.dart';
 
@@ -16,8 +15,6 @@ import '../main.dart';
 
 class SignUpController extends GetxController {
   static SignUpController get to => Get.find();
-  final SignUpRepository signUpRepository;
-  SignUpController({required this.signUpRepository});
 
   final nickname = "".obs;
   final errorMessage = "".obs;
@@ -40,9 +37,9 @@ class SignUpController extends GetxController {
 
       // var result = await signUpRepository.signUpAsNonMember(signRequestDto);
 
-      await SignClient(dio).signUpAsNonMember(signRequestDto: signRequestDto).then((result) {
+      await SignClient(mainDio).signUpAsNonMember(signRequestDto: signRequestDto).then((result) {
         AppController.to.setLoginInfo(result);
-        UserController.to.updateUser(result);
+        UserController.to.updateUserBySign(result);
         AppController.to.writeLoginInfo(AppController.to.loginInfo.value);
         Get.offAllNamed(WaiRoutes.whoAmI);
 

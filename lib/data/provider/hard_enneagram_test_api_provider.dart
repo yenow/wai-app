@@ -4,7 +4,7 @@ import 'package:wai/common/utils/api.dart';
 import 'package:http/http.dart' as http;
 import 'package:wai/common/utils/api_util.dart';
 import 'package:wai/common/utils/logger.dart';
-import 'package:wai/controller/permenent/enneagram_test_controller.dart';
+import 'package:wai/controller/permernent/enneagram_test_controller.dart';
 import 'package:wai/data/model/enneagram_test/enneagram_test_request_dto.dart';
 import 'package:wai/data/model/enneagram/enneagram.dart';
 import 'package:wai/data/model/enneagram/enneagram_question.dart';

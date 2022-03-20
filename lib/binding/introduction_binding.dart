@@ -6,8 +6,5 @@ class IntroductionBinding implements Bindings {
   @override
   void dependencies() {
     Get.put<IntroductionController>(IntroductionController());
-    // Get.lazyPut<IntroductionController>(() {
-    //   return IntroductionController();
-    // });
   }
 }

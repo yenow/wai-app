@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wai/constants/wai_colors.dart';
-import 'package:wai/controller/permenent/enneagram_test_controller.dart';
+import 'package:wai/controller/permernent/enneagram_test_controller.dart';
 
 class TestProgressBar extends StatelessWidget {
   const TestProgressBar({Key? key}) : super(key: key);

@@ -3,17 +3,17 @@ import 'dart:convert';
 import 'package:logger/logger.dart';
 import 'package:wai/constants/constants.dart';
 import 'package:http/http.dart' as http;
-import 'package:wai/controller/permenent/app_controller.dart';
+import 'package:wai/controller/permernent/app_controller.dart';
 
 import 'logger.dart';
 
 Future<dynamic> postRequest (String url, String jsonString) async {
 
-  loggerNoStack.i("post request : $apiUrl$url");
+  loggerNoStack.i("post request : $baseUrl$url");
 
   AppController.to.getServerTime();
   final response = await http.post(
-      Uri.parse(apiUrl + url),
+      Uri.parse(baseUrl + url),
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json; charset=UTF-8"
@@ -29,11 +29,11 @@ Future<dynamic> postRequest (String url, String jsonString) async {
 }
 
 Future<dynamic> getRequest (String url) async {
-  loggerNoStack.i("get request : $apiUrl$url");
+  loggerNoStack.i("get request : $baseUrl$url");
 
   AppController.to.getServerTime();
   final response = await http.get(
-      Uri.parse(apiUrl + url),
+      Uri.parse(baseUrl + url),
   );
 
 
@@ -47,7 +47,7 @@ Future<dynamic> getRequest (String url) async {
 Future<dynamic> getServerTimeRequest () async {
 
   final response = await http.get(
-    Uri.parse(apiUrl + "/api/getServerTime"),
+    Uri.parse(baseUrl + "/api/getServerTime"),
   );
 
   if (response.statusCode == 200) {

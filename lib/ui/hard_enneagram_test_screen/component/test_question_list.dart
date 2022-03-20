@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wai/controller/permenent/enneagram_test_controller.dart';
+import 'package:wai/controller/permernent/enneagram_test_controller.dart';
 import 'package:wai/ui/hard_enneagram_test_screen/component/custom_radio_group_buton.dart';
 import 'package:wai/ui/hard_enneagram_test_screen/component/test_question.dart';
 

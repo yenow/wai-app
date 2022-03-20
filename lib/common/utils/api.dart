@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:wai/common/utils/api_util.dart';
 import 'package:wai/constants/constants.dart';
 import 'package:wai/common/utils/logger.dart';
-import 'package:wai/controller/permenent/app_controller.dart';
+import 'package:wai/controller/permernent/app_controller.dart';
 import 'package:wai/data/model/wai_error.dart';
 
 import '../../data/model/sign/sign.dart';
@@ -24,10 +24,10 @@ enum HttpMethod {
 // }
 
 Future<http.Response> getApiRequest (String url) async {
-  loggerNoStack.d(apiUrl + url);
+  loggerNoStack.d(baseUrl + url);
 
   final http.Response response = await http.get(
-      Uri.parse(apiUrl + url),
+      Uri.parse(baseUrl + url),
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json; charset=UTF-8",
@@ -39,11 +39,11 @@ Future<http.Response> getApiRequest (String url) async {
 
 
 Future<http.Response> postApiRequest(String url, Map jsonMap) async {
-  loggerNoStack.d(apiUrl + url);
+  loggerNoStack.d(baseUrl + url);
   loggerNoStack.d("request json string : " + json.encode(jsonMap));
 
   final http.Response response = await http.post(
-      Uri.parse(apiUrl + url),
+      Uri.parse(baseUrl + url),
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json; charset=UTF-8",
@@ -143,7 +143,7 @@ Future<void> signIn() async {
   loggerNoStack.d("signIn(get token)");
 
   final http.Response response = await http.post(
-      Uri.parse(apiUrl + "/api/sign/signIn"),
+      Uri.parse(baseUrl + "/api/sign/signIn"),
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json; charset=UTF-8",

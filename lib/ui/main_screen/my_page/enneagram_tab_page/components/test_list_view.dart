@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:wai/common/widgets/blank.dart';
-import 'package:wai/controller/permenent/user_controller.dart';
+import 'package:wai/controller/permernent/user_controller.dart';
 import 'package:wai/ui/main_screen/my_page/enneagram_tab_page/components/season_image_button.dart';
 
 import '../../../../../common/utils/logger.dart';

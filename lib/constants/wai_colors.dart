@@ -66,11 +66,18 @@ class WaiColors {
 
 
   static const blue = Color(0xFF2C8DC1);
+  static const blue50 = Color(0xFF2C8DC1);
+  static const blue40 = Color(0x662C8DC1);
   static const lightBlue = Color(0xFF81AED0);
   static const deepLightBlue = Color(0xFFBEC7CE);
 
 
   static const green = Color(0xFF7CC958);
+  static const green90 = Color(0xE67CC958);
+  static const green80 = Color(0xCC7CC958);
+  static const green70 = Color(0xB37CC958);
+  static const green60 = Color(0x997CC958);
+  static const green50 = Color(0x807CC958);
 
 
 

@@ -5,7 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_navigation/src/snackbar/snackbar.dart';
 import 'package:wai/constants/wai_colors.dart';
-import 'package:wai/controller/permenent/post_controller.dart';
+import 'package:wai/controller/permernent/post_controller.dart';
 import 'package:wai/controller/search_controller.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
 import 'package:wai/common/widgets/focus_out_container.dart';

@@ -1,17 +1,17 @@
 import 'package:get/get.dart';
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/common/widgets/wai_snackbar.dart';
-import 'package:wai/controller/permenent/app_controller.dart';
-import 'package:wai/controller/permenent/enneagram_controller.dart';
-import 'package:wai/controller/permenent/enneagram_test_controller.dart';
-import 'package:wai/controller/permenent/user_controller.dart';
+import 'package:wai/controller/permernent/app_controller.dart';
+import 'package:wai/controller/permernent/enneagram_controller.dart';
+import 'package:wai/controller/permernent/enneagram_test_controller.dart';
+import 'package:wai/controller/permernent/user_controller.dart';
+import 'package:wai/data/client/enneagram_test_client.dart';
 import 'package:wai/data/model/enneagram_test/enneagram_test_request_dto.dart';
-import 'package:wai/data/repository/who_am_i_repository.dart';
+import 'package:wai/main.dart';
+import 'package:wai/route.dart';
 
 class WhoAmIController extends GetxController {
   static WhoAmIController get to => Get.find();
-  final WhoAmIRepository whoAmIRepository;
-  WhoAmIController({required this.whoAmIRepository});
 
   final currentIndex = 0.obs;
   final buttonText = "유형을 선택해주세요.".obs;
@@ -28,13 +28,21 @@ class WhoAmIController extends GetxController {
 
     } else {
 
-      EnneagramTestRequestDto enneagramTest = EnneagramTestRequestDto(
+      EnneagramTestRequestDto enneagramTestRequestDto = EnneagramTestRequestDto(
         userId: UserController.to.user.value.userId!.toString(),
         testType: TestType.select,
         myEnneagramType: currentIndex.value,
       );
 
-      var result = await whoAmIRepository.selectEnneagramType(enneagramTest);
+      EnneagramTestClient(mainDio).doSelectedEnneagramTestResult(
+          enneagramTestRequestDto: enneagramTestRequestDto,
+          token: AppController.to.getJwtToken()
+      ).then((value) {
+        UserController.to.addUserEnneagramTest(value);
+        Get.offAllNamed(WaiRoutes.main, parameters: {"showEnneagramDialog": "Y"});
+      });
+
+      // var result = await whoAmIRepository.selectEnneagramType(enneagramTest);
       // MainController.to.setTabIndex(0);
       // Get.offAll(() => MainScreens(myEnneagramTest: myEnneagramTest));
 

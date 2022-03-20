@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wai/constants/wai_colors.dart';
-import 'package:wai/controller/permenent/enneagram_controller.dart';
+import 'package:wai/controller/permernent/enneagram_controller.dart';
 
 import '../../../common/widgets/blank.dart';
 

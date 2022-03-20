@@ -1,7 +1,7 @@
 
 import 'package:get/get.dart';
 import 'package:wai/common/utils/logger.dart';
-import 'package:wai/controller/permenent/app_controller.dart';
+import 'package:wai/controller/permernent/app_controller.dart';
 import 'package:wai/data/client/enneagram_client.dart';
 import 'package:wai/data/client/user_client.dart';
 import 'package:wai/data/model/enneagram/enneagram.dart';

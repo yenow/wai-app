@@ -39,17 +39,16 @@ class WaiTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    return TextField(
       cursorColor: Colors.grey,
       keyboardType: keyboardType ?? TextInputType.text,
       maxLength: maxLength ?? 100,
       maxLines: maxLines,
       expands: expands,
-      validator: validator,
-      onSaved: onSaved,
       controller: controller,
       style: WaiTextStyle(fontSize: 16, color: Colors.black54).basic(),
       onChanged: onChanged,
+
       decoration: InputDecoration(
         labelText: labelText,
         labelStyle: WaiTextStyle(fontSize: 16, color: Colors.grey).basic(),

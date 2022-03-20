@@ -1,22 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:wai/common/widgets/wai_snackbar.dart';
-import 'package:wai/controller/permenent/app_controller.dart';
-import 'package:wai/data/model/enneagram_test/enneagram_test.dart';
-import 'package:wai/data/repository/simple_enneagram_test_repository.dart';
+import 'package:wai/controller/permernent/app_controller.dart';
+import 'package:wai/data/client/enneagram_test_client.dart';
 import 'package:wai/data/model/introduction_message.dart';
+import 'package:wai/main.dart';
 import 'package:wai/route.dart';
-import 'package:wai/ui/sign_up_screen/sign_up_screen.dart';
-
 import '../common/utils/logger.dart';
 import '../data/model/enneagram_test/enneagram_test_request_dto.dart';
-import 'permenent/enneagram_test_controller.dart';
-import 'permenent/user_controller.dart';
+import 'permernent/user_controller.dart';
 
 class SimpleEnneagramTestController extends GetxController {
   static SimpleEnneagramTestController get to => Get.find();
-  SimpleEnneagramTestRepository simpleEnneagramTestRepository;
-  SimpleEnneagramTestController({required this.simpleEnneagramTestRepository});
 
   final currentPageIndex = 0.obs;
   final currentUniqueString = "".obs;
@@ -36,7 +31,6 @@ class SimpleEnneagramTestController extends GetxController {
 
   void setSimpleTestSelectMap({required int pageIndex ,required String uniqueString}) {
     selectSimpleTestMap.update(pageIndex,(value) => uniqueString);
-    logger.d(selectSimpleTestMap);
   }
 
   void goNextPage() {
@@ -50,7 +44,7 @@ class SimpleEnneagramTestController extends GetxController {
   }
 
 
-  void saveSimpleEnneagramTest() async {
+  void doSimpleEnneagramTest() async {
 
     if (!checkSimpleEnneagramTestValue()) {
       AppController.to.snackBarKey.currentState!.showSnackBar(WaiSnackBar.top(text: "문항을 선택해주세요."));
@@ -62,14 +56,14 @@ class SimpleEnneagramTestController extends GetxController {
       testType: TestType.simple,
       uniqueString: makeUniqueString(),
     );
-    var result = await simpleEnneagramTestRepository.saveSimpleEnneagramTest(enneagramTestRequestDto);
 
-    if (result is EnneagramTest) {
-      UserController.to.updateUserEnneagram(result); // todo
+    await EnneagramTestClient(mainDio).doSimpleEnneagramTest(
+        enneagramTestRequestDto: enneagramTestRequestDto,
+        token: AppController.to.getJwtToken()
+    ).then((value) {
+      UserController.to.addUserEnneagramTest(value);
       Get.offAllNamed(WaiRoutes.main, parameters: {"showEnneagramDialog": "Y"});
-    } else {
-      loggerNoStack.e("saveSimpleEnneagramTest error");
-    }
+    });
   }
 
   bool checkSimpleEnneagramTestValue() {

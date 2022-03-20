@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:wai/controller/permenent/reply_controller.dart';
-import 'package:wai/controller/permenent/user_controller.dart';
+import 'package:wai/controller/permernent/reply_controller.dart';
+import 'package:wai/controller/permernent/user_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/data/model/reply/reply_request_dto.dart';
 

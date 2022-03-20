@@ -35,7 +35,7 @@ class SimpleEnneagramTestButton extends StatelessWidget {
               Text("완료", style: CustomTextStyles.buildTextStyle(color: Colors.white)),
             ],
           ),
-          onPressed: SimpleEnneagramTestController.to.saveSimpleEnneagramTest
+          onPressed: SimpleEnneagramTestController.to.doSimpleEnneagramTest
       );
     }
     

@@ -29,20 +29,20 @@ class EnneagramTestController extends GetxController {
   /* non-observable variable */
   final questionCount = 15;
 
-  void initData() {
-    initEnneagramQuestionList();
-    initSimpleEnneagramQuestionList();
+  Future<void> initData() async {
+    await initEnneagramQuestionList();
+    await initSimpleEnneagramQuestionList();
   }
 
-  void initEnneagramQuestionList()  {
-    EnneagramTestClient(dio).getHardEnneagramQuestion().then((value) {
+  Future<void> initEnneagramQuestionList() async {
+    EnneagramTestClient(mainDio).getHardEnneagramQuestion().then((value) {
       enneagramQuestionList(value);
       setEnneagramPageList();
     });
   }
 
-  void initSimpleEnneagramQuestionList()  {
-    EnneagramTestClient(dio).getSimpleEnneagramQuestion().then((value) {
+  Future<void> initSimpleEnneagramQuestionList() async {
+    EnneagramTestClient(mainDio).getSimpleEnneagramQuestion().then((value) {
       simpleEnneagramQuestionList(value);
     });
   }

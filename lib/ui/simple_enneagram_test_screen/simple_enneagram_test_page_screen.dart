@@ -10,11 +10,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
 import 'package:wai/constants/constants.dart';
 import 'package:wai/constants/wai_colors.dart';
-import 'package:wai/controller/permenent/app_controller.dart';
-import 'package:wai/controller/permenent/enneagram_controller.dart';
-import 'package:wai/controller/permenent/enneagram_test_controller.dart';
+import 'package:wai/controller/permernent/app_controller.dart';
+import 'package:wai/controller/permernent/enneagram_controller.dart';
+import 'package:wai/controller/permernent/enneagram_test_controller.dart';
 import 'package:wai/controller/main_controller.dart';
-import 'package:wai/controller/permenent/user_controller.dart';
+import 'package:wai/controller/permernent/user_controller.dart';
 import 'package:wai/controller/user_profile_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
@@ -31,14 +31,14 @@ import 'package:wai/ui/simple_enneagram_test_screen/components/simple_enneagram_
 import '../hard_enneagram_test_screen/component/custom_radio_group_buton.dart';
 
 class SimpleEnneagramTestScreen extends StatelessWidget {
-  SimpleEnneagramTestScreen({Key? key}) : super(key: key);
+  const SimpleEnneagramTestScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
-    return SafeArea(
+    return const SafeArea(
       child: Scaffold(
-        appBar: const WaiAppbar(
+        appBar: WaiAppbar(
           title: Text("간단테스트"),
           isBackLeading: true,
         ),

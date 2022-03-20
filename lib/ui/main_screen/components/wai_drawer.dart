@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/constants/wai_colors.dart';
-import 'package:wai/controller/permenent/enneagram_controller.dart';
-import 'package:wai/controller/permenent/user_controller.dart';
+import 'package:wai/controller/permernent/enneagram_controller.dart';
+import 'package:wai/controller/permernent/user_controller.dart';
 import 'package:wai/route.dart';
 import 'package:wai/ui/main_screen/components/my_enneagram_container.dart';
 
@@ -25,6 +26,7 @@ class WaiDrawer extends StatelessWidget {
             ),
             child: Column(
               children: [
+                const Blank(height: 10,),
                 const Text('나의 에니어그램 성향', style: TextStyle(fontSize: 18,color: WaiColors.white),),
                 Expanded(
                   child: MyEnneagramContainer(myEnneagramTest: UserController.to.currentEnneagramTest.value,)

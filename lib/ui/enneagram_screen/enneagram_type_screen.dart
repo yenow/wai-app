@@ -4,7 +4,7 @@ import 'package:wai/common/utils/logger.dart';
 import 'package:wai/common/widgets/wai_appbar.dart';
 import 'package:wai/common/widgets/wai_markdown.dart';
 import 'package:wai/constants/wai_colors.dart';
-import 'package:wai/controller/permenent/enneagram_controller.dart';
+import 'package:wai/controller/permernent/enneagram_controller.dart';
 import 'package:wai/ui/enneagram_screen/components/enneagram_image_and_type.dart';
 import 'package:wai/ui/enneagram_screen/components/enneagram_tab_button_container.dart';
 import 'package:wai/ui/enneagram_screen/components/enneagram_type_container.dart';

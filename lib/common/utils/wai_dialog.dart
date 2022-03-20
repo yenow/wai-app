@@ -4,12 +4,40 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart' as _toast;
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/snackbar/snackbar.dart';
+import 'package:page_view_indicators/animated_circle_page_indicator.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
 import 'package:wai/constants/wai_textstyle.dart';
 
 import '../../constants/wai_colors.dart';
 
 class WaiDialog {
+  static Future<void> dialogProgress() async {
+    return await Get.dialog(
+      const AlertDialog(
+        content: SizedBox(
+          width: 50,
+          height: 50,
+          child: Center(
+            child: CircularProgressIndicator(
+              color: WaiColors.blueGrey,
+              strokeWidth: 5.0,
+            ),
+          ),
+        ),
+      ),
+      barrierDismissible: false,
+    );
+  }
+
+  static void closeDialog({Duration? durationBeforeClose, Function? actionAfterClose}) {
+    Get.back();
+    // Future.delayed(durationBeforeClose ?? const Duration(milliseconds: 1000), () {
+    //     Get.back();
+    //     if (actionAfterClose != null) actionAfterClose.call();
+    //   },
+    // );
+  }
+
   static Future<bool> dialogConfirmation(
       String title,
       String content, [
@@ -128,17 +156,6 @@ class WaiDialog {
         ],
       ),
       barrierDismissible: false,
-    );
-  }
-
-  static void closeDialog(
-      {Duration? durationBeforeClose, Function? actionAfterClose}) {
-    Future.delayed(
-      durationBeforeClose ?? const Duration(milliseconds: 2500),
-          () {
-        Get.back();
-        if (actionAfterClose != null) actionAfterClose.call();
-      },
     );
   }
 

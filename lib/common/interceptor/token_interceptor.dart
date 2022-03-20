@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:wai/common/utils/logger.dart';
-import 'package:wai/controller/permenent/app_controller.dart';
+import 'package:wai/controller/permernent/app_controller.dart';
 import 'package:wai/main.dart';
 
 class TokenInterceptor extends Interceptor {

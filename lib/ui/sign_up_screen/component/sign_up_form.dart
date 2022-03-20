@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wai/common/widgets/wai_text_field.dart';
+import 'package:wai/common/widgets/wai_text_form_field.dart';
 import 'package:wai/controller/sign_up_controller.dart';
 
 import '../../../common/utils/logger.dart';
@@ -12,7 +12,7 @@ class SignUpForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Form(
       key: SignUpController.to.formKey,
-      child: WaiTextField(
+      child: WaiTextFormField(
         // prefixIcon: Icon(Icons.badge_outlined,),
         labelText: "닉네임",
         maxLength: 20,

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/constants/wai_colors.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
-import 'package:wai/controller/permenent/app_controller.dart';
+import 'package:wai/controller/permernent/app_controller.dart';
 import 'package:wai/main.dart';
 
 class WaiSnackBar  {

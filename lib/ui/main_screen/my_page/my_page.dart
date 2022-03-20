@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wai/common/utils/logger.dart';
+import 'package:wai/common/utils/wai_dialog.dart';
 import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/common/widgets/wai_appbar.dart';
 import 'package:wai/constants/wai_colors.dart';
+import 'package:wai/controller/permernent/user_controller.dart';
+import 'package:wai/data/model/user/user.dart';
+import 'package:wai/route.dart';
 import 'package:wai/ui/main_screen/components/wai_drawer.dart';
 import 'package:wai/ui/main_screen/my_page/components/my_page_profile_container.dart';
 import 'package:wai/ui/main_screen/my_page/components/my_page_tab_bar.dart';
@@ -29,9 +34,9 @@ class MyPage extends StatelessWidget {
         drawer: const WaiDrawer(),
 
         body: Column(
-          children: [
+          children: const [
             MyPageProfileContainer(),
-            const Expanded(
+            Expanded(
                 child: MyPageTabBarView()
             ),
           ],
@@ -52,8 +57,12 @@ class MyPageActionButton extends StatelessWidget {
         icon: const Icon(
           Icons.edit_rounded,
         ),
-        onPressed: () {
-          logger.d('edit profile');
+        onPressed: () async {
+          var response = await Get.toNamed(WaiRoutes.myEdit);
+          if (response != null) {
+            // UserController.to.updateUser(response);
+            WaiDialog.notify("알림", "내정보가 수정되었습니다.");
+          }
         },
       ),
     );
