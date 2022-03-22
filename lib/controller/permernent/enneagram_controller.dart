@@ -20,6 +20,13 @@ class EnneagramController extends GetxController{
 
   Map<int, Enneagram> enneagram = {};
 
+  @override
+  void onInit() async {
+    await initEnneagram();
+
+    super.onInit();
+  }
+
   Future<void> initEnneagram() async {
     await EnneagramClient(mainDio).getEnneagramInformation().then((value) {
       for (Enneagram temp in value) {

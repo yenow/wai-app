@@ -8,6 +8,7 @@ import 'package:wai/constants/wai_colors.dart';
 import 'package:wai/controller/post_write_controller.dart';
 import 'package:wai/ui/post_write_screen/components/post_write_input_tag.dart';
 import 'package:wai/ui/post_write_screen/components/post_write_input_title.dart';
+import 'package:wai/ui/post_write_screen/components/post_write_navigation.dart';
 
 import '../../common/utils/logger.dart';
 import 'components/post_write_input_content.dart';
@@ -17,6 +18,7 @@ class PostWriteScreen extends GetView<PostWriteController> {
 
   @override
   Widget build(BuildContext context) {
+
     return SafeArea(
       child: Scaffold(
         extendBodyBehindAppBar: true,
@@ -41,16 +43,17 @@ class PostWriteScreen extends GetView<PostWriteController> {
           width: double.infinity,
           decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/images/background/blueNight.jpg"),
-                fit: BoxFit.fill,
-                opacity: 0.9,
-                colorFilter: ColorFilter.mode(Colors.grey, BlendMode.darken)
+                image: AssetImage("assets/images/background/moon.jpg"),
+                opacity: 0.8,
+                fit: BoxFit.cover,
+                colorFilter: new ColorFilter.mode(WaiColors.black70.withOpacity(0.6), BlendMode.color),
               )
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Blank(height: 50),
+              // PostWriteNavigation(),
               PostWriteInputTitle(),
               PostWriteInputTag(),
               Expanded(

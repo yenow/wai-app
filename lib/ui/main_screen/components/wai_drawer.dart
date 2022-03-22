@@ -15,6 +15,7 @@ class WaiDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       elevation: 0,
+      backgroundColor: WaiColors.white,
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
@@ -22,6 +23,7 @@ class WaiDrawer extends StatelessWidget {
             padding: const EdgeInsets.all(5.0),
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
+              // color: WaiColors.deepDarkMainColor
               color: WaiColors.deepLightMainColor
             ),
             child: Column(

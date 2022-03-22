@@ -1,3 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'post_request_dto.g.dart';
+
+@JsonSerializable()
 class PostRequestDto {
   int? postId;
   int? userId;
@@ -13,17 +18,21 @@ class PostRequestDto {
     this.postId, this.userId, this.postsCount, this.startPostId, this.endPostId, this.myEnneagramType, this.postSearchType, this.searchText, this.canUpdateCount
   });
 
-  Map<String, dynamic> toJson() => {
-    'postId': postId,
-    'userId': userId,
-    'postsCount': postsCount,
-    'startPostId': startPostId,
-    'endPostId': endPostId,
-    'myEnneagramType': myEnneagramType,
-    'postSearchType' : postSearchType != null ? postSearchType!.name : null,
-    'searchText': searchText,
-    'canUpdateCount': canUpdateCount,
-  };
+  factory PostRequestDto.fromJson(Map<String, dynamic> json) => _$PostRequestDtoFromJson(json);
+  Map<String, dynamic> toJson() => _$PostRequestDtoToJson(this);
+
+
+  // Map<String, dynamic> toJson() => {
+  //   'postId': postId,
+  //   'userId': userId,
+  //   'postsCount': postsCount,
+  //   'startPostId': startPostId,
+  //   'endPostId': endPostId,
+  //   'myEnneagramType': myEnneagramType,
+  //   'postSearchType' : postSearchType != null ? postSearchType!.name : null,
+  //   'searchText': searchText,
+  //   'canUpdateCount': canUpdateCount,
+  // };
 
   @override
   String toString() {

@@ -10,17 +10,17 @@ import 'package:wai/data/model/user/user_request_dto.dart';
 
 class InitialData {
 
-  Future<void> initialize() async {
-    initController();
-    // await initData();
-  }
+  // Future<void> initialize() async {
+  //   initController();
+  //   // await initData();
+  // }
 
-  static void initController() {
-    Get.put<AppController>(AppController(), permanent: true);
-    Get.put<EnneagramController>(EnneagramController(), permanent: true);
-    Get.put<EnneagramTestController>(EnneagramTestController(), permanent: true);
-    Get.put<UserController>(UserController(), permanent: true);
-  }
+  // static void initController() {
+  //   Get.put<AppController>(AppController(), permanent: true);
+  //   Get.put<EnneagramController>(EnneagramController(), permanent: true);
+  //   Get.put<EnneagramTestController>(EnneagramTestController(), permanent: true);
+  //   Get.put<UserController>(UserController(), permanent: true);
+  // }
 
   static Future<void> initData() async {
     await AppController.to.initData();
@@ -33,8 +33,5 @@ class InitialData {
         userKey: userKey)
       );
     }
-
-    await EnneagramController.to.initEnneagram();
-    await EnneagramTestController.to.initData();
   }
 }

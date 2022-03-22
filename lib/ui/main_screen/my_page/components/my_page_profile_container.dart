@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wai/common/widgets/blank.dart';
@@ -74,6 +75,12 @@ class MyPageImage extends StatelessWidget {
       );
 
     } else {
+      /*return CachedNetworkImage(
+        width: 80,
+        height: 80,
+        imageUrl: '$baseUrl/api/fileUpLoad/image/$profileImageFileId',
+      );*/
+
       return ImageContainer(
           borderRadius: 40,
           width: 80,

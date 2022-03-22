@@ -1,5 +1,10 @@
 import 'dart:convert';
 
+import 'package:json_annotation/json_annotation.dart';
+
+part 'post_save_request_dto.g.dart';
+
+@JsonSerializable()
 class PostSaveRequestDto {
   String? postId;
   String? userId;
@@ -21,18 +26,21 @@ class PostSaveRequestDto {
     this.authorEnneagramType
   });
 
-  Map<String, dynamic> toJson () {
-    return {
-      "postId" : postId,
-      "userId" : userId,
-      "userKey" : userKey,
-      "title" : title,
-      "content" : content,
-      "tag" : tag,
-      "author" : author,
-      "authorEnneagramType" : authorEnneagramType,
-    };
-  }
+  factory PostSaveRequestDto.fromJson(Map<String, dynamic> json) => _$PostSaveRequestDtoFromJson(json);
+  Map<String, dynamic> toJson() => _$PostSaveRequestDtoToJson(this);
+
+  // Map<String, dynamic> toJson () {
+  //   return {
+  //     "postId" : postId,
+  //     "userId" : userId,
+  //     "userKey" : userKey,
+  //     "title" : title,
+  //     "content" : content,
+  //     "tag" : tag,
+  //     "author" : author,
+  //     "authorEnneagramType" : authorEnneagramType,
+  //   };
+  // }
 
   bool isValidTitle () {
     return title.trim() == "" ? false : true;

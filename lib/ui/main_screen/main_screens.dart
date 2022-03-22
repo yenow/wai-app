@@ -59,16 +59,17 @@ class MainScreens extends StatelessWidget {
           // backgroundColor: Colors.white,
           resizeToAvoidBottomInset : false,
           bottomNavigationBar: const MainBottomNavigation(),     // _buildBottomAppBar    _buildBottomNavigationBar
+          extendBody: true,
 
           drawer: WaiDrawer(),
 
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-          floatingActionButton: FloatingActionButton(
-            child: Icon(Icons.add, color: WaiColors.white),
-            onPressed: () {
-              Get.bottomSheet(MainBottomSheet());
-            },
-          ),
+          // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          // floatingActionButton: FloatingActionButton(
+          //   child: Icon(Icons.add, color: WaiColors.white),
+          //   onPressed: () {
+          //     Get.bottomSheet(MainBottomSheet());
+          //   },
+          // ),
         ),
       ),
     );

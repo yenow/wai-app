@@ -25,9 +25,15 @@ class EnneagramTestController extends GetxController {
   final enneagramPageList = [].obs;
   final simpleEnneagramQuestionList = [].obs;
 
-
   /* non-observable variable */
   final questionCount = 15;
+
+  @override
+  void onInit() async {
+    await initData();
+
+    super.onInit();
+  }
 
   Future<void> initData() async {
     await initEnneagramQuestionList();

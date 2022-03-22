@@ -66,7 +66,6 @@ class AppController extends GetxController{
 
 
 
-
   IOSOptions _getIOSOptions() => IOSOptions(
     accountName: _getAccountName(),
   );
@@ -74,7 +73,6 @@ class AppController extends GetxController{
   AndroidOptions _getAndroidOptions() => const AndroidOptions(
     encryptedSharedPreferences: true,
   );
-
 
   String? _getAccountName() =>
       _accountNameController.text.isEmpty ? null : _accountNameController.text;

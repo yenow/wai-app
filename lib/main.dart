@@ -18,6 +18,7 @@ import 'package:wai/ui/who_am_i_screen/who_am_i_screen.dart';
 import 'package:wai/ui/main_screen/main_screens.dart';
 import 'package:wai/ui/sign_up_screen/sign_up_screen.dart';
 import 'package:wai/ui/wai_splash_screen/wai_splash_screen.dart';
+import 'binding/init_binding.dart';
 import 'binding/introduction_binding.dart';
 import 'binding/sign_up_binding.dart';
 
@@ -52,10 +53,8 @@ var mainDio = Dio(
 // ..interceptors.add(TokenInterceptor());
 
 void main() {
-  InitialData.initController();
   runApp(const WaiApp());
 }
-
 
 class WaiApp extends StatelessWidget {
   const WaiApp({Key? key}) : super(key: key);
@@ -63,17 +62,15 @@ class WaiApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-    loggerNoStack.d("start WaiApp");
 
     return GetMaterialApp(
       title: 'wai',
       theme: theme(),
+      darkTheme: ThemeData.dark(),
       getPages: AppPages.routes,
       initialRoute: WaiRoutes.initial,
-      // initialBinding: InitBinding(),
-      // home: const InitialScreen(),  //  WaiSplashScreen  HomeScreen
+      initialBinding: InitBinding(),
       debugShowCheckedModeBanner: false,
-      // scaffoldMessengerKey: AppController.to.snackBarKey,
       navigatorKey: NavigationService.navigatorKey,
     );
   }
