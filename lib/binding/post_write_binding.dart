@@ -13,11 +13,7 @@ class PostWriteBinding implements Bindings {
   @override
   void dependencies() {
     Get.put<PostWriteController>(
-      PostWriteController(
-        postWriteRepository: PostWriteRepository(
-          postWriteApiProvider: PostWriteApiProvider()
-        )
-      )
+      PostWriteController()
     );
   }
 }

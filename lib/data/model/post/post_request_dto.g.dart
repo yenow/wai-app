@@ -10,7 +10,7 @@ PostRequestDto _$PostRequestDtoFromJson(Map<String, dynamic> json) =>
     PostRequestDto(
       postId: json['postId'] as int?,
       userId: json['userId'] as int?,
-      postsCount: json['postsCount'] as int?,
+      maxPostsSize: json['maxPostsSize'] as int?,
       startPostId: json['startPostId'] as int?,
       endPostId: json['endPostId'] as int?,
       myEnneagramType: json['myEnneagramType'] as int?,
@@ -24,7 +24,7 @@ Map<String, dynamic> _$PostRequestDtoToJson(PostRequestDto instance) =>
     <String, dynamic>{
       'postId': instance.postId,
       'userId': instance.userId,
-      'postsCount': instance.postsCount,
+      'maxPostsSize': instance.maxPostsSize,
       'startPostId': instance.startPostId,
       'endPostId': instance.endPostId,
       'myEnneagramType': instance.myEnneagramType,

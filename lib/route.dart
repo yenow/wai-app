@@ -4,6 +4,7 @@ import 'package:wai/binding/hard_enneagram_test_binding.dart';
 import 'package:wai/binding/introduction_binding.dart';
 import 'package:wai/binding/main_binding.dart';
 import 'package:wai/binding/my_edit_binding.dart';
+import 'package:wai/binding/post/post_binding.dart';
 import 'package:wai/binding/post_write_binding.dart';
 import 'package:wai/binding/service_agree_binding.dart';
 import 'package:wai/binding/sign_up_binding.dart';
@@ -14,6 +15,7 @@ import 'package:wai/ui/enneagram_screen/enneagram_type_screen.dart';
 import 'package:wai/ui/hard_enneagram_test_screen/hard_enneagram_test_screen.dart';
 import 'package:wai/ui/main_screen/main_screens.dart';
 import 'package:wai/ui/my_edit_screen/my_edit_screen.dart';
+import 'package:wai/ui/post_screen/post_screen.dart';
 import 'package:wai/ui/post_write_screen/image_select_screen/image_select_screen.dart';
 import 'package:wai/ui/post_write_screen/post_write_screen.dart';
 import 'package:wai/ui/service_agree_screen/service_agree_screen.dart';
@@ -37,6 +39,7 @@ abstract class WaiRoutes{
 
   static const myEdit = "/myEdit";
   static const imageSelect = "/imageSelect";
+  static const post = "/post";
 }
 class AppPages {
 
@@ -54,5 +57,6 @@ class AppPages {
 
     GetPage(name: WaiRoutes.myEdit, page:()=> const MyEditScreen(), binding: MyEditBinding(), transition: Transition.rightToLeft),
     GetPage(name: WaiRoutes.imageSelect, page:()=> const ImageSelectScreen(), transition: Transition.rightToLeft),
+    GetPage(name: WaiRoutes.post + "/:postId", page:()=> const PostScreen(), binding: PostBinding(), transition: Transition.rightToLeft),
   ];
 }

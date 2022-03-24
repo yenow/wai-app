@@ -28,6 +28,7 @@ class WaiButton extends StatelessWidget {
         minimumSize: MaterialStateProperty.all(Size.infinite),
         backgroundColor: MaterialStateProperty.all(backgroundColor ?? WaiColors.blueGrey),
         elevation: MaterialStateProperty.all(1),
+        overlayColor: MaterialStateProperty.all(WaiColors.lightMainColor),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
             // side: BorderSide(color: textColor ?? WaiColors.blueGrey, width: 1),

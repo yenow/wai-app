@@ -27,11 +27,11 @@ class _WaiPopupMenuButtonState extends State<WaiPopupMenuButton> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 20,
-      height: 20,
+      width: 25,
+      height: 25,
       child: PopupMenuButton<String>(
         padding: EdgeInsets.zero,
-        iconSize: 20,
+        iconSize: 25,
         icon: const Icon(Icons.more_vert_outlined, color: WaiColors.grey,),
         onSelected: (String value) {
           for (String temp in _valueList) {

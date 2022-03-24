@@ -5,6 +5,7 @@ import 'package:wai/controller/permernent/app_controller.dart';
 import 'package:wai/controller/permernent/enneagram_controller.dart';
 import 'package:wai/controller/permernent/enneagram_test_controller.dart';
 import 'package:wai/controller/permernent/user_controller.dart';
+import 'package:wai/controller/post/all_post_controller.dart';
 
 class InitBinding implements Bindings {
 
@@ -14,5 +15,6 @@ class InitBinding implements Bindings {
     Get.put<EnneagramController>(EnneagramController(), permanent: true);
     Get.put<EnneagramTestController>(EnneagramTestController(), permanent: true);
     Get.put<UserController>(UserController(), permanent: true);
+    Get.put<AllPostController>(AllPostController(), permanent: true);
   }
 }

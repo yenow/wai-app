@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:wai/controller/post/all_post_controller.dart';
 import 'package:wai/data/model/post/post.dart';
 import 'package:wai/ui/main_screen/home_screen/components/post_list_view.dart';
 
@@ -10,13 +12,20 @@ class HomeTabBarView extends StatelessWidget {
     return TabBarView(
       children: [
         PostListView(
-          posts: dummyPosts,
-          postRequestDto: null,
-          getNewPostsFunction: null,
-          getOldPostsFunction: null,
+          posts: AllPostController.to.posts,
+          onRefresh: AllPostController.to.onRefresh,
+          scrollController: AllPostController.to.scrollController,
         ),
-        Container(),
-        Container(),
+        PostListView(
+          posts: AllPostController.to.posts,
+          onRefresh: AllPostController.to.onRefresh,
+          scrollController: AllPostController.to.scrollController,
+        ),
+        PostListView(
+          posts: AllPostController.to.posts,
+          onRefresh: AllPostController.to.onRefresh,
+          scrollController: AllPostController.to.scrollController,
+        ),
       ],
     );
   }

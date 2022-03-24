@@ -10,7 +10,7 @@ class PostWriteInputContent extends GetView<PostWriteController> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: TextField(
+      child: TextFormField(
         cursorColor: WaiColors.white70,
         maxLength: 4000,
         // minLines: 1,

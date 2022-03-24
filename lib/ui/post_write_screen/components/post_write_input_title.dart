@@ -12,7 +12,7 @@ class PostWriteInputTitle extends GetView<PostWriteController> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: TextField(
+      child: TextFormField(
           cursorColor: Colors.grey,
           maxLength: 100,
           maxLengthEnforcement: MaxLengthEnforcement.enforced,

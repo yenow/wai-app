@@ -2,11 +2,21 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'post_request_dto.g.dart';
 
+enum PostSearchType {
+  all, content, title, author, popular, enneagramType, myPosts, myReplyPosts
+}
+
+extension ParseToString on PostSearchType {
+  String get name {
+    return toString().split('.').last;
+  }
+}
+
 @JsonSerializable()
 class PostRequestDto {
   int? postId;
   int? userId;
-  int? postsCount;
+  int? maxPostsSize;
   int? startPostId;
   int? endPostId;
   int? myEnneagramType;
@@ -15,7 +25,7 @@ class PostRequestDto {
   bool? canUpdateCount;
 
   PostRequestDto({
-    this.postId, this.userId, this.postsCount, this.startPostId, this.endPostId, this.myEnneagramType, this.postSearchType, this.searchText, this.canUpdateCount
+    this.postId, this.userId, this.maxPostsSize, this.startPostId, this.endPostId, this.myEnneagramType, this.postSearchType, this.searchText, this.canUpdateCount
   });
 
   factory PostRequestDto.fromJson(Map<String, dynamic> json) => _$PostRequestDtoFromJson(json);
@@ -36,16 +46,6 @@ class PostRequestDto {
 
   @override
   String toString() {
-    return 'PostRequestDto{postId: $postId, userId: $userId, postsCount: $postsCount, startPostId: $startPostId, endPostId: $endPostId, myEnneagramType: $myEnneagramType, postSearchType: $postSearchType, searchText: $searchText, canUpdateCount: $canUpdateCount}';
-  }
-}
-
-enum PostSearchType {
-  all, content, title, author, popular, enneagramType, myPosts, myReplyPosts
-}
-
-extension ParseToString on PostSearchType {
-  String get name {
-    return toString().split('.').last;
+    return 'PostRequestDto{postId: $postId, userId: $userId, postsCount: $maxPostsSize, startPostId: $startPostId, endPostId: $endPostId, myEnneagramType: $myEnneagramType, postSearchType: $postSearchType, searchText: $searchText, canUpdateCount: $canUpdateCount}';
   }
 }
