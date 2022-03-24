@@ -25,7 +25,7 @@ class ReplyForm extends StatelessWidget {
         children: [
           _buildReReplyInfo(),
           Container(
-            height: ReplyController.to.replyContainerHeight.value,
+            height: ReplyController2.to.replyContainerHeight.value,
             decoration: const BoxDecoration(
                 border: Border(
                     top: BorderSide(width: 0.5, color: Colors.grey)
@@ -42,7 +42,7 @@ class ReplyForm extends StatelessWidget {
                       text: replyRequestDto.replyContent
                   ),
                   onChanged: (String value) {
-                    ReplyController.to.writeReplyContent(value);
+                    ReplyController2.to.writeReplyContent(value);
                   },
                   decoration: InputDecoration(
                     labelText: "댓글을 입력해주세요.",
@@ -56,15 +56,15 @@ class ReplyForm extends StatelessWidget {
                       child: IconButton(
                         icon: const Icon(FontAwesomeIcons.reply, size: 25, color: Colors.grey),
                         onPressed: () async {
-                          if (ReplyController.to.checkReplyWrintingValue()) {
+                          if (ReplyController2.to.checkReplyWrintingValue()) {
 
-                            ReplyRequestDto replyRequestDto = ReplyController.to.replyWritingInfomation.value;
+                            ReplyRequestDto replyRequestDto = ReplyController2.to.replyWritingInfomation.value;
                             replyRequestDto.author = UserController.to.user.value.nickname;
                             replyRequestDto.authorEnneagramType = UserController.to.user.value.myEnneagramType;
 
                             // await saveReply(replyRequestDto);
 
-                            ReplyController.to.removeReplyContent();
+                            ReplyController2.to.removeReplyContent();
 
                             if (parentRebuild != null) {
                               parentRebuild!();
@@ -108,7 +108,7 @@ class ReplyForm extends StatelessWidget {
             IconButton(
               icon: const Icon(Icons.close_outlined, size: 16, color: Colors.grey),
               onPressed: () {
-                ReplyController.to.updateReplyWritingInfomation(parentReplyId: "", parentAuthor: "");
+                ReplyController2.to.updateReplyWritingInfomation(parentReplyId: "", parentAuthor: "");
                 if (rebuild != null) {
                   rebuild!();
                 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wai/common/widgets/wai_button.dart';
 import 'package:wai/constants/wai_colors.dart';
+import 'package:wai/controller/post/post_controller.dart';
 import 'package:wai/data/model/post/post.dart';
 import 'package:wai/ui/main_screen/home_screen/components/post_likey_icon.dart';
 import 'package:wai/ui/main_screen/home_screen/components/post_reply_icon.dart';
@@ -55,7 +56,7 @@ class PostBottomContainer extends StatelessWidget {
                       PostReplyIcon(replyCount: post.replyCount!, size: 25, intervalSize: 8,)
                     ],
                   ),
-                  onPressed: () {}
+                  onPressed: PostController.to.goReplyPage
                 ),
               ),
             ],

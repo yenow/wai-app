@@ -22,7 +22,7 @@ abstract class PostClient {
     @Header("authorization") required String token
   });
 
-  @POST('/post/posts')
+  @POST('/posts')
   Future<List<Post>> getPosts({
     @Body() required PostRequestDto postRequestDto,
   });

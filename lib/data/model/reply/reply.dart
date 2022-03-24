@@ -1,11 +1,13 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:wai/data/model/post/post.dart';
 import 'package:wai/data/model/user/user.dart';
 
+part 'reply.g.dart';
+
+@JsonSerializable()
 class Reply {
   int? replyId;
   int? parentReplyId;
-  User? user;
-  Post? post;
   String? author;
   String? parentAuthor;
   int? authorEnneagramType;
@@ -15,11 +17,12 @@ class Reply {
   DateTime? insertDate;
   DateTime? updateDate;
 
+  int? userId;
+  int? postId;
+
   Reply({
     this.replyId,
     this.parentReplyId,
-    this.user,
-    this.post,
     this.author,
     this.parentAuthor,
     this.authorEnneagramType,
@@ -28,31 +31,16 @@ class Reply {
     this.isDeleted,
     this.insertDate,
     this.updateDate,
+    this.userId,
+    this.postId,
   });
 
-  factory Reply.fromJson(Map<String, dynamic> json) {
-    User? user = json['user'] != null ? User.fromJson(json['user']) : null;
-    Post? post = json['post'] != null ? Post.fromJson(json['post']) : null;
-
-    return Reply(
-      replyId: json['replyId'],
-      parentReplyId: json['parentReplyId'],
-      user: user,
-      post: post,
-      author: json['author'],
-      parentAuthor: json['parentAuthor'] ?? "",
-      authorEnneagramType: json['authorEnneagramType'],
-      replyContent: json['replyContent'],
-      isReported: json['isReported'],
-      isDeleted: json['isDeleted'],
-      insertDate: DateTime.parse(json['insertDate'] ?? DateTime.now().toString()),
-      updateDate: DateTime.parse(json['updateDate'] ?? DateTime.now().toString()),
-    );
-  }
+  factory Reply.fromJson(Map<String, dynamic> json) => _$ReplyFromJson(json);
+  Map<String, dynamic> toJson() => _$ReplyToJson(this);
 
   @override
   String toString() {
-    return 'Reply{replyId: $replyId, parentReplyId: $parentReplyId, user: $user, post: $post, replyContent: $replyContent, insertDate: $insertDate}';
+    return 'Reply{replyId: $replyId, parentReplyId: $parentReplyId, author: $author, parentAuthor: $parentAuthor, authorEnneagramType: $authorEnneagramType, replyContent: $replyContent, isReported: $isReported, isDeleted: $isDeleted, insertDate: $insertDate, updateDate: $updateDate, userId: $userId, postId: $postId}';
   }
 }
 

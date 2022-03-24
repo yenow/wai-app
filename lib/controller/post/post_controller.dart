@@ -16,26 +16,32 @@ import 'package:wai/data/model/reply/reply.dart';
 import 'package:wai/common/utils/function.dart';
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/main.dart';
-
+import 'package:wai/route.dart';
 
 class PostController extends GetxController {
   static PostController get to => Get.put(PostController());
-  // final int postId;
-  //
-  // PostController(this.postId);
 
   final post = Post().obs;
 
   Future<Post> getPost(String postId) async {
-    Post post = await PostClient(mainDio).getPost(
+    await PostClient(mainDio).getPost(
         postId: postId,
         token: AppController.to.getJwtToken()
+    ).then((value) {
+      post(value);
+    }
     ).catchError((Object error) {
       Get.back();
     });
 
-    return post;
+    return post.value;
   }
+
+  void goReplyPage() async {
+    logger.d(post.value.postId);
+    List<Reply> replies = await Get.toNamed(WaiRoutes.reply + '/${post.value.postId}');
+  }
+
 // bool getIsLikey() {
 //   bool flag = false;
 //   for (int userId in post.value.likeys!) {

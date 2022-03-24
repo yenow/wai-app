@@ -13,15 +13,21 @@ import 'package:wai/common/utils/logger.dart';
 
 import 'app_controller.dart';
 
-class ReplyController extends GetxController {
-  static ReplyController get to => Get.put(ReplyController());
+class ReplyController2 extends GetxController {
+  static ReplyController2 get to => Get.put(ReplyController2());
 
   final replys = <Reply>[].obs;
   final replyWritingInfomation = ReplyRequestDto().obs;
   final replyContainerHeight = 80.0.obs;
 
+  Future<List<Reply>> getReplys(String postId) async {
+    List<Reply> tReplys = [];
+    return tReplys;
+  }
+
+
   void initWriteReplys({required int postId, int? parentReplyId}) {
-    ReplyController.to.initReplyWritingInfomation(
+    ReplyController2.to.initReplyWritingInfomation(
         userId: UserController.to.user.value.userId!.toString(),
         postId: postId.toString(),
         parentReplyId: parentReplyId != null ? parentReplyId.toString() : ""

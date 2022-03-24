@@ -1,5 +1,9 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'reply.dart';
 
+part 'reply_request_dto.g.dart';
+
+@JsonSerializable()
 class ReplyRequestDto {
   String? replyId;
   String? parentReplyId;
@@ -21,28 +25,8 @@ class ReplyRequestDto {
     this.replyContent = ""
   });
 
-  Map<String, dynamic> toJson() {
-    return {
-      "replyId" : replyId,
-      "userId" : userId,
-      "postId" : postId,
-      "parentReplyId" : parentReplyId,
-      "author": author,
-      "parentAuthor" : parentAuthor,
-      "authorEnneagramType": authorEnneagramType,
-      "replyContent" : replyContent,
-    };
-  }
-
-  void setReplyRequestDto(Reply reply) {
-    replyId = reply.replyId!.toString();
-    userId = reply.user!.userId!.toString();
-    postId = reply.post!.postId!.toString();
-    parentReplyId = reply.parentReplyId != null ? reply.parentReplyId!.toString() : null;
-    author = reply.author;
-    parentAuthor = reply.parentAuthor;
-    authorEnneagramType = reply.authorEnneagramType;
-  }
+  factory ReplyRequestDto.fromJson(Map<String, dynamic> json) => _$ReplyRequestDtoFromJson(json);
+  Map<String, dynamic> toJson() => _$ReplyRequestDtoToJson(this);
 
   @override
   String toString() {
