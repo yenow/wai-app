@@ -24,7 +24,7 @@ class WaiDrawer extends StatelessWidget {
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
               // color: WaiColors.deepDarkMainColor
-              color: WaiColors.deepLightMainColor
+              color: WaiColors.lightMainColor
             ),
             child: Column(
               children: [

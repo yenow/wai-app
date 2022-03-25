@@ -20,7 +20,6 @@ import 'package:wai/controller/user/user_controller.dart';
 import 'package:wai/controller/user_profile_controller.dart';
 import 'package:wai/common/utils/enneagram_dialog.dart';
 import 'package:wai/data/model/enneagram_test/enneagram_test.dart';
-import 'package:wai/ui/search_screen/search_page_screen.dart';
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/ui/main_screen/components/main_body.dart';
 import 'package:wai/ui/main_screen/components/main_bottom_navigation.dart';
@@ -52,56 +51,17 @@ class MainScreens extends StatelessWidget {
     return Obx(() =>
       SafeArea(
         child: Scaffold(
-          key: MainController.to.scaffoldKey,
-
-          body: MainBody(currentTabIndex: MainController.to.currentTabIndex.value),
-
-          // backgroundColor: Colors.white,
-          resizeToAvoidBottomInset : false,
-          bottomNavigationBar: const MainBottomNavigation(),     // _buildBottomAppBar    _buildBottomNavigationBar
+          extendBodyBehindAppBar: true,
           extendBody: true,
-
-          drawer: WaiDrawer(),
-
-          // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-          // floatingActionButton: FloatingActionButton(
-          //   child: Icon(Icons.add, color: WaiColors.white),
-          //   onPressed: () {
-          //     Get.bottomSheet(MainBottomSheet());
-          //   },
-          // ),
+          resizeToAvoidBottomInset : false,
+          key: MainController.to.scaffoldKey,
+          backgroundColor: Colors.transparent,
+          body: MainBody(currentTabIndex: MainController.to.currentTabIndex.value),
+          // backgroundColor: Colors.white,
+          bottomNavigationBar: const MainBottomNavigation(),     // _buildBottomAppBar    _buildBottomNavigationBar
+          // drawer: const WaiDrawer(),
         ),
       ),
     );
   }
-
-  // Widget buildBody() {
-  //   switch(MainController.to.currentTabIndex.value) {
-  //     case 0 :
-  //       return HomeScreen();
-  //     case 2 :
-  //       return Screen3();
-  //     default :
-  //       return Container();
-  //   }
-  //
-  //   return PageView(
-  //           controller: _pageController,
-  //           onPageChanged: (nextTabIndex) {
-  //             MainController.to.setTabIndex(nextTabIndex);
-  //           },
-  //           children: <Widget>[
-  //             HomeScreen(),
-  //             Screen2(),
-  //             Screen3(),
-  //             Screen4(),
-  //             Screen5(),
-  //             // HomePageScreen(),
-  //             // PostsPageScreen(),
-  //             // SearchPageScreen(),
-  //             // EnneagramPageScreen(),
-  //             // ProfilePageScreen(),
-  //           ],
-  //         );
-  // }
 }

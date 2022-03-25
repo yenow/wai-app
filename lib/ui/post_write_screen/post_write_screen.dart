@@ -5,7 +5,7 @@ import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/common/widgets/focus_out_container.dart';
 import 'package:wai/common/widgets/wai_appbar.dart';
 import 'package:wai/constants/wai_colors.dart';
-import 'package:wai/controller/post_write_controller.dart';
+import 'package:wai/controller/post/post_write_controller.dart';
 import 'package:wai/data/model/post/post.dart';
 import 'package:wai/ui/post_write_screen/components/post_write_input_tag.dart';
 import 'package:wai/ui/post_write_screen/components/post_write_input_title.dart';

@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:wai/controller/permernent/app_controller.dart';
 import 'package:wai/controller/introduction_controller.dart';
-import 'package:wai/controller/post_write_controller.dart';
+import 'package:wai/controller/post/post_write_controller.dart';
 import 'package:wai/controller/sign_up_controller.dart';
 import 'package:wai/controller/who_am_i_controller.dart';
 import 'package:wai/data/provider/post_write_api_provider.dart';

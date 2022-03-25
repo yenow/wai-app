@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:wai/common/utils/logger.dart';
 import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/constants/wai_colors.dart';
 import 'package:wai/controller/main_controller.dart';
@@ -15,20 +16,19 @@ class MainBottomNavigation extends StatelessWidget {
 
     return Obx(() =>
       Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           border: Border(
             top: BorderSide(color: WaiColors.white38, width: 0.5)
           )
         ),
         child: BottomNavigationBar(
           currentIndex: MainController.to.currentTabIndex.value,
-          // backgroundColor: Colors.white, //AppController.to.appState.value.bottomNavigationBackgroundColor,
-          backgroundColor: MainController.to.currentTabIndex.value == 0 ? Colors.transparent : Colors.white,
-          unselectedItemColor: MainController.to.currentTabIndex.value == 0 ? WaiColors.white38 : Colors.grey,
-          selectedItemColor: MainController.to.currentTabIndex.value == 0 ? WaiColors.white : WaiColors.mainColor,
+          backgroundColor: MainController.to.currentTabIndex.value == 0 ? Colors.transparent : Colors.transparent,
+          unselectedItemColor: MainController.to.currentTabIndex.value == 0 ? WaiColors.white38 :  WaiColors.white38,
+          selectedItemColor: MainController.to.currentTabIndex.value == 0 ? WaiColors.white : WaiColors.white,
           showSelectedLabels: false,
           showUnselectedLabels: false,
-          elevation: MainController.to.currentTabIndex.value == 0 ? 0 : 10,
+          elevation: 0,                                   // MainController.to.currentTabIndex.value == 0 ? 0 : 10,
           type: BottomNavigationBarType.fixed,
           items: const [
             BottomNavigationBarItem(

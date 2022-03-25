@@ -11,7 +11,6 @@ class SearchResultPage extends StatefulWidget {
 class _SearchResultPageState extends State<SearchResultPage> {
 
   Future<bool> getSearchResult() async {
-
     return true;
   }
 

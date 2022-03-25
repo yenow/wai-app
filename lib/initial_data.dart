@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:wai/controller/post/my_enneagram_post_controller.dart';
+import 'package:wai/controller/post/my_post_controller.dart';
 import 'package:wai/controller/user_profile_controller.dart';
 import 'package:wai/common/utils/api.dart';
 import 'package:wai/common/utils/logger.dart';
@@ -32,6 +34,11 @@ class InitialData {
         userId: int.parse(AppController.to.loginInfo.value.userId),
         userKey: userKey)
       );
+
+      await MyPostController.to.getPost();
+      if (UserController.to.userEnneagramTests.isNotEmpty) {
+        await MyEnneagramPostController.to.getPost();
+      }
     }
   }
 }

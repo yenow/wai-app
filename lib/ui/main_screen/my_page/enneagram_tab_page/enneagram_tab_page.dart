@@ -17,7 +17,7 @@ class EnneagramTabPage extends StatelessWidget {
     return ListView(
       padding: EdgeInsets.zero,
       children: [
-        const Center(child: Text('나의 에니어그램', style: TextStyle(fontSize: 20, color: WaiColors.black60),)),
+        const Center(child: Text('나의 에니어그램', style: TextStyle(fontSize: 20, color: WaiColors.white90),)),
         TestListView(),
         const HorizontalBorderLine(),
         // Padding(
@@ -33,7 +33,7 @@ class EnneagramTabPage extends StatelessWidget {
           child: MyEnneagramContainer(
             myEnneagramTest: enneagramTest,
             fontSize: 15,
-            textColor: WaiColors.black50,
+            textColor: WaiColors.white70,
           ),
         ),
         EnneagramChartContainer(enneagramTest: enneagramTest)

@@ -61,7 +61,7 @@ class MyEnneagramContainer extends StatelessWidget {
         children: [
           Align(
               alignment: Alignment.center,
-              child: BlockText(text: EnneagramController.to.enneagram[myEnneagramType]!.simpleExplain,)
+              child: BlockText(text: EnneagramController.to.enneagram[myEnneagramType]!.simpleExplain, isLight: true,)
           ),
           const Blank(height: 5),
           AutoSizeText(

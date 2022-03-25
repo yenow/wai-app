@@ -9,6 +9,7 @@ class WaiButton extends StatelessWidget {
     this.title = "",
     required this.onPressed,
     this.backgroundColor,
+    this.overlayColor,
     this.textColor,
     this.radius,
   }) : super(key: key);
@@ -17,6 +18,7 @@ class WaiButton extends StatelessWidget {
   final String title;
   final Function() onPressed;
   final Color? backgroundColor;
+  final Color? overlayColor;
   final Color? textColor;
   final double? radius;
 
@@ -28,7 +30,7 @@ class WaiButton extends StatelessWidget {
         minimumSize: MaterialStateProperty.all(Size.infinite),
         backgroundColor: MaterialStateProperty.all(backgroundColor ?? WaiColors.blueGrey),
         elevation: MaterialStateProperty.all(1),
-        overlayColor: MaterialStateProperty.all(WaiColors.lightMainColor),
+        overlayColor: MaterialStateProperty.all(overlayColor ?? WaiColors.lightMainColor),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
             // side: BorderSide(color: textColor ?? WaiColors.blueGrey, width: 1),

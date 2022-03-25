@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:wai/constants/wai_colors.dart';
 import 'package:wai/controller/post/all_post_controller.dart';
 import 'package:wai/data/model/post/post_request_dto.dart';
 import 'package:wai/ui/main_screen/home_screen/components/post_list.dart';
@@ -20,6 +21,13 @@ class PostListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (posts.isEmpty) {
+      return Container(
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+        child: const Center(child: Text('등록된 글이 없습니다.\n새로운 글을 작성해주세요!', style: TextStyle(fontSize: 20, color: WaiColors.white70),)),
+      );
+    }
+
     return Obx(() =>
       RefreshIndicator(
         onRefresh: onRefresh,

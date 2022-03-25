@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
@@ -20,6 +21,8 @@ class SearchController extends GetxController {
   final searchPostsByTitle = <Post>[].obs;
   final searchPostsByAuthor = <Post>[].obs;
   final recentlySearchList = <String>[].obs;
+
+  final formKey = GlobalKey<FormState>();
 
   void initSearchPost() {
     searchPostsByContent.value = [];

@@ -12,8 +12,8 @@ import 'package:wai/ui/main_screen/components/wai_drawer.dart';
 import 'package:wai/ui/main_screen/home_screen/components/home_tab_bar.dart';
 import 'package:wai/ui/main_screen/home_screen/components/home_tab_bar_view.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,6 @@ class HomeScreen extends StatelessWidget {
         appBar: WaiAppbar(
           title: Text('WAI', style: GoogleFonts.jua(color: WaiColors.white)),
           backgroundColor: Colors.transparent,
-          // backgroundColor: WaiColors.lightMainColor,
           elevation: 0,
         ),
         extendBodyBehindAppBar: true,

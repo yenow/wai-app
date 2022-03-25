@@ -4,6 +4,9 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:wai/controller/permernent/app_controller.dart';
 import 'package:wai/controller/permernent/enneagram_controller.dart';
 import 'package:wai/controller/permernent/enneagram_test_controller.dart';
+import 'package:wai/controller/post/my_enneagram_post_controller.dart';
+import 'package:wai/controller/post/my_post_controller.dart';
+import 'package:wai/controller/post/popular_post_controller.dart';
 import 'package:wai/controller/user/user_controller.dart';
 import 'package:wai/controller/post/all_post_controller.dart';
 
@@ -16,5 +19,8 @@ class InitBinding implements Bindings {
     Get.put<EnneagramTestController>(EnneagramTestController(), permanent: true);
     Get.put<UserController>(UserController(), permanent: true);
     Get.put<AllPostController>(AllPostController(), permanent: true);
+    Get.put<MyPostController>(MyPostController(), permanent: true);
+    Get.put<MyEnneagramPostController>(MyEnneagramPostController(), permanent: true);
+    Get.put<PopularController>(PopularController(), permanent: true);
   }
 }

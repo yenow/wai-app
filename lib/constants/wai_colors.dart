@@ -2,6 +2,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class WaiColors {
+  static const transparent = Color(0x0);
+
   static const black = Color(0xFF000000);
   static const black90 = Color(0xE6000000);
   static const black80 = Color(0xCC000000);
@@ -9,6 +11,9 @@ class WaiColors {
   static const black60 = Color(0x99000000);
   static const black50 = Color(0x80000000);
   static const black40 = Color(0x66000000);
+
+  static const lightBlack = Color(0xFF171616);
+  static const deepLightBlack = Color(0xE61F1F1F);
 
   static const white =  Color(0xFFFFFFFF);
   static const white90 =  Color(0xE6FFFFFF);
@@ -81,7 +86,6 @@ class WaiColors {
 
 
 
-  static const lightBlack = Color.fromRGBO(45, 45, 45, 1.0);
   static const deepDarkGrey = Colors.grey;
   static const darkGrey = Colors.grey;
   static const grey = Colors.grey;

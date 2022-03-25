@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:wai/common/utils/wai_dialog.dart';
 import 'package:wai/controller/permernent/app_controller.dart';
 import 'package:wai/controller/post/all_post_controller.dart';
+import 'package:wai/controller/post/my_post_controller.dart';
 import 'package:wai/controller/user/user_controller.dart';
 import 'package:wai/data/client/post_client.dart';
 import 'package:wai/data/model/post/post.dart';
@@ -10,7 +11,7 @@ import 'package:wai/data/model/post/post_save_request_dto.dart';
 import 'package:wai/data/repository/post_write_repository.dart';
 import 'package:wai/main.dart';
 
-import '../common/utils/logger.dart';
+import '../../common/utils/logger.dart';
 
 
 class PostWriteController extends GetxController {
@@ -33,7 +34,7 @@ class PostWriteController extends GetxController {
           token: AppController.to.getJwtToken()
       ).then((value) {
         logger.d(value);
-        // todo, 내 게시글에 추가,
+        MyPostController.to.posts.insert(0, value);
         AllPostController.to.posts.insert(0, value);
         Get.back(result: value);
         WaiDialog.notify('알림', '글이 등록되었습니다.');

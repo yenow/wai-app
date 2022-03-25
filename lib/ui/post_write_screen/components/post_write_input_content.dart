@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wai/constants/wai_colors.dart';
-import 'package:wai/controller/post_write_controller.dart';
+import 'package:wai/controller/post/post_write_controller.dart';
 
 class PostWriteInputContent extends GetView<PostWriteController> {
   const PostWriteInputContent({Key? key}) : super(key: key);

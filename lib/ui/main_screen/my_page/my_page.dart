@@ -22,6 +22,8 @@ class MyPage extends StatelessWidget {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
+        extendBodyBehindAppBar: true,
+        drawer: const WaiDrawer(),
         appBar: WaiAppbar(
           title: Text('마이페이지', style: GoogleFonts.jua(color: WaiColors.white)),
           actions: const [
@@ -30,16 +32,24 @@ class MyPage extends StatelessWidget {
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),
-        extendBodyBehindAppBar: true,
-        drawer: const WaiDrawer(),
-
-        body: Column(
-          children: const [
-            MyPageProfileContainer(),
-            Expanded(
-                child: MyPageTabBarView()
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: const AssetImage("assets/images/background/moon.jpg"),
+              opacity: 0.8,
+              fit: BoxFit.cover,
+              colorFilter: ColorFilter.mode(WaiColors.black70.withOpacity(0.6), BlendMode.color),
             ),
-          ],
+          ),
+          child: Column(
+            children: const [
+              MyPageProfileContainer(),
+              Expanded(
+                  child: MyPageTabBarView()
+              ),
+              Blank(height: 50,)
+            ],
+          ),
         )
       ),
     );

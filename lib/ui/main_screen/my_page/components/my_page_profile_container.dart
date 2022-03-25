@@ -17,15 +17,15 @@ class MyPageProfileContainer extends StatelessWidget {
       width: double.infinity,
       height: 300,
       decoration: const BoxDecoration(
-          color: WaiColors.profileBackground,
-          gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [
-                WaiColors.deepLightBlueGrey,
-                WaiColors.lightBlueGrey
-              ]
-          )
+          color: Colors.transparent,  // WaiColors.profileBackground,
+          // gradient: LinearGradient(
+          //     begin: Alignment.topRight,
+          //     end: Alignment.bottomLeft,
+          //     colors: [
+          //       WaiColors.deepLightBlueGrey,
+          //       WaiColors.lightBlueGrey
+          //     ]
+          // )
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

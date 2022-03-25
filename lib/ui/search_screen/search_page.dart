@@ -104,6 +104,7 @@ class _SearchPageState extends State<SearchPage> {
     return DefaultTabController(
       length: 3,
       child: Column(
+
         children: [
           _buildTabBarContainer(),
           _buildTabBarView(),

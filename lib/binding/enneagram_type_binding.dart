@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:wai/controller/enneagram_type_controller.dart';
+import 'package:wai/controller/enneagram/enneagram_type_controller.dart';
 import 'package:wai/controller/permernent/app_controller.dart';
 import 'package:wai/controller/introduction_controller.dart';
 import 'package:wai/controller/sign_up_controller.dart';

@@ -12,7 +12,7 @@ class MyPageTabBar extends StatelessWidget {
       indicatorColor: Colors.white,
       tabs: [
         Tab(
-          text: '나의 게시글',
+          text: '나의 글',
           icon:  Icon(
             Icons.article_rounded,
             size: 30,

@@ -16,15 +16,15 @@ class MainBody extends StatelessWidget {
 
     switch(MainTap.values[currentTabIndex]) {
       case MainTap.home:
-        return HomeScreen();
+        return const HomePage();
       case MainTap.search:
-        return SearchPage();
+        return const SearchPage();
       case MainTap.add:
         break;
       case MainTap.notice:
-        return NoticePage();
+        return const NoticePage();
       case MainTap.profile:
-        return MyPage();
+        return const MyPage();
     }
     return Container();
   }

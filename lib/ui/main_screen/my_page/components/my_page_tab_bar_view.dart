@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wai/ui/main_screen/my_page/enneagram_tab_page/enneagram_tab_page.dart';
+import 'package:wai/ui/main_screen/my_page/my_post_tab_page/my_post_tab_page.dart';
 
 class MyPageTabBarView extends StatelessWidget {
   const MyPageTabBarView({Key? key}) : super(key: key);
@@ -9,8 +10,8 @@ class MyPageTabBarView extends StatelessWidget {
     return const TabBarView(
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-          child: Text('게시글'),
+          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+          child: MyPostTabPage(),
         ),
         Padding(
           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
