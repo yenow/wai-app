@@ -16,7 +16,7 @@ import 'package:wai/constants/wai_colors.dart';
 import 'package:wai/controller/permernent/app_controller.dart';
 import 'package:wai/controller/main_controller.dart';
 import 'package:wai/controller/post/post_controller.dart';
-import 'package:wai/controller/permernent/user_controller.dart';
+import 'package:wai/controller/user/user_controller.dart';
 import 'package:wai/controller/user_profile_controller.dart';
 import 'package:wai/common/utils/enneagram_dialog.dart';
 import 'package:wai/data/model/enneagram_test/enneagram_test.dart';

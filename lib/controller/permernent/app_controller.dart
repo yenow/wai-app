@@ -13,7 +13,7 @@ import 'package:uuid/uuid.dart';
 import 'package:wai/common/utils/api.dart';
 import 'package:wai/controller/permernent/enneagram_test_controller.dart';
 import 'package:wai/controller/post/post_controller.dart';
-import 'package:wai/controller/permernent/user_controller.dart';
+import 'package:wai/controller/user/user_controller.dart';
 import 'package:wai/controller/user_profile_controller.dart';
 import 'package:wai/data/model/sign/sign.dart';
 import 'package:wai/data/model/response_dto.dart';

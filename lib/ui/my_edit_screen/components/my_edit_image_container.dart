@@ -4,7 +4,7 @@ import 'package:wai/common/utils/logger.dart';
 import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/constants/wai_colors.dart';
 import 'package:wai/controller/my_edit_controller.dart';
-import 'package:wai/controller/permernent/user_controller.dart';
+import 'package:wai/controller/user/user_controller.dart';
 import 'dart:io';
 
 import '../../../common/widgets/image_container.dart';

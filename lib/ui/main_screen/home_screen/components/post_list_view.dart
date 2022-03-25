@@ -30,7 +30,7 @@ class PostListView extends StatelessWidget {
           physics: const AlwaysScrollableScrollPhysics(),
           itemCount: posts.length,
           itemBuilder: (BuildContext context, int index) {
-            return PostList(key: UniqueKey(), post: posts.elementAt(index));
+            return PostList(key: UniqueKey(), posts: posts, post: posts.elementAt(index));
           },
         ),
       ),

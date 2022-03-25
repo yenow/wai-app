@@ -5,7 +5,7 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:logger/logger.dart';
 import 'package:wai/controller/my_page_controller.dart';
 import 'package:wai/controller/post/post_controller.dart';
-import 'package:wai/controller/permernent/user_controller.dart';
+import 'package:wai/controller/user/user_controller.dart';
 import 'package:wai/controller/user_profile_controller.dart';
 import 'package:wai/common/utils/app_state.dart';
 import 'package:wai/common/utils/logger.dart';

@@ -6,6 +6,7 @@ part 'post_save_request_dto.g.dart';
 
 @JsonSerializable()
 class PostSaveRequestDto {
+  int? postId;
   int? userId;
   String? userKey;
   String title;
@@ -15,6 +16,7 @@ class PostSaveRequestDto {
   int? authorEnneagramType;
 
   PostSaveRequestDto({
+    this.postId,
     this.userId,
     this.userKey,
     this.title = "",

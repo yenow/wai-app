@@ -37,8 +37,12 @@ main() async {
     logger.d(value);
   });
 
+  PostRequestDto postRequestDto2 = PostRequestDto(
+      postId: 1,
+  );
+
   await postClient.getPost(
-    postId: "1",
+    postRequestDto: postRequestDto2,
     token: AppController.to.getJwtToken()
   ).then((value) {
     logger.d(value);

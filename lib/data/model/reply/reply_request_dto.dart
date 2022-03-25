@@ -12,7 +12,7 @@ class ReplyRequestDto {
   String? author;
   String? parentAuthor;
   int? authorEnneagramType;
-  String? replyContent;
+  String replyContent;
 
   ReplyRequestDto({
     this.replyId,

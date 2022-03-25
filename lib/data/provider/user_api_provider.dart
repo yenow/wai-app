@@ -5,7 +5,7 @@ import 'package:wai/common/utils/api_util.dart';
 import 'package:wai/common/utils/function.dart';
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/controller/permernent/app_controller.dart';
-import 'package:wai/controller/permernent/user_controller.dart';
+import 'package:wai/controller/user/user_controller.dart';
 import 'package:wai/data/model/user/user_request_dto.dart';
 import 'package:wai/data/model/enneagram_test/enneagram_test.dart';
 import 'package:wai/data/model/user/user.dart';

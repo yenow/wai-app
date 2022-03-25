@@ -5,7 +5,7 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:wai/controller/post/post_controller.dart';
-import 'package:wai/controller/permernent/user_controller.dart';
+import 'package:wai/controller/user/user_controller.dart';
 import 'package:wai/data/model/reply/reply_request_dto.dart';
 import 'package:wai/data/model/reply/reply.dart';
 import 'package:wai/common/utils/function.dart';
@@ -86,7 +86,7 @@ class ReplyController2 extends GetxController {
 
   bool checkReplyWrintingValue() {
 
-    if (replyWritingInfomation.value.replyContent!.trim() == "") {
+    if (replyWritingInfomation.value.replyContent.trim() == "") {
       return false;
     }
 

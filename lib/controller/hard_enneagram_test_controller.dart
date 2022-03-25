@@ -12,7 +12,7 @@ import 'package:wai/main.dart';
 import 'package:wai/route.dart';
 import 'package:wai/ui/sign_up_screen/sign_up_screen.dart';
 
-import 'permernent/user_controller.dart';
+import 'user/user_controller.dart';
 
 class HardEnneagramTestController extends GetxController {
   static HardEnneagramTestController get to => Get.find();

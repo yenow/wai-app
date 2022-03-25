@@ -7,7 +7,7 @@ import 'package:wai/common/utils/logger.dart';
 import 'package:wai/controller/permernent/app_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/common/widgets/blank.dart';
-import 'package:wai/controller/permernent/user_controller.dart';
+import 'package:wai/controller/user/user_controller.dart';
 import 'package:wai/initial_data.dart';
 import 'package:wai/main.dart';
 import 'package:wai/route.dart';

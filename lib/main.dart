@@ -24,7 +24,7 @@ import 'binding/sign_up_binding.dart';
 
 import 'common/interceptor/token_interceptor.dart';
 import 'common/widgets/blank.dart';
-import 'controller/permernent/user_controller.dart';
+import 'controller/user/user_controller.dart';
 import 'theme.dart';
 import 'common/utils/logger.dart';
 import 'common/utils/navigation_service.dart';

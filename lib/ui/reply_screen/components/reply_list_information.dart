@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:wai/common/utils/logger.dart';
 import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/common/widgets/block_text.dart';
 import 'package:wai/common/widgets/wai_popup_menu_button.dart';
 import 'package:wai/controller/permernent/enneagram_controller.dart';
-import 'package:wai/controller/permernent/user_controller.dart';
+import 'package:wai/controller/reply/reply_controller.dart';
+import 'package:wai/controller/user/user_controller.dart';
 import 'package:wai/data/model/reply/reply.dart';
 
 class ReplyListInformation extends StatelessWidget {
@@ -34,10 +36,23 @@ class ReplyListInformation extends StatelessWidget {
     return reply.userId == UserController.to.user.value.userId ?
       WaiPopupMenuButton(
         valueList: const ['수정하기', '삭제하기'],
-        callBackList: [() {}, () {}],
-      ) : WaiPopupMenuButton(
-      valueList: const [ '신고하기'],
-      callBackList: [() {}],
-    );
+        callBackList: [updateReply, deleteReply],
+      ) :
+      WaiPopupMenuButton(
+        valueList: const [ '신고하기'],
+        callBackList: [reportReply],
+      );
+  }
+
+  void updateReply() {
+    ReplyController.to.updateReply(reply);
+  }
+
+  void deleteReply() {
+    ReplyController.to.deleteReply(reply.replyId!);
+  }
+
+  void reportReply() {
+    ReplyController.to.reportReply(reply.replyId!);
   }
 }

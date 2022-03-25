@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:wai/controller/permernent/reply_controller.dart';
-import 'package:wai/controller/permernent/user_controller.dart';
+import 'package:wai/controller/reply/reply_controller.dart';
+import 'package:wai/controller/user/user_controller.dart';
 import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/data/model/reply/reply_request_dto.dart';
 
@@ -23,9 +24,9 @@ class ReplyForm extends StatelessWidget {
     return Obx(() =>
       Column(
         children: [
-          _buildReReplyInfo(),
+          // _buildReReplyInfo(),
           Container(
-            height: ReplyController2.to.replyContainerHeight.value,
+            height: ReplyController.to.replyFormHeight.value,
             decoration: const BoxDecoration(
                 border: Border(
                     top: BorderSide(width: 0.5, color: Colors.grey)
@@ -37,16 +38,12 @@ class ReplyForm extends StatelessWidget {
                   cursorColor: Colors.grey,
                   maxLength: 4000,
                   maxLines: 100,
-                  style: CustomTextStyles.buildTextStyle(fontSize: 18, color: Colors.grey),
-                  controller: TextEditingController(
-                      text: replyRequestDto.replyContent
-                  ),
-                  onChanged: (String value) {
-                    ReplyController2.to.writeReplyContent(value);
-                  },
+                  style: const TextStyle(fontSize: 18, color: Colors.grey),
+                  // controller: TextEditingController(text: ReplyController.to.replyRequestDto.value.replyContent),
+                  onChanged: ReplyController.to.onChangedReplyContent,
                   decoration: InputDecoration(
                     labelText: "댓글을 입력해주세요.",
-                    labelStyle: CustomTextStyles.buildTextStyle(fontSize: 18, color: Colors.grey),
+                    labelStyle: const TextStyle(fontSize: 18, color: Colors.grey),
                     prefixIcon: const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 15),
                       child: Icon(FontAwesomeIcons.commentDots, size: 25, color: Colors.grey),
@@ -55,24 +52,7 @@ class ReplyForm extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 5),
                       child: IconButton(
                         icon: const Icon(FontAwesomeIcons.reply, size: 25, color: Colors.grey),
-                        onPressed: () async {
-                          if (ReplyController2.to.checkReplyWrintingValue()) {
-
-                            ReplyRequestDto replyRequestDto = ReplyController2.to.replyWritingInfomation.value;
-                            replyRequestDto.author = UserController.to.user.value.nickname;
-                            replyRequestDto.authorEnneagramType = UserController.to.user.value.myEnneagramType;
-
-                            // await saveReply(replyRequestDto);
-
-                            ReplyController2.to.removeReplyContent();
-
-                            if (parentRebuild != null) {
-                              parentRebuild!();
-                            }
-                          } else {
-                            // 값을 입력 안했을 경우
-                          }
-                        },
+                        onPressed: ReplyController.to.onPressReplySubmitButton,
                       ),
                     ),
                     counterText:'',
@@ -103,7 +83,7 @@ class ReplyForm extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Text("$name에게 답글", style: CustomTextStyles.buildTextStyle(fontSize: 16, color: Colors.grey)),
+              child: Text("$name에게 답글", style: TextStyle(fontSize: 16, color: Colors.grey)),
             ),
             IconButton(
               icon: const Icon(Icons.close_outlined, size: 16, color: Colors.grey),

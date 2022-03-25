@@ -7,7 +7,7 @@ import 'package:wai/common/widgets/image_container.dart';
 import 'package:wai/common/widgets/wai_appbar.dart';
 import 'package:wai/constants/wai_colors.dart';
 import 'package:wai/constants/wai_textstyle.dart';
-import 'package:wai/controller/permernent/user_controller.dart';
+import 'package:wai/controller/user/user_controller.dart';
 import 'package:wai/ui/main_screen/components/wai_drawer.dart';
 import 'package:wai/ui/main_screen/home_screen/components/home_tab_bar.dart';
 import 'package:wai/ui/main_screen/home_screen/components/home_tab_bar_view.dart';

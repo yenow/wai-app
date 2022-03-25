@@ -8,7 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/common/utils/wai_dialog.dart';
 import 'package:wai/controller/permernent/app_controller.dart';
-import 'package:wai/controller/permernent/user_controller.dart';
+import 'package:wai/controller/user/user_controller.dart';
 import 'package:wai/data/client/user_client.dart';
 import 'package:wai/data/model/user/user.dart';
 import 'package:wai/main.dart';

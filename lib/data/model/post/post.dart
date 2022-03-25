@@ -20,6 +20,8 @@ class Post {
   int? userId;
   int? replyCount;
   int? likeyCount;
+  bool? isLikey;
+  String? tagString;
 
   Post({
     this.postId,
@@ -34,7 +36,9 @@ class Post {
     this.updateDate,
     this.userId,
     this.replyCount,
-    this.likeyCount
+    this.likeyCount,
+    this.isLikey = false,
+    this.tagString = "",
   });
 
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
@@ -42,7 +46,7 @@ class Post {
 
   @override
   String toString() {
-    return 'Post{postId: $postId, title: $title, content: $content, author: $author, authorEnneagramType: $authorEnneagramType, clickCount: $clickCount, isDeleted: $isDeleted, isReported: $isReported, insertDate: $insertDate, updateDate: $updateDate, userId: $userId, replyCount: $replyCount, likeyCount: $likeyCount}';
+    return 'Post{postId: $postId, title: $title, content: $content, author: $author, authorEnneagramType: $authorEnneagramType, clickCount: $clickCount, isDeleted: $isDeleted, isReported: $isReported, insertDate: $insertDate, updateDate: $updateDate, userId: $userId, replyCount: $replyCount, likeyCount: $likeyCount, isLikey: $isLikey, tagString: $tagString}';
   }
 }
 

@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 import 'package:wai/controller/permernent/app_controller.dart';
-import 'package:wai/controller/permernent/user_controller.dart';
+import 'package:wai/controller/user/user_controller.dart';
 import 'package:wai/data/model/wai_error.dart';
 import 'package:wai/data/model/sign/sign.dart';
 import 'package:wai/data/model/sign/sign_request_dto.dart';

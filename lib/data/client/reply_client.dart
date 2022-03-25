@@ -19,19 +19,25 @@ abstract class ReplyClient {
   });
 
   @POST('/reply/create')
-  Future<Reply> createPost({
+  Future<Reply> createReply({
     @Body() required ReplyRequestDto replyRequestDto,
     @Header("authorization") required String token
   });
 
   @DELETE('/reply/{replyId}/delete')
-  Future<Reply> deletePost({
+  Future<Reply> deleteReply({
     @Path("replyId") required String replyId,
     @Header("authorization") required String token
   });
 
+  @PATCH('/reply/update')
+  Future<Reply> updateReply({
+    @Body() required ReplyRequestDto replyRequestDto,
+    @Header("authorization") required String token
+  });
+
   @POST('/reply/report')
-  Future<Reply> reportPost({
+  Future<Reply> reportReply({
     @Body() required ReplyRequestDto replyRequestDto,
     @Header("authorization") required String token
   });

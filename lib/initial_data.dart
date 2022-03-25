@@ -5,7 +5,7 @@ import 'package:wai/common/utils/logger.dart';
 import 'package:wai/controller/permernent/app_controller.dart';
 import 'package:wai/controller/permernent/enneagram_controller.dart';
 import 'package:wai/controller/permernent/enneagram_test_controller.dart';
-import 'package:wai/controller/permernent/user_controller.dart';
+import 'package:wai/controller/user/user_controller.dart';
 import 'package:wai/data/model/user/user_request_dto.dart';
 
 class InitialData {

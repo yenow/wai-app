@@ -8,7 +8,7 @@ import 'package:wai/main.dart';
 import 'package:wai/route.dart';
 import '../common/utils/logger.dart';
 import '../data/model/enneagram_test/enneagram_test_request_dto.dart';
-import 'permernent/user_controller.dart';
+import 'user/user_controller.dart';
 
 class SimpleEnneagramTestController extends GetxController {
   static SimpleEnneagramTestController get to => Get.find();

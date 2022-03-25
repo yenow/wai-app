@@ -8,6 +8,7 @@ part of 'post_save_request_dto.dart';
 
 PostSaveRequestDto _$PostSaveRequestDtoFromJson(Map<String, dynamic> json) =>
     PostSaveRequestDto(
+      postId: json['postId'] as int?,
       userId: json['userId'] as int?,
       userKey: json['userKey'] as String?,
       title: json['title'] as String? ?? "",
@@ -19,6 +20,7 @@ PostSaveRequestDto _$PostSaveRequestDtoFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$PostSaveRequestDtoToJson(PostSaveRequestDto instance) =>
     <String, dynamic>{
+      'postId': instance.postId,
       'userId': instance.userId,
       'userKey': instance.userKey,
       'title': instance.title,

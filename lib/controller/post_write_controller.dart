@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wai/common/utils/wai_dialog.dart';
 import 'package:wai/controller/permernent/app_controller.dart';
-import 'package:wai/controller/permernent/user_controller.dart';
+import 'package:wai/controller/post/all_post_controller.dart';
+import 'package:wai/controller/user/user_controller.dart';
 import 'package:wai/data/client/post_client.dart';
+import 'package:wai/data/model/post/post.dart';
 import 'package:wai/data/model/post/post_save_request_dto.dart';
 import 'package:wai/data/repository/post_write_repository.dart';
 import 'package:wai/main.dart';
@@ -25,13 +27,28 @@ class PostWriteController extends GetxController {
   void savePost() {
     if (!isValid()) return;
 
-    PostClient(mainDio).createPost(
-        postSaveRequestDto: postSaveRequestDto,
-        token: AppController.to.getJwtToken()
-    ).then((value) {
-      logger.d(value);
-      Get.back();
-    });
+    if (postSaveRequestDto.postId == null) {
+      PostClient(mainDio).createPost(
+          postSaveRequestDto: postSaveRequestDto,
+          token: AppController.to.getJwtToken()
+      ).then((value) {
+        logger.d(value);
+        // todo, 내 게시글에 추가,
+        AllPostController.to.posts.insert(0, value);
+        Get.back(result: value);
+        WaiDialog.notify('알림', '글이 등록되었습니다.');
+      });
+
+    } else {
+      PostClient(mainDio).updatePost(
+          postSaveRequestDto: postSaveRequestDto,
+          token: AppController.to.getJwtToken()
+      ).then((value) {
+        logger.d(value);
+        Get.back(result: value);
+        WaiDialog.notify('알림', '글이 수정되었습니다.');
+      });
+    }
   }
   
   bool isValid() {
@@ -54,5 +71,12 @@ class PostWriteController extends GetxController {
 
   void changeContent(String content) {
     postSaveRequestDto.content = content;
+  }
+
+  void setPostSaveRequestDto(Post post) {
+    postSaveRequestDto.postId = post.postId!;
+    postSaveRequestDto.title = post.title!;
+    postSaveRequestDto.tag = post.tagString!;
+    postSaveRequestDto.content = post.content!;
   }
 }

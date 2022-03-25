@@ -20,23 +20,20 @@ class ReplyPage extends StatelessWidget {
           appBar: WaiAppbar(
             title: Text('댓글 ${ReplyController.to.replies.length}', style: const TextStyle(color: WaiColors.white),),
             backgroundColor: WaiColors.lightMainColor,
-            elevation: 2,
+            elevation: 0,
             leading: InkWell(
               child: const Icon(Icons.arrow_back_ios_outlined, size: 20, color: WaiColors.white70),
               onTap: () {
-                Get.back();
+                Get.back(result: ReplyController.to.replies.length);
               },
             ),
           ),
           body: RefreshIndicator(
-            onRefresh: () async { },
+            onRefresh: ReplyController.to.onRefresh,
             child: Column(
               children: [
-                // Expanded(
-                //     child: _buildReplyItems() // _buildReplyList(context: context)
-                // ),
-                Expanded(
-                  child: ReplyListView(replies: ReplyController.to.replies)
+                const Expanded(
+                  child: ReplyListView()
                 ),
                 ReplyForm(
                   parentRebuild: () {},

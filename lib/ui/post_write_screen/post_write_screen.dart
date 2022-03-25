@@ -6,6 +6,7 @@ import 'package:wai/common/widgets/focus_out_container.dart';
 import 'package:wai/common/widgets/wai_appbar.dart';
 import 'package:wai/constants/wai_colors.dart';
 import 'package:wai/controller/post_write_controller.dart';
+import 'package:wai/data/model/post/post.dart';
 import 'package:wai/ui/post_write_screen/components/post_write_input_tag.dart';
 import 'package:wai/ui/post_write_screen/components/post_write_input_title.dart';
 import 'package:wai/ui/post_write_screen/components/post_write_navigation.dart';
@@ -18,6 +19,11 @@ class PostWriteScreen extends GetView<PostWriteController> {
 
   @override
   Widget build(BuildContext context) {
+    Post? post = Get.arguments;
+    logger.d(post);
+    if (post != null) {
+      controller.setPostSaveRequestDto(post);
+    }
 
     return SafeArea(
       child: Scaffold(

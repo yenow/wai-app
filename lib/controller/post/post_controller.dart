@@ -7,9 +7,11 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:logger/logger.dart';
+import 'package:wai/common/utils/wai_dialog.dart';
 import 'package:wai/controller/permernent/app_controller.dart';
-import 'package:wai/controller/permernent/user_controller.dart';
+import 'package:wai/controller/user/user_controller.dart';
 import 'package:wai/data/client/post_client.dart';
+import 'package:wai/data/model/post/post_request_dto.dart';
 import 'package:wai/data/model/post/post_save_request_dto.dart';
 import 'package:wai/data/model/post/post.dart';
 import 'package:wai/data/model/reply/reply.dart';
@@ -20,12 +22,16 @@ import 'package:wai/route.dart';
 
 class PostController extends GetxController {
   static PostController get to => Get.put(PostController());
-
   final post = Post().obs;
 
   Future<Post> getPost(String postId) async {
+    PostRequestDto postRequestDto = PostRequestDto(
+      postId: int.parse(postId),
+      userId: UserController.to.user.value.userId,
+    );
+
     await PostClient(mainDio).getPost(
-        postId: postId,
+        postRequestDto: postRequestDto,
         token: AppController.to.getJwtToken()
     ).then((value) {
       post(value);
@@ -38,41 +44,71 @@ class PostController extends GetxController {
   }
 
   void goReplyPage() async {
-    logger.d(post.value.postId);
-    List<Reply> replies = await Get.toNamed(WaiRoutes.reply + '/${post.value.postId}');
+    var repliesLength = await Get.toNamed(WaiRoutes.reply + '/${post.value.postId}');
+
+    if (repliesLength is int) {
+      post.update((val) {
+        val!.replyCount = repliesLength;
+      });
+    }
   }
 
-// bool getIsLikey() {
-//   bool flag = false;
-//   for (int userId in post.value.likeys!) {
-//
-//     if (userId.toString() == UserController.to.user.value.userId!.toString()) {
-//       flag = true;
-//       break;
-//     }
-//   }
-//   return flag;
-// }
-//
-// void addLikey() {
-//   post.update((val) {
-//     val!.likeys!.add(int.parse(UserController.to.user.value.userId!.toString()));
-//     val.likeyCount = val.likeyCount! + 1;
-//   });
-//
-//   int postId = post.value.postId!;
-//   String userId = UserController.to.user.value.userId!.toString();
-//   getRequest("/api/addLikey/$postId/$userId");
-// }
-//
-// void removeLikey() {
-//   post.update((val) {
-//     val!.likeys!.remove(int.parse(UserController.to.user.value.userId!.toString()));
-//     val.likeyCount = val.likeyCount! - 1;
-//   });
-//
-//   int postId = post.value.postId!;
-//   String userId = UserController.to.user.value.userId!.toString();
-//   getRequest("/api/removeLikey/$postId/$userId");
-// }
+  void clickLikey() async {
+    if (post.value.isLikey!) {
+      await PostClient(mainDio).removeLikey(
+          postId: post.value.postId.toString(), 
+          userId: UserController.to.user.value.userId.toString(), 
+          token: AppController.to.getJwtToken()
+      ).then((value) {
+        post.update((val) {
+          val!.likeyCount = val.likeyCount! - 1;
+          val.isLikey = false;
+        });
+      });
+
+    } else {
+      await PostClient(mainDio).addLikey(
+          postId: post.value.postId.toString(),
+          userId: UserController.to.user.value.userId.toString(),
+          token: AppController.to.getJwtToken()
+      ).then((value) {
+        post.update((val) {
+          val!.likeyCount = val.likeyCount! + 1;
+          val.isLikey = true;
+        });
+      });
+
+    }
+  }
+
+  void clickUpdate() async {
+    Post tempPost = await Get.toNamed(WaiRoutes.postWrite, arguments: post.value);
+    logger.d(tempPost);
+    post(tempPost);
+  }
+
+  void clickDelete() async {
+
+    await PostClient(mainDio).deletePost(
+      postRequestDto: PostRequestDto(
+        postId: post.value.postId
+      ),
+      token: AppController.to.getJwtToken()
+    ).then((value) {
+      Get.back(result: value);
+      WaiDialog.notify('알림','글이 삭제되었습니다.');
+    });
+  }
+
+  void clickReport() async {
+    await PostClient(mainDio).reportPost(
+        postRequestDto: PostRequestDto(
+            postId: post.value.postId
+        ),
+        token: AppController.to.getJwtToken()
+    ).then((value) {
+      Get.back(result: value);
+      WaiDialog.notify('알림','글이 신고되었습니다.');
+    });
+  }
 }

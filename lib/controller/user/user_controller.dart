@@ -23,6 +23,7 @@ class UserController extends GetxController {
   final UserApiProvider userApiProvider = UserApiProvider();
 
   final user = User().obs;
+  final likeys = <int>[].obs;
   final userEnneagramTests = <EnneagramTest>[].obs;
   final currentEnneagramTest = EnneagramTest().obs;
 

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/constants/wai_colors.dart';
 import 'package:wai/controller/permernent/enneagram_controller.dart';
-import 'package:wai/controller/permernent/user_controller.dart';
+import 'package:wai/controller/user/user_controller.dart';
 import 'package:wai/route.dart';
 import 'package:wai/ui/main_screen/components/my_enneagram_container.dart';
 

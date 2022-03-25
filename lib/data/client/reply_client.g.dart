@@ -34,7 +34,7 @@ class _ReplyClient implements ReplyClient {
   }
 
   @override
-  Future<Reply> createPost({required replyRequestDto, required token}) async {
+  Future<Reply> createReply({required replyRequestDto, required token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'authorization': token};
@@ -52,7 +52,7 @@ class _ReplyClient implements ReplyClient {
   }
 
   @override
-  Future<Reply> deletePost({required replyId, required token}) async {
+  Future<Reply> deleteReply({required replyId, required token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'authorization': token};
@@ -69,7 +69,25 @@ class _ReplyClient implements ReplyClient {
   }
 
   @override
-  Future<Reply> reportPost({required replyRequestDto, required token}) async {
+  Future<Reply> updateReply({required replyRequestDto, required token}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'authorization': token};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(replyRequestDto.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<Reply>(
+            Options(method: 'PATCH', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/reply/update',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = Reply.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<Reply> reportReply({required replyRequestDto, required token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'authorization': token};

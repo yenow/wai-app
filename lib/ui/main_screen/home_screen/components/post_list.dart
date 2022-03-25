@@ -4,6 +4,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wai/common/utils/logger.dart';
+import 'package:wai/common/utils/wai_dialog.dart';
 import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/constants/wai_colors.dart';
 import 'package:wai/controller/permernent/enneagram_controller.dart';
@@ -14,12 +15,16 @@ import 'package:wai/ui/main_screen/home_screen/components/post_reply_icon.dart';
 import 'package:wai/ui/main_screen/home_screen/components/post_view_icon.dart';
 
 class PostList extends StatelessWidget {
-  const PostList({Key? key, required this.post}) : super(key: key);
+  const PostList({Key? key, required this.post, required this.posts}) : super(key: key);
+  final List<Post> posts;
   final Post post;
 
   @override
   Widget build(BuildContext context) {
     var rng = Random();
+    if (post.isDeleted! || post.isReported!) {
+      return Container();
+    }
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
@@ -27,8 +32,12 @@ class PostList extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular(20)),
         child: InkWell(
           onTap: () async {
-            var response = await Get.toNamed('${WaiRoutes.post}/${post.postId}', arguments: post);
+            var response = await Get.toNamed('${WaiRoutes.post}/${post.postId}');
             logger.d(response);
+            if (response is Post) {
+              int index = posts.indexWhere((element) => element.postId == response.postId);
+              posts[index] = response;
+            }
           },
           child: Container(
             height: 150,
@@ -39,11 +48,11 @@ class PostList extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    PostViewIcon(clickCount: 1, size: 17,),
+                    PostViewIcon(clickCount: post.clickCount!, size: 17,),
                     const Blank(width: 20,),
-                    PostLikeyIcon(likeyCount: 1, size: 17),
+                    PostLikeyIcon(likeyCount: post.likeyCount!, size: 17, isLikey: true),
                     const Blank(width: 20,),
-                    PostReplyIcon(replyCount: 1, size: 17),
+                    PostReplyIcon(replyCount: post.replyCount!, size: 17),
                   ],
                 ),
                 AutoSizeText(post.title!, style: const TextStyle(fontSize: 22, color: WaiColors.white70), maxLines: 1),

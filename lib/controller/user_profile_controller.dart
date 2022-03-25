@@ -7,7 +7,7 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:wai/controller/permernent/app_controller.dart';
-import 'package:wai/controller/permernent/user_controller.dart';
+import 'package:wai/controller/user/user_controller.dart';
 import 'package:wai/data/model/enneagram_test/enneagram_test.dart';
 import 'package:wai/data/model/post/post.dart';
 import 'package:wai/data/model/reply/reply_request_dto.dart';

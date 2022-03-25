@@ -5,7 +5,7 @@ import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/common/widgets/image_container.dart';
 import 'package:wai/constants/constants.dart';
 import 'package:wai/constants/wai_colors.dart';
-import 'package:wai/controller/permernent/user_controller.dart';
+import 'package:wai/controller/user/user_controller.dart';
 import 'package:wai/ui/main_screen/my_page/components/my_page_tab_bar.dart';
 
 class MyPageProfileContainer extends StatelessWidget {

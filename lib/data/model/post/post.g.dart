@@ -24,6 +24,8 @@ Post _$PostFromJson(Map<String, dynamic> json) => Post(
       userId: json['userId'] as int?,
       replyCount: json['replyCount'] as int?,
       likeyCount: json['likeyCount'] as int?,
+      isLikey: json['isLikey'] as bool? ?? false,
+      tagString: json['tagString'] as String? ?? "",
     );
 
 Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
@@ -40,4 +42,6 @@ Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
       'userId': instance.userId,
       'replyCount': instance.replyCount,
       'likeyCount': instance.likeyCount,
+      'isLikey': instance.isLikey,
+      'tagString': instance.tagString,
     };

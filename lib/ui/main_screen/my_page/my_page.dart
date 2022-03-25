@@ -6,7 +6,7 @@ import 'package:wai/common/utils/wai_dialog.dart';
 import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/common/widgets/wai_appbar.dart';
 import 'package:wai/constants/wai_colors.dart';
-import 'package:wai/controller/permernent/user_controller.dart';
+import 'package:wai/controller/user/user_controller.dart';
 import 'package:wai/data/model/user/user.dart';
 import 'package:wai/route.dart';
 import 'package:wai/ui/main_screen/components/wai_drawer.dart';

@@ -14,8 +14,6 @@ class PostScreen extends GetView<PostController> {
 
   @override
   Widget build(BuildContext context) {
-    // logger.d(Get.arguments);
-    // Post post = Get.arguments;
     String? postId = Get.parameters['postId'];
     if (postId == null) {
       Get.back();
@@ -25,7 +23,8 @@ class PostScreen extends GetView<PostController> {
       future: controller.getPost(postId!),
       builder: (BuildContext context, AsyncSnapshot<Post> snapshot) {
         if (snapshot.hasData) {
-          return PostPage(post: snapshot.data!);
+          controller.post(snapshot.data!);
+          return const PostPage();
 
         } else if (snapshot.hasError) {
           return Text('error');
