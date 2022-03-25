@@ -3,6 +3,7 @@ import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/common/widgets/focus_out_container.dart';
 import 'package:wai/common/widgets/wai_appbar.dart';
 import 'package:wai/constants/wai_colors.dart';
+import 'package:wai/ui/search_screen/components/search_action_button.dart';
 import 'package:wai/ui/search_screen/components/search_form.dart';
 import 'package:wai/ui/search_screen/components/search_tab_bar.dart';
 import 'package:wai/ui/search_screen/components/search_tab_bar_view.dart';
@@ -19,20 +20,13 @@ class SearchScreen extends StatelessWidget {
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           extendBodyBehindAppBar: true,
-          appBar: WaiAppbar(
-              flexibleSpace: const SearchForm(),
+          appBar: const WaiAppbar(
+              flexibleSpace: SearchForm(),
               backgroundColor: WaiColors.transparent,
               elevation: 0,
               isBackLeading: true,
               actions: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: IconButton(
-                    icon: const Icon(
-                        Icons.search_outlined, size: 25, color: WaiColors.white),
-                    onPressed: () async {                   },
-                  ),
-                )
+                SearchActionButton()
               ]
           ),
           body: DefaultTabController(
@@ -50,7 +44,10 @@ class SearchScreen extends StatelessWidget {
                 children: const [
                   Blank(height: 50),
                   SearchTabBar(),
-                  SearchTabBarView(),
+                  Blank(height: 10,),
+                  Expanded(
+                    child: SearchTabBarView()
+                  ),
                 ],
               ),
             ),

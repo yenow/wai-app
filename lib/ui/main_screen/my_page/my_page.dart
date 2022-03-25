@@ -14,6 +14,8 @@ import 'package:wai/ui/main_screen/my_page/components/my_page_profile_container.
 import 'package:wai/ui/main_screen/my_page/components/my_page_tab_bar.dart';
 import 'package:wai/ui/main_screen/my_page/components/my_page_tab_bar_view.dart';
 
+import '../../post_write_screen/post_write_screen.dart';
+
 class MyPage extends StatelessWidget {
   const MyPage({Key? key}) : super(key: key);
 
@@ -56,25 +58,3 @@ class MyPage extends StatelessWidget {
   }
 }
 
-class MyPageActionButton extends StatelessWidget {
-  const MyPageActionButton({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: IconButton(
-        icon: const Icon(
-          Icons.edit_rounded,
-        ),
-        onPressed: () async {
-          var response = await Get.toNamed(WaiRoutes.myEdit);
-          if (response != null) {
-            // UserController.to.updateUser(response);
-            WaiDialog.notify("알림", "내정보가 수정되었습니다.");
-          }
-        },
-      ),
-    );
-  }
-}

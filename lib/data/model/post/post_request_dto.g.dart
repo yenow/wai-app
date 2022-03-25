@@ -42,4 +42,5 @@ const _$PostSearchTypeEnumMap = {
   PostSearchType.enneagramType: 'enneagramType',
   PostSearchType.myPosts: 'myPosts',
   PostSearchType.myReplyPosts: 'myReplyPosts',
+  PostSearchType.tag: 'tag',
 };

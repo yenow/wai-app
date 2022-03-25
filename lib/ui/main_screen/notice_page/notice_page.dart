@@ -10,36 +10,34 @@ class NoticePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        extendBodyBehindAppBar: true,
-        drawer: const WaiDrawer(),
-        appBar: const WaiAppbar(
-          title: Text('알림', style: TextStyle(color: WaiColors.white)),
-          backgroundColor: Colors.transparent,
-          elevation: 0,
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      drawer: const WaiDrawer(),
+      appBar: const WaiAppbar(
+        title: Text('알림', style: TextStyle(color: WaiColors.white)),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/background/moon.jpg"),
+            opacity: 0.8,
+            fit: BoxFit.cover,
+            colorFilter: new ColorFilter.mode(WaiColors.black70.withOpacity(0.6), BlendMode.color),
+          ),
         ),
-        body: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/background/moon.jpg"),
-              opacity: 0.8,
-              fit: BoxFit.cover,
-              colorFilter: new ColorFilter.mode(WaiColors.black70.withOpacity(0.6), BlendMode.color),
+        child: Column(
+          children: [
+            const Blank(height: 50,),
+            Expanded(
+                child: SizedBox(
+                    width: double.infinity,
+                    child: Text('알림', style: TextStyle(color: WaiColors.white70),)
+                )
             ),
-          ),
-          child: Column(
-            children: [
-              const Blank(height: 50,),
-              Expanded(
-                  child: SizedBox(
-                      width: double.infinity,
-                      child: Text('알림', style: TextStyle(color: WaiColors.white70),)
-                  )
-              ),
-              Blank(height: 50,)
-            ],
-          ),
+            Blank(height: 50,)
+          ],
         ),
       ),
     );

@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'post_request_dto.g.dart';
 
 enum PostSearchType {
-  all, content, title, author, popular, enneagramType, myPosts, myReplyPosts
+  all, content, title, author, popular, enneagramType, myPosts, myReplyPosts, tag
 }
 
 extension ParseToString on PostSearchType {

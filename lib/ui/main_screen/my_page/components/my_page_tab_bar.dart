@@ -8,7 +8,6 @@ class MyPageTabBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return const TabBar(
       labelColor: Colors.white,
-      // unselectedLabelColor: Colors.black,
       indicatorColor: Colors.white,
       tabs: [
         Tab(

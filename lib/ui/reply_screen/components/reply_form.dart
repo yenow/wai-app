@@ -55,6 +55,10 @@ class ReplyForm extends StatelessWidget {
                         onPressed: ReplyController.to.onPressReplySubmitButton,
                       ),
                     ),
+                    border: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    focusedErrorBorder: InputBorder.none,
                     counterText:'',
                   )
               ),

@@ -21,14 +21,13 @@ class PostListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (posts.isEmpty) {
-      return Container(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-        child: const Center(child: Text('등록된 글이 없습니다.\n새로운 글을 작성해주세요!', style: TextStyle(fontSize: 20, color: WaiColors.white70),)),
-      );
-    }
 
     return Obx(() =>
+      posts.isEmpty ?
+      Container(
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+        child: const Center(child: Text('등록된 글이 없습니다.', style: TextStyle(fontSize: 20, color: WaiColors.white70),)),
+      ) :
       RefreshIndicator(
         onRefresh: onRefresh,
         child: ListView.builder(

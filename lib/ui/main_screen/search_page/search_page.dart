@@ -11,43 +11,41 @@ class SearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          extendBodyBehindAppBar: true,
-          drawer: const WaiDrawer(),
-          appBar: const WaiAppbar(
-            title: Text('검색', style: TextStyle(color: WaiColors.white)),
-            backgroundColor: Colors.transparent,
-            elevation: 0,
+    return Scaffold(
+        extendBodyBehindAppBar: true,
+        drawer: const WaiDrawer(),
+        appBar: const WaiAppbar(
+          title: Text('검색', style: TextStyle(color: WaiColors.white)),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+        body: Container(
+          // color: WaiColors.white,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: const AssetImage("assets/images/background/moon.jpg"),
+              opacity: 0.8,
+              fit: BoxFit.cover,
+              colorFilter: ColorFilter.mode(WaiColors.black70.withOpacity(0.6), BlendMode.color),
+            ),
           ),
-          body: Container(
-            // color: WaiColors.white,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/background/moon.jpg"),
-                opacity: 0.8,
-                fit: BoxFit.cover,
-                colorFilter: new ColorFilter.mode(WaiColors.black70.withOpacity(0.6), BlendMode.color),
+          child: Column(
+            children: [
+              const Blank(height: 50,),
+              Expanded(
+                child: Column(
+                  children: const [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      child: SearchButton(),
+                    )
+                  ],
+                )
               ),
-            ),
-            child: Column(
-              children: [
-                const Blank(height: 50,),
-                Expanded(
-                  child: Column(
-                    children: const [
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                        child: SearchButton(),
-                      )
-                    ],
-                  )
-                ),
-                const Blank(height: 50,)
-              ],
-            ),
+              const Blank(height: 50,)
+            ],
           ),
-      ),
+        ),
     );
   }
 }
