@@ -52,10 +52,10 @@ class PostPage extends GetView<PostController> {
               width: double.infinity,
               decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage("assets/images/background/moon.jpg"),
+                    image: AssetImage(PostController.to.post.value.backgroundImageName ?? 'assets/images/post_background_image/1.jpg'),
                     opacity: 0.8,
                     fit: BoxFit.cover,
-                    colorFilter: new ColorFilter.mode(WaiColors.black70.withOpacity(0.6), BlendMode.color),
+                    colorFilter: ColorFilter.mode(WaiColors.black70.withOpacity(0.6), BlendMode.color),
                   )
               ),
               child: Column(

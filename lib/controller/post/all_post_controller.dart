@@ -55,7 +55,6 @@ class AllPostController extends GetxController {
 
 
   Future<void> getPost() async {
-    logger.d('getPost');
     isLoading.value = true;
 
     PostRequestDto postRequestDto = PostRequestDto(

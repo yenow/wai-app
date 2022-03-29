@@ -19,7 +19,7 @@ class PostWriteInputTitle extends GetView<PostWriteController> {
           maxLines: 1,
           style: const TextStyle(fontSize: 24, color: WaiColors.white70),
           controller: TextEditingController(
-              text: controller.postSaveRequestDto.title
+              text: controller.postSaveRequestDto.value.title
           ),
           onChanged: controller.changeTitle,
           decoration: const InputDecoration(

@@ -7,6 +7,7 @@ import 'package:wai/common/widgets/wai_appbar.dart';
 import 'package:wai/constants/wai_colors.dart';
 import 'package:wai/controller/post/post_write_controller.dart';
 import 'package:wai/data/model/post/post.dart';
+import 'package:wai/ui/post_write_screen/components/post_write_change_image_button.dart';
 import 'package:wai/ui/post_write_screen/components/post_write_input_tag.dart';
 import 'package:wai/ui/post_write_screen/components/post_write_input_title.dart';
 import 'package:wai/ui/post_write_screen/components/post_write_navigation.dart';
@@ -22,56 +23,56 @@ class PostWriteScreen extends GetView<PostWriteController> {
   @override
   Widget build(BuildContext context) {
     Post? post = Get.arguments;
-    logger.d(post);
     if (post != null) {
       controller.setPostSaveRequestDto(post);
     }
 
-    return SafeArea(
-      child: Scaffold(
-        extendBodyBehindAppBar: true,
-        resizeToAvoidBottomInset: false,
-        appBar: WaiAppbar(
-          title: const Text('글쓰기', style: TextStyle(color: WaiColors.white70),),
-          borderColor: WaiColors.white70,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          actions: [
-            PostWriteActionButton(onPressed: controller.savePost)
-          ],
-          leading: InkWell(
-            child: const Icon(Icons.arrow_back_ios_outlined, size: 20, color: WaiColors.white70),
-            onTap: () {
-              Get.back();
-            },
-          ),
-        ),
-        body: Container(
-          height: double.infinity,
-          width: double.infinity,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/background/moon.jpg"),
-                opacity: 0.8,
-                fit: BoxFit.cover,
-                colorFilter: new ColorFilter.mode(WaiColors.black70.withOpacity(0.6), BlendMode.color),
-              )
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Blank(height: 50),
-              // PostWriteNavigation(),
-              PostWriteInputTitle(),
-              PostWriteInputTag(),
-              Expanded(
-                child: PostWriteInputContent()
-              ),
-              Blank(height: 50),
+    return Obx(() =>
+      SafeArea(
+        child: Scaffold(
+          extendBodyBehindAppBar: true,
+          resizeToAvoidBottomInset: false,
+          appBar: WaiAppbar(
+            title: const Text('글쓰기', style: TextStyle(color: WaiColors.white70),),
+            borderColor: WaiColors.white70,
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            actions: [
+              PostWriteActionButton(onPressed: controller.savePost),
             ],
+            leading: InkWell(
+              child: const Icon(Icons.arrow_back_ios_outlined, size: 20, color: WaiColors.white70),
+              onTap: () {
+                Get.back();
+              },
+            ),
           ),
+          body: Container(
+            height: double.infinity,
+            width: double.infinity,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(PostWriteController.to.postSaveRequestDto.value.backgroundImageName!),
+                  opacity: 0.8,
+                  fit: BoxFit.cover,
+                  colorFilter: ColorFilter.mode(WaiColors.black70.withOpacity(0.6), BlendMode.color),
+                )
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Blank(height: 50),
+                PostWriteInputTitle(),
+                PostWriteInputTag(),
+                Expanded(
+                  child: PostWriteInputContent()
+                ),
+                PostWriteNavigation(),
+              ],
+            ),
+          )
         )
-      )
+      ),
     );
   }
 }

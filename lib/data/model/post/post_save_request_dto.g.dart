@@ -16,6 +16,7 @@ PostSaveRequestDto _$PostSaveRequestDtoFromJson(Map<String, dynamic> json) =>
       tag: json['tag'] as String? ?? "",
       author: json['author'] as String?,
       authorEnneagramType: json['authorEnneagramType'] as int?,
+      backgroundImageName: json['backgroundImageName'] as String?,
     );
 
 Map<String, dynamic> _$PostSaveRequestDtoToJson(PostSaveRequestDto instance) =>
@@ -28,4 +29,5 @@ Map<String, dynamic> _$PostSaveRequestDtoToJson(PostSaveRequestDto instance) =>
       'tag': instance.tag,
       'author': instance.author,
       'authorEnneagramType': instance.authorEnneagramType,
+      'backgroundImageName': instance.backgroundImageName,
     };

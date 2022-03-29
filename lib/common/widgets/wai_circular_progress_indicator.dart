@@ -8,11 +8,12 @@ class WaiCircularProgressIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
+      backgroundColor: WaiColors.black70,
       body: Center(
           child: SizedBox(
-              width: 50,
-              height: 50,
-              child: CircularProgressIndicator(color: WaiColors.blueGrey,)
+              width: 60,
+              height: 60,
+              child: CircularProgressIndicator(color: WaiColors.mainColor,)
           )
       )
     );

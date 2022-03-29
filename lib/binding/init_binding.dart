@@ -11,6 +11,7 @@ import 'package:wai/controller/user/user_controller.dart';
 import 'package:wai/controller/post/all_post_controller.dart';
 
 import '../controller/notice_controller.dart';
+import '../controller/post/post_background_image_controller.dart';
 
 class InitBinding implements Bindings {
 
@@ -25,5 +26,6 @@ class InitBinding implements Bindings {
     Get.put<MyEnneagramPostController>(MyEnneagramPostController(), permanent: true);
     Get.put<PopularController>(PopularController(), permanent: true);
     Get.put<NoticeController>(NoticeController(), permanent: true);
+    Get.put<PostBackgroundImageController>(PostBackgroundImageController(), permanent: true);
   }
 }

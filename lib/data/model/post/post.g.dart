@@ -13,6 +13,7 @@ Post _$PostFromJson(Map<String, dynamic> json) => Post(
       author: json['author'] as String?,
       authorEnneagramType: json['authorEnneagramType'] as int?,
       clickCount: json['clickCount'] as int?,
+      backgroundImageName: json['backgroundImageName'] as String?,
       isDeleted: json['isDeleted'] as bool?,
       isReported: json['isReported'] as bool?,
       insertDate: json['insertDate'] == null
@@ -35,6 +36,7 @@ Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
       'author': instance.author,
       'authorEnneagramType': instance.authorEnneagramType,
       'clickCount': instance.clickCount,
+      'backgroundImageName': instance.backgroundImageName,
       'isDeleted': instance.isDeleted,
       'isReported': instance.isReported,
       'insertDate': instance.insertDate?.toIso8601String(),

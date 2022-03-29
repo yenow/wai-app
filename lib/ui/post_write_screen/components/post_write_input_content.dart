@@ -19,7 +19,7 @@ class PostWriteInputContent extends GetView<PostWriteController> {
         textAlign: TextAlign.justify,
         style: const TextStyle(fontSize: 20, color: WaiColors.white70),
         controller: TextEditingController(
-            text: controller.postSaveRequestDto.content
+            text: controller.postSaveRequestDto.value.content
         ),
         onChanged: controller.changeContent,
         decoration: const InputDecoration(

@@ -1,0 +1,4 @@
+
+enum NoticeType {
+  reply, parentReply
+}

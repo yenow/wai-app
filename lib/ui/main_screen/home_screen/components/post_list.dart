@@ -91,10 +91,10 @@ class PostList extends StatelessWidget {
             decoration: BoxDecoration(
               // color: WaiColors.deepLightMainColor,
               image: DecorationImage(
-                image: AssetImage("assets/images/background/${rng.nextInt(3) + 1}.jpg"),
+                image: AssetImage(post.backgroundImageName ?? 'assets/images/post_background_image/1.jpg'),
                 opacity: 0.9,
                 fit: BoxFit.cover,
-                colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.8), BlendMode.dstATop),
+                colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.8), BlendMode.dstATop),
               )
             )
           ),

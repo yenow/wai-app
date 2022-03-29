@@ -12,6 +12,7 @@ class Post {
   String? author;
   int? authorEnneagramType;
   int? clickCount;
+  String? backgroundImageName;
   bool? isDeleted;
   bool? isReported;
   DateTime? insertDate;
@@ -30,6 +31,7 @@ class Post {
     this.author,
     this.authorEnneagramType,
     this.clickCount,
+    this.backgroundImageName,
     this.isDeleted,
     this.isReported,
     this.insertDate,

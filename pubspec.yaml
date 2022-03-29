@@ -91,6 +91,7 @@ flutter:
     - assets/images/enneagram/
     - assets/images/logo/
     - assets/images/background/
+    - assets/images/post_background_image/
     - assets/images/icon/
     - assets/markdown/
     - assets/markdown/basic/

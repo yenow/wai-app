@@ -3,6 +3,7 @@ import 'package:wai/controller/notice_controller.dart';
 import 'package:wai/controller/post/my_enneagram_post_controller.dart';
 import 'package:wai/controller/post/my_post_controller.dart';
 import 'package:wai/controller/post/popular_post_controller.dart';
+import 'package:wai/controller/post/post_background_image_controller.dart';
 import 'package:wai/controller/post/post_controller.dart';
 import 'package:wai/controller/user_profile_controller.dart';
 import 'package:wai/common/utils/api.dart';
@@ -28,8 +29,10 @@ class InitialData {
   // }
 
   static Future<void> initData() async {
+    await PostBackgroundImageController.to.initImage();
     await AppController.to.initData();
     await signIn();
+
 
     String userKey = AppController.to.loginInfo.value.userKey;
     if (userKey.isNotEmpty) {

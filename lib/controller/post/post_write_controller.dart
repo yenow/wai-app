@@ -4,6 +4,7 @@ import 'package:wai/common/utils/wai_dialog.dart';
 import 'package:wai/controller/permernent/app_controller.dart';
 import 'package:wai/controller/post/all_post_controller.dart';
 import 'package:wai/controller/post/my_post_controller.dart';
+import 'package:wai/controller/post/post_background_image_controller.dart';
 import 'package:wai/controller/user/user_controller.dart';
 import 'package:wai/data/client/post_client.dart';
 import 'package:wai/data/model/post/post.dart';
@@ -17,20 +18,21 @@ import '../../common/utils/logger.dart';
 class PostWriteController extends GetxController {
   static PostWriteController get to => Get.find();
 
-  PostSaveRequestDto postSaveRequestDto = PostSaveRequestDto(
+  final postSaveRequestDto = PostSaveRequestDto(
     userId: UserController.to.user.value.userId!,
     userKey: UserController.to.user.value.userKey,
     author: UserController.to.user.value.nickname,
     authorEnneagramType: UserController.to.currentEnneagramTest.value.myEnneagramType,
-  );
+    backgroundImageName: PostBackgroundImageController.to.getRandomImageUrl()
+  ).obs;
   final formKey = GlobalKey<FormState>();
   
   void savePost() {
     if (!isValid()) return;
 
-    if (postSaveRequestDto.postId == null) {
+    if (postSaveRequestDto.value.postId == null) {
       PostClient(mainDio).createPost(
-          postSaveRequestDto: postSaveRequestDto,
+          postSaveRequestDto: postSaveRequestDto.value,
           token: AppController.to.getJwtToken()
       ).then((value) {
         logger.d(value);
@@ -42,7 +44,7 @@ class PostWriteController extends GetxController {
 
     } else {
       PostClient(mainDio).updatePost(
-          postSaveRequestDto: postSaveRequestDto,
+          postSaveRequestDto: postSaveRequestDto.value,
           token: AppController.to.getJwtToken()
       ).then((value) {
         logger.d(value);
@@ -53,31 +55,37 @@ class PostWriteController extends GetxController {
   }
   
   bool isValid() {
-    if (postSaveRequestDto.title.isEmpty) {
+    if (postSaveRequestDto.value.title.isEmpty) {
       WaiDialog.notify('알림', "제목을 작성해야합니다.");
       return false;
-    } else if (postSaveRequestDto.content.isEmpty) {
+    } else if (postSaveRequestDto.value.content.isEmpty) {
       WaiDialog.notify('알림', "내용을 작성해야합니다.");
     }
     return true;
   }
   
   void changeTitle(String title) {
-    postSaveRequestDto.title = title;
+    postSaveRequestDto.value.title = title;
   }
 
   void changeTag(String tag) {
-    postSaveRequestDto.tag = tag;
+    postSaveRequestDto.value.tag = tag;
   }
 
   void changeContent(String content) {
-    postSaveRequestDto.content = content;
+    postSaveRequestDto.value.content = content;
   }
 
   void setPostSaveRequestDto(Post post) {
-    postSaveRequestDto.postId = post.postId!;
-    postSaveRequestDto.title = post.title!;
-    postSaveRequestDto.tag = post.tagString!;
-    postSaveRequestDto.content = post.content!;
+    postSaveRequestDto.value.postId = post.postId!;
+    postSaveRequestDto.value.title = post.title!;
+    postSaveRequestDto.value.tag = post.tagString!;
+    postSaveRequestDto.value.content = post.content!;
+  }
+
+  void changeBackgroundImage() {
+    postSaveRequestDto.update((val) {
+      val!.backgroundImageName = PostBackgroundImageController.to.getRandomImageUrl();
+    });
   }
 }

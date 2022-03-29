@@ -14,6 +14,7 @@ class PostSaveRequestDto {
   String tag;
   String? author;
   int? authorEnneagramType;
+  String? backgroundImageName;
 
   PostSaveRequestDto({
     this.postId,
@@ -23,7 +24,8 @@ class PostSaveRequestDto {
     this.content = "",
     this.tag = "",
     this.author,
-    this.authorEnneagramType
+    this.authorEnneagramType,
+    this.backgroundImageName,
   });
 
   factory PostSaveRequestDto.fromJson(Map<String, dynamic> json) => _$PostSaveRequestDtoFromJson(json);

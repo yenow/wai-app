@@ -7,6 +7,7 @@ import 'package:wai/common/notification.dart';
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/controller/permernent/app_controller.dart';
 import 'package:wai/common/widgets/blank.dart';
+import 'package:wai/controller/post/post_background_image_controller.dart';
 import 'package:wai/controller/user/user_controller.dart';
 import 'package:wai/initial_data.dart';
 import 'package:wai/main.dart';
@@ -34,6 +35,7 @@ class WaiSplashScreen extends StatelessWidget {
       );
       await initNotification();
       await InitialData.initData();
+      await PostBackgroundImageController.to.precacheImages(context);
 
       if(AppController.to.isWatchIntroducePage.value != "Y") {
         Get.offAllNamed(WaiRoutes.introduction);
