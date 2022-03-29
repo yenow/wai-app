@@ -3,6 +3,7 @@ import 'package:wai/common/utils/date_util.dart';
 import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/constants/wai_colors.dart';
 import 'package:wai/controller/permernent/app_controller.dart';
+import 'package:wai/controller/reply/reply_controller.dart';
 import 'package:wai/controller/user/user_controller.dart';
 import 'package:wai/data/model/reply/reply.dart';
 
@@ -32,7 +33,9 @@ class ReplyListDateTime extends StatelessWidget {
     } else {
       return TextButton(
         child: const Text("답글쓰기", style: TextStyle(fontSize: 12, color: WaiColors.grey)),
-        onPressed: () {},
+        onPressed: () {
+          ReplyController.to.createParentReply(reply);
+        },
         style: TextButton.styleFrom(
           padding: const EdgeInsets.fromLTRB(0, 3, 0, 0)
         ),

@@ -1,7 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
 import 'package:wai/constants/wai_colors.dart';
 
@@ -18,15 +17,14 @@ class BlockText extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
-        borderRadius: BorderRadius.all(Radius.circular(4)),
-        color: isLight ? WaiColors.white38 : WaiColors.grey
+        borderRadius: const BorderRadius.all(Radius.circular(4)),
+        color: isLight ? WaiColors.white38 : WaiColors.grey50
       ),
       child: Padding(
         padding: const EdgeInsets.all(0),
         child: AutoSizeText(
           text,
-          style: WaiTextStyle(color: isLight ? WaiColors.white70 : Colors.black45).basic(),
-
+          style: WaiTextStyle(color: isLight ? WaiColors.white90 : WaiColors.black50).basic(),
           maxLines: 1,
         )
       ),

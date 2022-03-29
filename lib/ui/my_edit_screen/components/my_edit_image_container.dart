@@ -23,8 +23,8 @@ class MyEditImageContainer extends GetView<MyEditImageContainer> {
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
               colors: [
-                WaiColors.deepLightBlueGrey,
-                WaiColors.lightBlueGrey
+                WaiColors.deepLightMainColor,
+                WaiColors.lightMainColor
               ]
           )
       ),
@@ -38,6 +38,7 @@ class MyEditImageContainer extends GetView<MyEditImageContainer> {
                 children: [
                   Obx(() => image()),
                   const Blank(height: 5,),
+                  /* 이미지 고르기
                   InkWell(
                     onTap: MyEditController.to.pickImage,
                     child: const Icon(
@@ -45,7 +46,7 @@ class MyEditImageContainer extends GetView<MyEditImageContainer> {
                       size: 20,
                       color: WaiColors.white,
                     ),
-                  )
+                  )*/
                 ],
               ),
             ),

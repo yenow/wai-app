@@ -8,11 +8,12 @@ part of 'reply.dart';
 
 Reply _$ReplyFromJson(Map<String, dynamic> json) => Reply(
       replyId: json['replyId'] as int?,
-      parentReplyId: json['parentReplyId'] as int?,
       author: json['author'] as String?,
-      parentAuthor: json['parentAuthor'] as String?,
       authorEnneagramType: json['authorEnneagramType'] as int?,
       replyContent: json['replyContent'] as String?,
+      parentReplyId: json['parentReplyId'] as int?,
+      parentReplyUserId: json['parentReplyUserId'] as int?,
+      parentAuthor: json['parentAuthor'] as String?,
       isReported: json['isReported'] as bool?,
       isDeleted: json['isDeleted'] as bool?,
       insertDate: json['insertDate'] == null
@@ -27,11 +28,12 @@ Reply _$ReplyFromJson(Map<String, dynamic> json) => Reply(
 
 Map<String, dynamic> _$ReplyToJson(Reply instance) => <String, dynamic>{
       'replyId': instance.replyId,
-      'parentReplyId': instance.parentReplyId,
       'author': instance.author,
-      'parentAuthor': instance.parentAuthor,
       'authorEnneagramType': instance.authorEnneagramType,
       'replyContent': instance.replyContent,
+      'parentReplyId': instance.parentReplyId,
+      'parentReplyUserId': instance.parentReplyUserId,
+      'parentAuthor': instance.parentAuthor,
       'isReported': instance.isReported,
       'isDeleted': instance.isDeleted,
       'insertDate': instance.insertDate?.toIso8601String(),

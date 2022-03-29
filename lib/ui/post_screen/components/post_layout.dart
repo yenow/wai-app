@@ -8,6 +8,7 @@ import 'package:wai/constants/wai_colors.dart';
 import 'package:wai/controller/user/user_controller.dart';
 import 'package:wai/data/model/post/post.dart';
 
+import '../../../controller/permernent/enneagram_controller.dart';
 import '../../../controller/post/post_controller.dart';
 
 class PostLayout extends StatelessWidget {
@@ -31,12 +32,24 @@ class PostLayout extends StatelessWidget {
             SizedBox(
               height: 30,
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(
-                    Icons.account_circle,
-                    size: 25,
-                    color: WaiColors.white70,
+                  // Image(
+                  //   image: AssetImage(EnneagramController.to.enneagram[PostController.to.post.value.authorEnneagramType]!.imagePath),
+                  //   width: 20,
+                  //   height: 20,
+                  //   color: Colors.white.withOpacity(0.8),
+                  //   colorBlendMode: BlendMode.modulate,
+                  //   fit: BoxFit.fill,
+                  // ),
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 5),
+                    child: Icon(
+                      Icons.account_circle,
+                      size: 20,
+                      color: WaiColors.white70,
+                    ),
                   ),
                   const Blank(width: 5,),
                   Text('${PostController.to.post.value.author!} [${PostController.to.post.value.authorEnneagramType!}유형]', style: const TextStyle(fontSize: 18, color: WaiColors.white60)),

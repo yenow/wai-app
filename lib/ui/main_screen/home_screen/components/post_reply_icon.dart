@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:wai/common/widgets/blank.dart';
 
@@ -15,7 +16,7 @@ class PostReplyIcon extends StatelessWidget {
       children: [
         Icon(Icons.question_answer_rounded, size: size, color: WaiColors.white70 ),
         Blank(width: intervalSize,),
-        Text("$replyCount", style: TextStyle(fontSize: size, color: WaiColors.white70)),
+        AutoSizeText("$replyCount", style: TextStyle(fontSize: size, color: WaiColors.white70), maxLines: 1,),
       ],
     );
   }

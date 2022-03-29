@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:wai/common/theme/custom_textstyles.dart';
 
 enum ButtonSize {
   small, medium, large
@@ -31,8 +30,8 @@ class CustomRadioButton extends StatelessWidget {
         Text(
           buttonText,
           style: uniqueValue == groupValue ?
-          CustomTextStyles.buildTextStyle(fontSize: 12, color: mainColor) :
-          CustomTextStyles.buildTextStyle(fontSize: 12, color: mainColor)
+          TextStyle(fontSize: 12, color: mainColor) :
+          TextStyle(fontSize: 12, color: mainColor)
         ),
         const SizedBox(height: 2,),
         ElevatedButton(

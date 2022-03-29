@@ -12,8 +12,17 @@ import 'package:wai/ui/main_screen/components/wai_drawer.dart';
 import 'package:wai/ui/main_screen/home_screen/components/home_tab_bar.dart';
 import 'package:wai/ui/main_screen/home_screen/components/home_tab_bar_view.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage>with AutomaticKeepAliveClientMixin<HomePage> {
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +42,7 @@ class HomePage extends StatelessWidget {
           // color: WaiColors.white,
           decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/images/background/moon.jpg"),
+                image: const AssetImage("assets/images/background/moon.jpg"),
                 opacity: 0.8,
                 fit: BoxFit.cover,
                 colorFilter: new ColorFilter.mode(WaiColors.black70.withOpacity(0.6), BlendMode.color),

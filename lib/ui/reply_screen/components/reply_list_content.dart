@@ -10,6 +10,7 @@ class ReplyListContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: Row(
@@ -18,15 +19,15 @@ class ReplyListContent extends StatelessWidget {
           Text.rich(
             TextSpan(
               text: reply.parentAuthor,
-              style: const TextStyle(fontSize: 16, color: WaiColors.lightMainColor),
+              style: const TextStyle(fontSize: 16, color: WaiColors.darkBlueGrey),
               children: [
-                TextSpan(
+                const TextSpan(
                   text: "  ",
-                  style: TextStyle(fontSize: 16, color: Colors.black54),
+                  style: TextStyle(fontSize: 15, color: WaiColors.black60),
                 ),
                 TextSpan(
-                  text: reply.replyContent!,
-                  style: TextStyle(fontSize: 16, color: Colors.black54),
+                  text: reply.isDeleted! ? '삭제된 댓글입니다.' : reply.isReported! ? '신고되어 블라인드된 댓글입니다.' : reply.replyContent!,
+                  style: const TextStyle(fontSize: 15, color: WaiColors.black60),
                 ),
               ]
             ),

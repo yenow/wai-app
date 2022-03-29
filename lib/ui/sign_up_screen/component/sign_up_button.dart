@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wai/constants/wai_colors.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
-import 'package:wai/controller/sign_up_controller.dart';
+import 'package:wai/controller/sign/sign_up_controller.dart';
 
 class SignUpButton extends StatelessWidget {
   const SignUpButton({Key? key}) : super(key: key);

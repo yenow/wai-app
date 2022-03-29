@@ -37,7 +37,7 @@ class ServiceAgreeScreen extends StatelessWidget {
                 fit: FlexFit.tight,
                 child: ServiceAgreeScrollText(
                   controller: ServiceAgreeController.to.firstController,
-                  markdownUrl: "assets/markdown/privateInformation.md",
+                  markdownUrl: "assets/markdown/serviceAgree.md",
                 ),
               ),
               Flexible(

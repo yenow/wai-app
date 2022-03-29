@@ -24,7 +24,7 @@ class MyPostController extends GetxController {
   void onInit() {
     scrollController.addListener(() async {
       if (scrollController.position.pixels >= scrollController.position.maxScrollExtent - 100 && !isLoading.value) {
-        await getPost();
+        await getPosts();
       }
 
     });
@@ -35,7 +35,7 @@ class MyPostController extends GetxController {
     posts([]);
     isLoading.value = true;
 
-    await getPost();
+    await getPosts();
     // PostRequestDto postRequestDto = PostRequestDto(
     //   maxPostsSize: maxPostsSize,
     //   userId: UserController.to.user.value.userId,
@@ -55,7 +55,7 @@ class MyPostController extends GetxController {
   }
 
 
-  Future<void> getPost() async {
+  Future<void> getPosts() async {
     isLoading.value = true;
 
     PostRequestDto postRequestDto = PostRequestDto(

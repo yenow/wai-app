@@ -3,6 +3,7 @@ import 'package:wai/common/utils/logger.dart';
 import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/common/widgets/block_text.dart';
 import 'package:wai/common/widgets/wai_popup_menu_button.dart';
+import 'package:wai/constants/wai_colors.dart';
 import 'package:wai/controller/permernent/enneagram_controller.dart';
 import 'package:wai/controller/reply/reply_controller.dart';
 import 'package:wai/controller/user/user_controller.dart';
@@ -22,7 +23,7 @@ class ReplyListInformation extends StatelessWidget {
             // const Blank(width: 10,),
             Image(image: AssetImage(EnneagramController.to.enneagram[reply.authorEnneagramType]!.imagePath), width: 18, height: 18,  fit: BoxFit.fill,),
             const Blank(width: 5,),
-            Text(reply.author!, style: const TextStyle(fontSize: 15, color: Colors.black45)),
+            Text(reply.author!, style: const TextStyle(fontSize: 16, color: WaiColors.black60)),
             const Blank(width: 10,),
             BlockText(text: "${reply.authorEnneagramType}유형"),
           ],

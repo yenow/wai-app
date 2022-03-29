@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:wai/common/utils/logger.dart';
 
 import '../../../../common/utils/wai_dialog.dart';
 import '../../../../route.dart';

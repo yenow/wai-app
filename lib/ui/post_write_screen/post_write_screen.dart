@@ -12,6 +12,8 @@ import 'package:wai/ui/post_write_screen/components/post_write_input_title.dart'
 import 'package:wai/ui/post_write_screen/components/post_write_navigation.dart';
 
 import '../../common/utils/logger.dart';
+import '../main_screen/my_page/components/my_page_action_button.dart';
+import 'components/post_write_action_button.dart';
 import 'components/post_write_input_content.dart';
 
 class PostWriteScreen extends GetView<PostWriteController> {
@@ -35,7 +37,7 @@ class PostWriteScreen extends GetView<PostWriteController> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           actions: [
-            MyPageActionButton(onPressed: controller.savePost)
+            PostWriteActionButton(onPressed: controller.savePost)
           ],
           leading: InkWell(
             child: const Icon(Icons.arrow_back_ios_outlined, size: 20, color: WaiColors.white70),
@@ -70,25 +72,6 @@ class PostWriteScreen extends GetView<PostWriteController> {
           ),
         )
       )
-    );
-  }
-}
-
-class MyPageActionButton extends StatelessWidget {
-  const MyPageActionButton({Key? key, this.onPressed}) : super(key: key);
-  final Function()? onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: IconButton(
-        icon: const Icon(
-          Icons.edit_rounded,
-          color: WaiColors.white70,
-        ),
-        onPressed: onPressed,
-      ),
     );
   }
 }

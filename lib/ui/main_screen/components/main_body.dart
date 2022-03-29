@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:wai/controller/main_controller.dart';
-import 'package:wai/ui/main_screen/home_screen/home_screen.dart';
+import 'package:wai/ui/main_screen/home_screen/home_page.dart';
 import 'package:wai/ui/main_screen/notice_page/notice_page.dart';
 import 'package:wai/ui/main_screen/search_page/search_page.dart';
 
@@ -14,7 +14,19 @@ class MainBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    switch(MainTap.values[currentTabIndex]) {
+    return PageView(
+      controller: MainController.to.pageController,
+      physics: const NeverScrollableScrollPhysics(), // No sliding
+      children: [
+        const HomePage(),
+        const SearchPage(),
+        Container(),
+        const NoticePage(),
+        const MyPage(),
+      ],
+    );
+
+    /*switch(MainTap.values[currentTabIndex]) {
       case MainTap.home:
         return const HomePage();
       case MainTap.search:
@@ -26,6 +38,6 @@ class MainBody extends StatelessWidget {
       case MainTap.profile:
         return const MyPage();
     }
-    return Container();
+    return Container();*/
   }
 }

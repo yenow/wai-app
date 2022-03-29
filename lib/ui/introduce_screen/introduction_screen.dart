@@ -30,8 +30,6 @@ import 'package:wai/ui/who_am_i_screen/who_am_i_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:wai/common/utils/function.dart';
 
-
-
 class IntroductionScreen extends StatelessWidget {
   const IntroductionScreen({Key? key}) : super(key: key);
 

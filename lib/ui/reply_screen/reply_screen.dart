@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wai/controller/permernent/reply_controller.dart';
 import 'package:wai/controller/reply/reply_controller.dart';
 import 'package:wai/data/model/reply/reply.dart';
 import 'package:wai/ui/reply_screen/components/reply_page.dart';
@@ -19,7 +18,7 @@ class ReplyScreen extends GetView<ReplyController> {
         future: controller.getReplies(postId!),
         builder: (BuildContext context, AsyncSnapshot<List<Reply>> snapshot) {
           if (snapshot.hasData) {
-            return ReplyPage(replys: snapshot.data!);
+            return const ReplyPage();
 
           } else if (snapshot.hasError) {
             return Text('error');

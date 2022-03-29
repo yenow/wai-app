@@ -24,7 +24,7 @@ class MyEnneagramPostController extends GetxController {
   void onInit() {
     scrollController.addListener(() async {
       if (scrollController.position.pixels >= scrollController.position.maxScrollExtent - 100 && !isLoading.value) {
-        await getPost();
+        await getPosts();
       }
 
     });
@@ -35,13 +35,13 @@ class MyEnneagramPostController extends GetxController {
     posts([]);
     isLoading.value = true;
 
-    await getPost();
+    await getPosts();
 
     isLoading.value = false;
   }
 
 
-  Future<void> getPost() async {
+  Future<void> getPosts() async {
     isLoading.value = true;
 
     PostRequestDto postRequestDto = PostRequestDto(

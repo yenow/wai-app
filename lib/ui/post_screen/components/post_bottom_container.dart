@@ -31,35 +31,30 @@ class PostBottomContainer extends GetView<PostController> {
               padding: const EdgeInsets.only(left: 15),
               child: PostViewIcon(clickCount: controller.post.value.clickCount!, size: 25, intervalSize: 8,),
             ),
-            Row(
-              children: [
-                SizedBox(
-                  height: 50,
-                  width: 80,
-                  child: WaiButton(
-                      backgroundColor: Colors.transparent,
-                      child: Row(
-                        children: [
-                          PostLikeyIcon(likeyCount: controller.post.value.likeyCount!, size: 25, intervalSize: 8, isLikey: controller.post.value.isLikey!,)
-                        ],
-                      ),
-                      onPressed: PostController.to.clickLikey
-                  ),
-                ),
-                SizedBox(
-                  height: 50,
-                  width: 80,
-                  child: WaiButton(
-                    backgroundColor: Colors.transparent,
-                    child: Row(
-                      children: [
-                        PostReplyIcon(replyCount: controller.post.value.replyCount!, size: 25, intervalSize: 8,)
-                      ],
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  SizedBox(
+                    height: 50,
+                    width: 80,
+                    child: WaiButton(
+                        backgroundColor: Colors.transparent,
+                        child: PostLikeyIcon(likeyCount: controller.post.value.likeyCount!, size: 25, intervalSize: 8, isLikey: controller.post.value.isLikey!,),
+                        onPressed: PostController.to.clickLikey
                     ),
-                    onPressed: PostController.to.goReplyPage
                   ),
-                ),
-              ],
+                  SizedBox(
+                    height: 50,
+                    width: 80,
+                    child: WaiButton(
+                      backgroundColor: Colors.transparent,
+                      child: PostReplyIcon(replyCount: controller.post.value.replyCount!, size: 25, intervalSize: 8,),
+                      onPressed: PostController.to.goReplyPage
+                    ),
+                  ),
+                ],
+              ),
             )
           ],
         ),

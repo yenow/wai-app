@@ -14,7 +14,6 @@ import 'package:wai/controller/permernent/enneagram_test_controller.dart';
 import 'package:wai/controller/main_controller.dart';
 import 'package:wai/controller/user/user_controller.dart';
 import 'package:wai/controller/user_profile_controller.dart';
-import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
 import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/common/widgets/horizontal_border_line.dart';

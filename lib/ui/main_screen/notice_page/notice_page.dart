@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/common/widgets/wai_appbar.dart';
+import 'package:wai/common/widgets/wai_button.dart';
 import 'package:wai/constants/wai_colors.dart';
+import 'package:wai/controller/notice_controller.dart';
+import 'package:wai/ui/main_screen/notice_page/components/notice_list_view.dart';
 
 import '../components/wai_drawer.dart';
 
@@ -21,22 +24,27 @@ class NoticePage extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/background/moon.jpg"),
+            image: const AssetImage("assets/images/background/moon.jpg"),
             opacity: 0.8,
             fit: BoxFit.cover,
-            colorFilter: new ColorFilter.mode(WaiColors.black70.withOpacity(0.6), BlendMode.color),
+            colorFilter: ColorFilter.mode(WaiColors.black70.withOpacity(0.6), BlendMode.color),
           ),
         ),
         child: Column(
           children: [
             const Blank(height: 50,),
-            Expanded(
-                child: SizedBox(
-                    width: double.infinity,
-                    child: Text('알림', style: TextStyle(color: WaiColors.white70),)
-                )
+            const Expanded(
+              child: NoticeListView()
             ),
-            Blank(height: 50,)
+            SizedBox(
+              height: 50,
+              child: WaiButton(
+                child: const Text('모두 지우기', style: TextStyle(color: WaiColors.white, fontSize: 20),),
+                backgroundColor: WaiColors.transparent,
+                onPressed: NoticeController.to.clearAllNotice
+              ),
+            ),
+            const Blank(height: 60,)
           ],
         ),
       ),

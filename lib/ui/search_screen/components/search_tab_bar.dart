@@ -11,7 +11,7 @@ class SearchTabBar extends StatelessWidget {
       tabs: <Widget>[
         SizedBox(
             height: 40,
-            child: Center(child: Text('게시글', style: TextStyle(color: WaiColors.white)))
+            child: Center(child: Text('태그', style: TextStyle(color: WaiColors.white)))
         ),
         SizedBox(
             height: 40,

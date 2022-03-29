@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/common/utils/wai_dialog.dart';
 import 'package:wai/common/widgets/blank.dart';
+import 'package:wai/common/widgets/block_text.dart';
 import 'package:wai/constants/wai_colors.dart';
 import 'package:wai/controller/permernent/enneagram_controller.dart';
 import 'package:wai/data/model/post/post.dart';
@@ -33,41 +34,55 @@ class PostList extends StatelessWidget {
         child: InkWell(
           onTap: () async {
             var response = await Get.toNamed('${WaiRoutes.post}/${post.postId}');
-            logger.d(response);
             if (response is Post) {
               int index = posts.indexWhere((element) => element.postId == response.postId);
               posts[index] = response;
             }
           },
           child: Container(
-            height: 150,
+            height: 160,
             width: double.infinity,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    PostViewIcon(clickCount: post.clickCount!, size: 17,),
-                    const Blank(width: 20,),
-                    PostLikeyIcon(likeyCount: post.likeyCount!, size: 17, isLikey: true),
-                    const Blank(width: 20,),
-                    PostReplyIcon(replyCount: post.replyCount!, size: 17),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      PostViewIcon(clickCount: post.clickCount!, size: 17,),
+                      const Blank(width: 20,),
+                      PostLikeyIcon(likeyCount: post.likeyCount!, size: 17, isLikey: true),
+                      const Blank(width: 20,),
+                      PostReplyIcon(replyCount: post.replyCount!, size: 17),
+                    ],
+                  ),
                 ),
-                AutoSizeText(post.title!, style: const TextStyle(fontSize: 22, color: WaiColors.white70), maxLines: 1),
+                Expanded(
+                  child: Center(child: AutoSizeText(post.title!, style: const TextStyle(fontSize: 22, color: WaiColors.white70), maxLines: 2))
+                ),
+                AutoSizeText(post.tagString!, style: const TextStyle(fontSize: 16, color: WaiColors.white70), maxLines: 2),
                 Row(
+                  mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Text('${post.enneagramType!}유형', style: const TextStyle(fontSize: 15, color: WaiColors.white70)),
-                    // const Blank(width: 10,),
-                    // Image(
-                    //   image: AssetImage(EnneagramController.to.enneagram[post.enneagramType!]!.imagePath),
-                    //   width: 15,
-                    //   height: 15,
-                    //   fit: BoxFit.fill,
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     Text(post.author!, style: const TextStyle(fontSize: 17, color: WaiColors.white70)),
+                    //     const Blank(width:10,),
+                    //     Text('${post.authorEnneagramType!}유형', style: const TextStyle(fontSize: 17, color: WaiColors.white70)),
+                    //   ],
                     // ),
-                    // const Blank(width: 5),
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 5),
+                      child: Icon(
+                        Icons.account_circle,
+                        size: 20,
+                        color: WaiColors.white70,
+                      ),
+                    ),
+                    const Blank(width: 5,),
                     Text('${post.author!} [${post.authorEnneagramType!}유형]', style: const TextStyle(fontSize: 17, color: WaiColors.white70)),
                   ],
                 ),

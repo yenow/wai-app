@@ -51,6 +51,6 @@ class IntroductionController extends GetxController {
 
   void clickStartButton() {
     AppController.to.writeIsWatchIntroducePage("Y");
-    Get.offAllNamed(WaiRoutes.signUp);
+    Get.offAllNamed(WaiRoutes.serviceAgree);
   }
 }

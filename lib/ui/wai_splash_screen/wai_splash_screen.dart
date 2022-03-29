@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:wai/common/notification.dart';
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/controller/permernent/app_controller.dart';
-import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/controller/user/user_controller.dart';
 import 'package:wai/initial_data.dart';
@@ -32,11 +32,13 @@ class WaiSplashScreen extends StatelessWidget {
             .image,
         context,
       );
+      await initNotification();
       await InitialData.initData();
 
       if(AppController.to.isWatchIntroducePage.value != "Y") {
         Get.offAllNamed(WaiRoutes.introduction);
       } else if (UserController.to.user.value.userKey.isEmpty) {
+        // Get.offAllNamed(WaiRoutes.signIn);
         Get.offAllNamed(WaiRoutes.serviceAgree);
         // Get.offAllNamed(WaiRoutes.signUp);
       } else if (UserController.to.userEnneagramTests.isEmpty) {
@@ -52,8 +54,8 @@ class WaiSplashScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Image(
+          children: const [
+            Image(
               image:
               AssetImage("assets/images/enneagram/pawprint.png"),
               width: 100,
@@ -62,11 +64,11 @@ class WaiSplashScreen extends StatelessWidget {
               fit: BoxFit.fill,
               alignment: Alignment.center,
             ),
-            const Blank(
+            Blank(
               height: 10,
             ),
             Center(
-                child: Text("WAI ", style: CustomTextStyles.buildTextStyle(fontSize: 50, color: Colors.blueGrey))),
+                child: Text("WAI ", style: TextStyle(fontSize: 50, color: Colors.blueGrey))),
           ],
         ),
       ),

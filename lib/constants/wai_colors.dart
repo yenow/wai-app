@@ -11,6 +11,7 @@ class WaiColors {
   static const black60 = Color(0x99000000);
   static const black50 = Color(0x80000000);
   static const black40 = Color(0x66000000);
+  static const black30 = Color(0x4D000000);
 
   static const lightBlack = Color(0xFF171616);
   static const deepLightBlack = Color(0xE61F1F1F);
@@ -27,12 +28,28 @@ class WaiColors {
   static const white10 =  Colors.white10;
 
 
-  static const deepDarkMainColor = Color(0xFF294C5D);
-  static const darkMainColor = Color(0xFF416475);
-  static const mainColor = Color(0xFF607D8B);
-  static const lightMainColor = Color(0xFF859AA4);
-  static const deepLightMainColor = Color(0xFFBCC8CE);
-  static const moreDeepLightMainColor = Color(0xFFBFBFC4);
+  static const deepDarkGrey = Color(0xFF5E5E5E);
+  static const darkGrey = Color(0xFF7F7F7F);
+  static const grey = Color(0xFF9E9E9E);
+  static const grey70 = Color(0xB39E9E9E);
+  static const grey50 = Color(0x809E9E9E);
+  static const grey40 = Color(0x669E9E9E);
+  static const lightGrey = Color(0xFFC9C9C9);
+  static const deepLightGrey = Color(0xFFD0D0D0);
+
+  static const deepDarkMainColor = Color(0xFF5A5A5A);
+  static const darkMainColor = Color(0xFF787878);
+  static const mainColor =Color(0xFF9E9E9E);
+  static const lightMainColor = Color(0xFFB4B4B4);
+  static const deepLightMainColor =  Color(0xFFC8C8C8);
+  static const moreDeepLightMainColor = Color(0xFFD2D2D2);
+
+  // static const deepDarkMainColor = Color(0xFF294C5D);
+  // static const darkMainColor = Color(0xFF416475);
+  // static const mainColor = Color(0xFF607D8B);
+  // static const lightMainColor = Color(0xFF859AA4);
+  // static const deepLightMainColor = Color(0xFFBCC8CE);
+  // static const moreDeepLightMainColor = Color(0xFFBFBFC4);
 
   static const deepDarkBlueGrey = Color(0xFF294C5D);
   static const darkBlueGrey = Color(0xFF416475);
@@ -84,13 +101,6 @@ class WaiColors {
   static const green60 = Color(0x997CC958);
   static const green50 = Color(0x807CC958);
 
-
-
-  static const deepDarkGrey = Colors.grey;
-  static const darkGrey = Colors.grey;
-  static const grey = Colors.grey;
-  static const lightGrey = Color.fromRGBO(211, 222, 220, 1);
-  static const deepLightGrey = Color.fromRGBO(233, 233, 233, 1.0);
 }
 
 

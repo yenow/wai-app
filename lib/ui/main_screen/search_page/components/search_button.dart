@@ -17,6 +17,7 @@ class SearchButton extends StatelessWidget {
           overlayColor: WaiColors.white,
           child: Row(
             children: const [
+              Blank(width: 10,),
               Icon(Icons.search_outlined, size: 22, color: WaiColors.grey,),
               Blank(width: 10,),
               Text("검색할 내용을 입력해주세요.", style: TextStyle(fontSize: 16, color: Colors.grey))

@@ -24,7 +24,7 @@ class EnneagramChart extends StatefulWidget {
 }
 
 class EnneagramChartState extends State<EnneagramChart> {
-  final Color barBackgroundColor =  WaiColors.lightBlueGrey;
+  final Color barBackgroundColor =  WaiColors.lightGrey;
   final Duration animDuration = const Duration(milliseconds: 250);
 
   int touchedIndex = -1;
@@ -33,12 +33,12 @@ class EnneagramChartState extends State<EnneagramChart> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
+      padding: const EdgeInsets.only(left: 12,bottom: 12, right: 12),
       child: AspectRatio(
-        aspectRatio: 5/2,
+        aspectRatio: 4/2,
         child: Card(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-          color: WaiColors.deepLightBlueGrey,
+          color: WaiColors.darkGrey,
           child: Stack(
             children: <Widget>[
               Padding(
@@ -48,7 +48,7 @@ class EnneagramChartState extends State<EnneagramChart> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
-                    Center(child: Text('유형별 점수', style: WaiTextStyle().bodyText())),
+                    Center(child: Text('유형별 점수', style: TextStyle(fontSize: 15, color: WaiColors.white))),
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 2.0,),
@@ -126,7 +126,7 @@ class EnneagramChartState extends State<EnneagramChart> {
     return BarChartData(
       barTouchData: BarTouchData(
         touchTooltipData: BarTouchTooltipData(
-            tooltipBgColor: WaiColors.lightBlueGrey,
+            tooltipBgColor: WaiColors.lightGrey,
             getTooltipItem: (group, groupIndex, rod, rodIndex) {
               String enneagramType;
               switch (group.x.toInt()) {
@@ -189,7 +189,7 @@ class EnneagramChartState extends State<EnneagramChart> {
         topTitles: SideTitles(showTitles: false),
         bottomTitles: SideTitles(
           showTitles: true,
-          getTextStyles: (context, value) => WaiTextStyle(fontSize: 12,color: Colors.black54).basic(),
+          getTextStyles: (context, value) => WaiTextStyle(fontSize: 12,color: WaiColors.white).basic(),
           margin: 4,
           getTitles: (double value) {
             switch (value.toInt()) {

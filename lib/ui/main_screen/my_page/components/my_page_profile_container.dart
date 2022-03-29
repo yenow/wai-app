@@ -45,11 +45,11 @@ class MyPageProfileContainer extends StatelessWidget {
           ),
           Container(
             padding: const EdgeInsets.symmetric(vertical: 10),
-            decoration: const BoxDecoration(
-                border: Border(
-                    top: BorderSide(width: 0.5, color: WaiColors.white)
-                )
-            ),
+            // decoration: const BoxDecoration(
+            //     border: Border(
+            //         top: BorderSide(width: 0.5, color: WaiColors.white)
+            //     )
+            // ),
             child: const Align(
               alignment: Alignment.bottomCenter,
               child: MyPageTabBar(),

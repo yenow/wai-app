@@ -10,7 +10,8 @@ import 'constants/constants.dart';
 AppBarTheme appTheme() {
   return AppBarTheme(
     centerTitle: true,
-    color: Colors.white,
+    // color: Colors.white,
+    backgroundColor: WaiColors.mainColor,
     elevation: 0.0,
     titleTextStyle: GoogleFonts.jua(
       fontSize: 22,

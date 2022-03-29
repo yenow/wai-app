@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:wai/common/theme/custom_textstyles.dart';
 import 'package:wai/common/widgets/wai_button.dart';
 import 'package:wai/controller/simple_enneagram_test_controller.dart';
 
@@ -16,8 +15,8 @@ class SimpleEnneagramTestButton extends StatelessWidget {
       return WaiButton(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("다음", style: CustomTextStyles.buildTextStyle(color: Colors.white)),
+            children: const [
+              Text("다음", style: TextStyle(color: Colors.white)),
             ],
           ),
           onPressed: SimpleEnneagramTestController.to.goNextPage
@@ -27,12 +26,12 @@ class SimpleEnneagramTestButton extends StatelessWidget {
       return WaiButton(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: const [
               // Visibility(
               //   child: Text(EnneagramTestController.to.selectSimpleTestMap[pageIndex]!),
               //   visible: false,
               // ),
-              Text("완료", style: CustomTextStyles.buildTextStyle(color: Colors.white)),
+              Text("완료", style: TextStyle(color: Colors.white)),
             ],
           ),
           onPressed: SimpleEnneagramTestController.to.doSimpleEnneagramTest

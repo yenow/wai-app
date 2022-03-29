@@ -14,9 +14,9 @@ class ReplyList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (ReplyController.to.replies[index].isReported! || ReplyController.to.replies[index].isDeleted!) {
-      return Container();
-    }
+    // if (ReplyController.to.replies[index].isReported! || ReplyController.to.replies[index].isDeleted!) {
+    //   return Container();
+    // }
 
     return Obx(() =>
       Container(

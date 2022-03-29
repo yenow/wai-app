@@ -17,14 +17,14 @@ class MainBottomSheet extends StatelessWidget {
       child: Container(
         height: 180,
         color: Colors.white,
-        padding: EdgeInsets.only(left: 20),
+        padding: const EdgeInsets.only(left: 20),
         child: Column(
           children: [
             const MainBottomSheetHeader(),
-            const Blank(height: 10,),
+            // const Blank(height: 10,),
             MainBottomSheetListItem(
               title: '글쓰기',
-              icon: const Icon(Icons.post_add_rounded, size: 20, color: WaiColors.lightMainColor),
+              icon: const Icon(Icons.post_add_rounded, size: 20, color: WaiColors.mainColor),
               onTap: () {
                 Get.back();
                 Get.toNamed(WaiRoutes.postWrite);
@@ -32,7 +32,7 @@ class MainBottomSheet extends StatelessWidget {
             ),
             MainBottomSheetListItem(
               title: '에니어그램 테스트하기',
-              icon: const Icon(Icons.checklist_rounded, size: 20, color: WaiColors.lightMainColor),
+              icon: const Icon(Icons.checklist_rounded, size: 20, color: WaiColors.mainColor),
               onTap: () {
                 Get.back();
                 Get.toNamed(WaiRoutes.hardTest);
@@ -60,7 +60,7 @@ class MainBottomSheetHeader extends StatelessWidget {
             Get.back();
           },
         )
-      ],
+      ]
     );
   }
 }
@@ -81,7 +81,7 @@ class MainBottomSheetListItem extends StatelessWidget {
             // Icon(Icons.post_add_rounded, size: 17, color: Colors.black54),
             icon,
             const Blank(width: 10),
-            Text(title, style: const TextStyle(fontSize: 17, color: WaiColors.lightMainColor))
+            Text(title, style: const TextStyle(fontSize: 17, color: WaiColors.mainColor))
           ],
         ),
       ),

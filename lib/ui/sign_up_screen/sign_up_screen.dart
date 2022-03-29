@@ -6,7 +6,7 @@ import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/common/widgets/focus_out_container.dart';
 import 'package:wai/common/widgets/wai_appbar.dart';
 import 'package:wai/common/widgets/wai_text.dart';
-import 'package:wai/controller/sign_up_controller.dart';
+import 'package:wai/controller/sign/sign_up_controller.dart';
 import 'package:wai/ui/login_screen/login_screen.dart';
 
 import 'component/sign_up_button.dart';

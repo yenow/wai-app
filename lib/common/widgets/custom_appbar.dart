@@ -5,7 +5,6 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:wai/constants/constants.dart';
 import 'package:wai/constants/wai_colors.dart';
 import 'package:wai/controller/main_controller.dart';
-import 'package:wai/common/theme/custom_textstyles.dart';
 
 class CustomAppbar extends StatelessWidget {
 

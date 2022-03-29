@@ -7,6 +7,8 @@ import 'package:get/get_navigation/src/snackbar/snackbar.dart';
 import 'package:page_view_indicators/animated_circle_page_indicator.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
 import 'package:wai/constants/wai_textstyle.dart';
+import 'package:wai/data/model/enneagram_test/enneagram_test.dart';
+import 'package:wai/ui/main_screen/components/my_enneagram_container.dart';
 
 import '../../constants/wai_colors.dart';
 
@@ -31,11 +33,6 @@ class WaiDialog {
 
   static void closeDialog({Duration? durationBeforeClose, Function? actionAfterClose}) {
     Get.back();
-    // Future.delayed(durationBeforeClose ?? const Duration(milliseconds: 1000), () {
-    //     Get.back();
-    //     if (actionAfterClose != null) actionAfterClose.call();
-    //   },
-    // );
   }
 
   static Future<bool> dialogConfirmation(
@@ -46,22 +43,123 @@ class WaiDialog {
       ]) async {
     return await Get.dialog(
       AlertDialog(
-        title: Text(title),
-        content: Text(content),
+        title: Text(title, style: const TextStyle(color: WaiColors.black70)),
+        content: Text(content, style: const TextStyle(color: WaiColors.black70)),
         actions: [
           TextButton(
             onPressed: () => Get.back(result: false),
-            child: Text(textNo),
+            child: Text(textNo, style: const TextStyle(color: WaiColors.mainColor)),
           ),
           TextButton(
             onPressed: () => Get.back(result: true),
-            child: Text(textYes),
+            child: Text(textYes, style: const TextStyle(color: WaiColors.mainColor)),
           ),
         ],
       ),
       barrierDismissible: false,
     );
   }
+
+  static void notify(
+      String title,
+      String message, {
+        double radius = 12,
+        bool showBorder = false,
+        Color titleColorText = WaiColors.black60,
+        Color messageColorText = WaiColors.black60,
+        Color backgroundColor = WaiColors.white60,
+        Color borderColor = WaiColors.white60,
+      }) {
+    Get.snackbar(
+      title,
+      message,
+      titleText: Text(title, style: TextStyle(fontSize: 18, color: titleColorText)),
+      messageText: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(message, style: TextStyle(fontSize: 15, color: messageColorText),),
+          InkWell(
+              onTap: () {
+                closeSnackBarOrNotify();
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Text('확인', style: TextStyle(fontSize: 15, color: messageColorText),),
+              )
+          ),
+        ],
+      ),
+      colorText: messageColorText,
+      backgroundColor: backgroundColor,
+      borderColor: showBorder ? borderColor : Colors.transparent,
+      borderRadius: radius,
+      borderWidth: showBorder ? 1 : 0,
+      isDismissible: false,
+      animationDuration: const Duration(milliseconds: 800),
+      duration: const Duration(milliseconds: 2000),
+    );
+  }
+
+  static void toast(String message, {bool isLong = false, Color color = WaiColors.grey, Color textColor = WaiColors.white}) {
+    _toast.Fluttertoast.showToast(
+      msg: message,
+      toastLength:
+      isLong ? _toast.Toast.LENGTH_LONG : _toast.Toast.LENGTH_SHORT,
+      gravity: _toast.ToastGravity.CENTER,
+      timeInSecForIosWeb: 1,
+      backgroundColor: color,
+      textColor: textColor,
+      fontSize: 16,
+    );
+  }
+
+  static void closeToast() {
+    _toast.Fluttertoast.cancel();
+  }
+
+  static void enneagramDialog({required EnneagramTest enneagramTest}) {
+    Get.dialog(
+        SimpleDialog(
+          children: [
+            Text('나의 에니어그램', style: const TextStyle(fontSize: 25,color: WaiColors.black70), textAlign: TextAlign.center),
+            const SizedBox(height: 16),
+          ],
+        ),
+        barrierDismissible: false,
+    );
+    //   AlertDialog(
+    //     title: const Text('나의 에니어그램', style: TextStyle(fontSize: 25,color: WaiColors.black70)),
+    //     content: LayoutBuilder(
+    //       builder: (BuildContext context, BoxConstraints constraints) {
+    //         return Container(
+    //           width: constraints.maxWidth * 0.5,
+    //           height: constraints.maxHeight * 0.5,
+    //           child: ListView(
+    //             children: [
+    //               SizedBox(
+    //                 width: double.infinity,
+    //                 height: 200,
+    //                 child: MyEnneagramContainer(
+    //                   myEnneagramTest: enneagramTest,
+    //                   fontSize: 15,
+    //                   textColor: WaiColors.white70,
+    //                 ),
+    //               )
+    //             ],
+    //           ),
+    //         );
+    //       },
+    //     )
+    //   ),
+    //   barrierDismissible: false,
+    // );
+  }
+
+
+
+
+
+
 
   static Future<bool> dialogConfirmationWith(
       BuildContext context,
@@ -117,21 +215,21 @@ class WaiDialog {
   static void dialogSuccess(String message) {
     Get.dialog(
       SimpleDialog(
-        children: [
-          Center(
-            child: Icon(
-              Icons.check_circle_outline_outlined,
-              color: Colors.green[700],
-              size: 40,
-            ),
+      children: [
+        Center(
+          child: Icon(
+            Icons.check_circle_outline_outlined,
+            color: Colors.green[700],
+            size: 40,
           ),
-          const SizedBox(height: 16),
-          Text(
-            message,
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
+        ),
+        const SizedBox(height: 16),
+        Text(
+          message,
+          textAlign: TextAlign.center,
+        ),
+      ],
+    ),
       barrierDismissible: false,
     );
   }
@@ -198,9 +296,6 @@ class WaiDialog {
     );
   }
 
-  static void closeToast() {
-    _toast.Fluttertoast.cancel();
-  }
 
   static void snackBarError(String message) {
     Get.rawSnackbar(
@@ -237,46 +332,6 @@ class WaiDialog {
 
   static void closeSnackBarOrNotify() {
     Get.closeAllSnackbars();
-  }
-
-  static void notify(
-      String title,
-      String message, {
-        double radius = 12,
-        bool showBorder = false,
-        Color titleColorText = WaiColors.black60,
-        Color messageColorText = WaiColors.black60,
-        Color backgroundColor = WaiColors.white60,
-        Color borderColor = WaiColors.white60,
-      }) {
-    Get.snackbar(
-      title,
-      message,
-      titleText: Text(title, style: TextStyle(fontSize: 18, color: titleColorText)),
-      messageText: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(message, style: TextStyle(fontSize: 15, color: messageColorText),),
-          InkWell(
-              onTap: () {
-                closeSnackBarOrNotify();
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Text('확인', style: TextStyle(fontSize: 15, color: messageColorText),),
-              )
-          ),
-        ],
-      ),
-      colorText: messageColorText,
-      backgroundColor: backgroundColor,
-      borderColor: showBorder ? borderColor : Colors.transparent,
-      borderRadius: radius,
-      borderWidth: showBorder ? 1 : 0,
-      isDismissible: false,
-      animationDuration: const Duration(milliseconds: 800),
-      duration: const Duration(milliseconds: 2000),
-    );
   }
 
   static void notifySuccess(

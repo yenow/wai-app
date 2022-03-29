@@ -11,7 +11,7 @@ import 'package:wai/data/client/sign_client.dart';
 import 'package:wai/route.dart';
 import 'package:wai/ui/who_am_i_screen/who_am_i_screen.dart';
 
-import '../main.dart';
+import '../../main.dart';
 
 class SignUpController extends GetxController {
   static SignUpController get to => Get.find();

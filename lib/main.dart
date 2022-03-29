@@ -7,6 +7,7 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:wai/common/interceptor/custom_log_interceptor.dart';
+import 'package:wai/common/notification.dart';
 import 'package:wai/controller/permernent/app_controller.dart';
 import 'package:wai/controller/permernent/enneagram_controller.dart';
 import 'package:wai/controller/permernent/enneagram_controller.dart';
@@ -20,7 +21,7 @@ import 'package:wai/ui/sign_up_screen/sign_up_screen.dart';
 import 'package:wai/ui/wai_splash_screen/wai_splash_screen.dart';
 import 'binding/init_binding.dart';
 import 'binding/introduction_binding.dart';
-import 'binding/sign_up_binding.dart';
+import 'binding/sign/sign_up_binding.dart';
 
 import 'common/interceptor/token_interceptor.dart';
 import 'common/widgets/blank.dart';

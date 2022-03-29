@@ -7,11 +7,14 @@ part 'reply.g.dart';
 @JsonSerializable()
 class Reply {
   int? replyId;
-  int? parentReplyId;
   String? author;
-  String? parentAuthor;
   int? authorEnneagramType;
   String? replyContent;
+
+  int? parentReplyId;
+  int? parentReplyUserId;
+  String? parentAuthor;
+
   bool? isReported;
   bool? isDeleted;
   DateTime? insertDate;
@@ -22,15 +25,19 @@ class Reply {
 
   Reply({
     this.replyId,
-    this.parentReplyId,
     this.author,
-    this.parentAuthor,
     this.authorEnneagramType,
     this.replyContent,
+
+    this.parentReplyId,
+    this.parentReplyUserId,
+    this.parentAuthor,
+
     this.isReported,
     this.isDeleted,
     this.insertDate,
     this.updateDate,
+
     this.userId,
     this.postId,
   });
@@ -40,7 +47,7 @@ class Reply {
 
   @override
   String toString() {
-    return 'Reply{replyId: $replyId, parentReplyId: $parentReplyId, author: $author, parentAuthor: $parentAuthor, authorEnneagramType: $authorEnneagramType, replyContent: $replyContent, isReported: $isReported, isDeleted: $isDeleted, insertDate: $insertDate, updateDate: $updateDate, userId: $userId, postId: $postId}';
+    return 'Reply{replyId: $replyId, author: $author, authorEnneagramType: $authorEnneagramType, replyContent: $replyContent, parentReplyId: $parentReplyId, parentReplyUserId: $parentReplyUserId, parentAuthor: $parentAuthor, isReported: $isReported, isDeleted: $isDeleted, insertDate: $insertDate, updateDate: $updateDate, userId: $userId, postId: $postId}';
   }
 }
 

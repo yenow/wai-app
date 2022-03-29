@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/common/widgets/horizontal_border_line.dart';
 import 'package:wai/constants/wai_colors.dart';
 import 'package:wai/controller/user/user_controller.dart';
@@ -17,26 +19,32 @@ class EnneagramTabPage extends StatelessWidget {
     return ListView(
       padding: EdgeInsets.zero,
       children: [
-        const Center(child: Text('나의 에니어그램', style: TextStyle(fontSize: 20, color: WaiColors.white90),)),
-        TestListView(),
-        const HorizontalBorderLine(),
-        // Padding(
-        //   padding: const EdgeInsets.only(top: 20, left: 30, right: 30),
-        //   child: MyEnneagramContainer(
-        //     myEnneagramTest: enneagramTest,
-        //     fontSize: 15,
-        //     textColor: WaiColors.black50,
-        //   ),
-        // ),
-        SizedBox(
-          height: 120,
-          child: MyEnneagramContainer(
-            myEnneagramTest: enneagramTest,
-            fontSize: 15,
-            textColor: WaiColors.white70,
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20.0),
+            color: WaiColors.deepDarkGrey,
+          ),
+          child: Column(
+            children: [
+              const Blank(height: 5,),
+              const Center(child: Text('나의 에니어그램', style: TextStyle(fontSize: 20, color: WaiColors.white),)),
+              Center(child: Text( DateFormat('yyyy년 MM월 dd일').format(enneagramTest.insertDate!), style: TextStyle(fontSize: 14, color: WaiColors.white),)),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: SizedBox(
+                  height: 120,
+                  child: MyEnneagramContainer(
+                    myEnneagramTest: enneagramTest,
+                    fontSize: 15,
+                    textColor: WaiColors.white,
+                  ),
+                ),
+              ),
+              EnneagramChartContainer(enneagramTest: enneagramTest)
+            ],
           ),
         ),
-        EnneagramChartContainer(enneagramTest: enneagramTest)
+        // EnneagramChartContainer(enneagramTest: enneagramTest)
       ],
     );
   }

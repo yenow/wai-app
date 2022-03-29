@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:wai/common/widgets/horizontal_border_line.dart';
 import 'package:wai/controller/reply/reply_controller.dart';
 import 'package:wai/data/model/reply/reply.dart';
-import 'package:wai/ui/reply_screen/components/reply_item2.dart';
 import 'package:wai/ui/reply_screen/components/reply_list.dart';
 
 class ReplyListView extends StatelessWidget {

@@ -9,9 +9,10 @@ class WaiButton extends StatelessWidget {
     this.title = "",
     required this.onPressed,
     this.backgroundColor,
-    this.overlayColor,
+    this.overlayColor = Colors.transparent,
     this.textColor,
     this.radius,
+    this.size = Size.infinite,
   }) : super(key: key);
 
   final Widget? child;
@@ -21,13 +22,15 @@ class WaiButton extends StatelessWidget {
   final Color? overlayColor;
   final Color? textColor;
   final double? radius;
+  final Size size;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       child: _buildChild(),
       style: ButtonStyle(
-        minimumSize: MaterialStateProperty.all(Size.infinite),
+        padding: MaterialStateProperty.all(EdgeInsets.zero),
+        minimumSize: MaterialStateProperty.all(size),
         backgroundColor: MaterialStateProperty.all(backgroundColor ?? WaiColors.blueGrey),
         elevation: MaterialStateProperty.all(1),
         overlayColor: MaterialStateProperty.all(overlayColor ?? WaiColors.lightMainColor),

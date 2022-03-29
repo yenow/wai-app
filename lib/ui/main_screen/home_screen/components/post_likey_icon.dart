@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:wai/common/widgets/blank.dart';
 
@@ -16,7 +17,7 @@ class PostLikeyIcon extends StatelessWidget {
       children: [
         likeyIcon(),
         Blank(width: intervalSize,),
-        Text("$likeyCount", style: TextStyle(fontSize: size, color: WaiColors.white70)),
+        AutoSizeText("$likeyCount", style: TextStyle(fontSize: size, color: WaiColors.white70), maxLines: 1),
       ],
     );
   }

@@ -15,6 +15,7 @@ import 'package:wai/ui/main_screen/my_page/components/my_page_tab_bar.dart';
 import 'package:wai/ui/main_screen/my_page/components/my_page_tab_bar_view.dart';
 
 import '../../post_write_screen/post_write_screen.dart';
+import 'components/my_page_action_button.dart';
 
 class MyPage extends StatelessWidget {
   const MyPage({Key? key}) : super(key: key);

@@ -1,6 +1,9 @@
 import 'package:get/get.dart';
+import 'package:wai/controller/notice_controller.dart';
 import 'package:wai/controller/post/my_enneagram_post_controller.dart';
 import 'package:wai/controller/post/my_post_controller.dart';
+import 'package:wai/controller/post/popular_post_controller.dart';
+import 'package:wai/controller/post/post_controller.dart';
 import 'package:wai/controller/user_profile_controller.dart';
 import 'package:wai/common/utils/api.dart';
 import 'package:wai/common/utils/logger.dart';
@@ -35,9 +38,12 @@ class InitialData {
         userKey: userKey)
       );
 
-      await MyPostController.to.getPost();
+      await NoticeController.to.getNotices();
+
+      await MyPostController.to.getPosts();
+      await PopularController.to.getPosts();
       if (UserController.to.userEnneagramTests.isNotEmpty) {
-        await MyEnneagramPostController.to.getPost();
+        await MyEnneagramPostController.to.getPosts();
       }
     }
   }

@@ -24,7 +24,7 @@ class WaiDrawer extends StatelessWidget {
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
               // color: WaiColors.deepDarkMainColor
-              color: WaiColors.lightMainColor
+              color: WaiColors.mainColor
             ),
             child: Column(
               children: [
@@ -39,10 +39,10 @@ class WaiDrawer extends StatelessWidget {
           ExpansionTile(
             title: const Text('에니어그램 알아보기'),
             leading: const Icon(Icons.apps_rounded),
-            textColor: WaiColors.lightBlueGrey,
-            iconColor: WaiColors.lightBlueGrey,
-            collapsedIconColor: WaiColors.lightBlueGrey,
-            collapsedTextColor: WaiColors.lightBlueGrey,
+            textColor: WaiColors.mainColor,
+            iconColor: WaiColors.mainColor,
+            collapsedIconColor: WaiColors.mainColor,
+            collapsedTextColor: WaiColors.mainColor,
             children: <Widget>[
               for (var i = 1; i <= 9; i++)
                 ListTile(
@@ -57,7 +57,7 @@ class WaiDrawer extends StatelessWidget {
                           fit: BoxFit.fill,
                         ),
                       ),
-                      Text(EnneagramController.to.enneagram[i]!.getFullName(), style: const TextStyle(color: WaiColors.lightMainColor),),
+                      Text(EnneagramController.to.enneagram[i]!.getFullName(), style: const TextStyle(color: WaiColors.mainColor),),
                     ],
                   ),
                   onTap: () {
@@ -70,10 +70,12 @@ class WaiDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.settings_rounded,),
-            textColor: WaiColors.lightBlueGrey,
-            iconColor: WaiColors.lightBlueGrey,
+            textColor: WaiColors.mainColor,
+            iconColor: WaiColors.mainColor,
             title: const Text('설정'),
-            onTap: () {},
+            onTap: () {
+              Get.toNamed(WaiRoutes.setting);
+            },
           ),
         ],
       ),

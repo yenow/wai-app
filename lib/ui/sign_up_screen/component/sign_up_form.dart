@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wai/common/widgets/wai_text_form_field.dart';
-import 'package:wai/controller/sign_up_controller.dart';
+import 'package:wai/controller/sign/sign_up_controller.dart';
 
 import '../../../common/utils/logger.dart';
 

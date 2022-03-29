@@ -6,23 +6,29 @@ part 'reply_request_dto.g.dart';
 @JsonSerializable()
 class ReplyRequestDto {
   String? replyId;
-  String? parentReplyId;
-  String? userId;
-  String? postId;
   String? author;
-  String? parentAuthor;
   int? authorEnneagramType;
   String replyContent;
 
+  String? parentReplyId;
+  String? parentReplyUserId;
+  String? parentAuthor;
+
+  String? userId;
+  String? postId;
+
   ReplyRequestDto({
     this.replyId,
+    this.author,
+    this.authorEnneagramType,
+    this.replyContent = "",
+
+    this.parentReplyId,
+    this.parentReplyUserId,
+    this.parentAuthor = "",
+
     this.userId,
     this.postId,
-    this.parentReplyId,
-    this.author,
-    this.parentAuthor = "",
-    this.authorEnneagramType,
-    this.replyContent = ""
   });
 
   factory ReplyRequestDto.fromJson(Map<String, dynamic> json) => _$ReplyRequestDtoFromJson(json);
@@ -30,6 +36,6 @@ class ReplyRequestDto {
 
   @override
   String toString() {
-    return 'ReplyRequestDto{replyId: $replyId, userId: $userId, postId: $postId, parentReplyId: $parentReplyId, parentAuthor: $parentAuthor, author: $author, authorEnneagramType: $authorEnneagramType, replyContent: $replyContent}';
+    return 'ReplyRequestDto{replyId: $replyId, author: $author, authorEnneagramType: $authorEnneagramType, replyContent: $replyContent, parentReplyId: $parentReplyId, parentReplyUserId: $parentReplyUserId, parentAuthor: $parentAuthor, userId: $userId, postId: $postId}';
   }
 }
