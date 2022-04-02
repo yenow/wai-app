@@ -11,6 +11,14 @@ class MyPageTabBar extends StatelessWidget {
       indicatorColor: Colors.white,
       tabs: [
         Tab(
+          text: '나의 에니어그램',
+          icon:  Icon(
+            Icons.apps_rounded,
+            size: 30,
+            color: WaiColors.white,
+          ),
+        ),
+        Tab(
           text: '나의 글',
           icon:  Icon(
             Icons.article_rounded,
@@ -25,14 +33,7 @@ class MyPageTabBar extends StatelessWidget {
             size: 30,
             color: WaiColors.white,
           ),
-        ),Tab(
-          text: '나의 에니어그램',
-          icon:  Icon(
-            Icons.apps_rounded,
-            size: 30,
-            color: WaiColors.white,
-          ),
-        ),
+        )
       ],
     );
   }

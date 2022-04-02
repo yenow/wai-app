@@ -14,7 +14,7 @@ class PrivateInformationAgreePage extends StatelessWidget {
         appBar: const WaiAppbar(
           elevation: 0,
           isBackLeading: true,
-          backgroundColor: WaiColors.mainColor,
+          backgroundColor: WaiColors.deepDarkMainColor,
           title: Text('개인정보 처리방침', style: TextStyle(color: WaiColors.white),),
         ),
         body: Column(

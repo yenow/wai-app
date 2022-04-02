@@ -59,9 +59,9 @@ class MyPostController extends GetxController {
     isLoading.value = true;
 
     PostRequestDto postRequestDto = PostRequestDto(
+        userId: UserController.to.user.value.userId,
         maxPostsSize: maxPostsSize,
         endPostId: posts.isEmpty ? null : posts.lastWhere((element) => true).postId,
-        userId: UserController.to.user.value.userId,
         postSearchType: PostSearchType.myPosts
     );
 

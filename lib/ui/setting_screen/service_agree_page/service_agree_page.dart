@@ -16,7 +16,7 @@ class ServiceAgreePage extends StatelessWidget {
           appBar: const WaiAppbar(
             elevation: 0,
             isBackLeading: true,
-            backgroundColor: WaiColors.mainColor,
+            backgroundColor: WaiColors.deepDarkMainColor,
             title: Text('이용약관', style: TextStyle(color: WaiColors.white),),
           ),
         body: Column(

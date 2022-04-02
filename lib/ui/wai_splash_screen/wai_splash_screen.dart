@@ -27,13 +27,7 @@ class WaiSplashScreen extends StatelessWidget {
 
     Future.delayed(const Duration(milliseconds: 1500), () async {
 
-      precacheImage(
-        Image.network(
-            'https://terry1213.github.io/assets/flutter/Tip/precacheImage/network_image.JPG')
-            .image,
-        context,
-      );
-      await initNotification();
+      // await initNotification();
       await InitialData.initData();
       await PostBackgroundImageController.to.precacheImages(context);
 

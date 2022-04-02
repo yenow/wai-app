@@ -38,8 +38,10 @@ class SimpleEnneagramTestScreen extends StatelessWidget {
     return const SafeArea(
       child: Scaffold(
         appBar: WaiAppbar(
-          title: Text("간단테스트"),
+          elevation: 0,
           isBackLeading: true,
+          backgroundColor: WaiColors.deepDarkMainColor,
+          title: Text("간단테스트", style: TextStyle(color: WaiColors.white)),
         ),
         body: SimpleEnneagramTestPageView(),
       ),

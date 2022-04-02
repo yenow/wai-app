@@ -27,8 +27,13 @@ class PostWriteController extends GetxController {
   ).obs;
   final formKey = GlobalKey<FormState>();
   
-  void savePost() {
+  void savePost() async {
     if (!isValid()) return;
+
+    bool result = await WaiDialog.dialogConfirmation('알림', '정말 등록하시겠습니까?', '아니요', '예');
+    if (!result) {
+      return;
+    }
 
     if (postSaveRequestDto.value.postId == null) {
       PostClient(mainDio).createPost(

@@ -53,9 +53,9 @@ class MainBottomSheetHeader extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text('만들기', style: TextStyle(fontSize: 20, color: WaiColors.black60)),
+        const Text('만들기', style: TextStyle(fontSize: 20, color: WaiColors.black70)),
         IconButton(
-          icon: const Icon(Icons.close),
+          icon: const Icon(Icons.close, color: WaiColors.black70),
           onPressed: () {
             Get.back();
           },

@@ -24,6 +24,7 @@ class PostWriteNavigation extends StatelessWidget {
         )
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           IconButton(
             icon: const Icon(Icons.change_circle_rounded, color: WaiColors.white70, size: 30,),

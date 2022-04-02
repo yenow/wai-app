@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
+import 'package:wai/common/utils/wai_dialog.dart';
 import 'package:wai/controller/permernent/app_controller.dart';
 import 'package:wai/controller/user/user_controller.dart';
 import 'package:wai/data/model/wai_error.dart';
@@ -26,6 +27,7 @@ class SignUpController extends GetxController {
   }
 
   Future<void> signUpRequest() async {
+    WaiDialog.dialogProgress();
     errorMessage("");
 
     if (formKey.currentState!.validate()) {
@@ -53,20 +55,8 @@ class SignUpController extends GetxController {
           }
         }
       });
-
-      // if (result is Sign) {
-      //   AppController.to.setLoginInfo(result);
-      //   UserController.to.updateUser(result);
-      //   AppController.to.writeLoginInfo(AppController.to.loginInfo.value);
-      //   Get.offAllNamed(WaiRoutes.whoAmI);
-      //
-      // } else if (result is WaiError) {
-      //   WaiError error = result;
-      //   if (error.errorCode == 'err-101') {
-      //     errorMessage('이미 사용중인 닉네임입니다.');
-      //     formKey.currentState!.validate();
-      //   }
-      // }
     }
+
+    WaiDialog.closeDialogProgress();
   }
 }

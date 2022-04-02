@@ -14,7 +14,8 @@ class HardEnneagramButton extends StatelessWidget {
         width: double.infinity,
         child: WaiButton(
           title: buttonTitle,
-          backgroundColor: WaiColors.blueGrey,
+          textColor: WaiColors.white,
+          backgroundColor: WaiColors.darkMainColor,
           onPressed: HardEnneagramTestController.to.isLastPage() ?
             HardEnneagramTestController.to.saveEnneagramTest : HardEnneagramTestController.to.clickNextButton,
         )

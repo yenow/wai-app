@@ -33,9 +33,12 @@ class NoticePage extends StatelessWidget {
         child: Column(
           children: [
             const Blank(height: 50,),
-            const Expanded(
+            const Flexible(
+              fit: FlexFit.loose,
               child: NoticeListView()
             ),
+            NoticeController.to.notices.isEmpty ?
+            Container() :
             SizedBox(
               height: 50,
               child: WaiButton(

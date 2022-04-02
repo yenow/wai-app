@@ -48,7 +48,7 @@ class EnneagramChartState extends State<EnneagramChart> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
-                    Center(child: Text('유형별 점수', style: TextStyle(fontSize: 15, color: WaiColors.white))),
+                    const Center(child: Text('유형별 점수', style: TextStyle(fontSize: 15, color: WaiColors.white))),
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 2.0,),
@@ -81,10 +81,10 @@ class EnneagramChartState extends State<EnneagramChart> {
       barRods: [
         BarChartRodData(
           y: isTouched ? y + 1 : y,
-          colors: isTouched ? [Colors.yellow] : [barColor],
+          colors: isTouched ? [WaiColors.white] : [barColor],
           width: width,
           borderSide: isTouched
-              ? BorderSide(color: Colors.yellow.shade200, width: 1)   // ??
+              ? const BorderSide(color: WaiColors.white, width: 1)   // ??
               : const BorderSide(color: Colors.white, width: 0),
           backDrawRodData: BackgroundBarChartRodData(
             show: true,
@@ -162,11 +162,11 @@ class EnneagramChartState extends State<EnneagramChart> {
               }
               return BarTooltipItem(
                 enneagramType + '\n',
-                WaiTextStyle(fontSize: 18, color: Colors.white).basic(),
+                const TextStyle(fontSize: 18, color: Colors.white),
                 children: <TextSpan>[
                   TextSpan(
                     text: (rod.y).toInt().toString(),
-                    style:  WaiTextStyle(fontSize: 14, color: WaiColors.yellow).basic(),
+                    style: const TextStyle(fontSize: 14, color: WaiColors.white),
                   ),
                 ],
               );

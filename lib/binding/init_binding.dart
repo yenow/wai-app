@@ -1,6 +1,7 @@
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/bindings_interface.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:wai/controller/ban_user_controller.dart';
 import 'package:wai/controller/permernent/app_controller.dart';
 import 'package:wai/controller/permernent/enneagram_controller.dart';
 import 'package:wai/controller/permernent/enneagram_test_controller.dart';
@@ -27,5 +28,6 @@ class InitBinding implements Bindings {
     Get.put<PopularController>(PopularController(), permanent: true);
     Get.put<NoticeController>(NoticeController(), permanent: true);
     Get.put<PostBackgroundImageController>(PostBackgroundImageController(), permanent: true);
+    Get.put<BanUserController>(BanUserController(), permanent: true);
   }
 }

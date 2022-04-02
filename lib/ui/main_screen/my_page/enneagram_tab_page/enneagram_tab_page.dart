@@ -26,7 +26,7 @@ class EnneagramTabPage extends StatelessWidget {
           ),
           child: Column(
             children: [
-              const Blank(height: 5,),
+              const Blank(height: 10,),
               const Center(child: Text('나의 에니어그램', style: TextStyle(fontSize: 20, color: WaiColors.white),)),
               Center(child: Text( DateFormat('yyyy년 MM월 dd일').format(enneagramTest.insertDate!), style: TextStyle(fontSize: 14, color: WaiColors.white),)),
               Padding(

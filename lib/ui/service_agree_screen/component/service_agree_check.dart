@@ -20,10 +20,10 @@ class ServiceAgreeCheck extends StatelessWidget {
       child: Row(
         children: [
           Checkbox(
-            side: const BorderSide(width: 1.0, color: WaiColors.lightBlueGrey),
+            side: const BorderSide(width: 1.0, color: WaiColors.darkMainColor),
             shape: const CircleBorder(),
             checkColor: Colors.white,
-            fillColor: MaterialStateProperty.all(WaiColors.lightBlueGrey),
+            fillColor: MaterialStateProperty.all(WaiColors.darkMainColor),
             value: value,
             onChanged: onChanged,
           ),
@@ -36,7 +36,7 @@ class ServiceAgreeCheck extends StatelessWidget {
                   child: AutoSizeText(
                     agreeText,
                     maxLines: 1,
-                    style: WaiTextStyle(color: WaiColors.lightBlueGrey).basic(),
+                    style: WaiTextStyle(color: WaiColors.darkMainColor).basic(),
                   ),
                 ),
               );

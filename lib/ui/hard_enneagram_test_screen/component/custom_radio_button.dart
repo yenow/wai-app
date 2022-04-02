@@ -7,19 +7,22 @@ enum ButtonSize {
 }
 
 class CustomRadioButton extends StatelessWidget {
-  CustomRadioButton({Key? key,
+  const CustomRadioButton({Key? key,
     required this.uniqueValue,
     this.groupValue,
     required this.onPressed,
     this.buttonText = "",
     this.mainColor = Colors.grey,
-    this.buttonSize = 30}) : super(key: key);
+    this.overlayColor = Colors.grey,
+    this.buttonSize = 30
+  }) : super(key: key);
 
   final String buttonText;
   final int uniqueValue;
   final int? groupValue;
   final VoidCallback onPressed;
   final Color mainColor;
+  final Color overlayColor;
   final double buttonSize;
 
   @override
@@ -38,6 +41,7 @@ class CustomRadioButton extends StatelessWidget {
           child: const SizedBox(width: 10, height: 10,),
           onPressed: onPressed,
           style: ButtonStyle(
+            overlayColor: MaterialStateProperty.all(overlayColor),
             minimumSize: MaterialStateProperty.all(Size(buttonSize, buttonSize)),
             backgroundColor: MaterialStateProperty.resolveWith((states) {
 

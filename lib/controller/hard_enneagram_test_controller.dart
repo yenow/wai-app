@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:wai/common/utils/logger.dart';
+import 'package:wai/common/utils/wai_dialog.dart';
 import 'package:wai/common/widgets/wai_snackbar.dart';
 import 'package:wai/controller/permernent/app_controller.dart';
 import 'package:wai/controller/permernent/enneagram_test_controller.dart';
@@ -44,8 +45,7 @@ class HardEnneagramTestController extends GetxController {
       currentPageIndex(currentPageIndex.value + 1);
       changeButtonText();
     } else {
-      AppController.to.snackBarKey.currentState!.showSnackBar(
-          WaiSnackBar.top(text: '선택하지 않은 문항이 있습니다.'));
+      WaiDialog.notify('알림', '선택하지 않은 문항이 있습니다.');
     }
   }
 
@@ -67,23 +67,27 @@ class HardEnneagramTestController extends GetxController {
       EnneagramTestRequestDto enneagramTestRequestDto = EnneagramTestRequestDto(
         userId: UserController.to.user.value.userId!.toString(),
         testType: TestType.hard,
-        type1Score: EnneagramTestController.to.getScoreByEneagramType(1),
-        type2Score: EnneagramTestController.to.getScoreByEneagramType(2),
-        type3Score: EnneagramTestController.to.getScoreByEneagramType(3),
-        type4Score: EnneagramTestController.to.getScoreByEneagramType(4),
-        type5Score: EnneagramTestController.to.getScoreByEneagramType(5),
-        type6Score: EnneagramTestController.to.getScoreByEneagramType(6),
-        type7Score: EnneagramTestController.to.getScoreByEneagramType(7),
-        type8Score: EnneagramTestController.to.getScoreByEneagramType(8),
-        type9Score: EnneagramTestController.to.getScoreByEneagramType(9),
+        type1Score: EnneagramTestController.to.getScoreByEnneagramType(1),
+        type2Score: EnneagramTestController.to.getScoreByEnneagramType(2),
+        type3Score: EnneagramTestController.to.getScoreByEnneagramType(3),
+        type4Score: EnneagramTestController.to.getScoreByEnneagramType(4),
+        type5Score: EnneagramTestController.to.getScoreByEnneagramType(5),
+        type6Score: EnneagramTestController.to.getScoreByEnneagramType(6),
+        type7Score: EnneagramTestController.to.getScoreByEnneagramType(7),
+        type8Score: EnneagramTestController.to.getScoreByEnneagramType(8),
+        type9Score: EnneagramTestController.to.getScoreByEnneagramType(9),
       );
+
+      logger.d(enneagramTestRequestDto);
 
       EnneagramTestClient(mainDio).doHardEnneagramTest(
           enneagramTestRequestDto: enneagramTestRequestDto,
           token: AppController.to.getJwtToken()
       ).then((value) {
         UserController.to.addUserEnneagramTest(value);
-        Get.offAllNamed(WaiRoutes.main, parameters: {"showEnneagramDialog": "Y"});
+        Get.offAllNamed(WaiRoutes.initial, parameters: {"showEnneagramDialog": "Y"});
+        EnneagramTestController.to.initScore();
+        // Get.offAllNamed(WaiRoutes.initial, parameters: {"showEnneagramDialog": "Y"});
       });
     }
   }

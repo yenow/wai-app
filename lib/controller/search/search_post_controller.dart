@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/common/utils/wai_dialog.dart';
 import 'package:wai/controller/search/search_controller.dart';
+import 'package:wai/controller/user/user_controller.dart';
 import 'package:wai/data/client/post_client.dart';
 import 'package:wai/data/model/post/post.dart';
 import 'package:wai/main.dart';
@@ -79,16 +80,14 @@ class SearchPostController extends GetxController {
   Future<List<Post>> getPosts(PostSearchType postSearchType, int? endPostId) async {
     isLoading.value = true;
 
-
-    PostRequestDto postRequestDto = PostRequestDto(
-        maxPostsSize: maxPostsSize,
-        endPostId: endPostId,
-        searchText: SearchController.to.searchText.value,
-        postSearchType: postSearchType
-    );
-
     List<Post> posts = await PostClient(mainDio).getPosts(
-      postRequestDto: postRequestDto,
+      postRequestDto: PostRequestDto(
+          userId: UserController.to.user.value.userId,
+          maxPostsSize: maxPostsSize,
+          endPostId: endPostId,
+          searchText: SearchController.to.searchText.value,
+          postSearchType: postSearchType
+      ),
     );
 
     isLoading.value = false;

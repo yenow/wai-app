@@ -45,7 +45,6 @@ abstract class PostClient {
     @Header("authorization") required String token
   });
 
-
   @POST('/addLikey/{postId}/{userId}')
   Future<Post> addLikey({
     @Path('postId') required String postId,

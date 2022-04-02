@@ -17,4 +17,11 @@ abstract class SignClient {
     "Content-Type" : "application/json; charset=UTF-8",
   })
   Future<Sign> signUpAsNonMember({@Body() required SignRequestDto signRequestDto});
+
+  @POST('/sign/signIn')
+  @Headers( <String, dynamic>{
+    "Accept": "application/json",
+    "Content-Type" : "application/json; charset=UTF-8",
+  })
+  Future<Sign> signIn({@Body() required SignRequestDto signRequestDto});
 }

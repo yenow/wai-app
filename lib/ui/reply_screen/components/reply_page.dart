@@ -20,7 +20,7 @@ class ReplyPage extends StatelessWidget {
           child: Scaffold(
             appBar: WaiAppbar(
               title: Text('댓글 ${ReplyController.to.replies.length}', style: const TextStyle(color: WaiColors.white),),
-              backgroundColor: WaiColors.mainColor,
+              backgroundColor: WaiColors.deepDarkMainColor,
               elevation: 0,
               leading: InkWell(
                 child: const Icon(Icons.arrow_back_ios_outlined, size: 20, color: WaiColors.white),

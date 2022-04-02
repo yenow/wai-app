@@ -116,21 +116,16 @@ class AppController extends GetxController{
     await storage.write(key: "isWatchIntroducePage", value: isWatchIntroducePage);
   }
 
-  Future<void> removeUserKey () async {
-    await storage.delete(
-        key: "userKey",
-        iOptions: _getIOSOptions(),
-        aOptions: _getAndroidOptions()
-    );
+  Future<void> removeLoginInfo () async {
     await storage.delete(
         key: "loginInfo",
         iOptions: _getIOSOptions(),
         aOptions: _getAndroidOptions()
     );
-    await storage.delete(
+   /* await storage.delete(
         key: "isWatchIntroducePage",
         iOptions: _getIOSOptions(),
         aOptions: _getAndroidOptions()
-    );
+    );*/
   }
 }

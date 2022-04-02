@@ -39,6 +39,30 @@ class _SignClient implements SignClient {
     return value;
   }
 
+  @override
+  Future<Sign> signIn({required signRequestDto}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{
+      r'Accept': 'application/json',
+      r'Content-Type': 'application/json; charset=UTF-8'
+    };
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(signRequestDto.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<Sign>(
+        Options(
+                method: 'POST',
+                headers: _headers,
+                extra: _extra,
+                contentType: 'application/json; charset=UTF-8')
+            .compose(_dio.options, '/sign/signIn',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = Sign.fromJson(_result.data!);
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

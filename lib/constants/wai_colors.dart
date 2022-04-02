@@ -37,12 +37,12 @@ class WaiColors {
   static const lightGrey = Color(0xFFC9C9C9);
   static const deepLightGrey = Color(0xFFD0D0D0);
 
-  static const deepDarkMainColor = Color(0xFF5A5A5A);
+  static const deepDarkMainColor = Color(0xFF3C3C3C);
   static const darkMainColor = Color(0xFF787878);
   static const mainColor =Color(0xFF9E9E9E);
   static const lightMainColor = Color(0xFFB4B4B4);
   static const deepLightMainColor =  Color(0xFFC8C8C8);
-  static const moreDeepLightMainColor = Color(0xFFD2D2D2);
+  static const moreDeepLightMainColor = Color(0xFFDCDCDC);
 
   // static const deepDarkMainColor = Color(0xFF294C5D);
   // static const darkMainColor = Color(0xFF416475);
@@ -91,7 +91,7 @@ class WaiColors {
   static const blue50 = Color(0xFF2C8DC1);
   static const blue40 = Color(0x662C8DC1);
   static const lightBlue = Color(0xFF81AED0);
-  static const deepLightBlue = Color(0xFFBEC7CE);
+  static const deepLightBlue = Color(0xFF93B2C7);
 
 
   static const green = Color(0xFF7CC958);

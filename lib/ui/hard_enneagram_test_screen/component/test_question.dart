@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
+import 'package:wai/constants/wai_colors.dart';
 import 'package:wai/controller/permernent/enneagram_test_controller.dart';
 
 class TestQuestion extends StatelessWidget {
@@ -14,7 +15,7 @@ class TestQuestion extends StatelessWidget {
         alignment: Alignment.center,
         child: Text(
           EnneagramTestController.to.enneagramQuestionList.elementAt(questionIndex).getFullQuestion(),
-          style: WaiTextStyle().enneagramQuestion(),
+          style: const TextStyle(fontSize: 16, color: WaiColors.black70),
         ),
       ),
     );

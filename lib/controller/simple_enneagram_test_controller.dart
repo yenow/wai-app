@@ -62,7 +62,7 @@ class SimpleEnneagramTestController extends GetxController {
         token: AppController.to.getJwtToken()
     ).then((value) {
       UserController.to.addUserEnneagramTest(value);
-      Get.offAllNamed(WaiRoutes.main, parameters: {"showEnneagramDialog": "Y"});
+      Get.offAllNamed(WaiRoutes.initial, parameters: {"showEnneagramDialog": "Y"});
     });
   }
 

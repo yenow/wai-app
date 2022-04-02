@@ -72,7 +72,7 @@ class EnneagramTestController extends GetxController {
         }
       }
 
-      enneagramPageList.value.add(tempList);
+      enneagramPageList.add(tempList);
     }
   }
 
@@ -106,7 +106,6 @@ class EnneagramTestController extends GetxController {
   }
 
 
-
   List<EnneagramQuestion> getSimpleQuestionsByPageIndex(int pageIndex) {
     List<EnneagramQuestion> list = [];
 
@@ -137,7 +136,7 @@ class EnneagramTestController extends GetxController {
     }
   }
 
-  int getScoreByEneagramType(int enneagramType) {
+  int getScoreByEnneagramType(int enneagramType) {
     int result = 0;
     for (EnneagramQuestion enneagramQuestion in enneagramQuestionList) {
 
@@ -146,5 +145,12 @@ class EnneagramTestController extends GetxController {
       }
     }
     return result;
+  }
+
+  void initScore() {
+
+    for (EnneagramQuestion element in enneagramQuestionList) {
+      element.score = null;
+    }
   }
 }

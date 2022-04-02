@@ -27,6 +27,7 @@ import 'package:wai/ui/simple_enneagram_test_screen/simple_enneagram_test_page_s
 import 'package:wai/ui/main_screen/main_screens.dart';
 import 'package:wai/common/utils/function.dart';
 import 'package:wai/ui/who_am_i_screen/component/enneagram_type_grid_view.dart';
+import 'package:wai/ui/who_am_i_screen/component/wai_icon_text.dart';
 import 'package:wai/ui/who_am_i_screen/component/who_am_i_button.dart';
 
 
@@ -39,11 +40,18 @@ class WhoAmIScreen extends StatelessWidget {
       SafeArea(
         child: Scaffold(
           appBar: const WaiAppbar(
-            title: Text("WHO AM I"),
+            elevation: 0,
+            isBackLeading: true,
+            backgroundColor: WaiColors.deepDarkMainColor,
+            title: Text("WHO AM I", style: TextStyle(color: WaiColors.white)),
           ),
           body: Column(
             children: [
-              _buildText(text: '내 에니어그램 성향이 뭔지 알고 있다면, 골라주세요'),
+              const Flexible(
+                flex: 1,
+                fit: FlexFit.tight,
+                child: IconText(text: '내 에니어그램 성향이 뭔지 알고 있다면, 골라주세요.',),
+              ),
               Flexible(
                 flex: 5,
                 fit: FlexFit.loose,
@@ -57,17 +65,21 @@ class WhoAmIScreen extends StatelessWidget {
                 flex: 1,
                 child: WhoAmIButton(
                   title: WhoAmIController.to.buttonText.value,
-                  backgroundColor: WaiColors.deepDarkGrey,
+                  backgroundColor: WaiColors.darkMainColor,
                   onPressed: WhoAmIController.to.selectEnneagramType,
                 ),
               ),
               const Blank(height: 15,),
-              _buildText(text: '에니어그램을 처음 해보신다면, 테스트를 진행해주세요.'),
+              const Flexible(
+                flex: 1,
+                fit: FlexFit.tight,
+                child: IconText(text: '에니어그램을 처음 해보신다면, 테스트를 진행해주세요.',),
+              ),
               Flexible(
                 flex: 1,
                 child: WhoAmIButton(
                   title: "간단 테스트",
-                  backgroundColor: WaiColors.blueGrey,
+                  backgroundColor: WaiColors.darkMainColor,
                   onPressed: () {
                     Get.toNamed(WaiRoutes.simpleTest);
                   },
@@ -77,7 +89,7 @@ class WhoAmIScreen extends StatelessWidget {
                 flex: 1,
                 child: WhoAmIButton(
                   title: "정밀 테스트 (20분 소요)",
-                  backgroundColor: WaiColors.blueGrey,
+                  backgroundColor: WaiColors.darkMainColor,
                   onPressed: () {
                     Get.toNamed(WaiRoutes.hardTest);
                   },
@@ -88,18 +100,6 @@ class WhoAmIScreen extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-
-  Flexible _buildText({required String text}) {
-    return Flexible(
-        flex: 1,
-        child: Center(
-          child: Text(
-          text,
-          style: WaiTextStyle(fontSize: 17, color: WaiColors.darkGrey).basic(),
-        )
-      )
     );
   }
 }

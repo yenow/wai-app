@@ -25,17 +25,19 @@ class EnneagramTypeCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),
-        color: enneagramTypeIndex == currentIndex ? WaiColors.deepLightGrey : Colors.white,
+        // border: Border.all(color: WaiColors.mainColor, width: 0.5),
+        color: enneagramTypeIndex == currentIndex ? WaiColors.moreDeepLightMainColor : Colors.white,
         boxShadow: const [
           BoxShadow(
-            color: Colors.grey,
+            color: WaiColors.grey,
             offset: Offset(0.0, 1.0), //(x,y)
-            blurRadius: 2.0,
+            blurRadius: 1.0,
           ),
         ],
       ),
       child: TextButton(
         style: ButtonStyle(
+          overlayColor: MaterialStateProperty.all(WaiColors.moreDeepLightMainColor),
           shape: MaterialStateProperty.all(const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20))
           ))
@@ -48,14 +50,14 @@ class EnneagramTypeCard extends StatelessWidget {
           children: [
             Image(
               image: AssetImage(enneagram[enneagramTypeIndex]!.imagePath),
-              width: 40 * widthRatio,
-              height: 40 * heightRatio,
+              width: 40 ,
+              height: 40 ,
               fit: BoxFit.fill,
             ),
             const SizedBox(height: 5,),
             Text(
               '$enneagramTypeIndex유형',
-              style: WaiTextStyle(fontSize: 13, fontWeight: FontWeight.w400, color: Colors.black54).basic(),
+              style: WaiTextStyle(fontSize: 13, fontWeight: FontWeight.w400, color: enneagramTypeIndex == currentIndex ? WaiColors.black60 : WaiColors.black60).basic(),
             ),
           ],
         ),

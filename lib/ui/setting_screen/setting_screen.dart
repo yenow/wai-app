@@ -17,7 +17,7 @@ class SettingScreen extends StatelessWidget {
           appBar: WaiAppbar(
             title: const Text('설정', style: TextStyle(color: WaiColors.white),),
             borderColor: WaiColors.white,
-            backgroundColor: WaiColors.mainColor,
+            backgroundColor: WaiColors.deepDarkMainColor,
             elevation: 0,
             leading: InkWell(
               child: const Icon(Icons.arrow_back_ios_outlined, size: 20, color: WaiColors.white),
@@ -26,7 +26,7 @@ class SettingScreen extends StatelessWidget {
               },
             ),
             actions: const [
-              /*SignOutActionButton()*/
+              SignOutActionButton()
             ],
           ),
         body: Padding(
@@ -37,10 +37,14 @@ class SettingScreen extends StatelessWidget {
             children: [
             /*  SettingList(text: '이메일 등록'),
               HorizontalBorderLine(height: 0.5, color: WaiColors.mainColor,),*/
+              // SettingList(text: '공지사항', onTap: () { }),
+              // const HorizontalBorderLine(height: 0.5, color: WaiColors.mainColor,),
+              SettingList(text: '차단회원', onTap: () { Get.toNamed(WaiRoutes.banUserPage); }),
+              const HorizontalBorderLine(height: 0.5, color: WaiColors.darkMainColor,),
               SettingList(text: '이용약관', onTap: () { Get.toNamed(WaiRoutes.serviceAgreePage); }),
-              const HorizontalBorderLine(height: 0.5, color: WaiColors.mainColor,),
+              const HorizontalBorderLine(height: 0.5, color: WaiColors.darkMainColor,),
               SettingList(text: '개인정보 처리방침', onTap: () { Get.toNamed(WaiRoutes.privateInformationAgreePage); }),
-              const HorizontalBorderLine(height: 0.5, color: WaiColors.mainColor,),
+              const HorizontalBorderLine(height: 0.5, color: WaiColors.darkMainColor,),
             ],
           ),
         )

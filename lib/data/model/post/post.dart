@@ -15,6 +15,7 @@ class Post {
   String? backgroundImageName;
   bool? isDeleted;
   bool? isReported;
+  bool? isBanUser;
   DateTime? insertDate;
   DateTime? updateDate;
 
@@ -34,6 +35,7 @@ class Post {
     this.backgroundImageName,
     this.isDeleted,
     this.isReported,
+    this.isBanUser,
     this.insertDate,
     this.updateDate,
     this.userId,
@@ -48,7 +50,7 @@ class Post {
 
   @override
   String toString() {
-    return 'Post{postId: $postId, title: $title, content: $content, author: $author, authorEnneagramType: $authorEnneagramType, clickCount: $clickCount, isDeleted: $isDeleted, isReported: $isReported, insertDate: $insertDate, updateDate: $updateDate, userId: $userId, replyCount: $replyCount, likeyCount: $likeyCount, isLikey: $isLikey, tagString: $tagString}';
+    return 'Post{postId: $postId, title: $title, content: $content, author: $author, authorEnneagramType: $authorEnneagramType, clickCount: $clickCount, backgroundImageName: $backgroundImageName, isDeleted: $isDeleted, isReported: $isReported, isBanUser: $isBanUser, insertDate: $insertDate, updateDate: $updateDate, userId: $userId, replyCount: $replyCount, likeyCount: $likeyCount, isLikey: $isLikey, tagString: $tagString}';
   }
 }
 

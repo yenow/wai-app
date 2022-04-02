@@ -11,7 +11,7 @@ AppBarTheme appTheme() {
   return AppBarTheme(
     centerTitle: true,
     // color: Colors.white,
-    backgroundColor: WaiColors.mainColor,
+    backgroundColor: WaiColors.deepDarkMainColor,
     elevation: 0.0,
     titleTextStyle: GoogleFonts.jua(
       fontSize: 22,

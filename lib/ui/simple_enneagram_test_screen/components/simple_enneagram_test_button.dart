@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:wai/common/widgets/wai_button.dart';
+import 'package:wai/constants/wai_colors.dart';
 import 'package:wai/controller/simple_enneagram_test_controller.dart';
 
 import '../../../common/utils/logger.dart';
@@ -19,6 +20,7 @@ class SimpleEnneagramTestButton extends StatelessWidget {
               Text("다음", style: TextStyle(color: Colors.white)),
             ],
           ),
+          backgroundColor: WaiColors.darkMainColor,
           onPressed: SimpleEnneagramTestController.to.goNextPage
       );
       
@@ -34,6 +36,7 @@ class SimpleEnneagramTestButton extends StatelessWidget {
               Text("완료", style: TextStyle(color: Colors.white)),
             ],
           ),
+          backgroundColor: WaiColors.darkMainColor,
           onPressed: SimpleEnneagramTestController.to.doSimpleEnneagramTest
       );
     }

@@ -22,29 +22,32 @@ class SignUpScreen extends StatelessWidget {
         child: FocusOutContainer(
           child: Scaffold(
             appBar: const WaiAppbar(
-              title: Text("입력"),
+              elevation: 0,
+              isBackLeading: true,
+              backgroundColor: WaiColors.deepDarkMainColor,
+              title: Text("입력", style: TextStyle(color: WaiColors.white)),
             ),
             body: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Column(
                 children: [
                   const Blank(height: 20,),
-                  SizedBox(
+                  const SizedBox(
                       height: 50,
-                      child: Center(child: WaiText(text: "사용하실 닉네임을 입력해주세요.", style: WaiTextStyle(fontSize: 20).basic(),))
+                      child: Center(child: WaiText(text: "사용하실 닉네임을 입력해주세요.", style: TextStyle(fontSize: 20, color: WaiColors.darkMainColor),))
                   ),
                   SignUpForm(errorMessage: SignUpController.to.errorMessage.value),
                   const Blank(height: 20,),
                   const SignUpButton(),
                   const Blank(height: 40,),
-                  InkWell(
-                    child: Center(child: WaiText(text: "이미 등록된 아이디가 있으신가요?",
-                      style: WaiTextStyle(fontSize: 16, color: WaiColors.grey).basic(),)
-                    ),
-                    onTap: () {
-                      Get.to(() => const LoginScreen());
-                    },
-                  ),
+                  // InkWell(
+                  //   child: Center(child: WaiText(text: "이미 등록된 아이디가 있으신가요?",
+                  //     style: WaiTextStyle(fontSize: 16, color: WaiColors.mainColor).basic(),)
+                  //   ),
+                  //   onTap: () {
+                  //     Get.to(() => const LoginScreen());
+                  //   },
+                  // ),
                 ],
               ),
             ),

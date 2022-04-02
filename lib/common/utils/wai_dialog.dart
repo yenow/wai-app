@@ -6,11 +6,15 @@ import 'package:get/get.dart';
 import 'package:get/get_navigation/src/snackbar/snackbar.dart';
 import 'package:page_view_indicators/animated_circle_page_indicator.dart';
 import 'package:wai/common/theme/wai_textstyle.dart';
+import 'package:wai/common/widgets/focus_out_container.dart';
+import 'package:wai/common/widgets/wai_button.dart';
 import 'package:wai/constants/wai_textstyle.dart';
+import 'package:wai/controller/permernent/enneagram_controller.dart';
 import 'package:wai/data/model/enneagram_test/enneagram_test.dart';
 import 'package:wai/ui/main_screen/components/my_enneagram_container.dart';
 
 import '../../constants/wai_colors.dart';
+import '../../main.dart';
 
 class WaiDialog {
   static Future<void> dialogProgress() async {
@@ -21,7 +25,7 @@ class WaiDialog {
           height: 50,
           child: Center(
             child: CircularProgressIndicator(
-              color: WaiColors.blueGrey,
+              color: WaiColors.darkMainColor,
               strokeWidth: 5.0,
             ),
           ),
@@ -32,6 +36,9 @@ class WaiDialog {
   }
 
   static void closeDialog({Duration? durationBeforeClose, Function? actionAfterClose}) {
+    Get.back();
+  }
+  static void closeDialogProgress({Duration? durationBeforeClose, Function? actionAfterClose}) {
     Get.back();
   }
 
@@ -48,11 +55,11 @@ class WaiDialog {
         actions: [
           TextButton(
             onPressed: () => Get.back(result: false),
-            child: Text(textNo, style: const TextStyle(color: WaiColors.mainColor)),
+            child: Text(textNo, style: const TextStyle(color: WaiColors.black70)),
           ),
           TextButton(
             onPressed: () => Get.back(result: true),
-            child: Text(textYes, style: const TextStyle(color: WaiColors.mainColor)),
+            child: Text(textYes, style: const TextStyle(color: WaiColors.black70)),
           ),
         ],
       ),
@@ -117,49 +124,38 @@ class WaiDialog {
     _toast.Fluttertoast.cancel();
   }
 
-  static void enneagramDialog({required EnneagramTest enneagramTest}) {
+  static void enneagramDialog({required EnneagramTest myEnneagramTest}) {
     Get.dialog(
         SimpleDialog(
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
+          backgroundColor: WaiColors.deepLightMainColor,
           children: [
-            Text('나의 에니어그램', style: const TextStyle(fontSize: 25,color: WaiColors.black70), textAlign: TextAlign.center),
-            const SizedBox(height: 16),
+            const Text('나의 에니어그램은', style: TextStyle(fontSize: 22,color: WaiColors.black60), textAlign: TextAlign.center),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: SizedBox(
+                width: 300 * widthRatio,
+                height: 100 * heightRatio,
+                child: MyEnneagramContainer(myEnneagramTest: myEnneagramTest, textColor: WaiColors.black60, isLight: false),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              child: WaiButton(
+                size: Size.fromHeight(30 * heightRatio),
+                backgroundColor: WaiColors.darkMainColor,
+                textColor: WaiColors.white,
+                title: '닫기',
+                onPressed: () {
+                  Get.back();
+                }
+              ),
+            ),
           ],
         ),
         barrierDismissible: false,
     );
-    //   AlertDialog(
-    //     title: const Text('나의 에니어그램', style: TextStyle(fontSize: 25,color: WaiColors.black70)),
-    //     content: LayoutBuilder(
-    //       builder: (BuildContext context, BoxConstraints constraints) {
-    //         return Container(
-    //           width: constraints.maxWidth * 0.5,
-    //           height: constraints.maxHeight * 0.5,
-    //           child: ListView(
-    //             children: [
-    //               SizedBox(
-    //                 width: double.infinity,
-    //                 height: 200,
-    //                 child: MyEnneagramContainer(
-    //                   myEnneagramTest: enneagramTest,
-    //                   fontSize: 15,
-    //                   textColor: WaiColors.white70,
-    //                 ),
-    //               )
-    //             ],
-    //           ),
-    //         );
-    //       },
-    //     )
-    //   ),
-    //   barrierDismissible: false,
-    // );
   }
-
-
-
-
-
-
 
   static Future<bool> dialogConfirmationWith(
       BuildContext context,

@@ -4,8 +4,6 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 import 'package:wai/data/model/user/user.dart';
 import 'package:wai/data/model/user/user_request_dto.dart';
-
-import '../../controller/permernent/app_controller.dart';
 import '../model/enneagram_test/enneagram_test.dart';
 
 part 'user_client.g.dart';

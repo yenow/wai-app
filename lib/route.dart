@@ -27,6 +27,7 @@ import 'package:wai/ui/reply_screen/reply_screen.dart';
 import 'package:wai/ui/reply_update_screen/reply_update_screen.dart';
 import 'package:wai/ui/search_screen/search_screen.dart';
 import 'package:wai/ui/service_agree_screen/service_agree_screen.dart';
+import 'package:wai/ui/setting_screen/ban_user_page/ban_user_page.dart';
 import 'package:wai/ui/setting_screen/private_information_agree_page/private_information_agree_page.dart';
 import 'package:wai/ui/setting_screen/service_agree_page/service_agree_page.dart';
 import 'package:wai/ui/setting_screen/setting_screen.dart';
@@ -55,11 +56,12 @@ abstract class WaiRoutes{
   static const post = "/post";
   static const reply = "/reply";
   static const replyUpdate = "/replyUpdate";
-  static const setting = "/setting";
   static const search = "/search";
 
+  static const setting = "/setting";
   static const privateInformationAgreePage = "/privateInformationAgreePage";
   static const serviceAgreePage = "/serviceAgreePage";
+  static const banUserPage = "/banUserPage";
 }
 class AppPages {
 
@@ -81,10 +83,11 @@ class AppPages {
     GetPage(name: WaiRoutes.post + "/:postId", page:()=> const PostScreen(), binding: PostBinding(), transition: Transition.fadeIn),
     GetPage(name: WaiRoutes.reply + "/:postId", page:()=> const ReplyScreen(), binding: ReplyBinding(), transition: Transition.downToUp),
     GetPage(name: WaiRoutes.replyUpdate, page:()=> const ReplyUpdateScreen(), binding: ReplyUpdateBinding(), transition: Transition.fadeIn),
-    GetPage(name: WaiRoutes.setting, page:()=> const SettingScreen(), binding: SettingBinding(), transition: Transition.fadeIn),
     GetPage(name: WaiRoutes.search, page:()=> const SearchScreen(), binding: SearchBinding(), transition: Transition.fadeIn),
 
+    GetPage(name: WaiRoutes.setting, page:()=> const SettingScreen(), binding: SettingBinding(), transition: Transition.fadeIn),
     GetPage(name: WaiRoutes.privateInformationAgreePage, page:()=> const PrivateInformationAgreePage(), transition: Transition.rightToLeft),
     GetPage(name: WaiRoutes.serviceAgreePage, page:()=> const ServiceAgreePage(), transition: Transition.rightToLeft),
+    GetPage(name: WaiRoutes.banUserPage, page:()=> const BanUserPage(), transition: Transition.rightToLeft),
   ];
 }

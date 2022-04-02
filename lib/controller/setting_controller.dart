@@ -16,9 +16,10 @@ class SettingController extends GetxController {
 
 
   void logout() async {
-    
     bool result = await WaiDialog.dialogConfirmation('알림', '로그아웃 하시겠습니까?', '아니요', '예');
-    logger.d(result);
-
+    await AppController.to.removeLoginInfo();
+    if (result) {
+      Get.offAllNamed(WaiRoutes.initial);
+    }
   }
 }

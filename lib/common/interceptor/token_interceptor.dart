@@ -7,7 +7,7 @@ import 'package:wai/main.dart';
 class TokenInterceptor extends Interceptor {
   Dio tempDio = Dio(
       BaseOptions(
-        baseUrl: 'http://192.168.0.2:8080/api',
+        baseUrl: apiUrl,
         connectTimeout: 5000,
         receiveTimeout: 3000,
       )
@@ -19,11 +19,11 @@ class TokenInterceptor extends Interceptor {
     String token = AppController.to.loginInfo.value.token;
     if (AppController.to.loginInfo.value.userKey.isNotEmpty && JwtDecoder.isExpired(token)) {
       var response = await tempDio.post("/sign/signIn", data: AppController.to.loginInfo.value.toJson());
-      logger.d(response.data["token"]);
       AppController.to.loginInfo.value.token = response.data["token"];
     }
 
-    options.headers["authorization"] = AppController.to.loginInfo.value.token;
+    options.headers["authorization"] = AppController.to.getJwtToken();
+    // options.headers["authorization"] = AppController.to.loginInfo.value.token;
     return handler.next(options);
   }
 

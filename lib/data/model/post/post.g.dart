@@ -16,6 +16,7 @@ Post _$PostFromJson(Map<String, dynamic> json) => Post(
       backgroundImageName: json['backgroundImageName'] as String?,
       isDeleted: json['isDeleted'] as bool?,
       isReported: json['isReported'] as bool?,
+      isBanUser: json['isBanUser'] as bool?,
       insertDate: json['insertDate'] == null
           ? null
           : DateTime.parse(json['insertDate'] as String),
@@ -39,6 +40,7 @@ Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
       'backgroundImageName': instance.backgroundImageName,
       'isDeleted': instance.isDeleted,
       'isReported': instance.isReported,
+      'isBanUser': instance.isBanUser,
       'insertDate': instance.insertDate?.toIso8601String(),
       'updateDate': instance.updateDate?.toIso8601String(),
       'userId': instance.userId,

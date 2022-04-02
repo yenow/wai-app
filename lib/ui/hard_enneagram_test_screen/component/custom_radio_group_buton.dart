@@ -37,6 +37,7 @@ class _CustomRadioGroupButtonState extends State<CustomRadioGroupButton> {
               uniqueValue: 1,
               groupValue: widget.groupValue,
               mainColor: Colors.red.shade200,
+              overlayColor: Colors.red.shade200,
               buttonSize: largeSize,
               onPressed: () {
                 setGroupValue(1);
@@ -51,10 +52,11 @@ class _CustomRadioGroupButtonState extends State<CustomRadioGroupButton> {
               uniqueValue: 2,
               groupValue: widget.groupValue,
               mainColor: Colors.red.shade200,
+              overlayColor: Colors.red.shade200,
               buttonSize: mediumSize,
               onPressed: () {
                 setGroupValue(2);
-                if (widget.changeState != null) widget.changeState!(1);
+                if (widget.changeState != null) widget.changeState!(2);
               },
             )
         ),
@@ -67,7 +69,7 @@ class _CustomRadioGroupButtonState extends State<CustomRadioGroupButton> {
               buttonSize: smallSize,
               onPressed: () {
                 setGroupValue(3);
-                if (widget.changeState != null) widget.changeState!(1);
+                if (widget.changeState != null) widget.changeState!(3);
               },
             )
         ),
@@ -78,10 +80,11 @@ class _CustomRadioGroupButtonState extends State<CustomRadioGroupButton> {
               uniqueValue: 4,
               groupValue: widget.groupValue,
               mainColor: Colors.blue.shade200,
+              overlayColor: Colors.blue.shade200,
               buttonSize: mediumSize,
               onPressed: () {
                 setGroupValue(4);
-                if (widget.changeState != null) widget.changeState!(1);
+                if (widget.changeState != null) widget.changeState!(4);
               },
             )
         ),
@@ -92,10 +95,11 @@ class _CustomRadioGroupButtonState extends State<CustomRadioGroupButton> {
               uniqueValue: 5,
               groupValue: widget.groupValue,
               mainColor: Colors.blue.shade200,
+              overlayColor: Colors.blue.shade200,
               buttonSize: largeSize,
               onPressed: () {
                 setGroupValue(5);
-                if (widget.changeState != null) widget.changeState!(1);
+                if (widget.changeState != null) widget.changeState!(5);
               },
             )
         ),

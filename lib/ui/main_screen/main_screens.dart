@@ -35,17 +35,10 @@ class MainScreens extends StatelessWidget {
   Widget build(BuildContext context) {
 
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-      if (Get.parameters['showEnneagramDialog'] == "Y"/* && MainController.to.isShowEnneagramDialog.value == false*/) {
+      if (Get.parameters['showEnneagramDialog'] == "Y") {
         EnneagramTest myTest = UserController.to.userEnneagramTests.elementAt(0);
 
-        // WaiDialog.notify(title, message)
-        // EnneagramDialog.showEnneagramType(
-        //     context: context,
-        //     myEnneagramTest : myTest,
-        //     onPressed: () {
-        //       Get.to(() => EnneagramTypePageScreen(enneagramType: myTest.myEnneagramType!));
-        //     }
-        // );
+        WaiDialog.enneagramDialog(myEnneagramTest: myTest);
       }
     });
 

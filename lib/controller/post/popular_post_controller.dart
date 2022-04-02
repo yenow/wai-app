@@ -58,14 +58,13 @@ class PopularController extends GetxController {
   Future<void> getPosts() async {
     isLoading.value = true;
 
-    PostRequestDto postRequestDto = PostRequestDto(
-        maxPostsSize: maxPostsSize,
-        endPostId: posts.isEmpty ? null : posts.lastWhere((element) => true).postId,
-        postSearchType: PostSearchType.popular
-    );
-
     await PostClient(mainDio).getPosts(
-        postRequestDto: postRequestDto,
+        postRequestDto: PostRequestDto(
+            userId: UserController.to.user.value.userId,
+            maxPostsSize: maxPostsSize,
+            endPostId: posts.isEmpty ? null : posts.lastWhere((element) => true).postId,
+            postSearchType: PostSearchType.popular
+        ),
     ).then((value) {
 
       if (value.isNotEmpty) {

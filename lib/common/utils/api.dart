@@ -7,6 +7,7 @@ import 'package:wai/constants/constants.dart';
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/controller/permernent/app_controller.dart';
 import 'package:wai/data/model/wai_error.dart';
+import 'package:wai/main.dart';
 
 import '../../data/model/sign/sign.dart';
 
@@ -140,10 +141,8 @@ Future<http.Response> postApiRequest(String url, Map jsonMap) async {
 
 
 Future<void> signIn() async {
-  loggerNoStack.d("signIn(get token)");
-
   final http.Response response = await http.post(
-      Uri.parse(baseUrl + "/api/sign/signIn"),
+      Uri.parse(apiUrl + "/sign/signIn"),
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json; charset=UTF-8",
@@ -151,8 +150,10 @@ Future<void> signIn() async {
       body: json.encode(AppController.to.loginInfo.value.toJson())
   );
 
+
   String bodyUtf8 = utf8.decode(response.bodyBytes);
   Sign sign = Sign.fromJson(json.decode(bodyUtf8));
+  logger.d(sign.token);
   AppController.to.loginInfo.value.token = sign.token;
 }
 

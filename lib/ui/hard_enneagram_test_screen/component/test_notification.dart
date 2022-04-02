@@ -16,7 +16,7 @@ class TestNotification extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
-        color: WaiColors.blueGrey,
+        color: WaiColors.mainColor,
       ),
       child: Column(
         children: [

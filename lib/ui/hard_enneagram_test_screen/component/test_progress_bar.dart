@@ -18,7 +18,7 @@ class TestProgressBar extends StatelessWidget {
             child: LinearProgressIndicator(
               value: EnneagramTestController.to.getProgressPercent(),
               backgroundColor: Colors.grey,
-              valueColor: const AlwaysStoppedAnimation<Color>(WaiColors.lightBlueGrey),
+              valueColor: const AlwaysStoppedAnimation<Color>(WaiColors.deepDarkGrey),
             ),
           ),
         ),

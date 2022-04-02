@@ -8,14 +8,12 @@ class MyReplyTabPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: InkWell(
-        onTap: () async {
-          await showNotification();
-          // WaiDialog.enneagramDialog(enneagramTest: UserController.to.currentEnneagramTest.value);
-        },
-        child: const Text('에니어그램 다이얼로그 테스트')
-      ),
+    return InkWell(
+      onTap: () async {
+        // await showNotification();
+        WaiDialog.enneagramDialog(myEnneagramTest: UserController.to.currentEnneagramTest.value);
+      },
+      child: const Text('에니어그램 다이얼로그 테스트')
     );
   }
 }

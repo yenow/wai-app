@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/constants/wai_colors.dart';
 import 'package:wai/controller/notice_controller.dart';
+import 'package:wai/data/model/notice/notice_type.dart';
 
 class NoticeList extends StatelessWidget {
   const NoticeList({Key? key, required this.index}) : super(key: key);
@@ -26,7 +27,9 @@ class NoticeList extends StatelessWidget {
                   NoticeController.to.goPage(NoticeController.to.notices.elementAt(index));
                 },
                 child: AutoSizeText(
-                  '${NoticeController.to.notices.elementAt(index).giverNickname}님이 회원님 글에 댓글을 달았습니다.',
+                  NoticeController.to.notices.elementAt(index).noticeType == NoticeType.reply ?
+                  '${NoticeController.to.notices.elementAt(index).giverNickname}님이 회원님 글에 댓글을 달았습니다.' :
+                  '${NoticeController.to.notices.elementAt(index).giverNickname}님이 회원님 댓글에 답글을 달았습니다.' ,
                   style: const TextStyle(fontSize: 18, color: WaiColors.white70),
                   maxLines: 2,
                 ),

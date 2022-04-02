@@ -83,8 +83,8 @@ class PostPage extends GetView<PostController> {
 
     } else {
       return WaiPopupMenuButton(
-        valueList: const ['신고하기'],
-        callBackList: [PostController.to.clickReport],
+        valueList: const ['신고하기','사용자 차단하기'],
+        callBackList: [PostController.to.clickReport, PostController.to.clickBanUser],
       );
     }
   }

@@ -13,12 +13,14 @@ class MyEnneagramContainer extends StatelessWidget {
     Key? key,
     required this.myEnneagramTest,
     this.textColor = WaiColors.white,
-    this.fontSize = 13
+    this.fontSize = 13,
+    this.isLight = true
   }) : super(key: key);
 
   final EnneagramTest myEnneagramTest;
   final Color? textColor;
   final double fontSize;
+  final bool isLight;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +63,7 @@ class MyEnneagramContainer extends StatelessWidget {
         children: [
           Align(
               alignment: Alignment.center,
-              child: BlockText(text: EnneagramController.to.enneagram[myEnneagramType]!.simpleExplain, isLight: true,)
+              child: BlockText(text: EnneagramController.to.enneagram[myEnneagramType]!.simpleExplain, isLight: isLight,)
           ),
           const Blank(height: 5),
           AutoSizeText(

@@ -11,16 +11,16 @@ class MyPageTabBarView extends StatelessWidget {
     return const TabBarView(
       children: [
         Padding(
+          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+          child: EnneagramTabPage(),
+        ),
+        Padding(
           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           child: MyPostTabPage(),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
           child: MyReplyTabPage(),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-          child: EnneagramTabPage(),
         ),
       ],
     );

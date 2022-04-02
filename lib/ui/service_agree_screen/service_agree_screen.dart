@@ -23,7 +23,10 @@ class ServiceAgreeScreen extends StatelessWidget {
       SafeArea(
         child: Scaffold(
           appBar: const WaiAppbar(
-            title: Text("서비스 동의"),
+            elevation: 0,
+            isBackLeading: true,
+            backgroundColor: WaiColors.deepDarkMainColor,
+            title: Text("서비스 동의", style: TextStyle(color: WaiColors.white),),
           ),
           body: Column(
             children: [
@@ -79,6 +82,8 @@ class ServiceAgreeScreen extends StatelessWidget {
                 flex: 1,
                 child: WaiButton(
                   title: '다음',
+                  radius: 0,
+                  backgroundColor: WaiColors.mainColor,
                   onPressed: ServiceAgreeController.to.goToNextPage,
                 )
               ),

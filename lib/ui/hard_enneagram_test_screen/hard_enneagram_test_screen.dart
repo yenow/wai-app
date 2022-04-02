@@ -7,6 +7,7 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
+import 'package:wai/common/utils/wai_dialog.dart';
 import 'package:wai/constants/wai_colors.dart';
 import 'package:wai/common/utils/logger.dart';
 import 'package:wai/controller/permernent/app_controller.dart';
@@ -35,9 +36,19 @@ class HardEnneagramTestScreen extends StatelessWidget {
     return /*Obx(() =>*/
       SafeArea(
         child: Scaffold(
-          appBar: const WaiAppbar(
-            title: Text("정밀테스트"),
-            isBackLeading: true,
+          appBar: WaiAppbar(
+            backgroundColor: WaiColors.deepDarkMainColor,
+            elevation: 0,
+            title: const Text("정밀테스트", style: TextStyle(color: WaiColors.white)),
+            leading: InkWell(
+              child: const Icon(Icons.arrow_back_ios_outlined, size: 20, color: WaiColors.white),
+              onTap: () async {
+                bool result = await WaiDialog.dialogConfirmation('경고', '테스트를 종료하시겠습니까?','아니요','예');
+                if (result) {
+                  Get.back();
+                }
+              },
+            ),
           ),
           body: Column(
             children: const [

@@ -22,8 +22,7 @@ class PostList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var rng = Random();
-    if (post.isDeleted! || post.isReported!) {
+    if (post.isDeleted! || post.isReported! || post.isBanUser!) {
       return Container();
     }
 

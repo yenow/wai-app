@@ -16,11 +16,11 @@ class SettingList extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-              child: Text(text, style: const TextStyle(fontSize: 17, color: WaiColors.mainColor)),
+              child: Text(text, style: const TextStyle(fontSize: 17, color: WaiColors.darkMainColor)),
             ),
             const Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
-              child: Icon(Icons.arrow_forward_ios_outlined, size: 15, color: WaiColors.mainColor),
+              child: Icon(Icons.arrow_forward_ios_outlined, size: 15, color: WaiColors.darkMainColor),
             ),
           ],
         ),

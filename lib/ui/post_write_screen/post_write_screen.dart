@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:wai/common/utils/wai_dialog.dart';
 import 'package:wai/common/widgets/blank.dart';
 import 'package:wai/common/widgets/focus_out_container.dart';
 import 'package:wai/common/widgets/wai_appbar.dart';
@@ -42,8 +43,11 @@ class PostWriteScreen extends GetView<PostWriteController> {
             ],
             leading: InkWell(
               child: const Icon(Icons.arrow_back_ios_outlined, size: 20, color: WaiColors.white70),
-              onTap: () {
-                Get.back();
+              onTap: () async {
+                bool result = await WaiDialog.dialogConfirmation('경고', '게시글 작성을 취소하시겠습니까?', '아니요', '예');
+                if (result) {
+                  Get.back();
+                }
               },
             ),
           ),

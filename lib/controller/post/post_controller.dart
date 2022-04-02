@@ -8,9 +8,13 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:logger/logger.dart';
 import 'package:wai/common/utils/wai_dialog.dart';
+import 'package:wai/controller/ban_user_controller.dart';
 import 'package:wai/controller/permernent/app_controller.dart';
 import 'package:wai/controller/user/user_controller.dart';
+import 'package:wai/data/client/ban_user_client.dart';
 import 'package:wai/data/client/post_client.dart';
+import 'package:wai/data/client/user_client.dart';
+import 'package:wai/data/model/ban_user/ban_user_request.dart';
 import 'package:wai/data/model/post/post_request_dto.dart';
 import 'package:wai/data/model/post/post_save_request_dto.dart';
 import 'package:wai/data/model/post/post.dart';
@@ -109,6 +113,23 @@ class PostController extends GetxController {
     ).then((value) {
       Get.back(result: value);
       WaiDialog.notify('알림','글이 신고되었습니다.');
+    });
+  }
+
+  void clickBanUser() async {
+    await BanUserClient(mainDio).createBanUser(
+        banUserRequest: BanUserRequest(
+          userId: UserController.to.user.value.userId,
+          banUserId: PostController.to.post.value.userId,
+        ),
+        token: AppController.to.getJwtToken()
+    ).then((value) {
+      BanUserController.to.addBanUser(value);
+      post.update((val) {
+        val!.isBanUser = true;
+      });
+      Get.back(result: post.value);
+      WaiDialog.notify('알림','사용자를 차단하였습니다.');
     });
   }
 }

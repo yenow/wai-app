@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
@@ -11,6 +12,7 @@ import 'package:wai/controller/user_profile_controller.dart';
 import 'package:wai/data/client/user_client.dart';
 import 'package:wai/data/model/enneagram_test/enneagram_test.dart';
 import 'package:wai/data/model/sign/sign.dart';
+import 'package:wai/data/model/wai_error.dart';
 import 'package:wai/data/provider/user_api_provider.dart';
 import 'package:wai/data/model/reply/reply_request_dto.dart';
 import 'package:wai/data/model/user/user_request_dto.dart';
@@ -43,6 +45,14 @@ class UserController extends GetxController {
     ).then((value) {
       logger.d(value);
       user(value);
+    }).catchError((Object error) {
+      if (error.runtimeType == DioError) {
+        DioError dioError = error as DioError;
+        WaiError waiError = WaiError.fromJson(dioError.response?.data);
+        if (waiError.errorCode == 'err-203') {
+
+        }
+      }
     });
   }
 

@@ -14,7 +14,7 @@ class SignUpButton extends StatelessWidget {
       child: ElevatedButton(
         child: Text("다음", style: WaiTextStyle(color: Colors.white).basic(),),
         style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(WaiColors.darkBlueGrey),
+            backgroundColor: MaterialStateProperty.all(WaiColors.darkMainColor),
             shape: MaterialStateProperty.all(RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ))

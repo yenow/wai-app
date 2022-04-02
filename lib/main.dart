@@ -7,6 +7,7 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:wai/common/interceptor/custom_log_interceptor.dart';
+import 'package:wai/common/interceptor/error_interceptor.dart';
 import 'package:wai/common/notification.dart';
 import 'package:wai/controller/permernent/app_controller.dart';
 import 'package:wai/controller/permernent/enneagram_controller.dart';
@@ -39,9 +40,12 @@ double standardDeviceHeight = 683.4285714285714;
 double widthRatio = 1.0;
 double heightRatio = 1.0;
 
+const String apiUrl = 'http://192.168.0.2:8080/api';
+// const String apiUrl = 'http://13.209.74.200:8080/api';
+
 var mainDio = Dio(
   BaseOptions(
-    baseUrl: 'http://192.168.0.2:8080/api',
+    baseUrl: apiUrl,
     connectTimeout: 5000,
     receiveTimeout: 3000,
     headers: {
@@ -50,8 +54,9 @@ var mainDio = Dio(
     },
   )
 )..interceptors.add(CustomLogInterceptor())
- ..interceptors.add(LogInterceptor(requestHeader: true, requestBody: true, responseBody: true));
-// ..interceptors.add(TokenInterceptor());
+ ..interceptors.add(LogInterceptor(requestHeader: true, requestBody: true, responseBody: true))
+ // ..interceptors.add(TokenInterceptor())
+ ..interceptors.add(ErrorInterceptor());
 
 void main() {
   runApp(const WaiApp());
