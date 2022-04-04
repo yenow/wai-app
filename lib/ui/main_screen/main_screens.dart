@@ -47,10 +47,10 @@ class MainScreens extends StatelessWidget {
         onWillPop: MainController.to.onBackKey,
         child: SafeArea(
           child: Scaffold(
+            key: MainController.to.scaffoldKey,
             extendBodyBehindAppBar: true,
             extendBody: true,
             resizeToAvoidBottomInset : false,
-            key: MainController.to.scaffoldKey,
             backgroundColor: Colors.transparent,
             body: MainBody(currentTabIndex: MainController.to.currentTabIndex.value),
             // backgroundColor: Colors.white,

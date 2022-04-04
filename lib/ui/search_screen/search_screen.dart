@@ -57,35 +57,4 @@ class SearchScreen extends StatelessWidget {
       ),
     );
   }
-
-  Container _buildTabBarContainer() {
-    return Container(
-      decoration: const BoxDecoration(
-        border: Border(
-          bottom: BorderSide(width: 0.5, color: Colors.grey),
-        ),
-      ),
-      child: _buildTabBar(),
-    );
-  }
-
-  TabBar _buildTabBar() {
-    return TabBar(
-      indicatorColor: lightBlueGrey,
-      tabs: <Widget>[
-        SizedBox(
-            height: 40,
-            child: Center(child: Text('게시글', style: TextStyle()))
-        ),
-        SizedBox(
-            height: 40,
-            child: Center(child: Text('제목', style: TextStyle()))
-        ),
-        SizedBox(
-            height: 40,
-            child: Center(child: Text('작성자', style: TextStyle()))
-        ),
-      ],
-    );
-  }
 }

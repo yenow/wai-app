@@ -44,7 +44,7 @@ class PostWriteScreen extends GetView<PostWriteController> {
             leading: InkWell(
               child: const Icon(Icons.arrow_back_ios_outlined, size: 20, color: WaiColors.white70),
               onTap: () async {
-                bool result = await WaiDialog.dialogConfirmation('경고', '게시글 작성을 취소하시겠습니까?', '아니요', '예');
+                bool result = await WaiDialog.dialogConfirmation('경고', '글 작성을 취소하시겠습니까?', '아니요', '예');
                 if (result) {
                   Get.back();
                 }

@@ -40,8 +40,8 @@ double standardDeviceHeight = 683.4285714285714;
 double widthRatio = 1.0;
 double heightRatio = 1.0;
 
-const String apiUrl = 'http://192.168.0.2:8080/api';
-// const String apiUrl = 'http://13.209.74.200:8080/api';
+// const String apiUrl = 'http://192.168.0.2:8080/api';
+const String apiUrl = 'http://13.209.74.200:8080/api';
 
 var mainDio = Dio(
   BaseOptions(

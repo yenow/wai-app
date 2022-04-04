@@ -18,10 +18,10 @@ class MyPageTabBarView extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           child: MyPostTabPage(),
         ),
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-          child: MyReplyTabPage(),
-        ),
+        // Padding(
+        //   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+        //   child: MyReplyTabPage(),
+        // ),
       ],
     );
   }

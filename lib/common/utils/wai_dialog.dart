@@ -11,6 +11,7 @@ import 'package:wai/common/widgets/wai_button.dart';
 import 'package:wai/constants/wai_textstyle.dart';
 import 'package:wai/controller/permernent/enneagram_controller.dart';
 import 'package:wai/data/model/enneagram_test/enneagram_test.dart';
+import 'package:wai/route.dart';
 import 'package:wai/ui/main_screen/components/my_enneagram_container.dart';
 
 import '../../constants/wai_colors.dart';
@@ -74,8 +75,8 @@ class WaiDialog {
         bool showBorder = false,
         Color titleColorText = WaiColors.black60,
         Color messageColorText = WaiColors.black60,
-        Color backgroundColor = WaiColors.white60,
-        Color borderColor = WaiColors.white60,
+        Color backgroundColor = WaiColors.white80,
+        Color borderColor = WaiColors.white80,
       }) {
     Get.snackbar(
       title,
@@ -135,20 +136,40 @@ class WaiDialog {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: SizedBox(
                 width: 300 * widthRatio,
-                height: 100 * heightRatio,
+                height: 95 * heightRatio,
                 child: MyEnneagramContainer(myEnneagramTest: myEnneagramTest, textColor: WaiColors.black60, isLight: false),
               ),
             ),
             Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: SizedBox(
+                height: 40,
+                width: double.infinity,
+                child: WaiButton(
+                    backgroundColor: WaiColors.darkMainColor,
+                    textColor: WaiColors.white,
+                    title: '더 알아보기',
+                    onPressed: () {
+                      Get.back();
+                      Map map = {"enneagramType" : myEnneagramTest.myEnneagramType};
+                      Get.toNamed(WaiRoutes.enneagramType, arguments: map);
+                    }
+                ),
+              ),
+            ),
+            Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              child: WaiButton(
-                size: Size.fromHeight(30 * heightRatio),
-                backgroundColor: WaiColors.darkMainColor,
-                textColor: WaiColors.white,
-                title: '닫기',
-                onPressed: () {
-                  Get.back();
-                }
+              child: SizedBox(
+                height: 40,
+                width: double.infinity,
+                child: WaiButton(
+                  backgroundColor: WaiColors.darkMainColor,
+                  textColor: WaiColors.white,
+                  title: '닫기',
+                  onPressed: () {
+                    Get.back();
+                  }
+                ),
               ),
             ),
           ],

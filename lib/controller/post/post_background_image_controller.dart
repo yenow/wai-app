@@ -21,7 +21,7 @@ class PostBackgroundImageController extends GetxController {
 
   Future<void> precacheImages(BuildContext context) async {
     for (String element in backgroundImageList) {
-      precacheImage(
+      await precacheImage(
         AssetImage(element),
         context,
       );

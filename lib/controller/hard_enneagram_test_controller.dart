@@ -78,16 +78,18 @@ class HardEnneagramTestController extends GetxController {
         type9Score: EnneagramTestController.to.getScoreByEnneagramType(9),
       );
 
-      logger.d(enneagramTestRequestDto);
 
       EnneagramTestClient(mainDio).doHardEnneagramTest(
           enneagramTestRequestDto: enneagramTestRequestDto,
           token: AppController.to.getJwtToken()
       ).then((value) {
         UserController.to.addUserEnneagramTest(value);
-        Get.offAllNamed(WaiRoutes.initial, parameters: {"showEnneagramDialog": "Y"});
-        EnneagramTestController.to.initScore();
-        // Get.offAllNamed(WaiRoutes.initial, parameters: {"showEnneagramDialog": "Y"});
+        if (Get.parameters['isInit'] == "N") {
+          Get.offAllNamed(WaiRoutes.main, parameters: {"showEnneagramDialog": "Y"});
+        } else {
+          Get.offAllNamed(WaiRoutes.initial, parameters: {"showEnneagramDialog": "Y", "isTest": "Y"});
+        }
+          EnneagramTestController.to.initScore();
       });
     }
   }

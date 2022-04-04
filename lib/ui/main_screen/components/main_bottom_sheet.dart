@@ -15,7 +15,7 @@ class MainBottomSheet extends StatelessWidget {
     return ClipRRect(
       borderRadius: const BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),
       child: Container(
-        height: 180,
+        height: 230,
         color: Colors.white,
         padding: const EdgeInsets.only(left: 20),
         child: Column(
@@ -31,11 +31,19 @@ class MainBottomSheet extends StatelessWidget {
               },
             ),
             MainBottomSheetListItem(
-              title: '에니어그램 테스트하기',
+              title: '에니어그램 간단테스트하기',
               icon: const Icon(Icons.checklist_rounded, size: 20, color: WaiColors.mainColor),
               onTap: () {
                 Get.back();
-                Get.toNamed(WaiRoutes.hardTest);
+                Get.toNamed(WaiRoutes.simpleTest, parameters: {"isInit": "N"});
+              },
+            ),
+            MainBottomSheetListItem(
+              title: '에니어그램 정밀테스트하기',
+              icon: const Icon(Icons.checklist_rounded, size: 20, color: WaiColors.mainColor),
+              onTap: () {
+                Get.back();
+                Get.toNamed(WaiRoutes.hardTest, parameters: {"isInit": "N"});
               },
             ),
           ],

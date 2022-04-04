@@ -26,14 +26,14 @@ class MyPageTabBar extends StatelessWidget {
             color: WaiColors.white,
           ),
         ),
-        Tab(
-          text: '나의 댓글',
-          icon:  Icon(
-            Icons.question_answer_rounded,
-            size: 30,
-            color: WaiColors.white,
-          ),
-        )
+        // Tab(
+        //   text: '나의 댓글',
+        //   icon:  Icon(
+        //     Icons.question_answer_rounded,
+        //     size: 30,
+        //     color: WaiColors.white,
+        //   ),
+        // )
       ],
     );
   }

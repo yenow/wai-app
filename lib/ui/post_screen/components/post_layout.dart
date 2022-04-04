@@ -35,14 +35,6 @@ class PostLayout extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Image(
-                  //   image: AssetImage(EnneagramController.to.enneagram[PostController.to.post.value.authorEnneagramType]!.imagePath),
-                  //   width: 20,
-                  //   height: 20,
-                  //   color: Colors.white.withOpacity(0.8),
-                  //   colorBlendMode: BlendMode.modulate,
-                  //   fit: BoxFit.fill,
-                  // ),
                   const Padding(
                     padding: EdgeInsets.only(bottom: 5),
                     child: Icon(
@@ -56,7 +48,11 @@ class PostLayout extends StatelessWidget {
                 ],
               ),
             ),
-            // const HorizontalBorderLine(height: 0.5, color: WaiColors.white70),
+            AutoSizeText(
+              PostController.to.post.value.tagString!,
+              style: const TextStyle(fontSize: 16, color: WaiColors.white80),
+              maxLines: 2,
+            ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(top: 30),

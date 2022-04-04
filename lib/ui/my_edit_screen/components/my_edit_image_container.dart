@@ -23,8 +23,8 @@ class MyEditImageContainer extends GetView<MyEditImageContainer> {
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
               colors: [
-                WaiColors.deepLightMainColor,
-                WaiColors.lightMainColor
+                WaiColors.mainColor,
+                WaiColors.darkMainColor
               ]
           )
       ),
